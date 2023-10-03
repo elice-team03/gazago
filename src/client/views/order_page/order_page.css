@@ -7,6 +7,7 @@
 }
 .container__box {
     width: 60%;
+    padding: 10px;
 }
 .container__title {
     display: flex;
@@ -47,7 +48,7 @@
 .input__btn--lastaddress {
     cursor: pointer;
     text-decoration: underline;
-    margin-left: 16%;
+    margin-left: 15%;
 }
 .input__btn--zipcode {
     cursor: pointer;
@@ -70,4 +71,73 @@
 }
 .dropdown-text {
     font-family: 'Noto Sans KR', sans-serif;
+}
+.product {
+    width: 40%;
+    border: 3px solid #ebebeb;
+    margin-left: 30px;
+    padding: 10px 16px;
+}
+.product__line {
+    display: inline-block;
+    border-top: 3px solid #ccc;
+    margin: 10px 0;
+    width: 500px;
+}
+.product__img {
+    width: 240px;
+}
+.product__detail {
+    display: flex;
+    justify-content: flex-start;
+}
+.product__description {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+.product__text--brand {
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.product__text--name {
+    font-size: 18px;
+    font-weight: bold;
+}
+.product__line--thin {
+    display: inline-block;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+    width: 500px;
+}
+.order__box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.checkbox input, .radio input {
+    margin-right: 4px;
+}
+.order__box--total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-weight: bold;
+}
+.order__total {
+    font-size: 24px;
+    color: #ff0000;
+}
+.order__button {
+    padding: 20px;
+    margin: 30px 0 20px 0;
+    background-color: #004225;
+    border-radius: 50px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
 }

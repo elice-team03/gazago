@@ -68,7 +68,7 @@
       <div class="notice">
         <div class="dropdown is-hoverable">
           <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4" style="gap: 245px">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4" style="gap: 215px">
               <span class="dropdown-text">배송시 요청사항을 선택해 주세요</span>
               <span class="icon is-small">
                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
@@ -115,8 +115,59 @@
         </div>
       </div>
     </div>
-    <div>
-      <h1>상품 컨테이너</h1>
+    <div class="product">
+      <div class="container__text">주문상품 정보 / 총 1개</div>
+      <div class="product__line"></div>
+      <div class="product__box">
+        <div class="product__detail">
+          <img src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000242.jpg?1584076493" class="product__img">
+          <!-- 임시 더미 데이터 -->
+          <div class="product__description">
+            <div class="product__text--brand">헬리녹스</div>
+            <div class="product__text--name">체어원 / 올 블랙</div>
+            <div>115,000원 / 수량 1개</div>
+          </div>
+        </div>
+        <div class="product__line--thin"></div>
+        <div class="order__box">
+          <div>총 상품금액</div>
+          <div>115,000원</div>
+        </div>
+        <div class="order__box">
+          <div>배송비</div>
+          <div>+ 0원</div>
+        </div>
+        <div class="order__box--total">
+          <div>총 결제금액</div>
+          <div class="order__total">115,000원</div>
+        </div>
+        <div class="product__line--thin"></div>
+        <div class="order__box--total">
+          <label class="checkbox">
+            <input type="checkbox">
+            주문 내용을 확인했으며, 아래 내용에 모두 동의합니다.
+          </label>
+        </div>
+        <div class="order__box">
+          <label class="checkbox">
+            <input type="checkbox">
+            (필수) 개인정보 수집/이용 동의
+          </label>
+        </div>
+        <div class="order__box">
+          <label class="checkbox">
+            <input type="checkbox">
+            (필수) 개인정보 제3자 제공 동의
+          </label>
+        </div>
+        <div class="order__box">
+          <label class="checkbox">
+            <input type="checkbox">
+            (필수) 결제대행 서비스 이용약관
+          </label>
+        </div>
+      </div>
+      <div class="order__button">결제하기</div>
     </div>
   </div>
 </body>
