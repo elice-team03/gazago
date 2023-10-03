@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/register', async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.create({ email });
+    const user = await User.create({ email, password });
     res.json({ user: user });
 });
 module.exports = router;

@@ -24,6 +24,7 @@ const DeliverySchema = new Schema({
     },
     defaultYn: {
         type: Boolean,
+        default: false,
     },
 });
 

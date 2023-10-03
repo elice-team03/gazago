@@ -1,7 +1,5 @@
 const { Schema } = require('mongoose');
 const shortId = require('./types/short-id');
-const DeliverySchema = require('./delivery');
-const UserSchema = require('./user');
 
 const OrderSchema = new Schema({
     shortId,
