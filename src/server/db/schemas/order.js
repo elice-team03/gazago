@@ -1,6 +1,7 @@
 const { Schema } = require('mongoose');
 const shortId = require('./types/short-id');
-const ProductSchema = require('./product');
+const DeliverySchema = require('./delivery');
+const UserSchema = require('./user');
 
 const OrderSchema = new Schema({
     shortId,
@@ -12,13 +13,19 @@ const OrderSchema = new Schema({
         type: String,
         required: true,
     },
-    products: [ProductSchema],
-    // delivery: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Delivery',
-    //     required: true,
-    //     index: true,
-    // },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
+        index: true,
+    },
+    delivery: {
+        type: Schema.Types.ObjectId,
+        ref: 'delivery',
+        required: true,
+        index: true,
+    },
+    products: [[{ type: Schema.Types.ObjectId, ref: 'product' }]],
 });
 
 module.exports = OrderSchema;

@@ -3,7 +3,7 @@ const shortId = require('./types/short-id');
 
 const CategorySchema = new Schema({
     shortId,
-    use: {
+    useYn: {
         type: Boolean,
         required: true,
     },
