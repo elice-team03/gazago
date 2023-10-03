@@ -5,10 +5,11 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const viewsRotuer = require('./src/client/routers/views');
+const indexRouter = require('./src/server/routers/index');
 const usersRouter = require('./src/server/routers/users');
 const productsRouter = require('./src/server/routers/products');
-// const indexRouter = require("./src/server/routers/index");
-const viewsRotuer = require('./src/client/routers/views');
+const categoriesRouter = require('./src/server/routers/categories');
 
 const app = express();
 
@@ -36,10 +37,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', indexRouter);
-app.use('/products', productsRouter);
-app.use('/users', usersRouter);
 app.use('/', viewsRotuer);
+
+app.use('/api', indexRouter);
+app.use('/users', usersRouter);
+app.use('/products', productsRouter);
+app.use('/categories', categoriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -54,7 +57,7 @@ app.use(function (err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    // res.render('error');
+
     res.json({ err: err.message });
 });
 
