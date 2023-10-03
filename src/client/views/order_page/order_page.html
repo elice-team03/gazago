@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
   <link rel="stylesheet" href="./order_page.css">
+  <script src="https://js.stripe.com/v3/"></script>
   <title>Document</title>
 </head>
 
@@ -113,6 +114,28 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="payment__line"></div>
+      <div class="container__text">결제 정보</div>
+      <div class="input__box">
+        <div class="input__label">이메일</div>
+        <input class="input" type="email" style="width: 50%">
+      </div>
+      <div class="input__box">
+        <div class="input__label">카드번호</div>
+        <input class="input" type="text" style="width: 10%">
+        <div class="hipen">-</div>
+        <input class="input" type="text" style="width: 10%">
+        <div class="hipen">-</div>
+        <input class="input" type="text" style="width: 10%">
+        <div class="hipen">-</div>
+        <input class="input" type="text" style="width: 10%">
+      </div>
+      <div class="input__box">
+        <div class="input__label">유효기간</div>
+        <input class="input" type="text" style="width: 15%" placeholder="MM/YY">
+        <div class="input__label--cvc">CVC</div>
+        <input class="input" type="text" style="width: 15%">
       </div>
     </div>
     <div class="product">
