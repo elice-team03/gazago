@@ -1,3 +1,6 @@
 .side_menu ul li {
     padding: 10px;
 }
+.cus_hover:hover {
+    color: #0d0d0d;
+}
