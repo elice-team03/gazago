@@ -13,7 +13,8 @@
         "http-errors": "~1.6.3",
         "jade": "^0.29.0",
         "mongoose": "^7.5.3",
-        "morgan": "~1.9.1"
+        "morgan": "~1.9.1",
+        "nanoid": "^5.0.1"
     },
     "devDependencies": {
         "prettier": "3.0.3"
