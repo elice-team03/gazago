@@ -1,6 +1,6 @@
 const { Schema } = require('mongoose');
-// const shortId = require('../../utils/nanoid');
-// 경로 에러 때문에 잠시 주석처리 하겠습니다
+const shortId = require('./types/short-id');
+
 const UserSchema = new Schema(
     {
         // shortId,
