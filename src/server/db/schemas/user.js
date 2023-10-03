@@ -17,10 +17,10 @@ const UserSchema = new Schema({
     },
     defaultDelivery: {
         type: Schema.Types.ObjectId,
-        ref: 'delivery',
+        ref: 'Delivery',
         index: true,
     },
-    wishLists: [{ type: Schema.Types.ObjectId, ref: 'product' }],
+    wishLists: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 });
 
 module.exports = UserSchema;
