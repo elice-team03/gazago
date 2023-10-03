@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/stylesheets/normalize.css" />
+        <link rel="stylesheet" href="/stylesheets/admin.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <title>admin_category</title>
+    </head>
+    <body>
+        <header>공동 컴포넌트</header>
+        <main>
+            <div class="container columns">
+                <aside class="side_menu column is-one-quarter">
+                    <ul>
+                        <li><a href="">카테고리 관리</a></li>
+                        <li><a href="">상품 관리</a></li>
+                        <li><a href="">주문 관리</a></li>
+                    </ul>
+                </aside>
+                <div class="category_box column">
+                    <section class="category_description">
+                        <h2>카테고리 리스트</h2>
+                        <p>
+                            숨김을 선택하시면 해당 카테고리가 메뉴에서 보이지 않으며 포함된 상품 또한 숨김 처리됩니다.
+                        </p>
+                    </section>
+                    <section class="table_btn">
+                        <button class="button is-primary is-rounded">일괄 저장</button>
+                    </section>
+                    <section class="category_table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <label class="checkbox">
+                                            <input type="checkbox" />
+                                        </label>
+                                    </th>
+                                    <th>순서</th>
+                                    <th>카테고리</th>
+                                    <th>상품수</th>
+                                    <th>사용여부</th>
+                                    <th>삭제</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input type="checkbox" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input class="input is-rounded" type="number" placeholder="Rounded input" />
+                                    </td>
+                                    <td>
+                                        <input class="input is-rounded" type="text" placeholder="Rounded input" />
+                                    </td>
+                                    <td>
+                                        <input class="input is-rounded" type="number" placeholder="Rounded input" />
+                                    </td>
+                                    <td>
+                                        <div class="control">
+                                            <label class="radio">
+                                                <input type="radio" name="viewYn" />
+                                                보임
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="viewYn" />
+                                                숨김
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="button is-rounded">삭제</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
+    </body>
+    <!-- <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var dropdown = document.querySelector('.dropdown');
+
+                dropdown.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    dropdown.classList.toggle('is-active');
+                });
+            });
+        </script> -->
+</html>
