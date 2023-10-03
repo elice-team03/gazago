@@ -1,5 +1,5 @@
 var express = require('express');
-const User = require('../db/Schemas/User');
+const User = require('../db/schemas/user');
 var router = express.Router();
 
 /* GET home page. */

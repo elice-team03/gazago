@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const shortId = require('../../utils/nanoid');
+const shortId = require('./types/short-id');
 
 const UserSchema = new mongoose.Schema(
     {
@@ -17,8 +17,8 @@ const UserSchema = new mongoose.Schema(
             type: String,
             default: 'user',
         },
-        defaultAdress: { 
-            type: String 
+        defaultAdress: {
+            type: String,
         },
         wishLists: [{ type: mongoose.Schema.Types.ObjectId, refer: 'Product' }],
         deliveries: [{ type: mongoose.Schema.Types.ObjectId, refer: 'Delivery' }],
