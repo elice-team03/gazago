@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>gazago</title>
+        <link rel="stylesheet" href="./register.css" />
+    </head>
+    <body>
+        <section class="center">
+            <h1 class="logo">
+                <img src="../login/gazagologo.png" alt="logo" />
+            </h1>
+            <form action="post">
+                <div class="title">
+                    <p>회원가입</p>
+                </div>
+                <div class="text_filed">
+                    <label for="userMail">이메일 주소*</label>
+                    <!-- <p>인증</p> -->
+                    <input type="text" name="userMail" id="textInput" placeholder="예) gazago@gazago.com" required />
+                    <span></span>
+                    <button class="btn">인증요청</button>
+                </div>
+                <div class="text_filed">
+                    <label for="authCode">인증번호*</label>
+                    <input type="text" name="authCode" required />
+                    <span></span>
+                    <button class="btn">인증하기</button>
+                </div>
+                <div class="text_filed">
+                    <label for="password">비밀번호*</label>
+                    <input type="text" name="userMail" placeholder="영문, 숫자, 특수문자 조합 8-16자" required />
+                    <span></span>
+                </div>
+                <div class="text_filed">
+                    <label for="confirmPw">비밀번호 확인*</label>
+                    <input type="text" name="confirmPw" required />
+                    <span></span>
+                </div>
+                <input id="submit" type="submit" value="가입하기" />
+            </form>
+        </section>
+    </body>
+</html>
