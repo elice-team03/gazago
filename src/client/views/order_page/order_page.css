@@ -52,8 +52,9 @@
 }
 .input__btn--zipcode {
     cursor: pointer;
-    padding: 8px 16px;
-    margin-left: 12px;
+    padding: 8px 14px;
+    margin-left: 8px;
+    border-radius: 4px;
     background-color: #ebebeb;
 }
 .hipen {
