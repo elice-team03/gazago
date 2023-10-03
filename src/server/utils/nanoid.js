@@ -3,11 +3,9 @@ const nanoid = customAlphabet('1234567890abcdef', 10);
 
 const shortId = {
     type: String,
-    default() {
-        return nanoid();
+    default: () => {
+        return nanoid(10);
     },
-    require: true,
-    index: true,
 };
 
 module.exports = shortId;
