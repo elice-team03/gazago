@@ -1,6 +1,6 @@
 const { Schema } = require('mongoose');
-const shortId = require('./types/short-id');
-const ProductSchema = require('./product');
+const shortId = require('./Schemas_tmp/types/short-id');
+const ProductSchema = require('./Schemas_tmp/product');
 
 const OrderSchema = new Schema({
     shortId,
