@@ -11,7 +11,7 @@ const OrderSchema = new Schema({
         type: String,
         required: true,
     },
-    user: {
+    orderer: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
