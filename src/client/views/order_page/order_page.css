@@ -1,0 +1,73 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.container {
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    margin: 0 auto;
+}
+.container__box {
+    width: 60%;
+}
+.container__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.point {
+    color: red;
+}
+.container__text {
+    font-size: 20px;
+    font-weight: bold;
+}
+.container__text--required {
+    font-size: 13px;
+}
+.tabs li.is-active a {
+    color: #4a4a4a;
+}
+.tabs.is-boxed a {
+    background-color: #ebebeb;
+    color: #cccccc;
+}
+.input__box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 10px;
+}
+.input__box--empty {
+    margin-left: 20%;
+    padding-bottom: 10px;
+}
+.input__label {
+    width: 20%;
+}
+.input__btn--lastaddress {
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 16%;
+}
+.input__btn--zipcode {
+    cursor: pointer;
+    padding: 8px 16px;
+    margin-left: 12px;
+    background-color: #ebebeb;
+}
+.hipen {
+    margin: 0 10px;
+    color: #dbdbdb;
+    font-weight: 800;
+}
+.notice {
+    color: #2e2e2e;
+    margin-left: 20%;
+    padding-bottom: 10px;
+}
+.dropdown-menu {
+    min-width: 100%;
+}
+.dropdown-text {
+    font-family: 'Noto Sans KR', sans-serif;
+}
