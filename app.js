@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -12,6 +13,7 @@ const productsRouter = require('./src/server/routers/products');
 const categoriesRouter = require('./src/server/routers/categories');
 
 const app = express();
+app.use(fileUpload());
 
 // MongoDB connect
 require('dotenv').config();
@@ -56,8 +58,8 @@ app.use(function (err, req, res, next) {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
-    const errStatusCode = err.status || 500;
-    res.status(errStatusCode).json({ code: errStatusCode, message: err.message });
+    const errStatus = err.status || 500;
+    res.status(errStatus).json({ code: errStatus, message: err.message });
 });
 
 module.exports = app;
