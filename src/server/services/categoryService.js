@@ -26,7 +26,7 @@ class categoryService {
     static async findCategory(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('카테고리 Id 값이 유효하지 않습니다.');
-            error.statusCode = 400;
+            error.status = 400;
             throw error;
         }
         return await Category.findById(id);
@@ -35,7 +35,7 @@ class categoryService {
     static async removeCategory(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('카테고리 Id 값이 유효하지 않습니다.');
-            error.statusCode = 400;
+            error.status = 400;
             throw error;
         }
         return await Category.findByIdAndDelete(id);

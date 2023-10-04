@@ -16,12 +16,12 @@ router.post(
 
         if (missingFields.length > 0) {
             const error = new Error(`필수 입력 필드가 누락 되었습니다. 누락 된 필드 : ${missingFields.join(', ')}`);
-            error.statusCode = 400;
+            error.status = 400;
             throw error;
         }
         if (!thumbnailFile || !contentFile) {
             const error = new Error(`상품 대표 이미지와 상품 설명 이미지는 필수 입력 필드 입니다.`);
-            error.statusCode = 400;
+            error.status = 400;
             throw error;
         }
 

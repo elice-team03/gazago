@@ -20,7 +20,7 @@ class productService {
 
         if (!category) {
             const error = new Error('카테고리를 찾을 수 없습니다.');
-            error.statusCode = 400;
+            error.status = 400;
             throw error;
         }
 
@@ -36,7 +36,7 @@ class productService {
     static async findProduct(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('상품 Id 값이 유효하지 않습니다.');
-            error.statusCode = 400;
+            error.status = 400;
             throw error;
         }
         return await Product.findById(id);
@@ -45,7 +45,7 @@ class productService {
     static async removeProduct(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('상품 Id 값이 유효하지 않습니다.');
-            error.statusCode = 400;
+            error.status = 400;
             throw error;
         }
         return await Product.findByIdAndDelete(id);
