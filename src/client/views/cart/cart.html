@@ -15,7 +15,7 @@
         <div class="manage">
             <label class="checkbox">
                 <input type="checkbox">전체선택</label>
-            <div class="delete__btn">삭제하기</div>
+            <button class="button is-light is-rounded delete__btn">삭제하기</button>
         </div>
         <div class="content">
             <div class="product">
@@ -23,7 +23,7 @@
                     <input type="checkbox"></label>
                 <img class="product__img"
                     src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000242.jpg?1584076493"></img>
-                <div>
+                <div class="product__detail">
                     <div>체어원 / 올 블랙</div>
                     <div><b>115,000</b>원</div>
                 </div>
@@ -57,7 +57,7 @@
                     <input type="checkbox"></label>
                 <img class="product__img"
                     src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000262.jpg?1693890540"></img>
-                <div>
+                <div class="product__detail">
                     <div>체어원 / 코요테탄</div>
                     <div><b>115,000</b>원</div>
                 </div>
@@ -113,8 +113,12 @@
             </div>
         </div>
         <div class="pagemove">
-            <div class="back__btn">계속 쇼핑하기</div>
-            <div class="order__btn">구매하기</div>
+            <button class="button is-medium is-responsive is-rounded is-outlined back__btn">
+                계속 쇼핑하기
+            </button>
+            <button class="button is-medium is-responsive is-rounded order__btn">
+                구매하기
+            </button>
         </div>
     </div>
 </body>

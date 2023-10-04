@@ -167,11 +167,6 @@
     text-align: center;
     font-weight: bold;
 }
-.button:hover {
+.button:hover, .button:focus {
     color: #ffffff;
-    opacity: 90%;
-}
-.button:focus {
-    color: #ffffff;
-
 }
