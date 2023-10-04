@@ -1,15 +1,14 @@
-const express = require('express');
+const express = require("express");
+const { signUp, signIn } = require("../controllers/user");
+
 const router = express.Router();
-const { User } = require('../db');
-
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    res.json({ result: 'index' });
+router.get("/", function (req, res, next) {
+  res.json({ result: "index" });
 });
 
-router.post('/register', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.create({ email, password });
-    res.json({ user: user });
-});
+router.post("/register", signUp);
+
+router.post("/login", signIn);
+
 module.exports = router;
