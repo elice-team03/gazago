@@ -1,1 +1,225 @@
-<p>test page product</p>
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- cdn resource -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+        <!-- common css -->
+        <link rel="stylesheet" href="/stylesheets/normalize.css" />
+        <link rel="stylesheet" href="/stylesheets/admin.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <title>admin_product</title>
+    </head>
+    <body>
+        <header></header>
+        <main>
+            <div class="container is-widescreen">
+                <div class="columns">
+                    <aside class="side_menu column cus_flex_w_15">
+                        <ul>
+                            <li class="cus_p_10"><a href="" class="c_gray title is-6 cus_hover">카테고리 관리</a></li>
+                            <li class="cus_p_10"><a href="" class="c_black title is-6 cus_hover">상품 관리</a></li>
+                            <li class="cus_p_10"><a href="" class="c_gray title is-6 cus_hover">주문 관리</a></li>
+                        </ul>
+                    </aside>
+                    <div class="product_box column">
+                        <section class="product_description cus_mtb_30">
+                            <h2 class="title is-4">상품 목록</h2>
+                        </section>
+                        <section class="fillter_section">
+                            <table class="table is-bordered cus_w_100">
+                                <tbody>
+                                    <tr>
+                                        <th class="cus_text_align_center cus_v_align_middle">상품분류</th>
+                                        <td>
+                                            <div class="select cus_mr_20">
+                                                <select>
+                                                    <option>전체보기</option>
+                                                    <option>텐트/타프</option>
+                                                    <option>침낭</option>
+                                                    <option>퍼니처</option>
+                                                    <option>주방/바베큐</option>
+                                                    <option>악세사리</option>
+                                                </select>
+                                            </div>
+                                            <div class="select">
+                                                <select>
+                                                    <option>전체보기</option>
+                                                    <option>텐트</option>
+                                                    <option>타프</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <th class="cus_text_align_center cus_v_align_middle">상품명</th>
+                                        <td class="is-flex cus_flex_gap_20">
+                                            <input class="input is-rounded cus_w_100" type="text" />
+                                        </td>
+                                        <th class="cus_text_align_center cus_v_align_middle">
+                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_gr">
+                                                조회
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                        <section class="table_btn is-flex is-justify-content-flex-end cus_mtb_30 cus_flex_gap_20">
+                            <button class="product_btn button is-rounded is-small cus_btn_bc_gr is-size-7 cus_p_20">
+                                상품등록
+                            </button>
+                            <button class="button is-rounded is-small cus_btn_bc_gr is-size-7 cus_p_20">
+                                일괄저장
+                            </button>
+                        </section>
+                        <section class="product_modal">
+                            <div class="modal" id="myModal">
+                                <div class="modal-background"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title">상품 등록</p>
+                                        <button class="delete" aria-label="close" data-bulma-modal="close"></button>
+                                    </header>
+                                    <section class="modal-card-body">
+                                        <p>카테고리</p>
+                                        <p>상품명</p>
+                                        <p>가격</p>
+                                        <p>썸네일 이미지</p>
+                                        <p>상세 이미지</p>
+                                    </section>
+                                    <footer class="modal-card-foot">
+                                        <button class="button is-success">등록하기</button>
+                                        <button class="button" data-bulma-modal="close">취소</button>
+                                    </footer>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="product_table columns cus_mtb_30">
+                            <table class="table column is-full is-striped cus_display_table">
+                                <thead>
+                                    <tr>
+                                        <th class="cus_text_align_center">
+                                            <label class="checkbox">
+                                                <input type="checkbox" />
+                                            </label>
+                                        </th>
+                                        <th class="cus_text_align_center">이미지</th>
+                                        <th class="cus_text_align_center">등록일시</th>
+                                        <th class="cus_text_align_center">카테고리</th>
+                                        <th class="cus_text_align_center">상품명</th>
+                                        <th class="cus_text_align_center">상품가격</th>
+                                        <th class="cus_text_align_center">누적 판매량</th>
+                                        <th class="cus_text_align_center">판매상태</th>
+                                        <th class="cus_text_align_center">수정 및 삭제</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="cus_text_align_center cus_v_align_middle">
+                                            <label class="checkbox">
+                                                <input type="checkbox" />
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <figure class="image image is-64x64">
+                                                <img
+                                                    src="http://www.helinoxstore.co.kr/shopimages/helinox/0010080000482.jpg?1679894163"
+                                                />
+                                            </figure>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>yyyy-mm-dd-hh-mm</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>텐트</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle">
+                                            <input
+                                                class="input is-rounded"
+                                                type="text"
+                                                placeholder="노나돔 4.0 베드룸 / 로 화이트"
+                                            />
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>1,050,000원</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>10</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>판매중</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle">
+                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_gr">
+                                                적용
+                                            </button>
+                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_red">
+                                                삭제
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cus_text_align_center cus_v_align_middle">
+                                            <label class="checkbox">
+                                                <input type="checkbox" />
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <figure class="image image is-64x64">
+                                                <img
+                                                    src="http://www.helinoxstore.co.kr/shopimages/helinox/0010080000482.jpg?1679894163"
+                                                />
+                                            </figure>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>yyyy-mm-dd</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>텐트</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle">
+                                            <input
+                                                class="input is-rounded"
+                                                type="text"
+                                                placeholder="노나돔 4.0 베드룸 / 로 화이트"
+                                            />
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>1,050,000원</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>10</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>판매중</p>
+                                        </td>
+                                        <td class="cus_text_align_center">
+                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_gr">
+                                                적용
+                                            </button>
+                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_red">
+                                                삭제
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
+    </body>
+    <script src="./admin_product.js"></script>
+</html>
