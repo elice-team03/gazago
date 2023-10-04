@@ -1,0 +1,40 @@
+.footer-custom {
+    background-color: #004225;
+    width: 100vw;
+    height: 250px;
+    color: #EBEBEB;
+}
+
+.footerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 50px 80px;
+}
+
+
+.footer__company-box__title {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+}
+.footer__title {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.footer__company-box__copyright, 
+#copyRightMsg, 
+.footer__office-box__content {
+    font-size: 11px;
+}
+
+.footer__cs-center-box__phone-num {
+    font-size: 19px;
+    
+}
+
+.footer__cs-center-box__breaktime {
+    font-size: 11px;
+}
