@@ -1,6 +1,5 @@
 const { Schema } = require('mongoose');
 const shortId = require('./types/short-id');
-const CategorySchema = require('./category');
 
 const ProductSchema = new Schema(
     {
@@ -21,15 +20,26 @@ const ProductSchema = new Schema(
             type: Number,
             required: true,
         },
-        thumbnail: {
+        thumbnailUsrFileName: {
             type: String,
             required: true,
         },
-        content: {
+        thumbnailSrvFileName: {
             type: String,
             required: true,
         },
-        categories: [CategorySchema],
+        contentUsrFileName: {
+            type: String,
+            required: true,
+        },
+        contentSrvFileName: {
+            type: String,
+            required: true,
+        },
+        category: {
+            type: Schema.Types.ObjectId,
+            ref: 'Category',
+        },
     },
     {
         timestamps: true,
