@@ -21,11 +21,19 @@ const ProductSchema = new Schema(
             type: Number,
             required: true,
         },
-        thumbnail: {
+        thumbnailUsrFileName: {
             type: String,
             required: true,
         },
-        content: {
+        thumbnailSrvFileName: {
+            type: String,
+            required: true,
+        },
+        contentUsrFileName: {
+            type: String,
+            required: true,
+        },
+        contentSrvFileName: {
             type: String,
             required: true,
         },
