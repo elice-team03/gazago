@@ -5,7 +5,7 @@ const CategorySchema = new Schema({
     shortId,
     useYn: {
         type: Boolean,
-        required: true,
+        default: true,
     },
     sequence: {
         type: Number,
