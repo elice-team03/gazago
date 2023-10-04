@@ -1,5 +1,6 @@
 const { User } = require('../db');
 const bcrypt = require('bcrypt');
+const setUserToken = require('../utils/jwt');
 
 class userService {
     static async addUser(newUser) {
@@ -34,15 +35,13 @@ class userService {
         return user;
     }
 
-    static async signInUser(userInform) {
-        const { email, password } = userInform;
-        const checkEmail = await userService.findOneUser(email);
-        console.log(checkEmail);
-        if (!checkEmail) {
-            throw Object.assign(new Error('아이디 또는 비밀번호가 일치하지 않습니다'), { status: 400 });
+    static async signInUser(checkedUser, password, res, req) {
+        const hashedPassword = checkedUser.password;
+        const checkPassword = await bcrypt.compare(password, hashedPassword);
+        if (!checkPassword) {
+            throw Object.assign(new Error('이메일 혹은 패스워드가 일치하지 않습니다'), { status: 400 });
         }
-        const checkPassword = await bcrypt.compare(checkEmail.password, password);
-        console.log(checkPassword);
+        setUserToken(res, checkedUser);
     }
 }
 
