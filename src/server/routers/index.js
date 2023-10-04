@@ -11,11 +11,24 @@ router.get('/', function (req, res, next) {
 router.post(
     '/register',
     asyncHandler(async (req, res, next) => {
-        const newUser = req.body;
-        const result = await userService.signUpUser(newUser);
+        const userInform = req.body;
+        const result = await userService.signUpUser(userInform);
         res.status(201).json({
             code: 201,
             message: '회원가입이 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+router.post(
+    '/login',
+    asyncHandler(async (req, res, next) => {
+        const userInform = req.body;
+        const result = await userService.signInUser(userInform);
+        res.status(200).json({
+            code: 200,
+            message: '로그인이 완료되었습니다.',
             data: result,
         });
     })
