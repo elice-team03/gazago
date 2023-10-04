@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+    --color-main: #004225;
+    --color-sub: #ebebeb;
+
+    --font-code: 'Nanum Gothic Coding', monospace;
+
+    --font-size-title: 32px;
+    --font-size-subtitle: 25px;
+    --font-size-lg: 22px;
+    --font-size-sm: 20px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    height: 100vh;
+    /* overflow: hidden; */
+}
+
+main {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* 두 개의 열을 만듭니다. */
+    grid-template-rows: 100% auto;
+    grid-template-areas: 'aside main-container'; /* 영역을 정의합니다. */
+    grid-gap: 20px; /* 요소들 간의 간격을 조절합니다. */
+    height: 100vh;
+}
+
+aside {
+    grid-area: aside; /* aside 요소를 정의된 영역에 배치합니다. */
+    margin: 50px;
+}
+
+.main-container {
+    grid-area: main-container; /* main-container 요소를 정의된 영역에 배치합니다. */
+    padding: 80px;
+}
+
+.sub-title {
+    display: inline-block;
+    font-size: var(--font-size-subtitle);
+    font-weight: 700;
+    letter-spacing: -0.27px;
+    line-height: 22px;
+    margin-bottom: 12px;
+    vertical-align: top;
+    color: #004225;
+}
+
+ul {
+    margin-bottom: 30px;
+}
+
+.menu-link {
+    color: var(--color-sub);
+    font-size: var(--font-size-sm);
+    letter-spacing: -0.15px;
+    line-height: 30px;
+}
+
+.menu-link a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.title {
+    color: var(--color-main);
+    /* margin-bottom: 20px; */
+    border-bottom: 3px solid var(--color-sub);
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 40px;
+}
+
+/*---- main ----*/
+
+.wish-item {
+    align-items: center;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    gap: 8px;
+    padding: 30px;
+    /* margin-left: 10%; */
+}
+
+.item-detail {
+  margin: 0 5% 0 40%;
+}
+
+.item-price {
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 16px;
+    /* margin-top: auto; */
+}
+
+
+button {
+  margin: 6px;
+}
