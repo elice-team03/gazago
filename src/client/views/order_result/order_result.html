@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+    <link rel="stylesheet" href="./order_result.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="product">
+            <img class="product__img"
+                src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000242.jpg?1584076493"></img>
+            <div>
+                <div class="product__text--brand">헬리녹스</div>
+                <div>체어원 / 올 블랙</div>
+                <div class="product__text--price">115,000원</div>
+                <div class="product__text--brand">주문수량 : 1개</div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="delivery__title">
+            <div class="delivery__text">배송지정보</div>
+            <div class="delivery__btn--zipcode">배송지 변경</div>
+        </div>
+        <div class="divider--thin"></div>
+        <div class="delivery__box">
+            <div class="input__label">수령인</div>
+            <div>홍길동</div>
+        </div>
+        <div class="delivery__box">
+            <div class="input__label">연락처</div>
+            <input class="input" type="text" style="width: 43%" value="010-1234-5678" readonly>
+        </div>
+        <div class="delivery__box">
+            <div class="input__label">배송지</div>
+            <input class="input" type="text" style="width: 33%" value="12345" readonly>
+        </div>
+        <div class="delivery__box--empty">
+            <input class="input" type="text" style="width: 50%" value="OOO도 OO시 OO동" readonly>
+        </div>
+        <div class="delivery__box--empty">
+            <input class="input" type="text" style="width: 50%" value="OOO호" readonly>
+        </div>
+        <div class="delivery__box" style="gap: 66px">
+            <div class="input__label">배송메모</div>
+            <input class="input" type="text" style="width: 43%" value="문 앞에 놔주세요." readonly>
+        </div>
+        <div class="divider"></div>
+        <div class="order__box" style="padding-bottom: 0px">
+            <div class="order__text">최종 주문금액</div>
+            <div class="order__price--total">115,000원</div>
+        </div>
+        <div class="divider--thin"></div>
+        <div class="order__box">
+            <div>상품금액</div>
+            <div><b>115,000</b>원</div>
+        </div>
+        <div class="order__box">
+            <div>배송비</div>
+            <div><b>0</b>원</div>
+        </div>
+        <div class="divider"></div>
+        <div class="delivery__text">결제상세</div>
+        <div class="divider--thin"></div>
+        <div class="order__box">
+            <div>신용카드 결제</div>
+            <div><b>115,000</b>원</div>
+        </div>
+    </div>
+</body>
+
+</html>

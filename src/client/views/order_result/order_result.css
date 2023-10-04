@@ -1,0 +1,86 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+.container {
+    max-width: 1024px !important;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    border: 2px solid #ebebeb;
+}
+.product {
+    display: flex;
+    align-items: center;
+}
+.product__img {
+    width: 200px;
+}
+.product__text--brand {
+    font-size: 13px;
+    color: #8c8c8c;
+}
+.product__text--price {
+    font-weight: bold;
+}
+.divider {
+    display: inline-block;
+    border-top: 8px solid #ebebeb;
+    margin: 10px 0;
+    width: 100%;
+}
+.delivery__title {
+    display: flex;
+    justify-content: space-between;
+}
+.delivery__text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+.divider--thin {
+    display: inline-block;
+    border-top: 2px solid #ebebeb;
+    margin: 10px auto;
+    width: 96%;
+}
+.delivery__box {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.delivery__box--empty {
+    margin-left: 14.2%;
+    margin-bottom: 10px;
+}
+.input__label {
+    margin-left: 20px;
+    color: #8c8c8c;
+}
+.hipen {
+    margin: 0 10px;
+    color: #dbdbdb;
+    font-weight: 800;
+}
+.order__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 10px 20px;
+}
+.order__text {
+    font-size: 20px;
+    font-weight: bold;
+}
+.order__price--total {
+    color: #2f9d27;
+    font-weight: bold;
+    font-size: 20px;
+}
+.delivery__btn--zipcode {
+    background-color: #004225;
+    margin-right: 20px;
+    border-radius: 50px;
+    color: #fff;
+    padding: 4px 20px;
+    cursor: pointer;
+}
