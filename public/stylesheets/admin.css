@@ -1,6 +1,93 @@
-.side_menu ul li {
+/* padding */
+
+section.cus_mtb_30 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.cus_p_10 {
     padding: 10px;
 }
+.cus_p_20 {
+    padding: 20px 25px !important;
+}
+.cus_pl_10 {
+    padding-left: 10px;
+}
+.cus_pr_10 {
+    padding-right: 10px;
+}
+.cus_mr_20 {
+    margin-right: 20px;
+}
+
+/* color */
+
 .cus_hover:hover {
     color: #0d0d0d;
+}
+.cus_btn_bc_gr:hover {
+    background-color: #004225;
+    color: white;
+}
+.cus_btn_bc_red:hover {
+    background-color: red;
+    color: white;
+}
+.c_black {
+    color: #0d0d0d;
+}
+.c_gray {
+    color: #b2b2b2;
+}
+
+/* sort */
+
+.cus_text_align_center {
+    text-align: center !important;
+}
+.cus_v_align_middle {
+    vertical-align: middle !important;
+}
+
+/* width */
+.cus_w_50 {
+    width: 50px;
+}
+.cus_w_100 {
+    width: 100%;
+}
+.cus_w_150 {
+    width: 150px;
+}
+
+.cus_w_200 {
+    width: 200px;
+}
+.cus_flex_w_15 {
+    flex: none;
+    width: 15%;
+}
+
+/* display */
+.cus_display_table {
+    display: table;
+}
+
+/* flex */
+.cus_flex_gap_20 {
+    gap: 20px;
+}
+.cus_flex_row_center {
+    display: flex;
+    justify-content: center;
+}
+
+/* font */
+.cus_font_25 {
+    font-size: 25px;
+}
+
+/* cursor */
+.cus_cur_point {
+    cursor: pointer;
 }
