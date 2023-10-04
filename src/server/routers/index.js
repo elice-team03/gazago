@@ -19,7 +19,7 @@ router.post(
 
         const checkUser = await userService.findOneUser(email);
         if (checkUser) {
-            throw Object.assign(new Error('이메일이 사용 중 입니다.'), { status: 400 });
+            throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
         }
 
         if (password !== passwordConfirm) {
@@ -35,7 +35,7 @@ router.post(
         const result = await userService.signUpUser({ email, password });
         res.status(201).json({
             code: 201,
-            message: '회원가입이 완료되었습니다.',
+            message: '회원가입이 완료되었습니다',
             data: result,
         });
     })
