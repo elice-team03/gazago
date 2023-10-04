@@ -1,6 +1,5 @@
 const { Schema } = require('mongoose');
 const shortId = require('./types/short-id');
-const CategorySchema = require('./category');
 
 const ProductSchema = new Schema(
     {
@@ -37,7 +36,10 @@ const ProductSchema = new Schema(
             type: String,
             required: true,
         },
-        categories: [CategorySchema],
+        category: {
+            type: Schema.Types.ObjectId,
+            ref: 'Category',
+        },
     },
     {
         timestamps: true,

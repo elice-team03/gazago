@@ -1,5 +1,6 @@
 const path = require('path');
 const { Product } = require('../db');
+const { categoryService } = require('./categoryService');
 const { uploadFile } = require('../utils/file-upload');
 
 class productService {
@@ -15,6 +16,16 @@ class productService {
         newProduct.contentUsrFileName = contentInfo.userFileName;
         newProduct.contentSrvFileName = contentInfo.serverFileName;
 
+        const category = await categoryService.findCategory(newProduct.categoryId);
+
+        if (!category) {
+            const error = new Error('카테고리를 찾을 수 없습니다.');
+            error.statusCode = 400;
+            throw error;
+        }
+
+        newProduct.category = category;
+
         return await Product.create(newProduct);
     }
 
@@ -22,12 +33,22 @@ class productService {
         return await Product.find({});
     }
 
-    static async findProduct(_id) {
-        return await Product.findById(_id);
+    static async findProduct(id) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            const error = new Error('상품 Id 값이 유효하지 않습니다.');
+            error.statusCode = 400;
+            throw error;
+        }
+        return await Product.findById(id);
     }
 
-    static async removeProduct(_id) {
-        return await Product.findByIdAndDelete(_id);
+    static async removeProduct(id) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            const error = new Error('상품 Id 값이 유효하지 않습니다.');
+            error.statusCode = 400;
+            throw error;
+        }
+        return await Product.findByIdAndDelete(id);
     }
 }
 
