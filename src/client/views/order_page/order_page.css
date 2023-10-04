@@ -2,6 +2,7 @@
 
 .container {
     font-family: 'Noto Sans KR', sans-serif;
+    width: 1152px !important;
     display: flex;
     margin: 0 auto;
 }
@@ -70,11 +71,11 @@
 .select select {
     font-family: 'Noto Sans KR', sans-serif;
     padding-left: 11px !important;
-    padding-right: 190px;
+    padding-right: 125px;
 }
 .select:not(.is-multiple):not(.is-loading)::after {
     border-color: #dbdbdb;
-    left: 460px;
+    left: 390px;
     z-index: 4;
 }
 .product {
@@ -87,7 +88,7 @@
     display: inline-block;
     border-top: 3px solid #ccc;
     margin: 10px 0;
-    width: 500px;
+    width: 100%;
 }
 .product__img {
     width: 240px;
@@ -114,7 +115,7 @@
     display: inline-block;
     border-top: 1px solid #ccc;
     margin: 10px 0;
-    width: 500px;
+    width: 100%;
 }
 .order__box {
     display: flex;
@@ -133,7 +134,7 @@
 }
 .order__total {
     font-size: 24px;
-    color: #ff0000;
+    color: #004225;
 }
 .order__button {
     padding: 20px;
@@ -153,6 +154,24 @@
     width: 100%;
 }
 .input__label--cvc {
-    margin-left: 40px;
+    margin-left: 33px;
     width: 15%;
+}
+.button {
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 30px 0;
+    margin-top: 60px;
+    background-color: #004225;
+    border-radius: 50px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+}
+.button:hover {
+    color: #ffffff;
+    opacity: 90%;
+}
+.button:focus {
+    color: #ffffff;
+
 }
