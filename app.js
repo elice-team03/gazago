@@ -57,8 +57,7 @@ app.use(function (err, req, res, next) {
 
     // render the error page
     const errStatusCode = err.status || 500;
-    res.status(errStatusCode);
-    res.json({ code: errStatusCode, message: err.message });
+    res.status(errStatusCode).json({ code: errStatusCode, message: err.message });
 });
 
 module.exports = app;
