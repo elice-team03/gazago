@@ -11,7 +11,7 @@ router.post(
 
         if (!name) {
             const error = new Error('카테고리명을 입력해주세요.');
-            error.statusCode = 400;
+            error.status = 400;
             throw error;
         }
 
