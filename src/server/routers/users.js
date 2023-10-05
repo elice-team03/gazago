@@ -4,7 +4,7 @@ const { orderService } = require('../services/orderService');
 const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 
-/* GET users listing. */
+/** 회원가입 API */
 router.post(
     '/register',
     asyncHandler(async (req, res, next) => {
@@ -35,6 +35,7 @@ router.post(
     })
 );
 
+/** 로그인 API */
 router.post(
     '/login',
     asyncHandler(async (req, res, next) => {
@@ -59,6 +60,7 @@ router.post(
     })
 );
 
+/** 로그아웃 API */
 router.post(
     '/logout',
     asyncHandler(async (req, res, next) => {
@@ -72,6 +74,7 @@ router.post(
     })
 );
 
+/** 회원정보 조회 API */
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
