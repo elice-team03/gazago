@@ -1,7 +1,6 @@
 const express = require('express');
 const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
-const passport = require('passport');
 
 const router = express.Router();
 /* GET home page. */
@@ -57,13 +56,40 @@ router.post(
             throw Object.assign(new Error('이메일 혹은 패스워드가 일치하지 않습니다'), { status: 400 });
         }
 
-        const result = await userService.signInUser(checkedUser, password, res, req);
+        const result = await userService.signInUser(checkedUser, password, res);
         res.status(200).json({
             code: 200,
-            message: '로그인이 완료되었습니다.',
+            message: '로그인이 완료되었습니다',
             data: result,
         });
     })
 );
+
+router.post(
+    '/logout',
+    asyncHandler(async (req, res, next) => {
+        res.clearCookie('token');
+
+        if (req.user) {
+            throw Object.assign(new Error('로그인을 실패하였습니다'), { status: 400 });
+        }
+
+        res.status(200).json({
+            code: 200,
+            message: '로그아웃이 완료되었습니다',
+            data: null,
+        });
+    })
+);
+
+//테스트용 라우터
+router.get('/auth', (req, res, next) => {
+    if (req.user) {
+        console.log('로그인 중');
+    } else {
+        console.log('로그아웃 중');
+    }
+    res.end();
+});
 
 module.exports = router;

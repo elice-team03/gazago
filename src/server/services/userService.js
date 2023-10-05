@@ -35,12 +35,13 @@ class userService {
         return user;
     }
 
-    static async signInUser(checkedUser, password, res, req) {
+    static async signInUser(checkedUser, password, res) {
         const hashedPassword = checkedUser.password;
         const checkPassword = await bcrypt.compare(password, hashedPassword);
         if (!checkPassword) {
             throw Object.assign(new Error('이메일 혹은 패스워드가 일치하지 않습니다'), { status: 400 });
         }
+        //토큰 지속시간 추후 설정예정
         setUserToken(res, checkedUser);
     }
 }
