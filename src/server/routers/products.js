@@ -11,7 +11,7 @@ router.post(
         const thumbnailFile = req.files.thumbnail;
         const contentFile = req.files.content;
 
-        const requiredFields = ['name', 'brand', 'color', 'price'];
+        const requiredFields = ['name', 'brand', 'price'];
         const missingFields = requiredFields.filter((field) => !newProduct[field]);
 
         if (missingFields.length > 0 || !thumbnailFile || !contentFile) {

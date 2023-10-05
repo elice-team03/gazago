@@ -36,7 +36,26 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const result = await categoryService.findAllCategories();
+        result = await categoryService.findAllCategories();
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+router.get(
+    '/children',
+    asyncHandler(async (req, res, next) => {
+        const parentCategoryId = req.query.parentCategoryId;
+
+        let result;
+        if (!parentCategoryId) {
+            result = await categoryService.findCategoriesByDepth(1);
+        } else {
+            result = await categoryService.findCategoriesByParent(parentCategoryId);
+        }
 
         res.status(200).json({
             code: 200,

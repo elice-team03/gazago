@@ -9,7 +9,7 @@ class categoryService {
             error.status = 400;
             throw error;
         }
-        const newCategory = { depth: 1, name, parentCategory: parentCategoryId };
+        const newCategory = { depth: 2, name, parentCategory: parentCategoryId };
         return await Category.create(newCategory);
     }
 
@@ -20,6 +20,20 @@ class categoryService {
 
     static async findAllCategories() {
         return await Category.find({});
+    }
+
+    static async findCategoriesByDepth(depth) {
+        return await Category.find({ depth: depth });
+    }
+
+    static async findCategoriesByParent(parentCategoryId) {
+        const parentCategory = await this.findCategory(parentCategoryId);
+        if (!parentCategory) {
+            const error = new Error('부모 카테고리를 찾을 수 없습니다.');
+            error.status = 400;
+            throw error;
+        }
+        return await Category.find({ parentCategory: parentCategoryId });
     }
 
     static async findCategory(id) {
