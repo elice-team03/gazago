@@ -6,13 +6,14 @@ const asyncHandler = require('../utils/async-handler');
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        if (!req.user) {
-            throw Object.assign(new Error('로그인이 필요합니다'), { status: 400 });
-        }
+        const { title, code, address, contact, defaultYn } = req.body;
+
+        console.log(req.body);
+
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: { email, _id, wishList, orders },
+            data: null,
         });
     })
 );

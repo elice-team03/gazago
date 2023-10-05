@@ -14,6 +14,7 @@ const usersRouter = require('./src/server/routers/users');
 const productsRouter = require('./src/server/routers/products');
 const categoriesRouter = require('./src/server/routers/categories');
 const deliveriesRouter = require('./src/server/routers/deliveries');
+const ordersRouter = require('./src/server/routers/orders');
 
 const app = express();
 app.use(fileUpload());
@@ -53,6 +54,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/deliveries', deliveriesRouter);
+app.use('/api/orders', ordersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
