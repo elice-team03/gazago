@@ -20,3 +20,30 @@ function renderPreviewImage() {
     previewBtn.style.display = 'none';
 }
 previewBtn.addEventListener('click', renderPreviewImage);
+
+const plusBtn = document.querySelector('.counter__plus');
+const minusBtn = document.querySelector('.counter__minus');
+const quantity = document.querySelector('.counter__number');
+const price = document.querySelector('.order__price');
+const totalPrice = document.querySelector('.order__price--total');
+const originalPrice = document.querySelector('.order__price--original');
+
+//상품 가격에 상품 수량을 곱해서 상품 가격을 계산하는 함수
+function calculatePrice() {
+    const numberPrice = Number(originalPrice.innerHTML.replace('원', '').replace(',', ''));
+    const result = numberPrice * Number(quantity.value);
+    price.innerHTML = `${result.toLocaleString()}원`;
+    totalPrice.innerHTML = `${result.toLocaleString()}원`;
+}
+//+버튼 클릭 시 상품 수량 증가, 상품 가격 변경
+plusBtn.addEventListener('click', () => {
+    quantity.value++;
+    calculatePrice();
+});
+//-버튼 클릭 시 상품 수량 감소, 상품 가격 변경
+minusBtn.addEventListener('click', () => {
+    quantity.value = Number(quantity.value - 1);
+    calculatePrice();
+});
+//사용자가 수량 임의로 변경 시 상품 가격 변경
+quantity.addEventListener('change', calculatePrice);
