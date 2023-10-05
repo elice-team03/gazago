@@ -7,13 +7,14 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        // 배송 정보 ID
-        // const result = await productService.addProduct({ newProduct, contentFile });
-
+        const newOrder = req.body;
+        const result = orderService.addOrder(newOrder);
         res.status(201).json({
             code: 201,
-            message: '주문.',
+            message: '주문',
             data: result,
         });
     })
 );
+
+module.exports = router;
