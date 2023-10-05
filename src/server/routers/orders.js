@@ -14,7 +14,7 @@ router.post(
         }
 
         const loggedInUser = req.user.user;
-        let delivery;
+        let delivery = null;
         if (!loggedInUser.delivery) {
             delivery = await deliveryService.addDeliveryAndSetUserDelivery(req.body, loggedInUser._id);
         } else {
