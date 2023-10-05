@@ -5,10 +5,14 @@ header {
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
 }
+.container {
+    width: 1152px !important;
+    padding-bottom: 100px;
+}
 
 a{
     text-decoration: none;
-    color: black;
+    color: #4a4a4a;
 }
 .logo {
     width: 160px;
@@ -18,7 +22,6 @@ a{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0 0 40px;
 }
 
 .user-login {
@@ -32,35 +35,43 @@ a{
     display: flex;
     justify-content:right;
     padding-right: 40px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
 
 .user-login li {
     padding: 0px 10px;
-    font-size: 15px;
+    font-size: 13px;
+    color: #8c8c8c;
 }
 
 .user-cart-mypage li{
-    padding: 0 20px;
+    padding: 0 20px 2px 20px;
+    
 }
 
 .search{
+    display: flex;
+    align-items: center;
     padding-left: 30px;
+    position: relative;
 }
 
 .search input{
     width: 500px;
+    padding: 23px;
 }
 
 .search button {
     padding: 18px;
-    background-color: #dcb786e1;
+    background-color: #004225;
     border-radius: 50px;
     color: #ffffff;
     text-align: center;
     font-weight: bold;
     font-size: 15px;
+    position: absolute;
+    right: 6px;
 }
 
 nav ul {
@@ -69,11 +80,23 @@ nav ul {
 
 }
 
-nav ul li a{
+.main nav ul li a{
     padding: 0px 20px;
-    color: #004225;
     font-weight: 450;
 }
 .nav-bar {
     padding-bottom: 20px;
+}
+.navbar-item:hover {
+    color: #004225 !important;
+}
+
+.sub-nav {
+    padding-left: 30px;
+    font-size: 13px;
+    font-weight: 400 !important;
+}
+
+.sub-nav .navbar .navbar-item {
+    color: #8c8c8c !important;
 }
