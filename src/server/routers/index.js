@@ -11,9 +11,9 @@ router.get('/', function (req, res, next) {
 router.post(
     '/register',
     asyncHandler(async (req, res, next) => {
-        const { email, password, passwordConfirm } = req.body;
+        const { email, password } = req.body;
 
-        if (email.length === 0 || password.length === 0 || passwordConfirm.length === 0) {
+        if (email.length === 0 || password.length === 0 ) {
             throw Object.assign(new Error('이메일 혹은 패스워드를 입력해주세요'), { status: 400 });
         }
 
@@ -22,10 +22,7 @@ router.post(
             throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
         }
 
-        if (password !== passwordConfirm) {
-            throw Object.assign(new Error('비밀번호가 일치하지 않습니다'), { status: 400 });
-        }
-
+       
         // 원할한 테스트를 위해 잠시 주석처리 하겠습니다
         // const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 
