@@ -5,6 +5,7 @@ const asyncHandler = require('../utils/async-handler');
 
 const router = Router();
 
+/** 주문 API */
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
@@ -16,7 +17,14 @@ router.post(
         const loggedInUser = req.user.user;
         let delivery = null;
         if (!loggedInUser.delivery) {
-            delivery = await deliveryService.addDeliveryAndSetUserDelivery(req.body, loggedInUser._id);
+            delivery = await deliveryService.addDeliveryAndSetUserDelivery({
+                title,
+                receiver,
+                code,
+                address,
+                contact,
+                loggedInUser,
+            });
         } else {
             delivery = await deliveryService.findDelivery(loggedInUser.delivery);
         }
