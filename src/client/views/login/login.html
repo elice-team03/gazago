@@ -4,9 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>gazago</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
         <link rel="stylesheet" href="./login.css" />
     </head>
-    <body>
+    <body class="container is-widescreen">
         <section class="center">
             <h1 class="logo">
                 <img src="./gazagologo.png" alt="logo" />
@@ -22,7 +23,8 @@
                     <input type="password" name="password" required />
                     <span></span>
                 </div>
-                <input id="submit" type="submit" value="로그인" />
+                <!-- <input id="submit" type="submit" value="로그인"/> -->
+                <button id="submit" class="button is-fullwidth is-rounded">로그인</button>
                 <ul class="look_box">
                     <li class="look_link">
                         <a href="#">회원 가입</a>
