@@ -1,7 +1,7 @@
 const passport = require('passport');
 
 module.exports = (req, res, next) => {
-    if (!req.cookies.token) {
+    if (!req.cookies.authorization) {
         next();
         return;
     }
