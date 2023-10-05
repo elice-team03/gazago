@@ -3,9 +3,7 @@
 :root {
     --color-main: #004225;
     --color-sub: #ebebeb;
-
-    --font-code: 'Nanum Gothic Coding', monospace;
-
+    --color-font-grey: #8c8c8c;
     --font-size-title: 32px;
     --font-size-subtitle: 25px;
     --font-size-lg: 22px;
@@ -47,7 +45,7 @@ aside {
     line-height: 22px;
     margin-bottom: 12px;
     vertical-align: top;
-    color: #004225;
+    /* color: #004225; */
 }
 
 ul {
@@ -55,7 +53,7 @@ ul {
 }
 
 .menu-link {
-    color: var(--color-sub);
+    color: var(--color-font-grey);
     font-size: var(--font-size-sm);
     letter-spacing: -0.15px;
     line-height: 30px;
@@ -67,41 +65,46 @@ ul {
 }
 
 .title {
-    color: var(--color-main);
-    /* margin-bottom: 20px; */
-    border-bottom: 3px solid var(--color-sub);
+    border-bottom: 3px solid;
 }
+
+/*---- wishlist table ----*/
 
 td {
     text-align: center;
     vertical-align: middle;
-    padding: 40px;
+    padding: 10px;
 }
 
-/*---- main ----*/
-
-.wish-item {
-    align-items: center;
-    border-bottom: 1px solid #ebebeb;
+.check-container {
     display: flex;
-    gap: 8px;
-    padding: 30px;
-    /* margin-left: 10%; */
+    justify-content: space-between;
+    margin: 30px;
 }
 
-.item-detail {
-  margin: 0 5% 0 40%;
+table {
+    width: 90%;
+    border: 1px solid var(--color-font-grey);
+    margin: 40px;
 }
 
-.item-price {
-    display: inline-flex;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 16px;
-    /* margin-top: auto; */
+td:nth-child(3) {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 16px;
 }
 
+td:nth-child(3) p {
+    font-weight: 600;
+}
 
-button {
-  margin: 6px;
+button:nth-child(1) {
+    border-color: var(--color-main)
+}
+button:nth-child(2) {
+    border-color: var(--color-main);
+}
+button:nth-child(2):hover {
+    background-color: var(--color-main);
+    color: white;
 }
