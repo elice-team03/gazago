@@ -8,19 +8,18 @@ router.post(
     '/',
     asyncHandler(async (req, res, next) => {
         const newProduct = req.body;
-        const thumbnailFile = req.files.thumbnail;
         const contentFile = req.files.content;
 
-        const requiredFields = ['name', 'brand', 'price'];
+        const requiredFields = ['name', 'brand', 'price', 'thumbnailPath'];
         const missingFields = requiredFields.filter((field) => !newProduct[field]);
 
-        if (missingFields.length > 0 || !thumbnailFile || !contentFile) {
+        if (missingFields.length > 0 || !contentFile) {
             const error = new Error('누락된 입력 항목이 존재합니다.');
             error.status = 400;
             throw error;
         }
 
-        const result = await productService.addProduct({ newProduct, thumbnailFile, contentFile });
+        const result = await productService.addProduct({ newProduct, contentFile });
         res.status(201).json({
             code: 201,
             message: '상품 등록이 완료되었습니다.',

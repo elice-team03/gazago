@@ -4,15 +4,10 @@ const { categoryService } = require('./categoryService');
 const { uploadFile } = require('../utils/file-upload');
 
 class productService {
-    static async addProduct({ newProduct, thumbnailFile, contentFile }) {
+    static async addProduct({ newProduct, contentFile }) {
         const uploadDirectory = path.join('public', 'upload', 'product');
-        const [thumbnailInfo, contentInfo] = await Promise.all([
-            uploadFile(thumbnailFile, uploadDirectory),
-            uploadFile(contentFile, uploadDirectory),
-        ]);
+        const contentInfo = uploadFile(contentFile, uploadDirectory);
 
-        newProduct.thumbnailUsrFileName = thumbnailInfo.userFileName;
-        newProduct.thumbnailSrvFileName = thumbnailInfo.serverFileName;
         newProduct.contentUsrFileName = contentInfo.userFileName;
         newProduct.contentSrvFileName = contentInfo.serverFileName;
 

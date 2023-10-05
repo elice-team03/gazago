@@ -18,11 +18,7 @@ const ProductSchema = new Schema(
             type: Number,
             required: true,
         },
-        thumbnailUsrFileName: {
-            type: String,
-            required: true,
-        },
-        thumbnailSrvFileName: {
+        thumbnailPath: {
             type: String,
             required: true,
         },
