@@ -44,14 +44,49 @@ router.post(
 router.post(
     '/login',
     asyncHandler(async (req, res, next) => {
-        const userInform = req.body;
-        const result = await userService.signInUser(userInform);
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            throw Object.assign(new Error('이메일 혹은 패스워드를 입력해주세요'), { status: 400 });
+        }
+
+        const checkedUser = await userService.findOneUser(email);
+
+        if (!checkedUser) {
+            throw Object.assign(new Error('이메일 혹은 패스워드가 일치하지 않습니다'), { status: 400 });
+        }
+
+        const result = await userService.signInUser(checkedUser, password, res);
         res.status(200).json({
             code: 200,
-            message: '로그인이 완료되었습니다.',
+            message: '로그인이 완료되었습니다',
             data: result,
         });
     })
 );
+
+router.post(
+    '/logout',
+    asyncHandler(async (req, res, next) => {
+        res.clearCookie('token');
+
+        res.status(200).json({
+            code: 200,
+            message: '로그아웃이 완료되었습니다',
+            data: null,
+        });
+    })
+);
+
+//테스트용 라우터
+router.get('/auth', (req, res, next) => {
+    if (req.user) {
+        console.log('로그인 중');
+    } else {
+        console.log('로그아웃 중');
+    }
+    console.log(req.cookies);
+    res.end();
+});
 
 module.exports = router;
