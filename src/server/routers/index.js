@@ -79,4 +79,28 @@ router.post(
     })
 );
 
+router.post(
+    '/logout',
+    asyncHandler(async (req, res, next) => {
+        res.clearCookie('token');
+
+        res.status(200).json({
+            code: 200,
+            message: '로그아웃이 완료되었습니다',
+            data: null,
+        });
+    })
+);
+
+//테스트용 라우터
+router.get('/auth', (req, res, next) => {
+    if (req.user) {
+        console.log('로그인 중');
+    } else {
+        console.log('로그아웃 중');
+    }
+    console.log(req.cookies);
+    res.end();
+});
+
 module.exports = router;

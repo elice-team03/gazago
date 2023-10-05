@@ -1,19 +1,22 @@
 const { Schema } = require('mongoose');
-const shortId = require('./types/short-id');
 
 const CategorySchema = new Schema({
-    shortId,
     useYn: {
         type: Boolean,
         default: true,
     },
-    sequence: {
+    depth: {
         type: Number,
-        required: true,
+        default: 1,
     },
     name: {
         type: String,
         required: true,
+    },
+    parentCategory: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+        required: false,
     },
 });
 
