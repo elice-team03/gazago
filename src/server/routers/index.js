@@ -26,11 +26,12 @@ router.post(
             throw Object.assign(new Error('비밀번호가 일치하지 않습니다'), { status: 400 });
         }
 
-        const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+        // 원할한 테스트를 위해 잠시 주석처리 하겠습니다
+        // const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 
-        if (!regExp.test(password)) {
-            throw Object.assign(new Error('비밀번호 조건에 맞지 않습니다'), { status: 400 });
-        }
+        // if (!regExp.test(password)) {
+        //     throw Object.assign(new Error('비밀번호 조건에 맞지 않습니다'), { status: 400 });
+        // }
 
         const result = await userService.signUpUser({ email, password });
         res.status(201).json({
@@ -60,7 +61,7 @@ router.post(
         res.status(200).json({
             code: 200,
             message: '로그인이 완료되었습니다',
-            data: result,
+            data: { email: result },
         });
     })
 );
