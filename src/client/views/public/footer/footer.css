@@ -16,12 +16,12 @@
 .footer__company-box__title {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 40px;
-    font-weight: bold;
+    font-weight: 400;
 }
 .footer__title {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 30px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .footer__company-box__copyright, 
