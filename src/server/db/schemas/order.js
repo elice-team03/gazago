@@ -11,18 +11,18 @@ const OrderSchema = new Schema({
         type: String,
         required: true,
     },
-    orderer: {
+    orderUserId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
         index: true,
     },
-    // delivery: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Delivery',
-    //     required: true,
-    //     index: true,
-    // },
+    delivery: {
+        type: Schema.Types.ObjectId,
+        ref: 'Delivery',
+        required: true,
+        index: true,
+    },
     products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 });
 

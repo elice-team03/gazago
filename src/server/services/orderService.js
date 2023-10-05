@@ -1,15 +1,21 @@
+const mongoose = require('mongoose');
 const { Order } = require('../db');
 
 class orderService {
-    static async addorder(newOrder) {
-        const { comment, orderer, productIds, delivery } = newOrder;
-        const order = new Order({
+    static async addOrder(newOrder) {
+        const { comment, loggedInUser, delivery, productIds } = newOrder;
+        if (!areProductIdsValid(productIds)) {
+            throw Object.assign(new Error('유효하지 않은 상품 ID가 포함되어 있습니다.'), { status: 400 });
+        }
+
+        const buildOrder = new Order({
             comment,
-            orderer,
-            // delivery: delivery,
+            orderUserId: loggedInUser._id,
+            delivery,
             products: productIds,
         });
-        return await Order.create(order);
+
+        return await Order.create(buildOrder);
     }
 
     static async findorder(_id) {
@@ -23,6 +29,10 @@ class orderService {
     static async removeorder(_id) {
         return await Order.findByIdAndDelete(_id);
     }
+}
+
+function areProductIdsValid(productIds) {
+    return productIds.every((productId) => mongoose.Types.ObjectId.isValid(productId));
 }
 
 module.exports = { orderService };
