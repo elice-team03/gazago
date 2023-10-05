@@ -33,6 +33,15 @@ class productService {
         return await Product.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }).exec();
     }
 
+    static async findProductsByCategory(categoryId) {
+        if (!mongoose.Types.ObjectId.isValid(categoryId)) {
+            const error = new Error('카테고리 Id 값이 유효하지 않습니다.');
+            error.status = 400;
+            throw error;
+        }
+        return await Product.find({ category: categoryId });
+    }
+
     static async findProduct(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('상품 Id 값이 유효하지 않습니다.');

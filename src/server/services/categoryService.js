@@ -1,4 +1,5 @@
 const { mongoose } = require('mongoose');
+const { Product } = require('../db');
 const { Category } = require('../db');
 
 class categoryService {
@@ -19,11 +20,27 @@ class categoryService {
     }
 
     static async findAllCategories() {
-        return await Category.find({});
+        return await Category.find({}).populate('parentCategory');
+    }
+
+    static async findCategoriesWithProductCountByDepth(depth) {
+        const categories = await this.findCategoriesByDepth(depth);
+
+        const result = [];
+        for (const category of categories) {
+            const products = await Product.find({ category: category._id });
+            const productCount = products.length;
+
+            result.push({
+                category: category,
+                productCount: productCount,
+            });
+        }
+        return result;
     }
 
     static async findCategoriesByDepth(depth) {
-        return await Category.find({ depth: depth });
+        return await Category.find({ depth: depth }).populate('parentCategory');
     }
 
     static async findCategoriesByParent(parentCategoryId) {
@@ -33,7 +50,8 @@ class categoryService {
             error.status = 400;
             throw error;
         }
-        return await Category.find({ parentCategory: parentCategoryId });
+
+        return await Category.find({ parentCategory: parentCategoryId }).populate('parentCategory');
     }
 
     static async findCategory(id) {
