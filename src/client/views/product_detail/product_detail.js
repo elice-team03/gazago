@@ -42,8 +42,20 @@ plusBtn.addEventListener('click', () => {
 });
 //-버튼 클릭 시 상품 수량 감소, 상품 가격 변경
 minusBtn.addEventListener('click', () => {
-    quantity.value = Number(quantity.value - 1);
+    quantity.value--;
+    if (quantity.value < 1) {
+        alert('해당 상품은 최소구매 수량이 1개입니다.');
+        quantity.value = 1;
+        return;
+    }
     calculatePrice();
 });
 //사용자가 수량 임의로 변경 시 상품 가격 변경
-quantity.addEventListener('change', calculatePrice);
+quantity.addEventListener('change', () => {
+    if (quantity.value < 1) {
+        alert('해당 상품은 최소구매 수량이 1개입니다.');
+        quantity.value = 1;
+        return;
+    }
+    calculatePrice();
+});
