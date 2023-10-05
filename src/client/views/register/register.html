@@ -6,41 +6,43 @@
         <title>gazago</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
         <link rel="stylesheet" href="./register.css" />
+        <script defer src="./register.js"></script>
     </head>
     <body>
-        <section class="center container is-widescreen">
+        <div class="center container is-widescreen">
             <h1 class="logo">
                 <img src="../login/gazagologo.png" alt="logo" />
             </h1>
-            <form action="post">
+            <!-- 회원가입 form -->
+            <form action="/register" id="form-container">
                 <div class="title">
                     <p>회원가입</p>
                 </div>
-                <div class="text_filed">
-                    <label for="userMail">이메일 주소*</label>
-                    <!-- <p>인증</p> -->
-                    <input type="text" name="userMail" id="textInput" placeholder="예) gazago@gazago.com" required />
-                    <span></span>
-                    <button class="btn button is-small is-rounded">인증요청</button>
+                <div class="text-field">
+                    <label for="email-input">이메일 주소*</label>
+                    <input type="text" id="email-input" name="email-input" placeholder="예) gazago@gazago.com" />
+                    <div class="error"></div>
+                    <!-- <button class="btn button is-small is-rounded">인증요청</button> -->
                 </div>
-                <div class="text_filed">
+                <!-- 인증하기 추후 구현 예정 -->
+                <!-- <div class="text-field">
                     <label for="authCode">인증번호*</label>
-                    <input type="text" name="authCode" required />
+                    <input type="text" name="authCode" id="authCodeInput" required/>
                     <span></span>
                     <button class="btn button is-small is-rounded">인증하기</button>
+                </div> -->
+                <div class="text-field">
+                    <label for="password-input">비밀번호*</label>
+                    <input type="text" id="password-input" placeholder="영문, 숫자, 특수문자 조합 8-16자" />
+                    <div class="error"></div>
                 </div>
-                <div class="text_filed">
-                    <label for="password">비밀번호*</label>
-                    <input type="text" name="userMail" placeholder="영문, 숫자, 특수문자 조합 8-16자" required />
-                    <span></span>
+                <div class="text-field">
+                    <label for="confirmpw-input">비밀번호 확인*</label>
+                    <input type="text" id="confirmpw-input" />
+                    <div class="error"></div>
                 </div>
-                <div class="text_filed">
-                    <label for="confirmPw">비밀번호 확인*</label>
-                    <input type="text" name="confirmPw" required />
-                    <span></span>
-                </div>
-                <input id="submit" type="submit" value="가입하기" />
+                <button id="submit" type="submit" class="button is-fullwidth is-rounded">가입하기</button>
             </form>
-        </section>
+        </div>
     </body>
 </html>
