@@ -96,16 +96,29 @@
     position: relative;
     z-index: 1;
 }
-.preview__img {
+.preview__crop {
     position: absolute;
-    z-index: -1;
     top: 500px;
+    max-height: 500px;
+    overflow: hidden;
 }
-.preview__btn {
+.preview__img {
+    max-height: initial;
+}
+.more__btn {
     position: absolute;
     z-index: 2;
     top: 850px;
-    left: 38%;
+    left: 40%;
+    gap: 5px;
+    padding: 10px 40px !important;
+    color: #004225;
+    border: 1px solid #004225;
+}
+.preview__btn {
+    display: none;
+    margin: 20px auto;
+    gap: 5px;
     padding: 10px 40px !important;
     color: #004225;
     border: 1px solid #004225;

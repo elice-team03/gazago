@@ -57,15 +57,23 @@
                 <button class="button is-rounded is-fullwidth order__btn">주문하기</button>
             </div>
         </div>
-        <div class="preview__gradient"> </div>
-        <img class="preview__img"
-            src="https://lh3.google.com/u/0/d/1Au_GWUXEupholJ-XJKhqaimRe49765BO=w1920-h963-iv1"></img>
-        <button class="button is-rounded is-responsive preview__btn">상품정보 더보기 <svg xmlns="http://www.w3.org/2000/svg"
+        <div class="preview__gradient"></div>
+        <div class="preview__crop">
+            <img class="preview__img" src="https://i.ibb.co/zP9hzMM/product.png"></img>
+            <button class="button is-rounded is-responsive preview__btn">상품정보 접기 <svg xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up">
+                    <path d="m18 15-6-6-6 6" />
+                </svg></button>
+        </div>
+        <button class="button is-rounded is-responsive more__btn">상품정보 더보기 <svg xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down">
                 <path d="m6 9 6 6 6-6" />
             </svg></button>
     </div>
+
+    <script src="./product_detail.js"></script>
 </body>
 
 </html>
