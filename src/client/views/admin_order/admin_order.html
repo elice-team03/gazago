@@ -28,9 +28,15 @@
                 <div class="columns">
                     <aside class="side_menu column cus_flex_w_15">
                         <ul>
-                            <li class="cus_p_10"><a href="" class="c_gray title is-6 cus_hover">카테고리 관리</a></li>
-                            <li class="cus_p_10"><a href="" class="c_gray title is-6 cus_hover">상품 관리</a></li>
-                            <li class="cus_p_10"><a href="" class="c_black title is-6 cus_hover">주문 관리</a></li>
+                            <li class="cus_p_10">
+                                <a href="" class="cus_c_gray subtitle is-5 cus_hover">카테고리 관리</a>
+                            </li>
+                            <li class="cus_p_10">
+                                <a href="" class="cus_c_gray subtitle is-5 cus_hover">상품 관리</a>
+                            </li>
+                            <li class="cus_p_10">
+                                <a href="" class="cus_c_black subtitle is-5 cus_hover">주문 관리</a>
+                            </li>
                         </ul>
                     </aside>
                     <div class="order_box column">
@@ -38,43 +44,35 @@
                             <h2 class="title is-4">주문 목록</h2>
                         </section>
                         <section class="fillter_section">
-                            <table class="table is-bordered cus_w_100">
-                                <tbody>
-                                    <tr>
-                                        <th class="cus_text_align_center cus_v_align_middle">주문일시</th>
-                                        <td>달력ui추가예정</td>
-                                        <th class="cus_text_align_center cus_v_align_middle">주문자명</th>
-                                        <td>
-                                            <input class="input is-rounded cus_w_100" type="text" />
-                                        </td>
-                                        <th></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="cus_text_align_center cus_v_align_middle">주문번호</th>
-                                        <td>
-                                            <input class="input is-rounded cus_w_100" type="text" />
-                                        </td>
-                                        <th class="cus_text_align_center cus_v_align_middle">주문상태</th>
-                                        <td class="is-flex cus_flex_gap_20">
-                                            <div class="select cus_mr_20">
-                                                <select>
-                                                    <option>전체보기</option>
-                                                    <option>주문접수</option>
-                                                    <option>상품준비중</option>
-                                                    <option>배송중</option>
-                                                    <option>배송완료</option>
-                                                    <option>주문취소</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <th class="cus_text_align_center cus_v_align_middle">
-                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_gr">
-                                                조회
-                                            </button>
-                                        </th>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <section class="fillter_section is-flex box is-align-items-center">
+                                <div class="is-flex is-align-items-center cus_w_50 cus_flex_gap_20">
+                                    <p class="cus_text_align_center">주문일시</p>
+                                    <input class="input cus_w_160" type="text" />
+                                </div>
+                                <div class="is-flex is-align-items-center cus_w_50 cus_flex_gap_20">
+                                    <p class="cus_text_align_center">주문자명</p>
+                                    <input class="input cus_w_160" type="text" />
+                                </div>
+                                <div class="is-flex is-align-items-center cus_w_50 cus_flex_gap_20">
+                                    <p class="cus_text_align_center">주문번호</p>
+                                    <input class="input cus_w_160" type="text" />
+                                </div>
+                                <div class="is-flex is-align-items-center cus_w_50 cus_flex_gap_20">
+                                    <p class="cus_text_align_center">주문상태</p>
+                                    <div class="select">
+                                        <select class="cus_w_160">
+                                            <option>전체보기</option>
+                                            <option>주문접수</option>
+                                            <option>상품준비중</option>
+                                            <option>배송중</option>
+                                            <option>배송완료</option>
+                                            <option>주문취소</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button class="button is-rounded is-small cus_btn_bc_gr">조회</button>
+                            </section>
                         </section>
                         <section class="order_table columns cus_mtb_30">
                             <table class="table column is-full is-striped cus_display_table">
@@ -124,9 +122,7 @@
                                             <p>배송중</p>
                                         </td>
                                         <td class="cus_text_align_center cus_v_align_middle">
-                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_red">
-                                                주문취소
-                                            </button>
+                                            <button class="button is-rounded is-small cus_btn_bc_gr">주문취소</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -158,9 +154,7 @@
                                             <p>주문접수</p>
                                         </td>
                                         <td class="cus_text_align_center cus_v_align_middle">
-                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_red">
-                                                주문취소
-                                            </button>
+                                            <button class="button is-rounded is-small cus_btn_bc_gr">주문취소</button>
                                         </td>
                                     </tr>
                                 </tbody>
