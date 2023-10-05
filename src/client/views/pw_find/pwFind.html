@@ -4,10 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>gazago</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
         <link rel="stylesheet" href="./pwFind.css" />
     </head>
     <body>
-        <section class="center">
+        <section class="center container is-widescreen">
             <h1 class="logo">
                 <img src="../login/gazagologo.png" alt="logo" />
             </h1>
@@ -21,10 +22,11 @@
                 </div>
                 <div class="text_filed">
                     <label for="userMail">이메일 주소</label>
-                    <input type="text" name="userMail" required />
+                    <input type="text" name="userMail" placeholder="gazago@gazago.com" required />
                     <span></span>
                 </div>
-                <input id="submit" type="submit" value="메일 발송하기" />
+                <!-- <input id="submit" type="submit" value="메일 발송하기" /> -->
+                <button id="submit" class="button is-fullwidth is-rounded">메일 발송하기</button>
             </form>
         </section>
     </body>
