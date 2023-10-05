@@ -32,12 +32,20 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const result = await productService.findAllProducts();
+        const ITEMS_PER_PAGE = 5;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * ITEMS_PER_PAGE;
+        const limit = ITEMS_PER_PAGE;
+
+        const result = await productService.findProductsPaginated(skip, limit);
+        const totalProductsCount = await productService.getTotalProductsCount();
 
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
             data: result,
+            currentPage: page,
+            totalPages: Math.ceil(totalProductsCount / ITEMS_PER_PAGE),
         });
     })
 );

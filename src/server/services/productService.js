@@ -29,8 +29,8 @@ class productService {
         return await Product.create(newProduct);
     }
 
-    static async findAllProducts() {
-        return await Product.find({});
+    static async findProductsPaginated(skip, limit) {
+        return await Product.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }).exec();
     }
 
     static async findProduct(id) {
@@ -40,6 +40,10 @@ class productService {
             throw error;
         }
         return await Product.findById(id);
+    }
+
+    static async getTotalProductsCount() {
+        return await Product.countDocuments({}).exec();
     }
 
     static async removeProduct(id) {
