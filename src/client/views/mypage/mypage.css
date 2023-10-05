@@ -2,7 +2,7 @@
 
 :root {
     --color-main: #004225;
-    --color-sub: #ebebeb;
+    --color-sub: #8c8c8c;
 
     --font-code: 'Nanum Gothic Coding', monospace;
 
@@ -21,59 +21,60 @@ body {
 }
 
 main {
-  display: grid;
-  grid-template-columns: 250px 1fr; /* 두 개의 열을 만듭니다. */
-  grid-template-rows: 100% auto;
-  grid-template-areas: "aside main-container"; /* 영역을 정의합니다. */
-  grid-gap: 20px; /* 요소들 간의 간격을 조절합니다. */
-  height: 100vh;
+    display: grid;
+    grid-template-columns: 250px 1fr; /* 두 개의 열을 만듭니다. */
+    grid-template-rows: 100% auto;
+    grid-template-areas: 'aside main-container'; /* 영역을 정의합니다. */
+    grid-gap: 20px; /* 요소들 간의 간격을 조절합니다. */
+    height: 100vh;
 }
 
 aside {
-  grid-area: aside; /* aside 요소를 정의된 영역에 배치합니다. */
-  margin: 50px;
+    grid-area: aside; /* aside 요소를 정의된 영역에 배치합니다. */
+    margin: 50px;
 }
 
 .main-container {
-  grid-area: main-container; /* main-container 요소를 정의된 영역에 배치합니다. */
-  padding: 80px;
+    grid-area: main-container; /* main-container 요소를 정의된 영역에 배치합니다. */
+    padding: 80px;
 }
 
 .sub-title {
-  display: inline-block;
-  font-size: var(--font-size-subtitle);
-  font-weight: 700;
-  letter-spacing: -.27px;
-  line-height: 22px;
-  margin-bottom: 12px;
-  vertical-align: top;
-  color: #004225;
+    display: inline-block;
+    font-size: var(--font-size-subtitle);
+    font-weight: 700;
+    letter-spacing: -0.27px;
+    line-height: 22px;
+    margin-bottom: 12px;
+    vertical-align: top;
 }
 
 ul {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .menu-link {
-  color: var(--color-sub);
-  font-size: var(--font-size-sm);
-  letter-spacing: -.15px;
-  line-height: 30px;
-
+    color: var(--color-sub);
+    font-size: var(--font-size-sm);
+    letter-spacing: -0.15px;
+    line-height: 30px;
 }
 
 .menu-link a {
-  text-decoration: none;
-  cursor: pointer;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .title {
-  color: var(--color-main);
-  margin-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 40px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 40px;
+}
+
+.table {
+  margin-top: 80px;
 }
