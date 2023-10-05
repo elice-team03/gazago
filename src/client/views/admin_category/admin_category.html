@@ -29,9 +29,15 @@
                 <div class="columns">
                     <aside class="side_menu column cus_flex_w_15">
                         <ul>
-                            <li class="cus_p_10"><a href="" class="c_black title is-6 cus_hover">카테고리 관리</a></li>
-                            <li class="cus_p_10"><a href="" class="c_gray title is-6 cus_hover">상품 관리</a></li>
-                            <li class="cus_p_10"><a href="" class="c_gray title is-6 cus_hover">주문 관리</a></li>
+                            <li class="cus_p_10">
+                                <a href="" class="cus_c_black subtitle is-5 cus_hover">카테고리 관리</a>
+                            </li>
+                            <li class="cus_p_10">
+                                <a href="" class="cus_c_gray subtitle is-5 cus_hover">상품 관리</a>
+                            </li>
+                            <li class="cus_p_10">
+                                <a href="" class="cus_c_gray subtitle is-5 cus_hover">주문 관리</a>
+                            </li>
                         </ul>
                     </aside>
                     <div class="category_box column">
@@ -43,21 +49,56 @@
                             </p>
                         </section>
                         <section class="table_btn is-flex is-justify-content-flex-end cus_mtb_30">
-                            <button class="button is-rounded is-small cus_btn_bc_gr is-size-7 cus_p_20">
-                                순서 일괄변경
-                            </button>
+                            <button class="category_btn button is-rounded is-small cus_btn_bc_gr">카테고리 등록</button>
+                        </section>
+                        <section class="category_modal">
+                            <div class="modal" id="myModal">
+                                <div class="modal-background"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title">카테고리 등록</p>
+                                        <button class="delete" aria-label="close" data-bulma-modal="close"></button>
+                                    </header>
+                                    <section class="modal-card-body">
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>중분류</p>
+                                            <div class="select">
+                                                <select class="cus_w_300">
+                                                    <option>전체보기</option>
+                                                    <option>텐트/타프</option>
+                                                    <option>침낭</option>
+                                                    <option>퍼니처</option>
+                                                    <option>주방/바베큐</option>
+                                                    <option>악세사리</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>소분류</p>
+                                            <input class="input cus_w_50" type="text" />
+                                        </div>
+                                    </section>
+                                    <footer class="modal-card-foot">
+                                        <button class="button is-rounded is-small cus_btn_bc_gr" type="submit">
+                                            등록하기
+                                        </button>
+                                        <button
+                                            class="button is-rounded is-small cus_btn_bc_red"
+                                            data-bulma-modal="close"
+                                        >
+                                            취소
+                                        </button>
+                                    </footer>
+                                </div>
+                            </div>
                         </section>
                         <section class="category_table columns cus_mtb_30">
                             <table class="table column is-full is-striped cus_display_table">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <label class="checkbox">
-                                                <input type="checkbox" />
-                                            </label>
-                                        </th>
-                                        <th class="cus_w_150 cus_text_align_center">순서</th>
-                                        <th class="cus_text_align_center">카테고리</th>
+                                        <th class="cus_text_align_center">No</th>
+                                        <th class="cus_text_align_center">중분류</th>
+                                        <th class="cus_text_align_center">소분류</th>
                                         <th class="cus_w_150 cus_text_align_center">상품수</th>
                                         <th class="cus_text_align_center">사용여부</th>
                                         <th class="cus_text_align_center">적용 및 삭제</th>
@@ -65,21 +106,10 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="cus_v_align_middle">
-                                            <label class="checkbox">
-                                                <input type="checkbox" />
-                                            </label>
-                                        </td>
-                                        <td class="cus_v_align_middle cus_text_align_center">
-                                            <i class="fa-solid fa-angle-up cus_font_25 cus_pr_10 cus_cur_point"></i>
-                                            <i class="fa-solid fa-angle-down cus_font_25 cus_pl_10 cus_cur_point"></i>
-                                        </td>
-                                        <td>
-                                            <input class="input is-rounded cus_w_100" type="text" />
-                                        </td>
-                                        <td>
-                                            <input class="input is-rounded cus_w_100" type="number" />
-                                        </td>
+                                        <th class="cus_text_align_center cus_v_align_middle">1</th>
+                                        <td class="cus_text_align_center cus_v_align_middle">텐트</td>
+                                        <td class="cus_text_align_center cus_v_align_middle">타프</td>
+                                        <td class="cus_text_align_center cus_v_align_middle">10</td>
                                         <td class="cus_v_align_middle">
                                             <div class="control cus_text_align_center">
                                                 <label class="radio">
@@ -92,31 +122,16 @@
                                                 </label>
                                             </div>
                                         </td>
-                                        <td class="cus_text_align_center">
-                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_gr">
-                                                적용
-                                            </button>
-                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_red">
-                                                삭제
-                                            </button>
+                                        <td class="cus_text_align_center cus_v_align_middle">
+                                            <button class="button is-rounded is-small cus_btn_bc_gr">적용</button>
+                                            <button class="button is-rounded is-small cus_btn_bc_red">삭제</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="cus_v_align_middle">
-                                            <label class="checkbox">
-                                                <input type="checkbox" />
-                                            </label>
-                                        </td>
-                                        <td class="cus_v_align_middle cus_text_align_center">
-                                            <i class="fa-solid fa-angle-up cus_font_25 cus_pr_10 cus_cur_point"></i>
-                                            <i class="fa-solid fa-angle-down cus_font_25 cus_pl_10 cus_cur_point"></i>
-                                        </td>
-                                        <td>
-                                            <input class="input is-rounded cus_w_100" type="text" />
-                                        </td>
-                                        <td>
-                                            <input class="input is-rounded cus_w_100" type="number" />
-                                        </td>
+                                        <th class="cus_text_align_center cus_v_align_middle">2</th>
+                                        <td class="cus_text_align_center cus_v_align_middle">텐트</td>
+                                        <td class="cus_text_align_center cus_v_align_middle">타프</td>
+                                        <td class="cus_text_align_center cus_v_align_middle">10</td>
                                         <td class="cus_v_align_middle">
                                             <div class="control cus_text_align_center">
                                                 <label class="radio">
@@ -130,12 +145,8 @@
                                             </div>
                                         </td>
                                         <td class="cus_text_align_center">
-                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_gr">
-                                                적용
-                                            </button>
-                                            <button class="button is-rounded is-size-7 cus_p_20 cus_btn_bc_red">
-                                                삭제
-                                            </button>
+                                            <button class="button is-rounded is-small cus_btn_bc_gr">적용</button>
+                                            <button class="button is-rounded is-small cus_btn_bc_red">삭제</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -146,5 +157,6 @@
             </div>
         </main>
         <footer></footer>
+        <script src="./admin_category.js"></script>
     </body>
 </html>
