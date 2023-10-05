@@ -79,15 +79,4 @@ router.post(
     })
 );
 
-//테스트용 라우터
-router.get('/auth', (req, res, next) => {
-    if (req.user) {
-        console.log('로그인 중');
-    } else {
-        console.log('로그아웃 중');
-    }
-    console.log(req.cookies);
-    res.end();
-});
-
 module.exports = router;
