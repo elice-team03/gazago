@@ -5,13 +5,18 @@ const CategorySchema = new Schema({
         type: Boolean,
         default: true,
     },
-    sequence: {
+    depth: {
         type: Number,
-        required: true,
+        default: 0,
     },
     name: {
         type: String,
         required: true,
+    },
+    parentCategory: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+        required: false,
     },
 });
 

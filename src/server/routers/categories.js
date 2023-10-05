@@ -7,15 +7,24 @@ const router = express.Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { name } = req.body;
+        const { name, parentCategoryId } = req.body;
 
+        console.log(name);
         if (!name) {
-            const error = new Error('카테고리명을 입력해주세요.');
+            const error = new Error('카테고리 명을 입력 해주세요.');
             error.status = 400;
             throw error;
         }
+        console.log('bye');
 
-        const result = await categoryService.addCategory(name);
+        let result;
+        if (!parentCategoryId) {
+            result = await categoryService.addParentCategory(name);
+        } else {
+            result = await categoryService.addCategory(name, parentCategoryId);
+        }
+
+        console.log('bye');
         res.status(201).json({
             code: 201,
             message: '카테고리 등록이 완료되었습니다.',

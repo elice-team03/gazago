@@ -2,21 +2,20 @@ const { mongoose } = require('mongoose');
 const { Category } = require('../db');
 
 class categoryService {
-    static async addCategory(name) {
-        let sequence = 1;
-
-        const existingCategory = await Category.findOne();
-        if (existingCategory) {
-            const maxSequenceCategory = await this.findCategoryMaxSequence();
-            sequence = maxSequenceCategory.sequence + 1;
+    static async addCategory(name, parentCategoryId) {
+        const parentCategory = await this.findCategory(parentCategoryId);
+        if (!parentCategory) {
+            const error = new Error('부모 카테고리를 찾을 수 없습니다.');
+            error.status = 400;
+            throw error;
         }
-
-        const newCategory = { name, sequence };
+        const newCategory = { depth: 1, name, parentCategory: parentCategoryId };
         return await Category.create(newCategory);
     }
 
-    static async findCategoryMaxSequence() {
-        return await Category.findOne().sort({ sequence: -1 }).limit(1);
+    static async addParentCategory(name) {
+        const newCategory = { name };
+        return await Category.create(newCategory);
     }
 
     static async findAllCategories() {
