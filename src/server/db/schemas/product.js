@@ -1,10 +1,7 @@
 const { Schema } = require('mongoose');
-const shortId = require('./types/short-id');
-const CategorySchema = require('./category');
 
 const ProductSchema = new Schema(
     {
-        shortId,
         name: {
             type: String,
             required: true,
@@ -15,21 +12,28 @@ const ProductSchema = new Schema(
         },
         color: {
             type: String,
-            required: true,
+            required: false,
         },
         price: {
             type: Number,
             required: true,
         },
-        thumbnail: {
+        thumbnailPath: {
             type: String,
             required: true,
         },
-        content: {
+        contentUsrFileName: {
             type: String,
             required: true,
         },
-        categories: [CategorySchema],
+        contentSrvFileName: {
+            type: String,
+            required: true,
+        },
+        category: {
+            type: Schema.Types.ObjectId,
+            ref: 'Category',
+        },
     },
     {
         timestamps: true,

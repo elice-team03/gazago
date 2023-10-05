@@ -1,8 +1,6 @@
 const { Schema } = require('mongoose');
-const shortId = require('./types/short-id');
 
 const UserSchema = new Schema({
-    shortId,
     email: {
         type: String,
         required: true,
@@ -20,7 +18,7 @@ const UserSchema = new Schema({
         ref: 'Delivery',
         index: true,
     },
-    wishLists: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+    wishList: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 });
 
 module.exports = UserSchema;
