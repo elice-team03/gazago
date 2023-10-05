@@ -34,14 +34,14 @@
       </div>
       <div class="input__box">
         <div class="input__label">배송지<span class="point">*</span></div>
-        <input class="input" type="text" style="width: 30%">
+        <input class="input" id="zipcode" type="text" style="width: 30%">
         <div class="input__btn--zipcode">우편번호 검색</div>
       </div>
       <div class="input__box--empty">
-        <input class="input" type="text" style="width: 80%">
+        <input class="input" id="address" type="text" style="width: 80%">
       </div>
       <div class="input__box--empty">
-        <input class="input" type="text" style="width: 80%">
+        <input class="input" id="detailAddress" type="text" style="width: 80%">
       </div>
       <div class="input__box">
         <div class="input__label">연락처1<span class="point">*</span></div>
@@ -58,12 +58,6 @@
         <input class="input" type="text" style="width: 10%">
         <div class="hipen">-</div>
         <input class="input" type="text" style="width: 10%">
-      </div>
-      <div class="notice">
-        <label class="checkbox">
-          <input type="checkbox">
-          기본배송지로 등록
-        </label>
       </div>
       <div class="notice">
         <div class="select is-normal">
@@ -157,6 +151,8 @@
       <button class="button is-medium is-fullwidth">결제하기</button>
     </div>
   </div>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="./order_page.js"></script>
 </body>
 
 </html>
