@@ -5,7 +5,7 @@ class deliveryService {
         const { title, receiver, code, address, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
-            title,
+            title: title || '',
             receiver,
             code,
             address,

@@ -9,19 +9,20 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { receiver, code, address, contact } = req.body;
+        const { title, receiver, code, address, contact } = req.body;
         if (!receiver || !code || !address || !contact) {
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });
         }
 
         // TODO: 구현예정) 비회원 로그인 시 주문가능 로직
-        console.log(req.user);
+
         // 로그인이 된 상황만 전제, 로그아웃 시 에러
         const loggedInUser = req.user.user;
+
         let delivery = null;
         if (!loggedInUser.delivery) {
             delivery = await deliveryService.addDeliveryAndSetUserDelivery({
-                title,
+                title: title || '',
                 receiver,
                 code,
                 address,
