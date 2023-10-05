@@ -46,7 +46,7 @@ router.post(
     asyncHandler(async (req, res, next) => {
         const { email, password } = req.body;
 
-        if (email.length === 0 || password.length === 0) {
+        if (!email || !password) {
             throw Object.assign(new Error('이메일 혹은 패스워드를 입력해주세요'), { status: 400 });
         }
 
@@ -70,10 +70,6 @@ router.post(
     asyncHandler(async (req, res, next) => {
         res.clearCookie('token');
 
-        if (req.user) {
-            throw Object.assign(new Error('로그인을 실패하였습니다'), { status: 400 });
-        }
-
         res.status(200).json({
             code: 200,
             message: '로그아웃이 완료되었습니다',
@@ -89,6 +85,7 @@ router.get('/auth', (req, res, next) => {
     } else {
         console.log('로그아웃 중');
     }
+    console.log(req.cookies);
     res.end();
 });
 

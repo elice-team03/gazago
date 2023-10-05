@@ -14,8 +14,8 @@ class userService {
     static async findUser(_id) {
         return await User.findById(_id);
     }
-    static async findOneUser(userInform) {
-        return await User.findOne({ email: userInform });
+    static async findOneUser(email) {
+        return await User.findOne({ email: email });
     }
 
     static async removeUser(_id) {
@@ -43,6 +43,7 @@ class userService {
         }
         //토큰 지속시간 추후 설정예정
         setUserToken(res, checkedUser);
+        return checkedUser.email;
     }
 }
 
