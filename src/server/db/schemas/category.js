@@ -1,8 +1,6 @@
 const { Schema } = require('mongoose');
-const shortId = require('./types/short-id');
 
 const CategorySchema = new Schema({
-    shortId,
     useYn: {
         type: Boolean,
         default: true,
