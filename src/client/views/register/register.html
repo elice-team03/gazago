@@ -4,10 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>gazago</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
         <link rel="stylesheet" href="./register.css" />
     </head>
     <body>
-        <section class="center">
+        <section class="center container is-widescreen">
             <h1 class="logo">
                 <img src="../login/gazagologo.png" alt="logo" />
             </h1>
@@ -20,13 +21,13 @@
                     <!-- <p>인증</p> -->
                     <input type="text" name="userMail" id="textInput" placeholder="예) gazago@gazago.com" required />
                     <span></span>
-                    <button class="btn">인증요청</button>
+                    <button class="btn button is-small is-rounded">인증요청</button>
                 </div>
                 <div class="text_filed">
                     <label for="authCode">인증번호*</label>
                     <input type="text" name="authCode" required />
                     <span></span>
-                    <button class="btn">인증하기</button>
+                    <button class="btn button is-small is-rounded">인증하기</button>
                 </div>
                 <div class="text_filed">
                     <label for="password">비밀번호*</label>
