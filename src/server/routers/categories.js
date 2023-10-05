@@ -63,6 +63,21 @@ router.get(
     })
 );
 
+router.patch(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        const categoryId = req.params.id;
+        const useYn = req.body.useYn;
+
+        const result = await categoryService.modifyCategory(categoryId, useYn);
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
 router.delete(
     '/:id',
     asyncHandler(async (req, res, next) => {
