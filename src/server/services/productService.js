@@ -1,4 +1,5 @@
 const path = require('path');
+const { mongoose } = require('mongoose');
 const { Product } = require('../db');
 const { categoryService } = require('./categoryService');
 const { uploadFile } = require('../utils/file-upload');
