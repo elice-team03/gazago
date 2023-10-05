@@ -5,6 +5,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
+const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
 
 const viewsRotuer = require('./src/client/routers/views');
 const indexRouter = require('./src/server/routers/index');
@@ -33,11 +35,15 @@ app.listen(port, () => {
 app.set('views', path.join(__dirname, 'src', 'client', 'views'));
 app.set('view engine', 'jade');
 
+require('./src/server/passport')();
+app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(getUserFromJwt);
 
 app.use('/', viewsRotuer);
 

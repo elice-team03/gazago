@@ -33,7 +33,6 @@ router.get(
     '/',
     asyncHandler(async (req, res, next) => {
         const result = await productService.findAllProducts();
-
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
@@ -47,7 +46,6 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const _id = req.params.id;
         const result = await productService.findProduct(_id);
-
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
@@ -61,7 +59,6 @@ router.delete(
     asyncHandler(async (req, res, next) => {
         const _id = req.params.id;
         const result = await productService.removeProduct(_id);
-
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
