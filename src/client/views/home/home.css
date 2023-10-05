@@ -9,9 +9,8 @@ a {
     color: black;
 }
 
-#wrap {
-    
-    justify-content: center;
+.container {
+    width: 1152px;
 }
 
 .slide__container {
@@ -26,7 +25,7 @@ a {
 }
 
 .slide__box img {
-    width: 100%;
+    width: 100vw;
 }
 
 .slide__wraper {
@@ -36,7 +35,6 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100dvh;
 }
 .main {
     display: flex;
@@ -47,7 +45,7 @@ a {
 }
 
 .main__content__img-box-1 img {
-    width: 600px;
+    width: 540px;
     height: 700px;
     object-fit: cover;
 }
@@ -95,7 +93,7 @@ campers-pick__wrap {
 
 .campers-pick__p {
     text-align: center;
-    font-family: 'Pretendard Variable';
+    font-family: 'Noto Sans KR', sans-serif;
     font-weight: bolder;
     font-size: 60px;
     color: #004225;
@@ -125,5 +123,5 @@ campers-pick__wrap {
 .item-price-box {
     text-align: center;
     font-size: 15px;
-    font-weight: 100;
+    font-weight: 300;
 }
