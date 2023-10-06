@@ -2,7 +2,7 @@ const path = require('path');
 const { mongoose } = require('mongoose');
 const { Product } = require('../db');
 const { categoryService } = require('./categoryService');
-const { uploadFile } = require('../utils/file-upload');
+const { uploadFile, deleteFile } = require('../utils/file-upload');
 
 class productService {
     static async addProduct({ newProduct, contentFile }) {
@@ -49,6 +49,38 @@ class productService {
 
     static async getTotalProductsCount() {
         return await Product.countDocuments({}).exec();
+    }
+
+    static async modifyProduct({ _id, productInfo, contentFile }) {
+        const product = await this.findProduct(_id);
+        if (!product) {
+            const error = new Error('상품을 찾을 수 없습니다.');
+            error.status = 404;
+            throw error;
+        }
+
+        if (contentFile) {
+            const uploadDirectory = path.join('public', 'upload', 'product');
+            const contentSrvFileName = product.contentSrvFileName;
+            await deleteFile(contentSrvFileName, uploadDirectory);
+
+            const [contentInfo] = await Promise.all([uploadFile(contentFile, uploadDirectory)]);
+            productInfo.contentUsrFileName = contentInfo.userFileName;
+            productInfo.contentSrvFileName = contentInfo.serverFileName;
+        }
+
+        const category = await categoryService.findCategory(productInfo.categoryId);
+        if (!category) {
+            const error = new Error('카테고리를 찾을 수 없습니다.');
+            error.status = 400;
+            throw error;
+        }
+        productInfo.category = category;
+
+        return await Product.findByIdAndUpdate(_id, productInfo, {
+            new: true,
+            runValidators: true,
+        });
     }
 
     static async removeProduct(id) {

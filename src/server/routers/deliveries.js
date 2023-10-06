@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
 
-/* GET users listing. */
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
