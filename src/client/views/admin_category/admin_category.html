@@ -20,6 +20,7 @@
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet"
         />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <title>admin_category</title>
     </head>
     <body>
@@ -30,13 +31,23 @@
                     <aside class="side_menu column cus_flex_w_15">
                         <ul>
                             <li class="cus_p_10">
-                                <a href="" class="cus_c_black subtitle is-5 cus_hover">카테고리 관리</a>
+                                <a
+                                    href="http://localhost:5001/admin/category"
+                                    class="cus_c_black subtitle is-5 cus_hover"
+                                    >카테고리 관리</a
+                                >
                             </li>
                             <li class="cus_p_10">
-                                <a href="" class="cus_c_gray subtitle is-5 cus_hover">상품 관리</a>
+                                <a
+                                    href="http://localhost:5001/admin/product/"
+                                    class="cus_c_gray subtitle is-5 cus_hover"
+                                    >상품 관리</a
+                                >
                             </li>
                             <li class="cus_p_10">
-                                <a href="" class="cus_c_gray subtitle is-5 cus_hover">주문 관리</a>
+                                <a href="http://localhost:5001/admin/order/" class="cus_c_gray subtitle is-5 cus_hover"
+                                    >주문 관리</a
+                                >
                             </li>
                         </ul>
                     </aside>
@@ -49,7 +60,9 @@
                             </p>
                         </section>
                         <section class="table_btn is-flex is-justify-content-flex-end cus_mtb_30">
-                            <button class="category_btn button is-rounded is-small cus_btn_bc_gr">카테고리 등록</button>
+                            <button id="category_btn_add" class="button is-rounded is-small cus_btn_bc_gr">
+                                카테고리 등록
+                            </button>
                         </section>
                         <section class="category_modal">
                             <div class="modal" id="myModal">
@@ -63,23 +76,31 @@
                                         <div class="is-flex is-justify-content-space-between cus_pb_20">
                                             <p>중분류</p>
                                             <div class="select">
-                                                <select class="cus_w_300">
-                                                    <option>전체보기</option>
-                                                    <option>텐트/타프</option>
-                                                    <option>침낭</option>
-                                                    <option>퍼니처</option>
-                                                    <option>주방/바베큐</option>
-                                                    <option>악세사리</option>
+                                                <select class="cus_w_300" id="parentCategorySel">
+                                                    <option value="651e5fbcbdfd9dbe2858c888">텐트/타프</option>
+                                                    <option value="침낭">침낭</option>
+                                                    <option value="퍼니처" selected>퍼니처</option>
+                                                    <option value="주방/바베큐">주방/바베큐</option>
+                                                    <option value="악세사리">악세사리</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="is-flex is-justify-content-space-between cus_pb_20">
                                             <p>소분류</p>
-                                            <input class="input cus_w_50" type="text" />
+                                            <input
+                                                class="input cus_w_50"
+                                                type="text"
+                                                id="childCategoryInp"
+                                                name="childCategoryInp"
+                                            />
                                         </div>
                                     </section>
                                     <footer class="modal-card-foot">
-                                        <button class="button is-rounded is-small cus_btn_bc_gr" type="submit">
+                                        <button
+                                            id="category_btn_save"
+                                            class="button is-rounded is-small cus_btn_bc_gr"
+                                            type="button"
+                                        >
                                             등록하기
                                         </button>
                                         <button
@@ -104,52 +125,7 @@
                                         <th class="cus_text_align_center">적용 및 삭제</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <th class="cus_text_align_center cus_v_align_middle">1</th>
-                                        <td class="cus_text_align_center cus_v_align_middle">텐트</td>
-                                        <td class="cus_text_align_center cus_v_align_middle">타프</td>
-                                        <td class="cus_text_align_center cus_v_align_middle">10</td>
-                                        <td class="cus_v_align_middle">
-                                            <div class="control cus_text_align_center">
-                                                <label class="radio">
-                                                    <input type="radio" name="viewYn" />
-                                                    보임
-                                                </label>
-                                                <label class="radio">
-                                                    <input type="radio" name="viewYn" />
-                                                    숨김
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="cus_text_align_center cus_v_align_middle">
-                                            <button class="button is-rounded is-small cus_btn_bc_gr">적용</button>
-                                            <button class="button is-rounded is-small cus_btn_bc_red">삭제</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="cus_text_align_center cus_v_align_middle">2</th>
-                                        <td class="cus_text_align_center cus_v_align_middle">텐트</td>
-                                        <td class="cus_text_align_center cus_v_align_middle">타프</td>
-                                        <td class="cus_text_align_center cus_v_align_middle">10</td>
-                                        <td class="cus_v_align_middle">
-                                            <div class="control cus_text_align_center">
-                                                <label class="radio">
-                                                    <input type="radio" name="viewYn" />
-                                                    보임
-                                                </label>
-                                                <label class="radio">
-                                                    <input type="radio" name="viewYn" />
-                                                    숨김
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="cus_text_align_center">
-                                            <button class="button is-rounded is-small cus_btn_bc_gr">적용</button>
-                                            <button class="button is-rounded is-small cus_btn_bc_red">삭제</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="category_list_tbody" />
                             </table>
                         </section>
                     </div>
