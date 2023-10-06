@@ -1,3 +1,6 @@
+import * as Api from '../api.js';
+// import * as Api = require('../api.js');
+
 const registerForm = document.querySelector('#form-container');
 const emailInput = document.querySelector('#email-input');
 const passwordInput = document.querySelector('#password-input');
@@ -29,9 +32,8 @@ const validateRegister = () => {
     const email = emailInput.value;
     const password = passwordInput.value;
     const confirmedPassword = confirmedPwInput.value;
-
     // 이메일 유효성 검사
-    const validEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const validEmail = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
     if (!validEmail.test(email)) {
         setError(emailInput, '이메일 주소를 정확히 입력해주세요.');
     } else {
@@ -58,8 +60,28 @@ const validateRegister = () => {
     }
 };
 
-registerForm.addEventListener('submit', (event) => {
+registerForm.addEventListener('submit', async function (event) {
     event.preventDefault();
     validateRegister();
-    // 필요에 따라 서버로 데이터를 제출하는 코드를 추가하세요.
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    try {
+        const data = { email, password };
+        const join = await Api.post('/api/users/register', data);
+
+        // 응답을 확인하고 JSON 파싱
+        if (!join.ok) {
+            const errorContent = await join.json();
+            const { msg } = errorContent;
+
+            // 에러 메시지를 반환하는 대신 에러 객체를 던집니다.
+            throw new Error(msg);
+        }
+        const result = await join.json();
+        console.log(result);
+        return result;
+    } catch (error) {
+        throw error;
+    }
 });
