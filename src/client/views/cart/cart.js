@@ -59,15 +59,18 @@ quantities.forEach((item, idx) => {
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 const deliveryPrice = document.getElementById('total__price--delivery');
 const totalPrice = document.getElementById('total__price');
-
+//총 상품 금액 계산하는 함수
 function calculateTotalPrice() {
     let result = 0;
     let delivery = 0;
     checkboxes.forEach((item, idx) => {
         if (idx !== 0) {
+            //각 상품들마다 상품 가격 정보를 가져옴
             const numberPrice = Number(prices[idx - 1].innerHTML.replace('원', '').replace(',', ''));
+            //체크박스가 선택되었을때 총 상품 금액에 추가됨
             if (item.checked === true) {
                 result += numberPrice;
+                //총 상품금액 80000원 미만일 때 배송비 3000원 부과
                 if (result < 80000) delivery = 3000;
                 else delivery = 0;
             }
