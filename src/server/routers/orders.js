@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { orderService } = require('../services/orderService');
 const { deliveryService } = require('../services/deliveryService');
 const asyncHandler = require('../utils/async-handler');
+const { userService } = require('../services/userService');
 
 const router = Router();
 
@@ -9,32 +10,37 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
+        let userWantingToBuy = null;
+        let guest = null;
+
+        if (!req.user) {
+            const { userName, email } = req.body;
+            guest = await userService.signUpGuest({ userName, email });
+        }
+
+        req.user ? (userWantingToBuy = req.user.user) : (userWantingToBuy = guest);
+
         const { title, receiver, code, address, contact } = req.body;
         if (!receiver || !code || !address || !contact) {
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });
         }
 
-        // TODO: 구현예정) 비회원 로그인 시 주문가능 로직
-
-        // 로그인이 된 상황만 전제, 로그아웃 시 에러
-        const loggedInUser = req.user.user;
-
         let delivery = null;
-        if (!loggedInUser.delivery) {
+        if (!userWantingToBuy.delivery) {
             delivery = await deliveryService.addDeliveryAndSetUserDelivery({
                 title: title || '',
                 receiver,
                 code,
                 address,
                 contact,
-                loggedInUser,
+                userWantingToBuy,
             });
         } else {
-            delivery = await deliveryService.findDeliveryById(loggedInUser.delivery);
+            delivery = await deliveryService.findDeliveryById(userWantingToBuy.delivery);
         }
-
+        //TODO: 궁금한 점) productIds는 mongoose id를 클라이언트에서 직접 입력하는지 궁금합니다
         const { comment, productIds } = req.body;
-        const result = await orderService.addOrder({ comment, loggedInUser, delivery, productIds });
+        const result = await orderService.addOrder({ comment, userWantingToBuy, delivery, productIds });
 
         res.status(201).json({
             code: 201,

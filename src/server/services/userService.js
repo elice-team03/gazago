@@ -56,13 +56,28 @@ class userService {
         return user;
     }
 
+    static async signUpGuest(userInform) {
+        const { email, userName } = userInform;
+        const checkEmail = await userService.findOneUser(email);
+
+        if (checkEmail) {
+            throw Object.assign(new Error('이미 등록된 이메일입니다'), { status: 400 });
+        }
+        //TODO: 임시로 비밀번호 없이 회원가입
+        return await userService.addUser({
+            email,
+            userName,
+            role: 'guest',
+        });
+    }
+
     static async signInUser(checkedUser, password, res) {
         const hashedPassword = checkedUser.password;
         const checkPassword = await bcrypt.compare(password, hashedPassword);
         if (!checkPassword) {
             throw Object.assign(new Error('이메일 혹은 패스워드가 일치하지 않습니다'), { status: 400 });
         }
-        //토큰 지속시간 추후 설정예정
+
         setUserToken(res, checkedUser);
         return checkedUser.email;
     }

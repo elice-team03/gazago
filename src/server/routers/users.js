@@ -20,13 +20,6 @@ router.post(
             throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
         }
 
-        // TODO: 원할한 테스트를 위해 잠시 주석처리 하겠습니다
-        // const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
-
-        // if (!regExp.test(password)) {
-        //     throw Object.assign(new Error('비밀번호 조건에 맞지 않습니다'), { status: 400 });
-        // }
-
         const result = await userService.signUpUser({ email, password });
         res.status(201).json({
             code: 201,
@@ -79,9 +72,6 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        if (!req.user) {
-            throw Object.assign(new Error('로그인이 필요합니다'), { status: 401 });
-        }
         const loggedInUser = req.user.user;
         const id = loggedInUser._id;
         const user = await userService.findUser(id);

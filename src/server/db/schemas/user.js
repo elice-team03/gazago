@@ -6,9 +6,13 @@ const UserSchema = new Schema(
             type: String,
             required: true,
         },
+        userName: {
+            type: String,
+        },
         password: {
             type: String,
-            required: true,
+            // TODO: 비회원 주문시 비밀번호 필요여부를 아직 몰라 required: false 해놓겠습니다
+            required: false,
         },
         role: {
             type: String,
