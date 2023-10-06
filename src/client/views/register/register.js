@@ -1,5 +1,4 @@
 import * as Api from '../api.js';
-// import * as Api = require('../api.js');
 
 const registerForm = document.querySelector('#form-container');
 const emailInput = document.querySelector('#email-input');
@@ -32,6 +31,7 @@ const validateRegister = () => {
     const email = emailInput.value;
     const password = passwordInput.value;
     const confirmedPassword = confirmedPwInput.value;
+
     // 이메일 유효성 검사
     const validEmail = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
     if (!validEmail.test(email)) {
@@ -58,13 +58,14 @@ const validateRegister = () => {
     } else {
         setSuccess(confirmedPwInput);
     }
+
+    // 업데이트된 email과 password를 반환
+    return { email, password };
 };
 
 registerForm.addEventListener('submit', async function (event) {
     event.preventDefault();
-    validateRegister();
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    const { email, password } = validateRegister();
 
     try {
         const data = { email, password };
@@ -75,7 +76,6 @@ registerForm.addEventListener('submit', async function (event) {
             const errorContent = await join.json();
             const { msg } = errorContent;
 
-            // 에러 메시지를 반환하는 대신 에러 객체를 던집니다.
             throw new Error(msg);
         }
         const result = await join.json();
