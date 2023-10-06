@@ -18,7 +18,7 @@ class orderService {
 
         const order = await Order.create(buildOrder);
 
-        await userService.findUserByIdAndPushNewOrderId(loggedInUser._id, order._id);
+        await userService.addUserOrder(loggedInUser._id, order._id);
 
         return order;
     }
@@ -27,8 +27,8 @@ class orderService {
         return await Order.findById(_id);
     }
 
-    static async findByOrderer(ordererId) {
-        return await Order.find({ orderer: ordererId });
+    static async findByOrderer(orderUserId) {
+        return await Order.find({ orderUserId: orderUserId });
     }
 
     static async removeorder(_id) {
