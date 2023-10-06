@@ -31,16 +31,20 @@ class deliveryService {
     }
 
     static async findDeliveryAndUpdate(changedDelivery) {
-        console.log(changedDelivery);
-        // const { id, contact, code, address } = changedDelivery;
-        // return await Delivery.findByIdAndUpdate({ _id: id }, { updatedInformName: content });
+        const { contact, code, address, id } = changedDelivery;
+        await Delivery.updateOne(
+            { _id: id },
+            {
+                contact: contact,
+                code: code,
+                address: address,
+            }
+            //업데이트 후 값이 안 담겨서 일단 다시 DB에서 불러옵니다.
+        );
+
+        return await Delivery.findById({ _id: id });
+
+        //
     }
-
-    // static async changeUpdatedInform(changedDelivery) {
-    //     const { updatedInformName, contact = null, code = null, address = null } = changedDelivery;
-    //     const delivery = await deliveryService.findDeliveryAndUpdate(changedDelivery);
-    //     return delivery;
-    // }
 }
-
 module.exports = { deliveryService };
