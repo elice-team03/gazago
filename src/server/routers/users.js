@@ -3,6 +3,7 @@ const router = express.Router();
 const { orderService } = require('../services/orderService');
 const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
+const { deliveryService } = require('../services/deliveryService');
 
 /** 회원가입 API */
 router.post(
@@ -93,4 +94,30 @@ router.get(
     })
 );
 
+/** 회원정보 변경 API */
+router.patch(
+    '/',
+    asyncHandler(async (req, res, next) => {
+        // delivery 없는 유저는 변경이 가능하게
+
+        const { contact, code, address } = req.body;
+
+        console.log(req.body);
+
+        const loggedInUser = req.user.user;
+
+        const id = loggedInUser.delivery;
+
+        const changedDelivery = await deliveryService.findDeliveryAndUpdate({
+            id,
+            contact,
+            code,
+            address,
+        });
+
+        // console.log(delivery);
+
+        res.end();
+    })
+);
 module.exports = router;
