@@ -83,13 +83,23 @@ router.get(
             throw Object.assign(new Error('로그인이 필요합니다'), { status: 401 });
         }
         const loggedInUser = req.user.user;
-        const { email, _id, wishList, delivery } = loggedInUser;
-        const orders = await orderService.findByOrderer(_id);
-        const deliveyInform = await deliveryService.findDeliveryById(delivery);
+        const id = loggedInUser._id;
+        const user = await userService.findUser(id);
+        const { _id, email, role, wishList, delivery, orders, updatedAt, createdAt } = user;
+        yInform = await deliveryService.findDeliveryById(delivery);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: { email, _id, wishList, orders, deliveyInform },
+            data: {
+                _id,
+                email,
+                role,
+                wishList,
+                delivery,
+                orders,
+                updatedAt,
+                createdAt,
+            },
         });
     })
 );

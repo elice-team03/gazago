@@ -12,7 +12,7 @@ class userService {
     }
 
     static async findUser(_id) {
-        return await User.findById(_id);
+        return await User.findById(_id).populate('orders').populate('delivery').populate('wishList');
     }
     static async findOneUser(email) {
         return await User.findOne({ email: email });
