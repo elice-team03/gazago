@@ -49,8 +49,9 @@
     align-items: center;
 }
 .counter__number {
-    padding: 0 18px;
+    width: 44px;
     height: 24px;
+    text-align: center;
     display: flex;
     align-items: center;
     border: 1px solid #ebebeb;
