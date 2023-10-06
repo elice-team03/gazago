@@ -10,7 +10,6 @@ async function uploadFile(file, uploadDirectory) {
     const serverFileName = `${nanoid()}-${file.name}`;
     const filePath = path.join(uploadDirectory, serverFileName);
 
-    console.log(file.name);
     return new Promise((resolve, reject) => {
         file.mv(filePath, (err) => {
             if (err) {
