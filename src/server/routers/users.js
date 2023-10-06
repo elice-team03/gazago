@@ -80,16 +80,17 @@ router.get(
     '/',
     asyncHandler(async (req, res, next) => {
         if (!req.user) {
-            throw Object.assign(new Error('로그인이 필요합니다'), { status: 400 });
+            throw Object.assign(new Error('로그인이 필요합니다'), { status: 401 });
         }
-
-        const { email, _id, wishList } = req.user.user;
+        const loggedInUser = req.user.user;
+        console.log(loggedInUser);
+        const { email, _id, wishList, delivery } = loggedInUser;
         const orders = await orderService.findByOrderer(_id);
-
+        const deliveries = await deliveryService.findDeliveryById(delivery);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: { email, _id, wishList, orders },
+            data: { email, _id, wishList, orders, deliveries },
         });
     })
 );

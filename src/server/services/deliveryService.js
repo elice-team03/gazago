@@ -18,7 +18,7 @@ class deliveryService {
         return delivery;
     }
 
-    static async findDelivery(_id) {
+    static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
 
