@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Order } = require('../db');
+const { userService } = require('./userService');
 
 class orderService {
     static async addOrder(newOrder) {
@@ -15,15 +16,19 @@ class orderService {
             products: productIds,
         });
 
-        return await Order.create(buildOrder);
+        const order = await Order.create(buildOrder);
+
+        await userService.addUserOrder(loggedInUser._id, order._id);
+
+        return order;
     }
 
     static async findOrder(_id) {
         return await Order.findById(_id);
     }
 
-    static async findByOrderer(ordererId) {
-        return await Order.find({ orderer: ordererId });
+    static async findByOrderer(orderUserId) {
+        return await Order.find({ orderUserId: orderUserId });
     }
 
     static async removeOrder(_id) {
