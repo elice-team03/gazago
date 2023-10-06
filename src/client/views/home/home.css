@@ -13,41 +13,24 @@ a {
     width: 1152px;
 }
 
-.slide__container {
-    
-    width: 300%;
-    display: flex;
-    transform: translateX();
-    transition: all 1s;
+.swiper-pagination-bullet {
+    width: 40px;
+    height: 3px;
+    border-radius: 0;
+    background-color: #ffffff;
 }
 
-.slide__box {
-    width: 100vw;
+.swiper-pagination-bullet-active {
+    background-color: #ffffff;
+    width: 70px;
 }
 
-.slide__box img {
-    width: 100vw;
+.swiper-button-next, 
+.swiper-button-prev {
+    color: #ffffff;
 }
 
-.slide__wraper {
-    position: relative;
-    overflow: hidden;
-}
 
-.fa-chevron-right {
-    font-size: 70px;
-    position: absolute;
-    z-index: 10;
-    left: 92%;
-    bottom: 50%;
-}
-.fa-chevron-left {
-    font-size: 70px;
-    position: absolute;
-    z-index: 10;
-    left: 8%;
-    bottom: 50%;
-}
 
 .main__wrap {
     display: flex;
