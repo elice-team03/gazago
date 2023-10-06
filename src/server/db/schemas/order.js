@@ -12,6 +12,10 @@ const OrderSchema = new Schema(
             type: String,
             required: true,
         },
+        totalAmount: {
+            type: Number,
+            required: true,
+        },
         orderUserId: {
             type: Schema.Types.ObjectId,
             ref: 'User',

@@ -33,8 +33,14 @@ router.post(
             delivery = await deliveryService.findDeliveryById(loggedInUser.delivery);
         }
 
-        const { comment, productIds } = req.body;
-        const result = await orderService.addOrder({ comment, loggedInUser, delivery, productIds });
+        const { comment, totalAmount, productIds } = req.body;
+        const result = await orderService.addOrder({
+            comment,
+            totalAmount,
+            loggedInUser,
+            delivery,
+            productIds,
+        });
 
         res.status(201).json({
             code: 201,
