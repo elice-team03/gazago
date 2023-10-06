@@ -34,6 +34,7 @@ async function get(endpoint, params = '') {
         const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
+                'Content-Type': 'application/json',
                 // Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
