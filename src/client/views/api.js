@@ -26,7 +26,7 @@ async function post(endpoint, data) {
     }
 }
 
-// API GETg
+// API GET
 async function get(endpoint, params = '') {
     try {
         const apiUrl = `${endpoint}/${params}`;
@@ -34,7 +34,7 @@ async function get(endpoint, params = '') {
         const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
 
