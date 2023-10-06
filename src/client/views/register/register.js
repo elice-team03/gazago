@@ -67,21 +67,50 @@ registerForm.addEventListener('submit', async function (event) {
     event.preventDefault();
     const { email, password } = validateRegister();
 
-    try {
-        const data = { email, password };
-        const join = await Api.post('/api/users/register', data);
 
-        // 응답을 확인하고 JSON 파싱
-        if (!join.ok) {
-            const errorContent = await join.json();
-            const { msg } = errorContent;
+    const inputValue = { email, password };
+    const data = JSON.stringify(inputValue);
 
-            throw new Error(msg);
-        }
-        const result = await join.json();
-        console.log(result);
-        return result;
-    } catch (error) {
-        throw error;
-    }
+    fetch('http://localhost:5001/api/users/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: data,
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            if(result.code === 201) {
+                window.location.href = '../login';
+            } else {
+                console.log(result.message);
+            }
+        })
+        .catch((e) => console.err(e));
+
+
 });
+
+
+// registerForm.addEventListener('submit', async function (event) {
+//     event.preventDefault();
+//     const { email, password } = validateRegister();
+
+//     try {
+//         const data = { email, password };
+//         const join = await Api.post('/api/users/register', data);
+
+//         // 응답을 확인하고 JSON 파싱
+//         if (!join.ok) {
+//             const errorContent = await join.json();
+//             const { msg } = errorContent;
+
+//             throw new Error(msg);
+//         }
+//         const result = await join.json();
+//         console.log(result.message);
+//         return result;
+//     } catch (error) {
+//         throw error;
+//     }
+// });
