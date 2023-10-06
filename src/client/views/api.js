@@ -4,7 +4,7 @@ async function post(endpoint, data) {
         const apiUrl = endpoint;
         const dataJson = JSON.stringify(data);
 
-        // HTTP POST 요청 보내기
+        // HTTP POST 요청
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -30,7 +30,7 @@ async function post(endpoint, data) {
 async function get(endpoint, params = '') {
     try {
         const apiUrl = `${endpoint}/${params}`;
-        // HTTP GET 요청 보내기
+        // HTTP GET 요청
         const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
