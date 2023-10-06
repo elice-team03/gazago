@@ -30,7 +30,7 @@ router.post(
                 loggedInUser,
             });
         } else {
-            delivery = await deliveryService.findDelivery(loggedInUser.delivery);
+            delivery = await deliveryService.findDeliveryById(loggedInUser.delivery);
         }
 
         const { comment, productIds } = req.body;
