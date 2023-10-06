@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
+const cors = require('cors');
 
 const viewsRotuer = require('./src/client/routers/views');
 const indexRouter = require('./src/server/routers/index');
@@ -18,7 +19,7 @@ const ordersRouter = require('./src/server/routers/orders');
 
 const app = express();
 app.use(fileUpload());
-
+app.use(cors());
 // MongoDB connect
 require('dotenv').config();
 const port = process.env.PORT || 5001;
