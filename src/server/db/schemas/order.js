@@ -2,16 +2,16 @@ const { Schema } = require('mongoose');
 const shortId = require('./types/short-id');
 
 const OrderSchema = new Schema({
-    shortId,
+    orderNumber: shortId,
     status: {
         type: String,
-        required: true,
+        default: '주문완료',
     },
     comment: {
         type: String,
         required: true,
     },
-    orderer: {
+    orderUserId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
@@ -23,7 +23,7 @@ const OrderSchema = new Schema({
         required: true,
         index: true,
     },
-    products: [[{ type: Schema.Types.ObjectId, ref: 'Product' }]],
+    products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 });
 
 module.exports = OrderSchema;

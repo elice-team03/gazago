@@ -1,28 +1,29 @@
 {
-  "name": "shopping-project",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "start": "nodemon ./bin/www"
-  },
-  "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "http-errors": "~1.6.3",
-    "jade": "^0.29.0",
-    "mongodb": "^6.1.0",
-    "mongoose": "^7.5.3",
-    "morgan": "~1.9.1",
-    "nanoid": "^3.3.6",
-    "nodemon": "^3.0.1"
-  },
-  "devDependencies": {
-    "prettier": "3.0.3"
-  },
-  "description": "",
-  "main": ".prettierrc.js",
-  "author": "",
-  "license": "ISC"
+    "name": "shopping-project",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "start": "nodemon ./bin/www"
+    },
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "express-fileupload": "^1.4.1",
+        "http-errors": "~1.6.3",
+        "jade": "^0.29.0",
+        "jsonwebtoken": "^9.0.2",
+        "mongodb": "^6.1.0",
+        "mongoose": "^7.5.3",
+        "morgan": "~1.9.1",
+        "nanoid": "^3.3.6",
+        "nodemon": "^3.0.1",
+        "passport": "^0.6.0",
+        "passport-jwt": "^4.0.1"
+    },
+    "devDependencies": {
+        "prettier": "3.0.3"
+    }
 }

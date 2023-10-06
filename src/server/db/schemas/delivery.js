@@ -1,9 +1,10 @@
 const { Schema } = require('mongoose');
-const shortId = require('./types/short-id');
 
 const DeliverySchema = new Schema({
-    shortId,
     title: {
+        type: String,
+    },
+    receiver: {
         type: String,
         required: true,
     },
@@ -21,10 +22,6 @@ const DeliverySchema = new Schema({
     },
     subcontact: {
         type: Number,
-    },
-    defaultYn: {
-        type: Boolean,
-        default: false,
     },
 });
 
