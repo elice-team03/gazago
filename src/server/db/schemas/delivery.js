@@ -3,6 +3,9 @@ const { Schema } = require('mongoose');
 const DeliverySchema = new Schema({
     title: {
         type: String,
+    },
+    receiver: {
+        type: String,
         required: true,
     },
     code: {
@@ -19,10 +22,6 @@ const DeliverySchema = new Schema({
     },
     subcontact: {
         type: Number,
-    },
-    defaultYn: {
-        type: Boolean,
-        default: false,
     },
 });
 

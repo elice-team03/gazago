@@ -13,7 +13,7 @@ const UserSchema = new Schema({
         type: String,
         default: 'user',
     },
-    defaultDelivery: {
+    delivery: {
         type: Schema.Types.ObjectId,
         ref: 'Delivery',
         index: true,
