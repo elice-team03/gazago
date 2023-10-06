@@ -43,12 +43,19 @@ body {
 .counter {
     display: flex;
     border: 1px solid #ebebeb;
-    padding: 2px 12px;
-    gap: 14px;
+    padding: 2px 8px;
 }
 .counter__minus, .counter__plus, .manage__delete {
     font-weight: bold;
     cursor: pointer;
+}
+.counter__number {
+    width: 30px;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    font-size: 16px;
+    padding: 0px !important;
 }
 .total {
     display: flex;
