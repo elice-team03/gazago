@@ -13,7 +13,7 @@ async function post(endpoint, data) {
             },
             body: dataJson,
         });
-        // 응답을 확인하고 JSON 파싱
+
         if (!response.ok) {
             const errorContent = await response.json();
             const { msg } = errorContent;
@@ -37,7 +37,7 @@ async function get(endpoint, params = '') {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-        // 응답을 확인하고 JSON 파싱
+
         if (!response.ok) {
             const errorContent = await response.json();
             const { msg } = errorContent;
@@ -51,4 +51,3 @@ async function get(endpoint, params = '') {
 }
 
 export { post, get };
-// module.exports = { post, get };
