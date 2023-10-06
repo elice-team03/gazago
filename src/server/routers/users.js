@@ -83,7 +83,6 @@ router.get(
             throw Object.assign(new Error('로그인이 필요합니다'), { status: 401 });
         }
         const loggedInUser = req.user.user;
-        console.log(loggedInUser);
         const { email, _id, wishList, delivery } = loggedInUser;
         const orders = await orderService.findByOrderer(_id);
         const deliveries = await deliveryService.findDeliveryById(delivery);

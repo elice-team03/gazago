@@ -1,4 +1,5 @@
-const { Delivery, User } = require('../db');
+const { Delivery } = require('../db');
+const { userService } = require('./userService');
 
 class deliveryService {
     static async addDeliveryAndSetUserDelivery(newDelivery) {
@@ -14,7 +15,7 @@ class deliveryService {
 
         const delivery = await Delivery.create(buildDelivery);
 
-        await User.findOneAndUpdate({ _id: loggedInUser._id }, { delivery: delivery._id });
+        await userService.findUserByIdAndPushNewOrderId(loggedInUser._id, delivery._id);
         return delivery;
     }
 

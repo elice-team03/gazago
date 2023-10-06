@@ -18,6 +18,16 @@ class userService {
         return await User.findOne({ email: email });
     }
 
+    static async findUserByIdAndPushNewOrderId(userId, orderId) {
+        await User.findByIdAndUpdate(
+            {
+                _id: userId,
+            },
+            { $push: { orders: orderId } }
+        );
+        return;
+    }
+
     static async removeUser(_id) {
         return await User.findByIdAndDelete(_id);
     }
