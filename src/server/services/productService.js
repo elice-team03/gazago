@@ -1,12 +1,13 @@
 const path = require('path');
 const { mongoose } = require('mongoose');
-const { Product } = require('../db');
+const { Product, Order } = require('../db');
 const { categoryService } = require('./categoryService');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
 
+const uploadDirectory = path.join('public', 'upload', 'product');
+
 class productService {
     static async addProduct({ newProduct, contentFile }) {
-        const uploadDirectory = path.join('public', 'upload', 'product');
         const [contentInfo] = await Promise.all([uploadFile(contentFile, uploadDirectory)]);
 
         newProduct.contentUsrFileName = contentInfo.userFileName;
@@ -26,7 +27,28 @@ class productService {
     }
 
     static async findProductsPaginated(skip, limit) {
-        return await Product.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }).exec();
+        const products = await Product.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }).exec();
+
+        const result = await Promise.all(
+            products.map(async (product) => {
+                product.totalSales = await this.findProductOrdered(product._id);
+                return product;
+            })
+        );
+
+        return result;
+    }
+
+    static async findProductOrdered(productId) {
+        const orders = await Order.find({ products: productId });
+
+        let totalSales = 0;
+        for (const order of orders) {
+            const productCount = order.products.filter((pId) => pId.toString() === productId.toString()).length;
+            totalSales += productCount;
+        }
+
+        return totalSales;
     }
 
     static async findProductsByCategory(categoryId) {
@@ -60,7 +82,6 @@ class productService {
         }
 
         if (contentFile) {
-            const uploadDirectory = path.join('public', 'upload', 'product');
             const contentSrvFileName = product.contentSrvFileName;
             await deleteFile(contentSrvFileName, uploadDirectory);
 
@@ -89,6 +110,9 @@ class productService {
             error.status = 400;
             throw error;
         }
+        const product = await this.findProduct(id);
+        await deleteFile(product.contentSrvFileName, uploadDirectory);
+
         return await Product.findByIdAndDelete(id);
     }
 }

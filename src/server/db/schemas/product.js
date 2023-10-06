@@ -34,6 +34,10 @@ const ProductSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Category',
         },
+        totalSales: {
+            type: Number,
+            default: 0,
+        },
     },
     {
         timestamps: true,

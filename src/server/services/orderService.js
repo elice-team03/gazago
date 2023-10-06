@@ -18,7 +18,7 @@ class orderService {
         return await Order.create(buildOrder);
     }
 
-    static async findorder(_id) {
+    static async findOrder(_id) {
         return await Order.findById(_id);
     }
 
@@ -26,7 +26,7 @@ class orderService {
         return await Order.find({ orderer: ordererId });
     }
 
-    static async removeorder(_id) {
+    static async removeOrder(_id) {
         return await Order.findByIdAndDelete(_id);
     }
 }
