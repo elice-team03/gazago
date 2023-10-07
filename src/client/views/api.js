@@ -14,11 +14,6 @@ async function post(endpoint, data) {
             body: dataJson,
         });
 
-        if (!response.ok) {
-            const errorContent = await response.json();
-            const { msg } = errorContent;
-            throw new Error(msg);
-        }
         const result = await response.json();
         return result;
     } catch (error) {
@@ -38,11 +33,6 @@ async function get(endpoint, params = '') {
             },
         });
 
-        if (!response.ok) {
-            const errorContent = await response.json();
-            const { msg } = errorContent;
-            throw new Error(msg);
-        }
         const result = await response.json();
         return result;
     } catch (error) {
