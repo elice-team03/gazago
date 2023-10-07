@@ -52,6 +52,22 @@ router.post(
     })
 );
 
+/** 로그인 확인 여부 API */
+router.get(
+    '/check',
+    asyncHandler(async (req, res, next) => {
+        if (req.user) {
+            res.json({
+                code: 200,
+                message: '로그인 중입니다',
+                data: {
+                    isLogin: true,
+                },
+            });
+        }
+    })
+);
+
 /** 로그아웃 API */
 router.post(
     '/logout',
