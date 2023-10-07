@@ -42,13 +42,13 @@ img {
     box-sizing: border-box;
 }
 
-form .text_filed {
+form .text-filed {
     position: relative;
     border-bottom: 2px solid var(--color-sub);
     margin: 50px 0;
 }
 
-.text_filed input {
+.text-filed input {
     width: 100%;
     padding: 0 10px;
     font-size: 15px;
@@ -56,7 +56,7 @@ form .text_filed {
     outline: none;
 }
 
-.text_filed label {
+.text-filed label {
     position: absolute;
     top: 50%;
     left: 5px;
@@ -66,18 +66,18 @@ form .text_filed {
     pointer-events: none;
 }
 
-.text_filed span::before {
+.text-filed span::before {
     content: '';
     position: absolute;
-    top: 24px;
+    top: 23px;
     left: 0;
     width: 0%;
     height: 2px;
     background: var(--color-main);
 }
 
-.text_filed input:focus ~ span::before,
-.text_filed input:valid ~ span::before {
+.text-filed input:focus ~ span::before,
+.text-filed input:valid ~ span::before {
     width: 100%;
 }
 
@@ -88,7 +88,7 @@ form .text_filed {
     color: white;
     font-weight: 700;
     cursor: pointer;
-    outline: none; 
+    outline: none;
 }
 
 #submit:hover {
@@ -96,23 +96,23 @@ form .text_filed {
     transition: 0.5s;
 }
 
-.look_box {
+.look-box {
     list-style: none;
     display: flex;
     justify-content: space-evenly;
     margin-top: 50px;
 }
 
-.look_link a {
+.look-link a {
     text-decoration: none;
     color: rgb(67, 67, 67);
     size: 16px;
 }
 
-.look_link a:first-child {
+.look-link a:first-child {
     margin-left: 30px;
 }
 
-.look_link a:hover {
+.look-link a:hover {
     text-decoration: underline;
 }

@@ -12,24 +12,24 @@
             <h1 class="logo">
                 <img src="./gazagologo.png" alt="logo" />
             </h1>
-            <form action="post">
-                <div class="text_filed">
-                    <label for="userMail">이메일 주소</label>
-                    <input type="text" name="userMail" required />
+            <form action="/login" method="get">
+                <div class="text-filed">
+                    <label for="user-mail">이메일 주소</label>
+                    <input type="text" name="user-mail" id="user-mail" required />
                     <span></span>
                 </div>
-                <div class="text_filed">
+                <div class="text-filed">
                     <label for="password">비밀번호</label>
-                    <input type="password" name="password" required />
+                    <input type="password" name="password" id="password" required />
                     <span></span>
                 </div>
                 <!-- <input id="submit" type="submit" value="로그인"/> -->
                 <button id="submit" class="button is-fullwidth is-rounded">로그인</button>
-                <ul class="look_box">
-                    <li class="look_link">
+                <ul class="look-box">
+                    <li class="look-link">
                         <a href="#">회원 가입</a>
                     </li>
-                    <li class="look_link">
+                    <li class="look-link">
                         <a href="#">비밀번호 찾기</a>
                     </li>
                 </ul>
