@@ -28,7 +28,7 @@ a {
     height: 100%;
     position: sticky;
     position: -webkit-sticky;
-    top: -100px;
+    top: 0;
 }
 .product__img {
     width: 200px;
@@ -37,6 +37,7 @@ a {
 .brand__box-good {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .brand, .product, .price {
@@ -69,16 +70,25 @@ a {
 }
 
 
+
 .menu__brand, .menu__price {
     font-size: 25px;
     font-weight: bold;
+    padding-left: 20px;
+    padding-bottom: 20px;
 }
+
 .non-dragable {
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none
   }
+
 .menu__brand-check-box-container {
     padding-bottom: 50px;
+}
+
+.checkbox span {
+    padding-left: 5px;
 }

@@ -20,34 +20,34 @@
             <div class="menu__brand-check-box-container">
                 <div class="scrollable-brand-container">
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> 헬리녹스()
+                        <input type="checkbox"> <span>헬리녹스()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> 스노우피크()
+                        <input type="checkbox"> <span>스노우피크()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> 노르디스크()
+                        <input type="checkbox"> <span>노르디스크()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> 코베아()
+                        <input type="checkbox"> <span>코베아()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> 캠핑칸()
+                        <input type="checkbox"> <span>캠핑칸()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> 네이처하이크()
+                        <input type="checkbox"> <span>네이처하이크()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> 스프링바()
+                        <input type="checkbox"> <span>스프링바()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> 레트로스()
+                        <input type="checkbox"> <span>레트로스()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> Checkbox 1()
+                        <input type="checkbox"> <span>Checkbox 1()</span>
                     </label>
                     <label class="checkbox non-dragable">
-                        <input type="checkbox"> Checkbox 1()
+                        <input type="checkbox"> <span>Checkbox 1()</span>
                     </label>
                 </div>
             </div>
@@ -60,31 +60,31 @@
                 </label>
                 <label class="checkbox non-dragable">
                     <input type="checkbox">
-                    <span>290원 ~ 10000원</span>
+                    <span> 290원 ~ 10000원</span>
                 </label>
                 <label class="checkbox non-dragable">
                     <input type="checkbox">
-                    <span>10,000원 ~ 50,000원</span>
+                    <span> 10,000원 ~ 50,000원</span>
                 </label>
                 <label class="checkbox non-dragable">
                     <input type="checkbox">
-                    <span>50,000원 ~ 100,000원</span>
+                    <span> 50,000원 ~ 100,000원</span>
                 </label>
                 <label class="checkbox non-dragable">
                     <input type="checkbox">
-                    <span>100,000원 ~ 300,000원</span>
+                    <span> 100,000원 ~ 300,000원</span>
                 </label>
                 <label class="checkbox non-dragable">
                     <input type="checkbox">
-                    <span>300,000원 ~ 500,000원</span>
+                    <span> 300,000원 ~ 500,000원</span>
                 </label>
                 <label class="checkbox non-dragable">
                     <input type="checkbox">
-                    <span>500,000원 ~ 1,000,000원</span>
+                    <span> 500,000원 ~ 1,000,000원</span>
                 </label>
                 <label class="checkbox non-dragable">
                     <input type="checkbox">
-                    <span>1,000,000원 ~ 2,500,000원</span>
+                    <span> 1,000,000원 ~ 2,500,000원</span>
                 </label>
 
 
@@ -368,9 +368,10 @@
         nameBox.classList.add('product__name-box');
 
         const nameLink = document.createElement('a');
-        nameLink.href = '해당제품url';
+        nameLink.href = product.url;
 
         const productName = document.createElement('span');
+        productName.classList.add('product')
         productName.textContent = product.name;
 
         nameLink.appendChild(productName);
