@@ -13,7 +13,6 @@ async function post(endpoint, data) {
             },
             body: dataJson,
         });
-
         const result = await response.json();
         return result;
     } catch (error) {
@@ -32,7 +31,6 @@ async function get(endpoint, params = '') {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-
         const result = await response.json();
         return result;
     } catch (error) {
