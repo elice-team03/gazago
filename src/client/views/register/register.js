@@ -64,7 +64,7 @@ const validateRegister = () => {
 
 registerForm.addEventListener('submit', async function (event) {
     event.preventDefault();
-    
+
     // 유효성 검사를 먼저 실행하고, 검사가 성공적이면 API 호출
     if (validateRegister()) {
         const { email, password } = validateRegister();
@@ -82,7 +82,7 @@ registerForm.addEventListener('submit', async function (event) {
                 window.location.href = '/';
             }
         } catch (error) {
-            alert("클라이언트 예외가 발생했습니다: " + error);
+            console.error('클라이언트 예외가 발생했습니다:', error);
         }
     }
 });
