@@ -30,9 +30,9 @@ router.post(
                 loggedInUser,
             });
         } else {
-            delivery = await deliveryService.findDelivery(loggedInUser.delivery);
+            delivery = await deliveryService.findDeliveryById(loggedInUser.delivery);
         }
-        console.log(req.body);
+
         const { comment, productIds } = req.body;
         const result = await orderService.addOrder({ comment, loggedInUser, delivery, productIds });
 

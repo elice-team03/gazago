@@ -80,16 +80,16 @@ router.get(
     '/',
     asyncHandler(async (req, res, next) => {
         if (!req.user) {
-            throw Object.assign(new Error('로그인이 필요합니다'), { status: 400 });
+            throw Object.assign(new Error('로그인이 필요합니다'), { status: 401 });
         }
-
-        const { email, _id, wishList } = req.user.user;
+        const loggedInUser = req.user.user;
+        const { email, _id, wishList, delivery } = loggedInUser;
         const orders = await orderService.findByOrderer(_id);
-
+        const deliveyInform = await deliveryService.findDeliveryById(delivery);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: { email, _id, wishList, orders },
+            data: { email, _id, wishList, orders, deliveyInform },
         });
     })
 );
@@ -101,23 +101,16 @@ router.patch(
         // delivery 없는 유저는 변경이 가능하게
 
         const { contact, code, address } = req.body;
-
-        console.log(req.body);
-
         const loggedInUser = req.user.user;
-
         const id = loggedInUser.delivery;
 
-        const changedDelivery = await deliveryService.findDeliveryAndUpdate({
-            id,
-            contact,
-            code,
-            address,
+        const result = await deliveryService.findDeliveryAndUpdate({ contact, code, address, id });
+        console.log(result);
+        res.status(200).json({
+            code: 200,
+            message: '유저 정보가 업데이트 되었습니다',
+            data: result,
         });
-
-        // console.log(delivery);
-
-        res.end();
     })
 );
 module.exports = router;
