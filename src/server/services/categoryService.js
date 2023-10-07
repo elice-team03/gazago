@@ -63,6 +63,18 @@ class categoryService {
         return await Category.findById(id);
     }
 
+    static async modifyCategory(id, useYn) {
+        const category = await this.findCategory(id);
+        if (!category) {
+            const error = new Error('카테고리를 찾을 수 없습니다.');
+            error.status = 400;
+            throw error;
+        }
+        category.useYn = useYn;
+        await category.save();
+        return category;
+    }
+
     static async removeCategory(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('카테고리 Id 값이 유효하지 않습니다.');
