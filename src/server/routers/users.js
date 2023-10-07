@@ -113,7 +113,20 @@ router.patch(
 );
 
 /** 회원 비밀번호 변경 API */
-router.patch('/');
+router.patch(
+    '/password',
+    asyncHandler(async (req, res, next) => {
+        const loggedInUser = req.user.user;
+        const { oldPassword, newPassword } = req.body;
+
+        await userService.changePassword({ oldPassword, newPassword, loggedInUser });
+        res.json({
+            code: 200,
+            message: '비밀번호 변경을 완료하였습니다',
+            data: null,
+        });
+    })
+);
 
 /** 회원 임시 비밀번호 발송 API */
 router.post(

@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const setUserToken = require('../utils/jwt');
 const generateRandomPasswrod = require('../utils/generate-password');
 const nodemailer = require('nodemailer');
+const { use } = require('passport');
 class userService {
     static async addUser(newUser) {
         return await User.create(newUser);
@@ -83,6 +84,7 @@ class userService {
         return checkedUser.email;
     }
 
+    /** 임시 비밀번호 메일발송 */
     static async changePasswordAndSendByEmail(email) {
         const newPassword = generateRandomPasswrod();
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
@@ -163,6 +165,22 @@ class userService {
         });
 
         // const user = await User.findOneAndUpdate({ email: email }, {});
+    }
+
+    /** 비밀번호 변경 */
+    static async changePassword(userInform) {
+        const { oldPassword, newPassword, loggedInUser } = userInform;
+        const checkOldPassword = await bcrypt.compare(oldPassword, loggedInUser.password);
+
+        if (!checkOldPassword) {
+            throw Object.assign(new Error('변경 전 비밀번호가 일치하지 않습니다'), { status: 400 });
+        }
+
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+        await User.findOneAndUpdate({ _id: loggedInUser._id }, { password: hashedNewPassword });
+
+        return;
     }
 }
 
