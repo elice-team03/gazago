@@ -112,12 +112,12 @@ router.patch(
     })
 );
 
-/** 회원 비밀번호 변경 API */
+/** 회원 임시 비밀번호 발송 API */
 router.patch(
     '/password',
     asyncHandler(async (req, res, next) => {
         const { email } = req.body;
-        await userService.findPasswordByEmail(email);
+        await userService.changePasswordAndSendByEmail(email);
 
         res.status(200).json({
             code: 200,

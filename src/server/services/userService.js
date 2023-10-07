@@ -83,7 +83,7 @@ class userService {
         return checkedUser.email;
     }
 
-    static async findPasswordByEmail(email) {
+    static async changePasswordAndSendByEmail(email) {
         const newPassword = generateRandomPasswrod();
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
 
