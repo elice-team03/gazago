@@ -4,7 +4,7 @@ async function post(endpoint, data) {
         const apiUrl = endpoint;
         const dataJson = JSON.stringify(data);
 
-        // HTTP POST 요청
+        // HTTP POST 요청 보내기
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -14,11 +14,6 @@ async function post(endpoint, data) {
             body: dataJson,
         });
 
-        if (!response.ok) {
-            const errorContent = await response.json();
-            const { msg } = errorContent;
-            throw new Error(msg);
-        }
         const result = await response.json();
         return result;
     } catch (error) {
@@ -30,20 +25,14 @@ async function post(endpoint, data) {
 async function get(endpoint, params = '') {
     try {
         const apiUrl = `${endpoint}/${params}`;
-        // HTTP GET 요청
+        // HTTP GET 요청 보내기
         const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                // Authorization: `Bearer ${localStorage.getItem('token')}`,
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
 
-        if (!response.ok) {
-            const errorContent = await response.json();
-            const { msg } = errorContent;
-            throw new Error(msg);
-        }
         const result = await response.json();
         return result;
     } catch (error) {
@@ -52,3 +41,4 @@ async function get(endpoint, params = '') {
 }
 
 export { post, get };
+
