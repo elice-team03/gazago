@@ -101,20 +101,56 @@ class userService {
             },
         });
 
+        /** 임시 비밀번호 발송하는 메일형식 html inline style */
         const mail = {
             from: process.env.NODEMAILER_ID,
             to: email,
             subject: `[GAZAGO] 유저님의 비밀번호가 초기화 되었습니다`,
             html: `
-            <div style="background: rgba(57, 81, 68, 0.3); padding: 5em; border-radius: 20px; 
-            text-align: center;">
-            <div style="display: inline-block; width: 200px; height: 200px; overflow:hidden; border-radius: 10px">
-            <img src="https://i.imgur.com/onyitJ3.png" alt="" object-fit: cover; > </div>
-            <h1 style="color:crimson; font-size:28px;">유저님의 비밀번호가 초기화 되었습니다.</h1>
-            <p style="font-size:23px">비밀번호는 ${newPassword} 입니다.</p>
-            <p style="font-size:23px">로그인 후 비밀번호를 변경하여 주시기 바랍니다.</p>
-            <p style="font-size:23px">THANK YOU</p> 
+            <div style="width: 500px; margin: auto; text-align: center">
+            <div style="text-align: center">
+                <img src="https://i.imgur.com/onyitJ3.png" alt="" style="width: 200px" />
             </div>
+            <div style="text-align: left; margin-top: 2rem">
+                <p style="text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 30px">
+                    임시 비밀번호 발급
+                </p>
+                <hr style="background: #395144; height: 3px; border: 0" />
+                <p
+                    style="
+                        font-size: 18px;
+                        width: 32ch;
+                        text-align: left;
+                        word-spacing: -1px;
+                        line-height: 1.1;
+                        font-weight: bold;
+                        word-break: keep-all;
+                    "
+                >
+                    임시 비밀번호로 로그인 하신 후에, 안전한 비밀번호로 변경 부탁드립니다.
+                </p>
+                <p style="text-indent: 10px; font-size: 18px; margin-top: 40px">임시 비밀번호</p>
+                <p style="border-bottom: 1px solid lightgrey; padding-bottom: 5px">${newPassword}</p>
+                <a
+                    href="http://localhost:5001/login"
+                    style="
+                        display: block;
+                        width: 100%;
+                        background: #004225;
+                        height: 45px;
+                        line-height: 45px;
+                        border-radius: 100vmax;
+                        color: white;
+                        text-decoration: none;
+                        font-weight: bold;
+                        text-align: center;
+                        margin-top: 2em;
+                        font-size: 18px;
+                    "
+                    >로그인 하러가기</a
+                >
+            </div>
+        </div>
             `,
         };
 
