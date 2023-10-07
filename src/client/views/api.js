@@ -3,7 +3,6 @@ async function post(endpoint, data) {
     try {
         const apiUrl = endpoint;
         const dataJson = JSON.stringify(data);
-
         // HTTP POST 요청
         const response = await fetch(apiUrl, {
             method: 'POST',
