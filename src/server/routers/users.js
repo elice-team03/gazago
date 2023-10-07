@@ -18,7 +18,7 @@ router.post(
             throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
         }
 
-        const result = await userService.signUpUser({ email, password });
+        const result = await userService.signUpUser({ email, password, res });
         res.status(201).json({
             code: 201,
             message: '회원가입이 완료되었습니다',

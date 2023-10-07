@@ -47,7 +47,7 @@ class userService {
 
     /** 회원가입 */
     static async signUpUser(userInform) {
-        const { password, email } = userInform;
+        const { password, email, res } = userInform;
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -55,6 +55,8 @@ class userService {
             email,
             password: hashedPassword,
         });
+
+        setUserToken(res, user);
 
         return user;
     }
