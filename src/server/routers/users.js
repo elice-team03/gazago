@@ -60,9 +60,7 @@ router.get(
             res.json({
                 code: 200,
                 message: '로그인 중입니다',
-                data: {
-                    isLogin: true,
-                },
+                data: true,
             });
         }
     })
