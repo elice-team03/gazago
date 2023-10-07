@@ -63,54 +63,50 @@ const validateRegister = () => {
     return { email, password };
 };
 
-registerForm.addEventListener('submit', async function (event) {
-    event.preventDefault();
-    const { email, password } = validateRegister();
-
-
-    const inputValue = { email, password };
-    const data = JSON.stringify(inputValue);
-
-    fetch('http://localhost:5001/api/users/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: data,
-    })
-        .then((response) => response.json())
-        .then((result) => {
-            if(result.code === 201) {
-                window.location.href = '../login';
-            } else {
-                console.log(result.message);
-            }
-        })
-        .catch((e) => console.err(e));
-
-
-});
-
-
 // registerForm.addEventListener('submit', async function (event) {
 //     event.preventDefault();
 //     const { email, password } = validateRegister();
 
-//     try {
-//         const data = { email, password };
-//         const join = await Api.post('/api/users/register', data);
+//     const inputValue = { email, password };
+//     const data = JSON.stringify(inputValue);
 
-//         // 응답을 확인하고 JSON 파싱
-//         if (!join.ok) {
-//             const errorContent = await join.json();
-//             const { msg } = errorContent;
-
-//             throw new Error(msg);
-//         }
-//         const result = await join.json();
-//         console.log(result.message);
-//         return result;
-//     } catch (error) {
-//         throw error;
-//     }
+//     fetch('http://localhost:5001/api/users/register', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: data,
+//     })
+//         .then((response) => response.json())
+//         .then((result) => {
+//             if (result.code === 201) {
+//                 alert(result.message);
+//                 window.location.href = '../login';
+//             } else {
+//                 alert(result.message);
+//             }
+//         })
+//         .catch((e) => console.err(e));
 // });
+
+
+
+registerForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const { email, password } = validateRegister();
+
+    try {
+        const data = { email, password };
+        const join = await Api.post('http://localhost:5001/api/users/register', data);
+
+        if (join.code === 400) {
+            // 서버에서 받은 메시지를 사용
+            alert("예외가 발생했습니다: " + join.message);
+        } else {
+            alert("회원가입이 완료되었습니다");
+            window.location.href = '../login';
+        }
+    } catch (error) {
+        alert("클라이언트 예외가 발생했습니다: " + error);
+    }
+});
