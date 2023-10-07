@@ -45,6 +45,7 @@ class userService {
         return await User.findByIdAndDelete(_id);
     }
 
+    /** 회원가입 */
     static async signUpUser(userInform) {
         const { password, email } = userInform;
 
@@ -58,6 +59,7 @@ class userService {
         return user;
     }
 
+    /** 비회원 정보저장 */
     static async signUpGuest(userInform) {
         const { email, userName } = userInform;
         const checkEmail = await userService.findOneUser(email);
@@ -73,6 +75,7 @@ class userService {
         });
     }
 
+    /** 로그인 */
     static async signInUser(checkedUser, password, res) {
         const hashedPassword = checkedUser.password;
         const checkPassword = await bcrypt.compare(password, hashedPassword);
