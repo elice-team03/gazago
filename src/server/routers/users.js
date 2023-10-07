@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { orderService } = require('../services/orderService');
 const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
-
 /** 회원가입 API */
 router.post(
     '/register',
@@ -110,6 +108,21 @@ router.patch(
             code: 200,
             message: '유저 정보가 업데이트 되었습니다',
             data: result,
+        });
+    })
+);
+
+/** 회원 비밀번호 변경 API */
+router.patch(
+    '/password',
+    asyncHandler(async (req, res, next) => {
+        const { email } = req.body;
+        await userService.findPasswordByEmail(email);
+
+        res.status(200).json({
+            code: 200,
+            message: '임시 비밀번호가 이메일로 발송되었습니다',
+            data: null,
         });
     })
 );
