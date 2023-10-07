@@ -92,7 +92,7 @@ router.get(
     })
 );
 
-/** 회원정보 변경 API */
+/** 회원정보 변경 (비밀번호 제외) API */
 router.patch(
     '/',
     asyncHandler(async (req, res, next) => {
@@ -112,8 +112,11 @@ router.patch(
     })
 );
 
+/** 회원 비밀번호 변경 API */
+router.patch('/');
+
 /** 회원 임시 비밀번호 발송 API */
-router.patch(
+router.post(
     '/password',
     asyncHandler(async (req, res, next) => {
         const { email } = req.body;
