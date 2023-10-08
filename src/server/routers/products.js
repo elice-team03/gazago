@@ -36,7 +36,20 @@ router.get(
         const skip = (page - 1) * ITEMS_PER_PAGE;
         const limit = ITEMS_PER_PAGE;
 
-        const result = await productService.findProductsPaginated(skip, limit);
+        const { brand, beginPrice, endPrice, color } = req.query;
+        const filter = {};
+
+        if (brand) {
+            filter.brand = brand;
+        }
+        if (beginPrice && endPrice) {
+            filter.price = { $gte: parseInt(beginPrice), $lte: parseInt(endPrice) };
+        }
+        if (color) {
+            filter.color = color;
+        }
+
+        const result = await productService.findProductsPaginated(skip, limit, filter);
         const totalProductsCount = await productService.getTotalProductsCount();
 
         res.status(200).json({
@@ -79,6 +92,27 @@ router.patch(
         }
 
         const result = await productService.modifyProduct({ _id, productInfo, contentFile });
+        res.status(201).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+router.patch(
+    '/status/:id',
+    asyncHandler(async (req, res, next) => {
+        const _id = req.params.id;
+        const status = req.body.status;
+        console.log(status);
+        if (!status) {
+            const error = new Error('변경 상태 값을 입력해주세요.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await productService.modifyProductStatus({ _id, status });
         res.status(201).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
