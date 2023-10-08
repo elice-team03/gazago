@@ -6,7 +6,7 @@ const { uploadFile, deleteFile } = require('../utils/file-upload');
 
 class productService {
     static async addProduct({ newProduct, contentFile }) {
-        const uploadDirectory = path.join('public', 'upload', 'product');
+        const uploadDirectory = path.join('upload', 'product');
         const [contentInfo] = await Promise.all([uploadFile(contentFile, uploadDirectory)]);
 
         newProduct.contentUsrFileName = contentInfo.userFileName;
