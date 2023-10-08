@@ -38,7 +38,6 @@ router.post(
         } else {
             delivery = await deliveryService.findDeliveryById(userWantingToBuy.delivery);
         }
-        //TODO: 궁금한 점) productIds는 mongoose id를 클라이언트에서 직접 입력하는지 궁금합니다
         const { comment, productIds } = req.body;
         const result = await orderService.addOrder({ comment, userWantingToBuy, delivery, productIds });
 

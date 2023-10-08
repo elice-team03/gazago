@@ -73,7 +73,7 @@ class userService {
         return await userService.addUser({
             email,
             userName,
-            role: 'guest',
+            role: 'ordererNotUser',
         });
     }
 
