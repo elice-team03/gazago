@@ -7,11 +7,11 @@ a {
     color: #4a4a4a !important;
 }
 
-.container {
+.wrapper {
     padding: 0 0 100px 0;
     display: flex;
     font-family: 'Noto Sans KR', sans-serif;
-    max-width: 1152px !important;
+    
     justify-content: space-between;
 }
 .product__container {
