@@ -112,6 +112,23 @@ class productService {
         });
     }
 
+    static async modifyProductStatus({ _id, status }) {
+        if (!mongoose.Types.ObjectId.isValid(_id)) {
+            const error = new Error('상품 Id 값이 유효하지 않습니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        return await Product.findByIdAndUpdate(
+            _id,
+            { status: status },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+    }
+
     static async removeProduct(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('상품 Id 값이 유효하지 않습니다.');

@@ -6,7 +6,7 @@ const OrderSchema = new Schema(
         orderNumber: shortId,
         status: {
             type: String,
-            default: '주문완료',
+            default: '주문접수',
         },
         comment: {
             type: String,

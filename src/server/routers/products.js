@@ -87,6 +87,27 @@ router.patch(
     })
 );
 
+router.patch(
+    '/status/:id',
+    asyncHandler(async (req, res, next) => {
+        const _id = req.params.id;
+        const status = req.body.status;
+        console.log(status);
+        if (!status) {
+            const error = new Error('변경 상태 값을 입력해주세요.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await productService.modifyProductStatus({ _id, status });
+        res.status(201).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
 router.delete(
     '/:id',
     asyncHandler(async (req, res, next) => {
