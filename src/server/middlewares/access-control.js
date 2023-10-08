@@ -1,5 +1,11 @@
 const allowUser = (req, res, next) => {
     const role = req.user?.user.role || null;
+
+    if (role === 'admin') {
+        return res.send(
+            "<script>alert('일반 회원만 접근이 가능합니다');location.href='http://localhost:5001';</script>"
+        );
+    }
     if (role !== 'user') {
         return res.send(
             "<script>alert('로그인이 필요한 페이지입니다');location.href='http://localhost:5001/login';</script>"
