@@ -1,0 +1,127 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.container {
+    max-width: 1152px !important;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.order {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ebebeb;
+    padding: 10px 0;
+}
+.product {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+.product__image {
+    width: 240px;
+}
+.product__text--brand {
+    font-size: 13px;
+    color: #8c8c8c;
+}
+.product__text--price {
+    font-weight: bold;
+}
+.product__detail {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+.product__delivery {
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+.divider {
+    display: inline-block;
+    border-top: 8px solid #ebebeb;
+    margin: 16px 0;
+    width: 100%;
+}
+.delivery__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.delivery__text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 40px;
+}
+.divider--thin {
+    display: inline-block;
+    border-top: 2px solid #ebebeb;
+    margin: 10px auto;
+    width: 93%;
+}
+.delivery__box {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.delivery__box--empty {
+    margin-left: 14.2%;
+    margin-bottom: 10px;
+}
+.input__label {
+    margin-left: 40px;
+    color: #8c8c8c;
+}
+.hipen {
+    margin: 0 10px;
+    color: #dbdbdb;
+    font-weight: 800;
+}
+.order__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px 10px 40px;
+}
+.order__text {
+    font-size: 20px;
+    font-weight: bold;
+}
+.order__price--total {
+    color: #2f9d27;
+    font-weight: bold;
+    font-size: 20px;
+}
+.button {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.delivery__button--zipcode {
+    margin-right: 40px;
+    height: 30px;
+}
+.cancle__button {
+    display: inline-block;
+    margin: 10px auto;
+    width: 200px;
+    background-color: #004225;
+    color: #fff;
+    padding: 10px 16px;
+}
+.cancle__button:hover, .cancle__button:focus {
+    color: #fff;
+}
+.input {
+    width: 43%;
+}
+.input__half {
+    width: 50%;
+}
+.input__delivery {
+    width: 33%;
+}
