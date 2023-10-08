@@ -4,7 +4,7 @@ const { Product, Order } = require('../db');
 const { categoryService } = require('./categoryService');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
 
-const uploadDirectory = path.join('public', 'upload', 'product');
+const uploadDirectory = path.join('upload', 'product');
 
 class productService {
     static async addProduct({ newProduct, contentFile }) {
