@@ -98,92 +98,63 @@
                                         <p class="modal-card-title">상품 등록</p>
                                         <button class="delete" aria-label="close" data-bulma-modal="close"></button>
                                     </header>
-                                    <form id="product_add_form">
-                                        <section class="modal-card-body">
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
-                                                <p>중분류</p>
-                                                <div class="select">
-                                                    <select id="parentCategorySel" class="cus_w_300">
-                                                        <option value="651e5fbcbdfd9dbe2858c888">텐트/타프</option>
-                                                        <option>침낭</option>
-                                                        <option>퍼니처</option>
-                                                        <option>주방/바베큐</option>
-                                                        <option>악세사리</option>
-                                                    </select>
-                                                </div>
+                                    <section class="modal-card-body">
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>중분류</p>
+                                            <div class="select">
+                                                <select class="cus_w_300">
+                                                    <option>전체보기</option>
+                                                    <option>텐트/타프</option>
+                                                    <option>침낭</option>
+                                                    <option>퍼니처</option>
+                                                    <option>주방/바베큐</option>
+                                                    <option>악세사리</option>
+                                                </select>
                                             </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
-                                                <p>소분류</p>
-                                                <div class="select">
-                                                    <select id="childCategorySel" class="cus_w_300" name="categoryId">
-                                                        <option value="651e5fd7bdfd9dbe2858c88b">텐트</option>
-                                                        <option value="651e603ebdfd9dbe2858c896">타프</option>
-                                                    </select>
-                                                </div>
+                                        </div>
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>소분류</p>
+                                            <div class="select">
+                                                <select class="cus_w_300">
+                                                    <option>전체보기</option>
+                                                    <option>텐트</option>
+                                                    <option>타프</option>
+                                                </select>
                                             </div>
+                                        </div>
 
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
-                                                <p>브랜드</p>
-                                                <input
-                                                    id="brandInput"
-                                                    class="input cus_w_50"
-                                                    type="text"
-                                                    name="brand"
-                                                />
-                                            </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
-                                                <p>상품명</p>
-                                                <input
-                                                    id="productNameInput"
-                                                    class="input cus_w_50"
-                                                    type="text"
-                                                    name="name"
-                                                />
-                                            </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
-                                                <p>가격</p>
-                                                <input
-                                                    id="priceInput"
-                                                    class="input cus_w_50"
-                                                    type="text"
-                                                    name="price"
-                                                />
-                                            </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
-                                                <p>썸네일 이미지 URL</p>
-                                                <input
-                                                    id="thumbnailInput"
-                                                    class="input cus_w_50"
-                                                    type="text"
-                                                    name="thumbnailPath"
-                                                />
-                                            </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
-                                                <p>상세 이미지</p>
-                                                <input
-                                                    id="contentFile"
-                                                    class="cus_file_uploard"
-                                                    type="file"
-                                                    name="content"
-                                                />
-                                            </div>
-                                        </section>
-                                        <footer class="modal-card-foot">
-                                            <button
-                                                id="product_btn_save"
-                                                class="button is-rounded is-small cus_btn_bc_gr"
-                                                type="button"
-                                            >
-                                                등록하기
-                                            </button>
-                                            <button
-                                                class="button is-rounded is-small cus_btn_bc_red"
-                                                data-bulma-modal="close"
-                                            >
-                                                취소
-                                            </button>
-                                        </footer>
-                                    </form>
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>브랜드</p>
+                                            <input class="input cus_w_50" type="text" />
+                                        </div>
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>상품명</p>
+                                            <input class="input cus_w_50" type="text" />
+                                        </div>
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>가격</p>
+                                            <input class="input cus_w_50" type="text" />
+                                        </div>
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>썸네일 이미지 URL</p>
+                                            <input class="input cus_w_50" type="text" />
+                                        </div>
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>상세 이미지</p>
+                                            <input class="cus_file_uploard" type="file" />
+                                        </div>
+                                    </section>
+                                    <footer class="modal-card-foot">
+                                        <button class="button is-rounded is-small cus_btn_bc_gr" type="submit">
+                                            등록하기
+                                        </button>
+                                        <button
+                                            class="button is-rounded is-small cus_btn_bc_red"
+                                            data-bulma-modal="close"
+                                        >
+                                            취소
+                                        </button>
+                                    </footer>
                                 </div>
                             </div>
                         </section>
@@ -204,7 +175,84 @@
                                         <th class="cus_text_align_center">수정 및 삭제</th>
                                     </tr>
                                 </thead>
-                                <tbody id="product_list_tbody" />
+                                <tbody>
+                                    <tr>
+                                        <th class="cus_text_align_center cus_v_align_middle">1</th>
+                                        <td>
+                                            <figure class="image image is-64x64">
+                                                <img
+                                                    src="http://www.helinoxstore.co.kr/shopimages/helinox/0010080000482.jpg?1679894163"
+                                                />
+                                            </figure>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>yyyy-mm-dd-hh-mm</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>텐트</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>타프</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>헬리녹스</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>노나돔 4.0 베드룸 / 로 화이트</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>1,050,000원</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>10</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>판매중</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle">
+                                            <button class="button is-rounded is-small cus_btn_bc_gr">수정</button>
+                                            <button class="button is-rounded is-small cus_btn_bc_red">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="cus_text_align_center cus_v_align_middle">1</th>
+                                        <td>
+                                            <figure class="image image is-64x64">
+                                                <img
+                                                    src="http://www.helinoxstore.co.kr/shopimages/helinox/0010080000482.jpg?1679894163"
+                                                />
+                                            </figure>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>yyyy-mm-dd-hh-mm</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>텐트</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>타프</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>헬리녹스</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>노나돔 4.0 베드룸 / 로 화이트</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>1,050,000원</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>10</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                            <p>판매중</p>
+                                        </td>
+                                        <td class="cus_text_align_center cus_v_align_middle">
+                                            <button class="button is-rounded is-small cus_btn_bc_gr">수정</button>
+                                            <button class="button is-rounded is-small cus_btn_bc_red">삭제</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </section>
                     </div>
