@@ -31,14 +31,20 @@ class productService {
             .skip(skip)
             .limit(limit)
             .sort({ createdAt: -1 })
-            .populate('category')
+            .populate({
+                path: 'category',
+                select: 'name',
+            })
             .exec();
 
         const result = await Promise.all(
             products.map(async (product) => {
                 product.totalSales = await this.findProductOrdered(product._id);
                 if (product.category && product.category.parentCategory) {
-                    await product.category.populate('parentCategory').exec;
+                    await product.category.populate({
+                        path: 'parentCategory',
+                        select: 'name',
+                    }).exec;
                 }
                 return product;
             })

@@ -53,6 +53,23 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
+        const result = await orderService.findAllOrders();
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+router.patch(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        const _id = req.params.id;
+        const status = req.body.status;
+
+        const result = await orderService.modifyOrderStatus({ _id, status });
+
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',

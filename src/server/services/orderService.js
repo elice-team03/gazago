@@ -5,7 +5,7 @@ const { userService } = require('./userService');
 class orderService {
     static async addOrder(newOrder) {
         const { comment, totalAmount, loggedInUser, delivery, productIds } = newOrder;
-        if (!areProductIdsValid(productIds)) {
+        if (!productIds.every((productId) => mongoose.Types.ObjectId.isValid(productId))) {
             throw Object.assign(new Error('유효하지 않은 상품 ID가 포함되어 있습니다.'), { status: 400 });
         }
 
@@ -24,21 +24,34 @@ class orderService {
         return order;
     }
 
-    static async findOrder(_id) {
-        return await Order.findById(_id);
+    static async findAllOrders() {
+        return await Order.find({}).populate({
+            path: 'delivery',
+            select: 'receiver',
+        });
     }
 
     static async findByOrderer(orderUserId) {
         return await Order.find({ orderUserId: orderUserId });
     }
 
-    static async removeOrder(_id) {
-        return await Order.findByIdAndDelete(_id);
-    }
-}
+    static async modifyOrderStatus({ _id, status }) {
+        console.log(_id);
+        if (!mongoose.Types.ObjectId.isValid(_id)) {
+            const error = new Error('주문 Id 값이 유효하지 않습니다.');
+            error.status = 400;
+            throw error;
+        }
 
-function areProductIdsValid(productIds) {
-    return productIds.every((productId) => mongoose.Types.ObjectId.isValid(productId));
+        return await Order.findByIdAndUpdate(
+            _id,
+            { status: status },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+    }
 }
 
 module.exports = { orderService };
