@@ -1,6 +1,7 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 header {
+    height: 200px;
     padding: 0px 20px;
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
@@ -99,4 +100,22 @@ nav ul {
 
 .sub-nav .navbar .navbar-item {
     color: #8c8c8c !important;
+    border: 10px #8c8c8c !important;
+    
+}
+.sub-nav .navbar {
+    gap: 10px;
+}
+.sub-nav .navbar li {
+    display: flex;
+    align-items: center;
+    border: 1px solid #f0f0f0;
+    border-radius: 50px ;
+    height: 25px;
+}
+
+.sub-nav .navbar .navbar-item:hover {
+    background-color: #f0f0f0;
+    border-radius: 50px !important;
+    height: 30px;
 }

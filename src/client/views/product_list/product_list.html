@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
+    <title>gazago</title>
 </head>
 
 <body>
@@ -92,7 +92,7 @@
         </aside>
 
         <div class="product__container">
-            <div class="product-box">
+             <div class="product-box">
                 <div class="product__img-box">
                     <a href="#">
                         <img class="product__img"
@@ -292,114 +292,7 @@
         </div>
         <div style="height: 600px;"></div>
     </div>
-    <script>
-
-
-        const log = console.log;
-        const getData = page => {
-            const url = `http://127.0.0.1:5001/api/products?page=${page}_limit=10`;
-            return fetch(url).then(response=>response.json());
-        }
-
-        const mapData = products => {
-            return products.data.map(data => {
-               return {imgUrl: data.thumbnailPath,
-                        name: data.name,
-                    brand: data.brand,
-                price: data.price,
-            url: `http://127.0.0.1:5001/api/products/${data._id}`};
-            })
-        }
-       
-
-        function displayProducts(products) {
-    const productContainer = document.querySelector('.product__container');
-
-    // 상품 목록을 돌면서 화면에 표시
-    products.forEach(product => {
-        const productBox = document.createElement('div');
-        productBox.classList.add('product-box');
-
-        // 상품 정보를 이용하여 productBox 내용을 구성하고 화면에 추가
-        const productImgBox = document.createElement('div');
-        productImgBox.classList.add('product__img-box');
-
-        const imgLink = document.createElement('a');
-        imgLink.href = product.url;
-
-        const productImg = document.createElement('img');
-        productImg.classList.add('product__img');
-        productImg.src = product.imgUrl;
-        productImg.alt = product.name;
-
-        imgLink.appendChild(productImg);
-        productImgBox.appendChild(imgLink);
-
-        //brand box 구성
-        const brandGoodBox = document.createElement('div');
-        brandGoodBox.classList.add('brand__box-good');
-
-        const brandBox = document.createElement('div');
-        brandBox.classList.add('brand__box');
-
-        const brandLink = document.createElement('a');
-        brandLink.href = '해당브랜드url';
-
-        const brandName = document.createElement('span');
-        brandName.classList.add('brand');
-        brandName.textContent = product.brand;
-
-        const goodBox = document.createElement('div');
-        goodBox.classList.add('good-box');
-
-        const good = document.createElement('i');
-        good.classList.add('fa-regular');
-        good.classList.add('fa-bookmark');
-        good.style.color = '#8c8c8c';
-
-        brandBox.appendChild(brandLink);
-        brandLink.appendChild(brandName);
-        goodBox.appendChild(good);
-        brandGoodBox.appendChild(brandBox);
-        brandGoodBox.appendChild(goodBox);
-
-        // product name box 구성
-        const nameBox = document.createElement('div');
-        nameBox.classList.add('product__name-box');
-
-        const nameLink = document.createElement('a');
-        nameLink.href = '해당제품url';
-
-        const productName = document.createElement('span');
-        productName.textContent = product.name;
-
-        nameLink.appendChild(productName);
-        nameBox.appendChild(nameLink);
-
-        const priceBox = document.createElement('div');
-        priceBox.classList.add('price__box');
-
-        const priceString = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 원';
-
-        const price = document.createElement('span');
-        price.classList.add('price');
-        price.textContent = priceString;
-
-        priceBox.appendChild(price);
-
-        productBox.appendChild(productImgBox);
-        productBox.appendChild(brandGoodBox);
-        productBox.appendChild(nameBox);
-        productBox.appendChild(priceBox);
-
-        productContainer.appendChild(productBox);
-    });
-}
-//상품 렌더링 테스트용
-getData(1).then(data => {
-    displayProducts(mapData(data));
-});
-    </script>
+    <script type="module" src="product_list.js"></script>
 </body>
 
 </html>
