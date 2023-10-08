@@ -67,7 +67,6 @@ ul {
 }
 
 .title {
-    /* color: var(--color-main); */
     border-bottom: 3px solid;
     display: block;
     margin-bottom: 30px;
@@ -177,6 +176,3 @@ form .text_filed {
     color: white;
 }
 
-/* #button {
-    position: fixed;
-} */
