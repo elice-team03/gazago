@@ -27,6 +27,38 @@ async function getData() {
 }
 getData();
 
+const wishButton = document.querySelector('.wish__button');
+const cartButton = document.querySelector('.cart__button');
+const orderButton = document.querySelector('.order__button');
+
+function setProductData(type) {
+    const storage = window.localStorage;
+    let products = JSON.parse(storage.getItem(type));
+    if (!products) products = [];
+
+    let isExistId = false;
+    products.forEach((item) => {
+        if (item.id === id) {
+            item.quantity += Number(quantity.value);
+            isExistId = true;
+            return;
+        }
+    });
+    if (!isExistId) products.push({ id: id, quantity: Number(quantity.value) });
+    storage.setItem(type, JSON.stringify(products));
+}
+cartButton.addEventListener('click', () => {
+    setProductData('cart');
+    window.location.href = '/cart/';
+});
+orderButton.addEventListener('click', () => {
+    setProductData('order');
+    window.location.href = '/order/';
+});
+wishButton.addEventListener('click', () => {
+    setProductData('wish');
+    // window.location.href = '/mypage/wishlist/';
+});
 //상품정보 더보기 눌렀을때 상세 이미지 전체 렌더링
 const renderButton = document.querySelector('.more__button');
 const gradient = document.querySelector('.preview__gradient');
