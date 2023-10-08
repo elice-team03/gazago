@@ -37,6 +37,18 @@ class orderService {
             .exec();
     }
 
+    static async findOrderedProduct(productId) {
+        const orders = await Order.find({ products: productId });
+
+        let totalSales = 0;
+        for (const order of orders) {
+            const productCount = order.products.filter((pId) => pId.toString() === productId.toString()).length;
+            totalSales += productCount;
+        }
+
+        return totalSales;
+    }
+
     static async findByOrderer(orderUserId) {
         return await Order.find({ orderUserId: orderUserId });
     }
