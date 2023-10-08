@@ -1,7 +1,8 @@
 const path = require('path');
 const { mongoose } = require('mongoose');
-const { Product, Order } = require('../db');
+const { Product } = require('../db');
 const { categoryService } = require('./categoryService');
+const { orderService } = require('./orderService');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
 
 const uploadDirectory = path.join('upload', 'product');
@@ -33,36 +34,17 @@ class productService {
             .sort({ createdAt: -1 })
             .populate({
                 path: 'category',
-                select: 'name',
+                populate: {
+                    path: 'parentCategory',
+                },
             })
             .exec();
 
-        const result = await Promise.all(
-            products.map(async (product) => {
-                product.totalSales = await this.findProductOrdered(product._id);
-                if (product.category && product.category.parentCategory) {
-                    await product.category.populate({
-                        path: 'parentCategory',
-                        select: 'name',
-                    }).exec;
-                }
-                return product;
-            })
-        );
-
-        return result;
-    }
-
-    static async findProductOrdered(productId) {
-        const orders = await Order.find({ products: productId });
-
-        let totalSales = 0;
-        for (const order of orders) {
-            const productCount = order.products.filter((pId) => pId.toString() === productId.toString()).length;
-            totalSales += productCount;
+        for (const product of products) {
+            product.totalSales = await orderService.findOrderedProduct(product._id);
         }
 
-        return totalSales;
+        return products;
     }
 
     static async findProductsByCategory(categoryId) {
@@ -80,7 +62,17 @@ class productService {
             error.status = 400;
             throw error;
         }
-        return await Product.findById(id);
+
+        const result = await Product.findById(id)
+            .populate({
+                path: 'category',
+                populate: {
+                    path: 'parentCategory',
+                },
+            })
+            .exec();
+
+        return result;
     }
 
     static async getTotalProductsCount() {
