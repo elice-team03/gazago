@@ -56,11 +56,18 @@ router.post(
 router.get(
     '/check',
     asyncHandler(async (req, res, next) => {
+        console.log(req.user);
         if (req.user) {
             res.json({
                 code: 200,
                 message: '로그인 중입니다',
                 data: true,
+            });
+        } else {
+            res.json({
+                code: 200,
+                message: '로그아웃 중 입니다',
+                data: false,
             });
         }
     })
