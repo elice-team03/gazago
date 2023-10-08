@@ -2,9 +2,8 @@
 
 :root {
     --color-main: #004225;
-    --color-sub: #8c8c8c;
-
-    --font-code: 'Nanum Gothic Coding', monospace;
+    --color-sub: #ebebeb;
+    --color-font-grey: #8c8c8c;
 
     --font-size-title: 32px;
     --font-size-subtitle: 25px;
@@ -29,42 +28,6 @@ main {
     height: 100vh;
 }
 
-aside {
-    grid-area: aside; /* aside 요소를 정의된 영역에 배치합니다. */
-    margin: 50px;
-}
-
-.main-container {
-    grid-area: main-container; /* main-container 요소를 정의된 영역에 배치합니다. */
-    padding: 80px;
-}
-
-.sub-title {
-    display: inline-block;
-    font-size: var(--font-size-subtitle);
-    font-weight: 700;
-    letter-spacing: -0.27px;
-    line-height: 22px;
-    margin-bottom: 12px;
-    vertical-align: top;
-}
-
-ul {
-    margin-bottom: 30px;
-}
-
-.menu-link {
-    color: var(--color-sub);
-    font-size: var(--font-size-sm);
-    letter-spacing: -0.15px;
-    line-height: 30px;
-}
-
-.menu-link a {
-    text-decoration: none;
-    cursor: pointer;
-}
-
 .title {
     margin-bottom: 50px;
 }
@@ -76,5 +39,5 @@ td {
 }
 
 .table {
-  margin-top: 80px;
+    margin-top: 80px;
 }
