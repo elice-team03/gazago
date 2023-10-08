@@ -27,11 +27,19 @@ class productService {
     }
 
     static async findProductsPaginated(skip, limit) {
-        const products = await Product.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }).exec();
+        const products = await Product.find({})
+            .skip(skip)
+            .limit(limit)
+            .sort({ createdAt: -1 })
+            .populate('category')
+            .exec();
 
         const result = await Promise.all(
             products.map(async (product) => {
                 product.totalSales = await this.findProductOrdered(product._id);
+                if (product.category && product.category.parentCategory) {
+                    await product.category.populate('parentCategory').exec;
+                }
                 return product;
             })
         );
