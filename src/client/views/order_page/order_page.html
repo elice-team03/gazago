@@ -8,15 +8,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
   <link rel="stylesheet" href="./order_page.css">
   <script src="https://js.stripe.com/v3/"></script>
-  <title>Document</title>
+  <title>gazago</title>
 </head>
 
 <body>
   <div class="container is-widescreen">
     <div class="container__box">
       <div class="container__title">
-        <div class="container__text">배송 정보</div>
-        <div class="container__text--required"><span class="point">*</span> 표시는 필수입력 항목</div>
+        <span class="container__text">배송 정보</span>
+        <span class="container__text--required"><span class="point">*</span> 표시는 필수입력 항목</span>
       </div>
       <div class="tabs is-boxed">
         <ul>
@@ -25,15 +25,15 @@
         </ul>
       </div>
       <div class="input__box">
-        <div class="input__label">배송지명</div>
+        <span class="input__label">배송지명</span>
         <input class="input" type="text" style="width: 50%">
       </div>
       <div class="input__box">
-        <div class="input__label">수령인<span class="point">*</span></div>
+        <span class="input__label">수령인<span class="point">*</span></span>
         <input class="input" type="text" style="width: 50%">
       </div>
       <div class="input__box">
-        <div class="input__label">배송지<span class="point">*</span></div>
+        <span class="input__label">배송지<span class="point">*</span></span>
         <input class="input" id="zipcode" type="text" style="width: 30%">
         <div class="input__button--zipcode">우편번호 검색</div>
       </div>
@@ -44,19 +44,19 @@
         <input class="input" id="detailAddress" type="text" style="width: 80%">
       </div>
       <div class="input__box">
-        <div class="input__label">연락처1<span class="point">*</span></div>
+        <span class="input__label">연락처1<span class="point">*</span></span>
         <input class="input" type="text" style="width: 10%">
-        <div class="hipen">-</div>
+        <span class="hipen">-</span>
         <input class="input" type="text" style="width: 10%">
-        <div class="hipen">-</div>
+        <span class="hipen">-</span>
         <input class="input" type="text" style="width: 10%">
       </div>
       <div class="input__box">
-        <div class="input__label">연락처2</div>
+        <span class="input__label">연락처2</span>
         <input class="input" type="text" style="width: 10%">
-        <div class="hipen">-</div>
+        <span class="hipen">-</span>
         <input class="input" type="text" style="width: 10%">
-        <div class="hipen">-</div>
+        <span class="hipen">-</span>
         <input class="input" type="text" style="width: 10%">
       </div>
       <div class="notice">
@@ -74,30 +74,30 @@
         </div>
       </div>
       <div class="payment__line"></div>
-      <div class="container__text">결제 정보</div>
+      <span class="container__text">결제 정보</span>
       <div class="input__box">
-        <div class="input__label">이메일</div>
+        <span class="input__label">이메일</span>
         <input class="input" type="email" style="width: 52%">
       </div>
       <div class="input__box">
-        <div class="input__label">카드번호</div>
+        <span class="input__label">카드번호</span>
         <input class="input" type="text" style="width: 10%">
-        <div class="hipen">-</div>
+        <span class="hipen">-</span>
         <input class="input" type="text" style="width: 10%">
-        <div class="hipen">-</div>
+        <span class="hipen">-</span>
         <input class="input" type="text" style="width: 10%">
-        <div class="hipen">-</div>
+        <span class="hipen">-</span>
         <input class="input" type="text" style="width: 10%">
       </div>
       <div class="input__box">
-        <div class="input__label">유효기간</div>
+        <span class="input__label">유효기간</span>
         <input class="input" type="text" style="width: 16%" placeholder="MM/YY">
-        <div class="input__label--cvc">CVC</div>
+        <span class="input__label--cvc">CVC</span>
         <input class="input" type="text" style="width: 16%">
       </div>
     </div>
     <div class="product">
-      <div class="container__text">주문상품 정보 / 총 1개</div>
+      <span class="container__text">주문상품 정보 / 총 1개</span>
       <div class="product__line"></div>
       <div class="product__box">
         <div class="product__detail">
@@ -105,23 +105,23 @@
             class="product__image">
           <!-- 임시 더미 데이터 -->
           <div class="product__description">
-            <div class="product__text--brand">헬리녹스</div>
-            <div class="product__text--name">체어원 / 올 블랙</div>
-            <div>115,000원 / 수량 1개</div>
+            <span class="product__text--brand">헬리녹스</span>
+            <span class="product__text--name">체어원 / 올 블랙</span>
+            <span>115,000원 / 수량 1개</span>
           </div>
         </div>
         <div class="product__line--thin"></div>
         <div class="order__box">
-          <div>총 상품금액</div>
-          <div>115,000원</div>
+          <span>총 상품금액</span>
+          <span>115,000원</span>
         </div>
         <div class="order__box">
-          <div>배송비</div>
-          <div>+ 0원</div>
+          <span>배송비</span>
+          <span>+ 0원</span>
         </div>
         <div class="order__box--total">
-          <div>총 결제금액</div>
-          <div class="order__total">115,000원</div>
+          <span>총 결제금액</span>
+          <span class="order__total">115,000원</span>
         </div>
         <div class="product__line--thin"></div>
         <div class="order__box--total">
