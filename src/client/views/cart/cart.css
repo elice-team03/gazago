@@ -117,3 +117,7 @@ body {
 .checkbox input, .radio input {
     margin-right: 6px;
 }
+h6 {
+    margin-bottom: 0px !important;
+    font-weight: normal !important;
+}

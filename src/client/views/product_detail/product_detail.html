@@ -11,13 +11,13 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="product">
+    <main class="container">
+        <article class="product">
             <img class="product__image"
                 src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000262.jpg?1693890540"></img>
-            <div class="order">
+            <section class="order">
                 <span class="order__text--brand">헬리녹스</span>
-                <span class="order__text--title">체어원 / 코요테탄</span>
+                <h6 class="order__text--title">체어원 / 코요테탄</h6>
                 <div class="order__text">
                     <span>판매가</span>
                     <b>
@@ -57,25 +57,27 @@
                     <button class="button is-rounded is-fullwidth">장바구니</button>
                 </div>
                 <button class="button is-rounded is-fullwidth order__button">주문하기</button>
+            </section>
+        </article>
+        <article>
+            <div class="preview__gradient"></div>
+            <div class="preview__crop">
+                <img class="preview__img" src="https://i.ibb.co/zP9hzMM/product.png"></img>
+                <button class="button is-rounded is-responsive preview__button">상품정보 접기 <svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-chevron-up">
+                        <path d="m18 15-6-6-6 6" />
+                    </svg></button>
             </div>
-        </div>
-        <div class="preview__gradient"></div>
-        <div class="preview__crop">
-            <img class="preview__img" src="https://i.ibb.co/zP9hzMM/product.png"></img>
-            <button class="button is-rounded is-responsive preview__button">상품정보 접기 <svg
+            <button class="button is-rounded is-responsive more__button">상품정보 더보기 <svg
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-chevron-up">
-                    <path d="m18 15-6-6-6 6" />
+                    class="lucide lucide-chevron-down">
+                    <path d="m6 9 6 6 6-6" />
                 </svg></button>
-        </div>
-        <button class="button is-rounded is-responsive more__button">상품정보 더보기 <svg xmlns="http://www.w3.org/2000/svg"
-                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down">
-                <path d="m6 9 6 6 6-6" />
-            </svg></button>
-    </div>
-
+        </article>
+    </main>
     <script src="./product_detail.js"></script>
 </body>
 
