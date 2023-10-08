@@ -10,7 +10,7 @@ async function getData(page) {
 // 테스트
 (async function test (){
     let a = await getData(1);
-    displayProducts(productDataMapping(b));
+    displayProducts(productDataMapping(a));
 })();
 
 
