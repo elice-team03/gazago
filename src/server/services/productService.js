@@ -1,6 +1,6 @@
 const path = require('path');
 const { mongoose } = require('mongoose');
-const { Product } = require('../db');
+const { Product, Order } = require('../db');
 const { categoryService } = require('./categoryService');
 const { orderService } = require('./orderService');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
@@ -45,6 +45,18 @@ class productService {
         }
 
         return products;
+    }
+
+    static async findProductOrdered(productId) {
+        const orders = await Order.find({ products: productId });
+
+        let totalSales = 0;
+        for (const order of orders) {
+            const productCount = order.products.filter((pId) => pId.toString() === productId.toString()).length;
+            totalSales += productCount;
+        }
+
+        return totalSales;
     }
 
     static async findProductsByCategory(categoryId) {

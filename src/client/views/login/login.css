@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+    --color-main: #004225;
+    --color-sub: #ebebeb;
+    --color-font-grey: #8c8c8c;
+    --font-size-title: 20px;
+    --font-size-subtitle: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 700px;
+    padding-top: 70px;
+}
+
+img {
+    width: 130px;
+    margin: 0;
+    padding: 0;
+}
+
+.center h1 {
+    text-align: center;
+    padding: 0 0 20px 0;
+    margin-top: 0;
+}
+
+.center form {
+    padding: 0 40px;
+    width: 500px;
+    box-sizing: border-box;
+    height: 500px;
+}
+
+form .text-filed {
+    display: flex;
+    flex-direction: column;
+    margin: 50px 0;
+}
+
+.text-filed input {
+    width: 100%;
+    padding: 0 10px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid var(--color-sub);
+}
+
+.text-filed label {
+    font-size: 16px;
+}
+
+.text-filed span::before {
+    content: '';
+    display: flex;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-main);
+}
+
+.text-filed input:focus ~ span::before,
+.text-filed input:valid ~ span::before {
+    width: 100%;
+}
+
+#submit {
+    background-color: var(--color-main);
+    border-radius: 25px;
+    font-size: 16px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+}
+
+#submit:hover {
+    border-color: var(--color-main);
+    transition: 0.5s;
+}
+
+.look-box {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.look-link a {
+    text-decoration: none;
+    color: rgb(67, 67, 67);
+    size: 16px;
+}
+
+.look-link a:first-child {
+    margin-left: 17px;
+}
+
+.look-link a:hover {
+    text-decoration: underline;
+}
