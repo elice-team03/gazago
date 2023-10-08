@@ -59,6 +59,27 @@ async function patch(endpoint, data) {
     }   
 }
 
+//API PUT
+async function put(endpoint, data) {
+    try {
+        const apiUrl = endpoint;
+        const dataJson = JSON.stringify(data);
+
+        const response = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: dataJson,
+        });
+        const result = await response.json();
+        return result;
+    } catch (error){
+        throw error;
+    }   
+}
+
 // API DELETE
 // delete는 js 예약어 중 하나로 deleteRequest로 명명
 async function deleteRequest(endpoint) {
@@ -78,4 +99,4 @@ async function deleteRequest(endpoint) {
     }
 }
 
-export { post, get, patch, deleteRequest };
+export { post, get, patch, put, deleteRequest };
