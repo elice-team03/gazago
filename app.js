@@ -18,8 +18,11 @@ const deliveriesRouter = require('./src/server/routers/deliveries');
 const ordersRouter = require('./src/server/routers/orders');
 
 const app = express();
-app.use(fileUpload());
+
 app.use(cors());
+app.use(fileUpload());
+app.use('/upload', express.static('upload'));
+
 // MongoDB connect
 require('dotenv').config();
 const port = process.env.PORT || 5001;
