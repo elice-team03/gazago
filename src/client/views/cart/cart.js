@@ -11,49 +11,39 @@ function calculateProductPrice(idx) {
     const result = numberPrice * Number(quantities[idx].value);
     prices[idx].innerHTML = `${result.toLocaleString()}원`;
 }
-//각 플러스 버튼마다 클릭이 발생하면 각 idx에 해당하는 quantity가 1씩 증가하고, 상품가격 계산 함수가 호출됨
+//상품 수량을 변경하는 함수
+function handleProductQuantity(type, idx) {
+    const quantity = quantities[idx];
+    if (type === 'plus') quantity.value++; //type이 plus일때는 quantity를 1씩 증가시킴
+    else if (type === 'minus') quantity.value--; //type이 minus일때는 quantity를 1씩 감소시킴
+    if (quantity.value < 1) {
+        //quantity가 1보다 작을 시 최소구매 수량 경고가 발생하고 quantity가 1로 변경됨
+        alert('해당 상품은 최소구매 수량이 1개입니다.');
+        quantity.value = 1;
+    }
+    calculateProductPrice(idx); //상품가격 계산 함수 호출
+    const numberTotalProductPrice = Number(totalProductPrice.innerHTML.replace(',', ''));
+    if (numberTotalProductPrice > 0) {
+        //총 주문금액이 0원보다 클 때(checkbox가 하나라도 선택됐을 때) 총 상품 금액 계산 함수 호출
+        calculateTotalPrice(idx);
+    }
+}
+//각 플러스 버튼을 클릭했을 때 발생하는 이벤트
 productPlusButtons.forEach((item, idx) => {
     item.addEventListener('click', () => {
-        quantities[idx].value++;
-        calculateProductPrice(idx);
-        if (totalProductPrice.innerHTML !== '0') {
-            //총 주문금액이 0원 이상일 때(checkbox가 하나라도 선택됐을 때)
-            calculateTotalPrice(idx); //상품금액이 변경됐을 때의 총 주문금액을 계산하는 함수를 호출
-        }
+        handleProductQuantity('plus', idx);
     });
 });
-//각 마이너스 버튼마다 클릭이 발생하면 각 idx에 해당하는 quantity가 1씩 감소하고, 상품가격 계산 함수가 호출됨
-//quantity가 1보다 작을 시 최소구매 수량 경고가 발생하고 quantity가 1로 변경됨
+//각 마이너스 버튼을 클릭했을 때 발생하는 이벤트
 productMinusButtons.forEach((item, idx) => {
     item.addEventListener('click', () => {
-        const quantity = quantities[idx];
-        quantity.value--;
-        if (quantity.value < 1) {
-            alert('해당 상품은 최소구매 수량이 1개입니다.');
-            quantity.value = 1;
-            return;
-        }
-        calculateProductPrice(idx);
-        if (totalProductPrice.innerHTML !== '0') {
-            //총 주문금액이 0원 이상일 때(checkbox가 하나라도 선택됐을 때)
-            calculateTotalPrice(idx); //상품금액이 변경됐을 때의 총 주문금액을 계산하는 함수를 호출
-        }
+        handleProductQuantity('minus', idx);
     });
 });
-//사용자가 input을 통해 quantity를 수정하면 상품가격 계산 함수가 호출됨
-//quantity가 1보다 작을 시 최소구매 수량 경고가 발생하고 quantity가 1로 변경됨
+//사용자가 input을 통해 quantity를 수정했을 때 발생하는 이벤트
 quantities.forEach((item, idx) => {
     item.addEventListener('change', () => {
-        const quantity = quantities[idx];
-        if (quantity.value < 1) {
-            alert('해당 상품은 최소구매 수량이 1개입니다.');
-            quantity.value = 1;
-        }
-        calculateProductPrice(idx);
-        if (totalProductPrice.innerHTML !== '0') {
-            //총 주문금액이 0원 이상일 때(checkbox가 하나라도 선택됐을 때)
-            calculateTotalPrice(idx);
-        }
+        handleProductQuantity('input', idx);
     });
 });
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -91,6 +81,6 @@ function selectAll(selectAll) {
 checkboxes.forEach((item) => {
     item.addEventListener('click', (e) => {
         calculateTotalPrice();
-        if (!e.target.checked) checkboxes[0].checked = false;
+        if (!e.target.checked) checkboxes[0].checked = false; //하나라도 선택 해제시 전체선택이 해제됨
     });
 });
