@@ -157,6 +157,9 @@
     margin-left: 33px;
     width: 15%;
 }
+.input {
+    width: 80%;
+}
 .button {
     font-family: 'Noto Sans KR', sans-serif;
     padding: 30px 0;
@@ -169,4 +172,19 @@
 }
 .button:hover, .button:focus {
     color: #ffffff;
+}
+.input__half {
+    width: 50%;
+}
+.input__zipcode {
+    width: 30%;
+}
+.input__min {
+    width: 10%;
+}
+.input__email {
+    width: 52%;
+}
+.input__expire {
+    width: 16%;
 }

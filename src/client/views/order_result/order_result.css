@@ -116,3 +116,12 @@ body {
 .cancle__button:hover, .cancle__button:focus {
     color: #fff;
 }
+.input {
+    width: 43%;
+}
+.input__half {
+    width: 50%;
+}
+.input__delivery {
+    width: 33%;
+}
