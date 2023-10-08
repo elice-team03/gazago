@@ -62,6 +62,31 @@ router.get(
     })
 );
 
+router.patch(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        const _id = req.params.id;
+        const productInfo = req.body;
+        const contentFile = req.files.content;
+
+        const requiredFields = ['name', 'brand', 'price', 'thumbnailPath'];
+        const missingFields = requiredFields.filter((field) => !productInfo[field]);
+
+        if (missingFields.length > 0) {
+            const error = new Error('누락된 입력 항목이 존재합니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await productService.modifyProduct({ _id, productInfo, contentFile });
+        res.status(201).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
 router.delete(
     '/:id',
     asyncHandler(async (req, res, next) => {

@@ -20,7 +20,6 @@ const ordersRouter = require('./src/server/routers/orders');
 const app = express();
 app.use(fileUpload());
 app.use(cors());
-
 // MongoDB connect
 require('dotenv').config();
 const port = process.env.PORT || 5001;

@@ -21,4 +21,17 @@ async function uploadFile(file, uploadDirectory) {
     });
 }
 
-module.exports = { uploadFile };
+async function deleteFile(serverFileName, uploadDirectory) {
+    const filePath = path.join(uploadDirectory, serverFileName);
+    return new Promise((resolve, reject) => {
+        fs.unlink(filePath, (err) => {
+            if (err && err.code !== 'ENOENT') {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
+}
+
+module.exports = { uploadFile, deleteFile };
