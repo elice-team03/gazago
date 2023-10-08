@@ -46,12 +46,12 @@
 .input__label {
     width: 20%;
 }
-.input__btn--lastaddress {
+.input__button--lastaddress {
     cursor: pointer;
     text-decoration: underline;
     margin-left: 15%;
 }
-.input__btn--zipcode {
+.input__button--zipcode {
     cursor: pointer;
     padding: 8px 14px;
     margin-left: 8px;
@@ -90,7 +90,7 @@
     margin: 10px 0;
     width: 100%;
 }
-.product__img {
+.product__image {
     width: 240px;
 }
 .product__detail {

@@ -9,7 +9,7 @@
     gap: 100px;
     margin-bottom: 100px;
 }
-.product__img {
+.product__image {
     width: 40%;
 }
 .order {
@@ -83,11 +83,11 @@
     padding-bottom: 24px;
     font-size: 20px;
 }
-.order__btn {
+.order__button {
     background-color: #004225;
     color: #fff;
 }
-.order__btn:hover, .order__btn:focus {
+.order__button:hover, .order__button:focus {
     color: #fff;
 }
 .preview__gradient {
@@ -106,7 +106,7 @@
 .preview__img {
     max-height: initial;
 }
-.more__btn {
+.more__button {
     position: absolute;
     z-index: 2;
     top: 850px;
@@ -116,7 +116,7 @@
     color: #004225;
     border: 1px solid #004225;
 }
-.preview__btn {
+.preview__button {
     display: none;
     margin: 20px auto;
     gap: 5px;

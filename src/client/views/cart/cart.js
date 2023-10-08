@@ -1,7 +1,7 @@
 const originalPrices = document.querySelectorAll('.product__price');
 const prices = document.querySelectorAll('.counter__price');
-const plusBtns = document.querySelectorAll('.counter__plus');
-const minusBtns = document.querySelectorAll('.counter__minus');
+const productPlusButtons = document.querySelectorAll('.counter__plus');
+const productMinusButtons = document.querySelectorAll('.counter__minus');
 const quantities = document.querySelectorAll('.counter__number');
 const totalProductPrice = document.getElementById('total__price--product');
 
@@ -12,7 +12,7 @@ function calculateProductPrice(idx) {
     prices[idx].innerHTML = `${result.toLocaleString()}원`;
 }
 //각 플러스 버튼마다 클릭이 발생하면 각 idx에 해당하는 quantity가 1씩 증가하고, 상품가격 계산 함수가 호출됨
-plusBtns.forEach((item, idx) => {
+productPlusButtons.forEach((item, idx) => {
     item.addEventListener('click', () => {
         quantities[idx].value++;
         calculateProductPrice(idx);
@@ -24,7 +24,7 @@ plusBtns.forEach((item, idx) => {
 });
 //각 마이너스 버튼마다 클릭이 발생하면 각 idx에 해당하는 quantity가 1씩 감소하고, 상품가격 계산 함수가 호출됨
 //quantity가 1보다 작을 시 최소구매 수량 경고가 발생하고 quantity가 1로 변경됨
-minusBtns.forEach((item, idx) => {
+productMinusButtons.forEach((item, idx) => {
     item.addEventListener('click', () => {
         const quantity = quantities[idx];
         quantity.value--;

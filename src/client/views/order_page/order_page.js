@@ -1,4 +1,4 @@
-const zipcodeBtn = document.querySelector('.input__btn--zipcode');
+const zipcodeButton = document.querySelector('.input__button--zipcode');
 function execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function (data) {
@@ -29,4 +29,4 @@ function execDaumPostcode() {
         },
     }).open();
 }
-zipcodeBtn.addEventListener('click', execDaumPostcode);
+zipcodeButton.addEventListener('click', execDaumPostcode);

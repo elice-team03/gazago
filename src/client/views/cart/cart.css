@@ -16,7 +16,7 @@ body {
 .button {
     font-family: 'Noto Sans KR', sans-serif;
 }
-.delete__btn {
+.delete__button {
     padding: 4px 20px;
 }
 .content {
@@ -28,7 +28,7 @@ body {
     width: 80%;
     padding: 20px;
 }
-.product__img {
+.product__image {
     width: 200px;
 }
 .price {
@@ -95,23 +95,23 @@ body {
     justify-content: center;
     gap: 10px;
 }
-.back__btn {
+.back__button {
     width: 200px;
     border: 3px solid #004225;
     color: #004225;
     padding: 10px 16px;
 }
-.back__btn:hover {
+.back__button:hover {
     border: 3px solid #005c34;
     color: #004225;
 }
-.order__btn {
+.order__button {
     width: 200px;
     background-color: #004225;
     color: #fff;
     padding: 10px 16px;
 }
-.order__btn:hover, .order__btn:focus {
+.order__button:hover, .order__button:focus {
     color: #fff;
 }
 .checkbox input, .radio input {

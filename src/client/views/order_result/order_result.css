@@ -21,7 +21,7 @@ body {
     align-items: center;
     padding: 0 20px;
 }
-.product__img {
+.product__image {
     width: 240px;
 }
 .product__text--brand {
@@ -101,11 +101,11 @@ body {
 .button {
     font-family: 'Noto Sans KR', sans-serif;
 }
-.delivery__btn--zipcode {
+.delivery__button--zipcode {
     margin-right: 40px;
     height: 30px;
 }
-.cancle__btn {
+.cancle__button {
     display: inline-block;
     margin: 10px auto;
     width: 200px;
@@ -113,6 +113,6 @@ body {
     color: #fff;
     padding: 10px 16px;
 }
-.cancle__btn:hover, .cancle__btn:focus {
+.cancle__button:hover, .cancle__button:focus {
     color: #fff;
 }
