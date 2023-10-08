@@ -35,27 +35,25 @@ function calculatePrice() {
     price.innerHTML = `${result.toLocaleString()}원`;
     totalPrice.innerHTML = `${result.toLocaleString()}원`;
 }
-//+버튼 클릭 시 상품 수량 증가, 상품 가격 변경
+//상품 수량을 변경하는 함수
+function handleProductQuantity(type) {
+    if (type === 'plus') quantity.value++; //+버튼 클릭 시 상품 수량 증가
+    else if (type === 'minus') quantity.value--; //-버튼 클릭 시 상품 수량 증가
+    if (quantity.value < 1) {
+        alert('해당 상품은 최소구매 수량이 1개입니다.');
+        quantity.value = 1;
+    }
+    calculatePrice();
+}
+//+버튼 클릭 시 발생하는 이벤트
 productPlusButton.addEventListener('click', () => {
-    quantity.value++;
-    calculatePrice();
+    handleProductQuantity('plus');
 });
-//-버튼 클릭 시 상품 수량 감소, 상품 가격 변경
+//-버튼 클릭 시 발생하는 이벤트
 productMinusButton.addEventListener('click', () => {
-    quantity.value--;
-    if (quantity.value < 1) {
-        alert('해당 상품은 최소구매 수량이 1개입니다.');
-        quantity.value = 1;
-        return;
-    }
-    calculatePrice();
+    handleProductQuantity('minus');
 });
-//사용자가 수량 임의로 변경 시 상품 가격 변경
+//사용자가 수량 임의로 변경 시 발생하는 이벤트
 quantity.addEventListener('change', () => {
-    if (quantity.value < 1) {
-        alert('해당 상품은 최소구매 수량이 1개입니다.');
-        quantity.value = 1;
-        return;
-    }
-    calculatePrice();
+    handleProductQuantity('input');
 });
