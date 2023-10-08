@@ -7,10 +7,7 @@ const product = {
     deleteRow: async (e, id) => {
         e.preventDefault();
         try {
-            let res = await fetch(`/api/products/${id}`, {
-                method: 'DELETE',
-            });
-            let jsonRes = await res.json();
+            let jsonRes = await Api.deleteRequest(`/api/products/${id}`);
             if (jsonRes.code == 200) {
                 alert('삭제 되었습니다.');
                 window.location.reload();
@@ -47,43 +44,6 @@ const product = {
             body: productSaveFormdata, // body 부분에 폼데이터 변수를 할당
         });
         let jsonRes = await res.json();
-        console.log(111, jsonRes);
-
-        if (jsonRes?.code == 201) {
-            // 성공시
-            alert(jsonRes.message);
-            window.location.reload();
-        } else {
-            // 실패시
-            alert(jsonRes?.message);
-        }
-    },
-    productUpdate: async (e) => {
-        e.preventDefault();
-
-        let parentCategorySel = document.querySelector('#parentCategorySel').value;
-        let childCategorySel = document.querySelector('#childCategorySel').value;
-        let brandInput = document.querySelector('#brandInput').value;
-        let productNameInput = document.querySelector('#productNameInput').value;
-        let priceInput = document.querySelector('#priceInput').value;
-        let thumbnailInput = document.querySelector('#thumbnailInput').value;
-        let content = document.querySelector('#contentFile');
-
-        let productSaveFormdata = new FormData();
-        productSaveFormdata.append('categoryId', childCategorySel);
-        productSaveFormdata.append('brand', brandInput);
-        productSaveFormdata.append('name', productNameInput);
-        productSaveFormdata.append('price', priceInput);
-        productSaveFormdata.append('thumbnailPath', thumbnailInput);
-        productSaveFormdata.append('content', content.files[0]);
-
-        let res = await fetch('/api/products', {
-            method: 'PATCH',
-            body: productSaveFormdata, // body 부분에 폼데이터 변수를 할당
-        });
-        let jsonRes = await res.json();
-        console.log(111, jsonRes);
-
         if (jsonRes?.code == 201 || jsonRes?.code == 200) {
             // 성공시
             alert(jsonRes.message);
@@ -110,7 +70,6 @@ const initialize = async () => {
         let res = await Api.get('/api/products');
         if (res.code == 200) {
             if (res != null && res.data != null) {
-                console.log(res.data);
                 let productList = res.data;
                 let tbody = document.querySelector('#product_list_tbody');
 
@@ -162,8 +121,8 @@ const initialize = async () => {
                 });
             }
         }
-    } catch (e) {
-        console.log(e);
+    } catch (err) {
+        console.log(err);
     }
 };
 initialize();

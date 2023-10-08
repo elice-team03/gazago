@@ -13,10 +13,8 @@ const category = {
     deleteRow: async (e, id) => {
         e.preventDefault();
         try {
-            let deleteRes = await fetch(`/api/categories/${id}`, {
-                method: 'DELETE',
-            });
-            if (deleteRes.ok) {
+            let deleteRes = await Api.deleteRequest(`/api/categories/${id}`);
+            if (deleteRes.code == 200) {
                 alert('삭제 되었습니다.');
                 window.location.reload();
             } else {
@@ -31,23 +29,14 @@ const category = {
         const parentCategorySel = document.querySelector('#parentCategorySel');
         const childCategoryInp = document.querySelector('#childCategoryInp');
         try {
-            let response = await fetch('http://localhost:5001/api/categories', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: childCategoryInp.value,
-                    parentCategoryId: parentCategoryIdObj[parentCategorySel.value],
-                }),
+            let response = await Api.post('http://localhost:5001/api/categories', {
+                name: childCategoryInp.value,
+                parentCategoryId: parentCategoryIdObj[parentCategorySel.value],
             });
-            if (response.ok) {
-                let data = await response.json();
-                if (data != null && response.status == 201) {
-                    alert('등록이 완료되었습니다.');
-                    mdl.close();
-                    window.location.reload();
-                }
+            if (response.code == 201) {
+                alert('등록이 완료되었습니다.');
+                mdl.close();
+                window.location.reload();
             } else {
                 throw new Error('등록 중 오류가 발생했습니다.');
             }
@@ -59,17 +48,10 @@ const category = {
         e.preventDefault();
         try {
             const selectedUseYN = document.querySelector(`input[name="useYn${idx}"]:checked`).value;
-            let updateRes = await fetch(`/api/categories/${id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    useYn: selectedUseYN == 'true' ? true : false,
-                }),
+            let updateRes = await Api.patch(`/api/categories/${id}`, {
+                useYn: selectedUseYN == 'true' ? true : false,
             });
-
-            if (updateRes.ok) {
+            if (updateRes.code == 200) {
                 alert('사용여부가 수정되었습니다.');
             } else {
                 alert('수정 중 오류가 발생했습니다.');
