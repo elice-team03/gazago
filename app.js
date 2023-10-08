@@ -7,16 +7,19 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
+const cors = require('cors');
 
 const viewsRotuer = require('./src/client/routers/views');
 const indexRouter = require('./src/server/routers/index');
 const usersRouter = require('./src/server/routers/users');
 const productsRouter = require('./src/server/routers/products');
 const categoriesRouter = require('./src/server/routers/categories');
+const deliveriesRouter = require('./src/server/routers/deliveries');
+const ordersRouter = require('./src/server/routers/orders');
 
 const app = express();
 app.use(fileUpload());
-
+app.use(cors());
 // MongoDB connect
 require('dotenv').config();
 const port = process.env.PORT || 5001;
@@ -51,6 +54,8 @@ app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/categories', categoriesRouter);
+app.use('/api/deliveries', deliveriesRouter);
+app.use('/api/orders', ordersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

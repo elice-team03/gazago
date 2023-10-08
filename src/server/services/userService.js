@@ -18,6 +18,27 @@ class userService {
         return await User.findOne({ email: email });
     }
 
+    static async addUserOrder(userId, orderId) {
+        await User.findByIdAndUpdate(
+            {
+                _id: userId,
+            },
+            { $push: { orders: orderId } }
+        );
+        return;
+    }
+    static async addUserDelivery(userId, deliveryId) {
+        await User.findByIdAndUpdate(
+            {
+                _id: userId,
+            },
+            {
+                delivery: deliveryId,
+            }
+        );
+        return;
+    }
+
     static async removeUser(_id) {
         return await User.findByIdAndDelete(_id);
     }
