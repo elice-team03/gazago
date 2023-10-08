@@ -24,11 +24,32 @@ class orderService {
         return order;
     }
 
-    static async findAllOrders() {
-        return await Order.find({}).populate({
-            path: 'delivery',
-            select: 'receiver',
-        });
+    static async findAllOrders(searchQuery) {
+        const query = Order.find({});
+
+        if (searchQuery) {
+            if (searchQuery.createdAt) {
+                const beginTimestamp = new Date(searchQuery.createdAt.$gte).getTime();
+                const endTimestamp = new Date(searchQuery.createdAt.$lte).getTime();
+                query.where('createdAt').gte(beginTimestamp).lte(endTimestamp);
+            }
+            if (searchQuery['delivery.receiver']) {
+                query.where('delivery.receiver').regex(new RegExp(searchQuery['delivery.receiver'], 'i'));
+            }
+            if (searchQuery.orderNumber) {
+                query.where('orderNumber').equals(searchQuery.orderNumber);
+            }
+            if (searchQuery.status) {
+                query.where('status').equals(searchQuery.status);
+            }
+        }
+
+        return await query
+            .populate({
+                path: 'delivery',
+                select: 'receiver',
+            })
+            .exec();
     }
 
     static async findByOrderer(orderUserId) {
