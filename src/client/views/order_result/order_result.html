@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+    <link rel="stylesheet" href="./order_result.css">
+    <title>gazago</title>
+</head>
+
+<body>
+    <main class="container">
+        <article class="order">
+            <section class="product">
+                <img class="product__image"
+                    src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000242.jpg?1584076493"></img>
+                <div>
+                    <span class="product__text--brand">헬리녹스</span>
+                    <div class="product__detail">
+                        <span class="product__delivery">배송중</span>
+                        <h6>체어원 / 올 블랙</h6>
+                    </div>
+                    <span class="product__text--price">115,000원</span>
+                    <span class="product__text--brand">주문수량 : 1개</span>
+                </div>
+            </section>
+            <section>
+                <div class="divider"></div>
+                <div class="delivery__title">
+                    <h6 class="delivery__text">배송지정보</h6>
+                    <button class="button is-light is-rounded delivery__button--zipcode">배송지 변경</button>
+                </div>
+                <div class="divider--thin"></div>
+                <div class="delivery__box">
+                    <span class="input__label">수령인</span>
+                    <span>홍길동</span>
+                </div>
+                <div class="delivery__box">
+                    <span class="input__label">연락처</span>
+                    <input class="input" type="text" value="010-1234-5678" readonly>
+                </div>
+                <div class="delivery__box">
+                    <span class="input__label">배송지</span>
+                    <input class="input input__delivery" type="text" value="12345" readonly>
+                </div>
+                <div class="delivery__box--empty">
+                    <input class="input input__half" type="text" value="OOO도 OO시 OO동" readonly>
+                </div>
+                <div class="delivery__box--empty">
+                    <input class="input input__half" type="text" value="OOO호" readonly>
+                </div>
+                <div class="delivery__box" style="gap: 66px">
+                    <span class="input__label">배송메모</span>
+                    <input class="input" type="text" value="문 앞에 놔주세요." readonly>
+                </div>
+            </section>
+            <section>
+                <div class="divider"></div>
+                <div class="order__box" style="padding-bottom: 0px">
+                    <h6 class="order__text">최종 주문금액</h6>
+                    <span class="order__price--total">115,000원</span>
+                </div>
+                <div class="divider--thin"></div>
+                <div class="order__box">
+                    <span>상품금액</span>
+                    <span><b>115,000</b>원</span>
+                </div>
+                <div class="order__box">
+                    <span>배송비</span>
+                    <span><b>0</b>원</span>
+                </div>
+            </section>
+            <section>
+                <div class="divider"></div>
+                <h6 class="delivery__text">결제상세</h6>
+                <div class="divider--thin"></div>
+                <div class="order__box">
+                    <span>신용카드 결제</span>
+                    <span><b>115,000</b>원</span>
+                </div>
+            </section>
+        </article>
+        <button class="button is-medium is-responsive is-rounded cancle__button">
+            주문 취소
+        </button>
+    </main>
+</body>
+
+</html>
