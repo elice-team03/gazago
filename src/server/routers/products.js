@@ -36,7 +36,20 @@ router.get(
         const skip = (page - 1) * ITEMS_PER_PAGE;
         const limit = ITEMS_PER_PAGE;
 
-        const result = await productService.findProductsPaginated(skip, limit);
+        const { brand, beginPrice, endPrice, color } = req.query;
+        const filter = {};
+
+        if (brand) {
+            filter.brand = brand;
+        }
+        if (beginPrice && endPrice) {
+            filter.price = { $gte: parseInt(beginPrice), $lte: parseInt(endPrice) };
+        }
+        if (color) {
+            filter.color = color;
+        }
+
+        const result = await productService.findProductsPaginated(skip, limit, filter);
         const totalProductsCount = await productService.getTotalProductsCount();
 
         res.status(200).json({

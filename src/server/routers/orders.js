@@ -53,26 +53,28 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { beginDate, endDate, name, orderNumber, status } = req.query;
-        const query = {};
+        const { beginDate, endDate, orderNumber, status, name } = req.query;
+        const filter = {};
 
         if (beginDate && endDate) {
             const beginTimestamp = new Date(beginDate).getTime();
             const endTimestamp = new Date(endDate).getTime();
 
-            query.createdAt = { $gte: beginTimestamp, $lte: endTimestamp + 86400000 };
-        }
-        if (name) {
-            query['delivery.receiver'] = { $regex: new RegExp(name, 'i') };
+            filter.createdAt = { $gte: beginTimestamp, $lte: endTimestamp + 86400000 };
         }
         if (orderNumber) {
-            query.orderNumber = orderNumber;
+            filter.orderNumber = orderNumber;
         }
         if (status) {
-            query.status = status;
+            filter.status = status;
         }
 
-        const result = await orderService.findAllOrders(query);
+        const deliveryFilter = {};
+        if (name) {
+            deliveryFilter.receiver = { $regex: new RegExp(name, 'i') };
+        }
+
+        const result = await orderService.findAllOrders(filter, deliveryFilter);
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Order } = require('../db');
+const { Order, Delivery } = require('../db');
 const { userService } = require('./userService');
 
 class orderService {
@@ -24,27 +24,12 @@ class orderService {
         return order;
     }
 
-    static async findAllOrders(searchQuery) {
-        const query = Order.find({});
+    static async findAllOrders(filter, deliveryFilter) {
+        const deliveryDocs = await Delivery.find(deliveryFilter, '_id');
+        const orderIds = deliveryDocs.map((doc) => doc._id);
+        filter.delivery = { $in: orderIds };
 
-        if (searchQuery) {
-            if (searchQuery.createdAt) {
-                const beginTimestamp = new Date(searchQuery.createdAt.$gte).getTime();
-                const endTimestamp = new Date(searchQuery.createdAt.$lte).getTime();
-                query.where('createdAt').gte(beginTimestamp).lte(endTimestamp);
-            }
-            if (searchQuery['delivery.receiver']) {
-                query.where('delivery.receiver').regex(new RegExp(searchQuery['delivery.receiver'], 'i'));
-            }
-            if (searchQuery.orderNumber) {
-                query.where('orderNumber').equals(searchQuery.orderNumber);
-            }
-            if (searchQuery.status) {
-                query.where('status').equals(searchQuery.status);
-            }
-        }
-
-        return await query
+        return await Order.find(filter)
             .populate({
                 path: 'delivery',
                 select: 'receiver',
@@ -57,7 +42,6 @@ class orderService {
     }
 
     static async modifyOrderStatus({ _id, status }) {
-        console.log(_id);
         if (!mongoose.Types.ObjectId.isValid(_id)) {
             const error = new Error('주문 Id 값이 유효하지 않습니다.');
             error.status = 400;

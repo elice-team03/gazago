@@ -26,8 +26,8 @@ class productService {
         return await Product.create(newProduct);
     }
 
-    static async findProductsPaginated(skip, limit) {
-        const products = await Product.find({})
+    static async findProductsPaginated(skip, limit, filter) {
+        const products = await Product.find(filter)
             .skip(skip)
             .limit(limit)
             .sort({ createdAt: -1 })
