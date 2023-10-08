@@ -17,6 +17,8 @@ viewsRouter.use('/order/result', serveStatic('order_result'));
 viewsRouter.use('/admin/category', serveStatic('admin_category'));
 viewsRouter.use('/admin/product', serveStatic('admin_product'));
 viewsRouter.use('/admin/order', serveStatic('admin_order'));
+viewsRouter.use("/module", serveStatic("module"));
+viewsRouter.use("/", serveStatic(""));
 
 function serveStatic(resource) {
     const resourcePath = path.join(__dirname, `../views/${resource}`);

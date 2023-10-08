@@ -15,13 +15,20 @@ body {
     height: 100vh;
 }
 
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 700px;
+    padding-top: 70px;
 }
 
 img {
@@ -40,14 +47,14 @@ img {
 }
 
 .center form {
-    padding: 0 40px 90px;
+    padding: 0 40px;
+    width: 500px;
     box-sizing: border-box;
+    height: 500px;
 }
 
 form .title p {
     border-bottom: 2px solid var(--color-main);
-    /* color: var(--color-main); */
-    /* font-size: var(--font-size-title); */
     letter-spacing: -0.48px;
     padding-bottom: 15px;
     margin: 0;
@@ -57,7 +64,7 @@ form .title p {
 form .text-field {
     position: relative;
     border-bottom: 2px solid var(--color-sub);
-    margin: 50px 0;
+    margin: 35px 0;
 }
 
 .text-field input {
@@ -71,10 +78,6 @@ form .text-field {
     outline: none;
 }
 
-/* .text-field.success input {
-    border-bottom: 2px solid ;
-} */
-
 .text-field.error input {
     border-bottom: 2px solid red;
 }
@@ -86,12 +89,7 @@ form .text-field {
 }
 
 .text-field label {
-    position: absolute;
-    top: 15%;
-    left: 5px;
-    transform: translateY(-160%);
     font-size: 16px;
-    pointer-events: none;
 }
 
 input::placeholder {
@@ -118,9 +116,6 @@ input::placeholder {
 }
 
 .btn {
-    position: absolute;
-    top: -15px;
-    right: 0;
     background: none;
     border: 1px solid var(--color-main);
     border-radius: 25px;

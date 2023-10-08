@@ -4,7 +4,7 @@ async function post(endpoint, data) {
         const apiUrl = endpoint;
         const dataJson = JSON.stringify(data);
 
-        // HTTP POST 요청 보내기
+        // HTTP POST 요청
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -28,7 +28,7 @@ async function get(endpoint, params = '') {
         const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
         const result = await response.json();
@@ -38,4 +38,65 @@ async function get(endpoint, params = '') {
     }
 }
 
-export { post, get };
+// API PATCH
+async function patch(endpoint, data) {
+    try {
+        const apiUrl = endpoint;
+        const dataJson = JSON.stringify(data);
+
+        const response = await fetch(apiUrl, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: dataJson,
+        });
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+//API PUT
+async function put(endpoint, data) {
+    try {
+        const apiUrl = endpoint;
+        const dataJson = JSON.stringify(data);
+
+        const response = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: dataJson,
+        });
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// API DELETE
+// delete는 js 예약어 중 하나로 deleteRequest로 명명
+async function deleteRequest(endpoint) {
+    try {
+        const apiUrl = endpoint;
+
+        const response = await fetch(apiUrl, {
+            method: 'DELETE',
+            headers: {
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export { post, get, patch, put, deleteRequest };

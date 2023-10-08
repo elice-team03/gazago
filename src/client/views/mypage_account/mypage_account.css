@@ -2,10 +2,8 @@
 
 :root {
     --color-main: #004225;
-    --color-sub: #8c8c8c;
-
-    --font-code: 'Nanum Gothic Coding', monospace;
-
+    --color-sub: #ebebeb;
+    --color-font-grey: #8c8c8c;
     --font-size-title: 32px;
     --font-size-subtitle: 25px;
     --font-size-lg: 22px;
@@ -21,107 +19,68 @@ body {
 }
 
 main {
-  display: grid;
-  grid-template-columns: 250px 1fr; /* 두 개의 열을 만듭니다. */
-  grid-template-rows: 100% auto;
-  grid-template-areas: "aside main-container"; /* 영역을 정의합니다. */
-  grid-gap: 20px; /* 요소들 간의 간격을 조절합니다. */
-  height: 100vh;
-}
-
-aside {
-  grid-area: aside; /* aside 요소를 정의된 영역에 배치합니다. */
-  margin: 50px;
-}
-
-.profile-container {
-  grid-area: main-container; /* main-container 요소를 정의된 영역에 배치합니다. */
-  padding: 80px;
-}
-
-.sub-title {
-  display: inline-block;
-  font-size: var(--font-size-subtitle);
-  font-weight: 700;
-  letter-spacing: -.27px;
-  line-height: 22px;
-  margin-bottom: 12px;
-  vertical-align: top;
-  /* color: #004225; */
-}
-
-ul {
-  margin-bottom: 30px;
-}
-
-.menu-link {
-  color: var(--color-sub);
-  font-size: var(--font-size-sm);
-  letter-spacing: -.15px;
-  line-height: 30px;
-
-}
-
-.menu-link a {
-  text-decoration: none;
-  cursor: pointer;
+    display: grid;
+    grid-template-columns: 250px 1fr; /* 두 개의 열을 만듭니다. */
+    grid-template-rows: 100% auto;
+    grid-template-areas: 'aside main-container'; /* 영역을 정의합니다. */
+    grid-gap: 20px; /* 요소들 간의 간격을 조절합니다. */
+    height: 100vh;
 }
 
 .title {
-  /* color: var(--color-main); */
-  border-bottom: 3px solid ;
-  display: block;
-  margin-bottom: 30px;
+    border-bottom: 3px solid;
+    display: block;
+    margin-bottom: 30px;
 }
 
 .center h1 {
-  text-align: center;
-  padding: 0 0 20px 0;
-  margin-top: 0;
+    text-align: center;
+    padding: 0 0 20px 0;
+    margin-top: 0;
 }
 
 .center form {
-  padding: 0 0px;
-  box-sizing: border-box;
-  width: 500px;
+    padding: 0 0px;
+    box-sizing: border-box;
+    width: 500px;
 }
 
 form .title p {
-  border-bottom: 2px solid var(--color-main);
-  color: var(--color-main);
-  font-size: var(--font-size-title);
-  letter-spacing: -0.48px;
-  padding-bottom: 35px;
-  margin: 0;
-  text-align: center;
+    border-bottom: 2px solid var(--color-main);
+    color: var(--color-main);
+    font-size: var(--font-size-title);
+    letter-spacing: -0.48px;
+    padding-bottom: 35px;
+    margin: 0;
+    text-align: center;
 }
 
 form .text_filed {
-  position: relative;
-  border-bottom: 2px solid var(--color-sub);
-  margin: 46px 0;
+    position: relative;
+    border-bottom: 2px solid var(--color-sub);
+    margin: 46px 0;
 }
 
 .text_filed input {
-  width: 100%;
-  padding: 0 10px;
-  font-size: 15px;
-  border: none;
-  outline: none;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 15px;
+    border: none;
+    outline: none;
 }
 
 .text_filed input::placeholder {
-  color: #d9d9d9;
-  font-size: 10px;
+    color: #d9d9d9;
+    font-size: 10px;
 }
 .text_filed label {
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  color: var(--color-main);
-  transform: translateY(-160%);
-  font-size: 14px;
-  pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: var(--color-main);
+    transform: translateY(-160%);
+    font-size: 14px;
+    pointer-events: none;
 }
 
 /* 추후 js로 구현 예정인 CSS */
@@ -141,39 +100,40 @@ form .text_filed {
 } */
 
 #submit {
-  width: 100%;
-  height: 45px;
-  border: 1px solid;
-  background-color: var(--color-main);
-  border-radius: 25px;
-  font-size: 15px;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  outline: none;
+    width: 100%;
+    height: 45px;
+    border: 1px solid;
+    background-color: var(--color-main);
+    border-radius: 25px;
+    font-size: 15px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
 }
 
 #submit:hover {
-  border-color: var(--color-main);
-  transition: 0.5s;
+    border-color: var(--color-main);
+    transition: 0.5s;
 }
 
 #textInput {
-  padding-right: 40px; /* 오른쪽 여백을 버튼의 폭만큼 추가 */
+    padding-right: 40px; /* 오른쪽 여백을 버튼의 폭만큼 추가 */
 }
 
 .button {
-  position: absolute;
-  top: -15px;
-  right: 0;
-  background: none;
-  border: 1px solid #d9d9d9;
-  border-radius: 25px;
-  color: black;
-  font-size: 12px;
+    position: absolute;
+    top: -15px;
+    right: 0;
+    background: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 25px;
+    color: black;
+    font-size: 12px;
 }
 
 .button:hover {
-  background-color: var(--color-main);
-  color: white;
+    background-color: var(--color-main);
+    color: white;
 }
+

@@ -6,71 +6,58 @@
         <title>gazago</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
         <link rel="stylesheet" href="./mypage_account.css" />
+        <link rel="stylesheet" href="/module/mypage_menu.css" />
     </head>
     <body>
-        <main class="main-container container is-widescreen">
+        <main class="container is-widescreen">
             <!-- side bar -->
-            <aside class="menu-container">
-                <p class="sub-title">쇼핑 정보</p>
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">주문 내역</a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">상품 보관함</a>
-                    </li>
-                </ul>
-                <p class="sub-title">내 정보</p>
-                <ul class="sub-menu">
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">회원정보 변경</a>
-                    </li>
-                </ul>
-            </aside>
+            <div id="menu-container"></div>
+
             <!-- main -->
-            <div class="profile-container">
+            <div class="main-container">
                 <h1 class="title">회원정보 변경</h1>
                 <section class="center">
                     <form action="post">
                         <div class="text_filed">
                             <label for="userMail">이메일 주소</label>
-                            <input type="text" name="userMail" id="textInput" disabled/>
+                            <input type="text" name="userMail" id="userMail" disabled />
                             <span></span>
                         </div>
                         <div class="text_filed">
                             <label for="authCode">비밀번호</label>
-                            <input type="password" name="authCode" />
+                            <input type="password" name="authCode" id="authCode"/>
                             <span></span>
-                            <button class="button password-btn">변경</button>
                         </div>
                         <div class="text_filed">
                             <label for="phone">연락처</label>
-                            <input type="text" name="phone" placeholder="-없이 입력">
+                            <input type="text" name="phone" id="phone" placeholder="-없이 입력" />
                             <span></span>
-                            <button class="button phone-btn">변경</button>
                         </div>
                         <div class="address-container">
                             <div class="text_filed">
-                                <label for="address">배송지</label>
-                                <input type="text" name="address" placeholder="우편번호"/>
+                                <label for="address1">배송지</label>
+                                <input type="text" name="address1" id="address1" placeholder="우편번호" />
                                 <span></span>
                                 <button class="button zipcode-btn">우편번호 검색</button>
                             </div>
                             <div class="text_filed">
-                                <label for="address"></label>
-                                <input type="text" name="address" placeholder="주소"/>
+                                <label for="address2"></label>
+                                <input type="text" name="address2" id="address2" placeholder="주소" />
                                 <span></span>
                             </div>
                             <div class="text_filed">
-                                <label for="address"></label>
-                                <input type="text" name="address" placeholder="상세주소"/>
+                                <label for="address3"></label>
+                                <input type="text" name="address3" id="address3" placeholder="상세주소" />
                                 <span></span>
-                            <button class="button address-btn">변경</button>
+                            </div>
+                            <div class="text_filed">
+                                <button id="submit" type="submit" class="button address-btn">변경</button>
                             </div>
                         </div>
                     </form>
                 </section>
             </div>
         </main>
+        <script src="/module/mypage_menu.js"></script>
     </body>
 </html>
