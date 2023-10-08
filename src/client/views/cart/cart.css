@@ -81,7 +81,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 156px;
+    padding: 30px 148px;
+}
+.total__box {
+    min-width: 112px;
+    text-align: center;
 }
 .total__price--big, .product__detail {
     font-size: 20px;
