@@ -83,6 +83,8 @@ function renderEmptyCart() {
             <h6>장바구니에 담긴 상품이 없습니다.</h6>
         </section>
     `;
+    const manage = document.querySelector('.manage');
+    manage.remove();
 } //장바구니 아이템이 비어있을 때 렌더링 하는 함수
 const originalPrices = document.querySelectorAll('.product__price');
 const prices = document.querySelectorAll('.counter__price');
@@ -171,7 +173,7 @@ function selectAll() {
     });
     calculateTotalPrice();
 }
-allCheckbox.addEventListener('click', selectAll);
+if (allCheckbox) allCheckbox.addEventListener('click', selectAll);
 //체크박스를 하나씩 선택 or 해제할 때 실행되는 이벤트
 checkboxes.forEach((item) => {
     item.addEventListener('click', (e) => {
@@ -211,11 +213,13 @@ function deleteCheckedItems() {
         }
     });
 }
-deleteButton.addEventListener('click', () => {
-    if (confirm('선택된 아이템이 삭제됩니다. 계속하시겠습니까?')) {
-        deleteCheckedItems();
-        totalProductPrice.innerHTML = '0';
-        deliveryPrice.innerHTML = '0';
-        totalPrice.innerHTML = '0'; //체크된 상품의 총 상품 가격 0원으로 변경
-    }
-});
+if (deleteButton) {
+    deleteButton.addEventListener('click', () => {
+        if (confirm('선택된 아이템이 삭제됩니다. 계속하시겠습니까?')) {
+            deleteCheckedItems();
+            totalProductPrice.innerHTML = '0';
+            deliveryPrice.innerHTML = '0';
+            totalPrice.innerHTML = '0'; //체크된 상품의 총 상품 가격 0원으로 변경
+        }
+    });
+}
