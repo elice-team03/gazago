@@ -76,7 +76,7 @@ registerForm.addEventListener('submit', async function (event) {
             if (join.code === 201) {
                 // 서버에서 받은 메시지를 사용
                 alert(join.message);
-                window.location.href = '../login';
+                window.location.href = '/';
             } else {
                 alert(join.message);
                 window.location.href = '/';
