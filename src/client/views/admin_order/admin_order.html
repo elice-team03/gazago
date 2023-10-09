@@ -26,49 +26,43 @@
         <main>
             <div class="container is-widescreen">
                 <div class="columns">
-                    <aside class="side_menu column cus_flex_w_15">
+                    <aside class="side_menu column custom_flex_none_width_15">
                         <ul>
-                            <li class="cus_p_10">
-                                <a
-                                    href="http://localhost:5001/admin/category"
-                                    class="cus_c_gray subtitle is-5 cus_hover"
+                            <li class="custom_padding_10">
+                                <a href="/admin/category" class="custom_color_gray subtitle is-5 cus_hover"
                                     >카테고리 관리</a
                                 >
                             </li>
-                            <li class="cus_p_10">
-                                <a href="http://localhost:5001/admin/product" class="cus_c_gray subtitle is-5 cus_hover"
-                                    >상품 관리</a
-                                >
+                            <li class="custom_padding_10">
+                                <a href="/admin/product" class="custom_color_gray subtitle is-5 cus_hover">상품 관리</a>
                             </li>
-                            <li class="cus_p_10">
-                                <a href="http://localhost:5001/admin/order" class="cus_c_black subtitle is-5 cus_hover"
-                                    >주문 관리</a
-                                >
+                            <li class="custom_padding_10">
+                                <a href="/admin/order" class="custom_color_black subtitle is-5 cus_hover">주문 관리</a>
                             </li>
                         </ul>
                     </aside>
                     <div class="order_box column">
-                        <section class="order_description cus_mtb_30">
+                        <div class="order_description custom_margin_top_bottom_30">
                             <h2 class="title is-4">주문 목록</h2>
-                        </section>
+                        </div>
                         <section class="fillter_section">
                             <section class="fillter_section is-flex box is-align-items-center">
-                                <div class="is-flex is-align-items-center cus_w_50 cus_flex_gap_20">
-                                    <p class="cus_text_align_center">주문일시</p>
-                                    <input class="input cus_w_160" type="text" />
+                                <div class="is-flex is-align-items-center custom_width_50 custom_flex_gap_20">
+                                    <p class="custom_text_align_center">주문일시</p>
+                                    <input class="input custom_width_160" type="text" />
                                 </div>
-                                <div class="is-flex is-align-items-center cus_w_50 cus_flex_gap_20">
-                                    <p class="cus_text_align_center">주문자명</p>
-                                    <input class="input cus_w_160" type="text" />
+                                <div class="is-flex is-align-items-center custom_width_50 custom_flex_gap_20">
+                                    <p class="custom_text_align_center">주문자명</p>
+                                    <input class="input custom_width_160" type="text" />
                                 </div>
-                                <div class="is-flex is-align-items-center cus_w_50 cus_flex_gap_20">
-                                    <p class="cus_text_align_center">주문번호</p>
-                                    <input class="input cus_w_160" type="text" />
+                                <div class="is-flex is-align-items-center custom_width_50 custom_flex_gap_20">
+                                    <p class="custom_text_align_center">주문번호</p>
+                                    <input class="input custom_width_160" type="text" />
                                 </div>
-                                <div class="is-flex is-align-items-center cus_w_50 cus_flex_gap_20">
-                                    <p class="cus_text_align_center">주문상태</p>
+                                <div class="is-flex is-align-items-center custom_width_50 custom_flex_gap_20">
+                                    <p class="custom_text_align_center">주문상태</p>
                                     <div class="select">
-                                        <select class="cus_w_160">
+                                        <select class="custom_width_160">
                                             <option>전체보기</option>
                                             <option>주문접수</option>
                                             <option>상품준비중</option>
@@ -79,90 +73,102 @@
                                     </div>
                                 </div>
 
-                                <button class="button is-rounded is-small cus_btn_bc_gr">조회</button>
+                                <button class="button is-rounded is-small custom_background_color_prime" type="button">
+                                    조회
+                                </button>
                             </section>
                         </section>
-                        <section class="order_table columns cus_mtb_30">
-                            <table class="table column is-full is-striped cus_display_table">
+                        <section class="order_table columns custom_margin_top_bottom_30">
+                            <table class="table column is-full is-striped custom_display_table">
                                 <thead>
                                     <tr>
-                                        <th class="cus_text_align_center">
+                                        <th class="custom_text_align_center">
                                             <label class="checkbox">
                                                 <input type="checkbox" />
                                             </label>
                                         </th>
-                                        <th class="cus_text_align_center">이미지</th>
-                                        <th class="cus_text_align_center">주문번호</th>
-                                        <th class="cus_w_150 cus_text_align_center">주문일시</th>
-                                        <th class="cus_text_align_center">주문자명</th>
-                                        <th class="cus_w_150 cus_text_align_center">결제금액</th>
-                                        <th class="cus_text_align_center">배송상태</th>
-                                        <th class="cus_text_align_center">주문취소</th>
+                                        <th class="custom_text_align_center">이미지</th>
+                                        <th class="custom_text_align_center">주문번호</th>
+                                        <th class="custom_width_150 custom_text_align_center">주문일시</th>
+                                        <th class="custom_text_align_center">주문자명</th>
+                                        <th class="custom_width_150 custom_text_align_center">결제금액</th>
+                                        <th class="custom_text_align_center">배송상태</th>
+                                        <th class="custom_text_align_center">주문취소</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="cus_text_align_center cus_v_align_middle">
+                                        <td class="custom_text_align_center custom_vertical_align_middle">
                                             <label class="checkbox">
                                                 <input type="checkbox" />
                                             </label>
                                         </td>
-                                        <td class="cus_flex_row_center">
+                                        <td class="custom_flex_justify_content_center">
                                             <figure class="image image is-64x64">
                                                 <img
                                                     src="http://www.helinoxstore.co.kr/shopimages/helinox/0010080000482.jpg?1679894163"
                                                 />
                                             </figure>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>202310041000</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>yyyy-mm-dd-hh-mm</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>김*화</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>1,050,000원</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>배송중</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle">
-                                            <button class="button is-rounded is-small cus_btn_bc_gr">주문취소</button>
+                                        <td class="custom_text_align_center custom_vertical_align_middle">
+                                            <button
+                                                class="button is-rounded is-small custom_background_color_prime"
+                                                type="button"
+                                            >
+                                                주문취소
+                                            </button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="cus_text_align_center cus_v_align_middle">
+                                        <td class="custom_text_align_center custom_vertical_align_middle">
                                             <label class="checkbox">
                                                 <input type="checkbox" />
                                             </label>
                                         </td>
-                                        <td class="cus_flex_row_center">
+                                        <td class="custom_flex_justify_content_center">
                                             <figure class="image image is-64x64">
                                                 <img
                                                     src="http://www.helinoxstore.co.kr/shopimages/helinox/0010080000482.jpg?1679894163"
                                                 />
                                             </figure>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>202310041000</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>yyyy-mm-dd-hh-mm</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>김*화</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>1,050,000원</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle is-size-7">
+                                        <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                             <p>주문접수</p>
                                         </td>
-                                        <td class="cus_text_align_center cus_v_align_middle">
-                                            <button class="button is-rounded is-small cus_btn_bc_gr">주문취소</button>
+                                        <td class="custom_text_align_center custom_vertical_align_middle">
+                                            <button
+                                                class="button is-rounded is-small custom_background_color_prime"
+                                                type="button"
+                                            >
+                                                주문취소
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
