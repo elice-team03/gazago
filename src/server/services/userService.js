@@ -55,25 +55,7 @@ class userService {
             password: hashedPassword,
         });
 
-        setUserToken(res, user);
-
         return user;
-    }
-
-    /** 비회원 정보저장 */
-    static async signUpGuest(userInform) {
-        const { email, userName } = userInform;
-        const checkEmail = await userService.findOneUser(email);
-
-        if (checkEmail) {
-            throw Object.assign(new Error('이미 등록된 이메일입니다'), { status: 400 });
-        }
-        //TODO: 임시로 비밀번호 없이 회원가입
-        return await userService.addUser({
-            email,
-            userName,
-            role: 'ordererNotUser',
-        });
     }
 
     /** 로그인 */
@@ -168,7 +150,6 @@ class userService {
             return;
         });
 
-        // const user = await User.findOneAndUpdate({ email: email }, {});
     }
 
     /** 비밀번호 변경 */

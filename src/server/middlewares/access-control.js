@@ -1,4 +1,4 @@
-const checkLogin = (req, res, next) => {
+const requiredLogin = (req, res, next) => {
     if (!req.user) {
         return res.send("<script>alert('로그인 해주세요');location.href='http://localhost:5001/login';</script>");
     }
@@ -24,6 +24,6 @@ const blockLogin = (req, res, next) => {
 
 module.exports = {
     checkAdmin,
-    checkLogin,
+    requiredLogin,
     blockLogin,
 };

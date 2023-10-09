@@ -12,15 +12,6 @@ router.post(
     asyncHandler(async (req, res, next) => {
         let loggedInUser = req.user?.user;
 
-        // let guest = null;
-
-        // if (!req.user) {
-        //     const { userName, email } = req.body;
-        //     guest = await userService.signUpGuest({ userName, email });
-        // }
-
-        // req.user ? (userWantingToBuy = req.user.user) : (userWantingToBuy = guest);
-
         const { title, receiver, code, address, contact } = req.body;
         if (!receiver || !code || !address || !contact) {
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });

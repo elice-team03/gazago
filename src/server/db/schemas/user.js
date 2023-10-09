@@ -9,7 +9,7 @@ const UserSchema = new Schema(
 
         password: {
             type: String,
-            // TODO: 비회원 주문시 비밀번호 필요여부를 아직 몰라 required: false 해놓겠습니다
+
             required: true,
         },
         role: {
