@@ -11,7 +11,7 @@ a {
     padding: 0 0 100px 0;
     display: flex;
     font-family: 'Noto Sans KR', sans-serif;
-    
+    padding-top: 100px;
     justify-content: space-between;
 }
 .product__container {
@@ -28,7 +28,7 @@ a {
     height: 100%;
     position: sticky;
     position: -webkit-sticky;
-    top: -100px;
+    top: 0px;
 }
 .product__img {
     width: 200px;

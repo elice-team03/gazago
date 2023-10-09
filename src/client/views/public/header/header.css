@@ -2,7 +2,7 @@
 
 header {
     height: 200px;
-    padding: 0px 20px;
+    padding: 0px 0px;
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
 
@@ -29,14 +29,13 @@ a{
 .user-login {
     display: flex;
     justify-content:right;
-    padding: 10px 40px 0 0;
+    padding-top: 10px;
     font-size: 15px;
 }
 
 .user-cart-mypage{
     display: flex;
     justify-content:right;
-    padding-right: 40px;
     font-size: 18px;
     font-weight: bold;
 }
@@ -62,6 +61,10 @@ a{
 .search input{
     width: 500px;
     padding: 23px;
+}
+
+ul.navbar {
+    background:none;
 }
 
 .search button {
@@ -97,11 +100,12 @@ nav ul {
     padding-left: 30px;
     font-size: 13px;
     font-weight: 400 !important;
+    display: none;
 }
 
 .sub-nav .navbar .navbar-item {
-    color: #8c8c8c !important;
-    border: 10px #8c8c8c !important;
+    color: #004225 !important;
+    border: 10px #004225 !important;
     
 }
 .sub-nav .navbar {
@@ -120,3 +124,4 @@ nav ul {
     border-radius: 50px !important;
     height: 30px;
 }
+
