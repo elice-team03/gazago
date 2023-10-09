@@ -1,66 +1,29 @@
-const allowUser = (req, res, next) => {
-    const role = req.user?.user.role || null;
-
-    if (role === 'admin') {
-        return res.send(
-            "<script>alert('일반 회원만 접근이 가능합니다');location.href='http://localhost:5001';</script>"
-        );
-    }
-    if (role !== 'user') {
-        return res.send(
-            "<script>alert('로그인이 필요한 페이지입니다');location.href='http://localhost:5001/login';</script>"
-        );
+const checkLogin = (req, res, next) => {
+    if (!req.user) {
+        return res.send("<script>alert('로그인 해주세요');location.href='http://localhost:5001/login';</script>");
     }
     next();
     return;
 };
 
-const allowAdmin = (req, res, next) => {
-    const role = req.user?.user.role || null;
-    if (role !== 'admin') {
-        return res.send(
-            "<script>alert('접근 권한이 없습니다. 분하쥬');location.href='http://localhost:5001';</script>"
-        );
+const checkAdmin = (req, res, next) => {
+    if (req.user?.user.role === 'admin') {
+        next();
+        return;
     }
-    next();
-    return;
+    return res.send("<script>alert('관리자만 접근이 가능합니다');location.href='http://localhost:5001/';</script>");
 };
 
-const allowUserAndAdmin = (req, res, next) => {
-    const role = req.user?.user.role || null;
-    if (role !== 'user' && role !== 'admin') {
-        return res.send(
-            "<script>alert('로그인이 필요한 페이지입니다');location.href='http://localhost:5001/login';</script>"
-        );
-    }
-    next();
-    return;
-};
-
-const allowOrdererNotUserAndUserAndAdmin = (req, res, next) => {
-    const role = req.user?.user.role || null;
-    if (role !== 'ordererNotUser' && role !== 'user' && role !== 'admin') {
-        return res.send(
-            "<script>alert('로그인이 필요한 페이지입니다');location.href='http://localhost:5001/login';</script>"
-        );
-    }
-    next();
-    return;
-};
-
-const blockUserAndAdmin = (req, res, next) => {
-    const role = req.user?.user.role || null;
-    if (role === 'user' || role === 'admin') {
-        return res.send("<script>alert('잘못된 접근입니다');location.href='http://localhost:5001';</script>");
+const blockLogin = (req, res, next) => {
+    if (req.user) {
+        return res.send("<script>alert('잘못된 접근입니다.');location.href='http://localhost:5001/';</script>");
     }
     next();
     return;
 };
 
 module.exports = {
-    allowUser,
-    allowAdmin,
-    allowUserAndAdmin,
-    allowOrdererNotUserAndUserAndAdmin,
-    blockUserAndAdmin,
+    checkAdmin,
+    checkLogin,
+    blockLogin,
 };
