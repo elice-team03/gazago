@@ -2,6 +2,7 @@ const { Router } = require('express');
 const asyncHandler = require('../utils/async-handler');
 const { orderService } = require('../services/orderService');
 const { deliveryService } = require('../services/deliveryService');
+const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 
 const router = Router();
@@ -10,27 +11,29 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        const userId = req.user.user._id;
-        const loggedInUser = await userService.findUserById(userId);
-        const { title, receiver, code, address, subAddress, contact, comment, totalAmount, productIds } = req.body;
+        let loggedInUser = req.user?.user;
 
-        if (!receiver || !code || !address || !subAddress || !contact) {
+        const { title, receiver, code, address, contact } = req.body;
+        if (!receiver || !code || !address || !contact) {
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });
         }
 
-        const delivery = await deliveryService.addDelivery({
-            title: title || '',
-            receiver,
-            code,
-            address,
-            subAddress,
-            contact,
-            loggedInUser,
-        });
+        let delivery = null;
+        if (!loggedInUser.delivery) {
+            delivery = await deliveryService.addDeliveryAndSetUserDelivery({
+                title: title || '',
+                receiver,
+                code,
+                address,
+                contact,
+                loggedInUser,
+            });
+        } else {
+            delivery = await deliveryService.findDeliveryById(loggedInUser.delivery);
+        }
 
-        await userService.addUserDelivery(loggedInUser._id, delivery._id);
-
-        const order = await orderService.addOrder({
+        const { comment, totalAmount, productIds } = req.body;
+        const result = await orderService.addOrder({
             comment,
             totalAmount,
             loggedInUser,
