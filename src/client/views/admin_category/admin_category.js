@@ -57,12 +57,10 @@ const category = {
                 alert('수정 중 오류가 발생했습니다.');
             }
         } catch (err) {
-            alert(err.message);
+            alert(err?.response?.data?.message);
         }
     },
 };
-
-console.log(111, category);
 
 // 초기화 : 화면 접근시 데이터베이스에 접근해서 목록 가져오기
 const initialize = async () => {

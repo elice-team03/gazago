@@ -203,7 +203,7 @@ const isStringValue = (val) => {
 
 const initialize = async () => {
     try {
-        let res = await product.getProductList();
+        let res = await Api.get('/api/products');
         if (res.code == 200) {
             if (res != null && res.data != null) {
                 let productList = res.data;
@@ -254,38 +254,13 @@ const initialize = async () => {
                     const productRowUpdateButton = tempRow.querySelector(`#prodeuct_btn_upd${idx}`);
                     productRowUpdateButton.addEventListener('click', (e) => {
                         document.querySelector('#modalTitleId').innerText = '상품수정';
-                        document.querySelector('#product_btn_save').innerText = '저장하기';
                         isUpdate = true;
-
-                        setDataInModal(element._id, element.contentUsrFileName);
+                        setDataInModal(element._id);
                     });
                     const productRowDeleteButton = tempRow.querySelector(`#prodeuct_btn_del${idx}`);
                     productRowDeleteButton.addEventListener('click', (e) => product.deleteRow(e, element._id));
-
                     tbody.append(tempRow);
                 });
-                const numberWrapper = document.querySelector('.number_wrapper');
-                numberWrapper.innerHTML = '';
-                for (
-                    let i = res.currentPage - 2 <= 0 ? 1 : res.currentPage - 2;
-                    i <= (res.currentPage + 2 > res.totalPages ? res.totalPages : res.currentPage + 2);
-                    i++
-                ) {
-                    const span = document.createElement('span');
-                    span.innerText = i;
-                    span.className = 'numberButton';
-
-                    if (i == res.currentPage) {
-                        span.className += ' currentNumber';
-                    }
-                    numberWrapper.append(span);
-                    span.addEventListener('click', (e) => {
-                        let currentPageNumber = document.querySelector('.currentNumber');
-                        currentPageNumber.classList.remove('currentNumber');
-                        e.target.classList.add('currentNumber');
-                        initialize();
-                    });
-                }
             }
         }
     } catch (err) {

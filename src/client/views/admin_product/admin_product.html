@@ -52,29 +52,32 @@
                                 <p class="custom_text_align_center">중분류</p>
 
                                 <div class="select">
-                                    <select id="parentCategorySelect" class="custom_width_250"></select>
+                                    <select class="custom_width_250">
+                                        <option>전체보기</option>
+                                        <option>텐트/타프</option>
+                                        <option>침낭</option>
+                                        <option>퍼니처</option>
+                                        <option>주방/바베큐</option>
+                                        <option>악세사리</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="is-flex is-align-items-center custom_flex_gap_20 is-flex-grow-1">
                                 <p class="custom_text_align_center">소분류</p>
                                 <div class="select">
-                                    <select id="categorySelect" class="custom_width_250"></select>
+                                    <select class="custom_width_250">
+                                        <option>전체보기</option>
+                                        <option>텐트</option>
+                                        <option>타프</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="is-flex is-align-items-center custom_flex_gap_20 is-flex-grow-1">
                                 <p class="custom_text_align_center">상품명</p>
-                                <input
-                                    id="productNameInput"
-                                    class="input custom_width_250 custom_input_enter"
-                                    type="text"
-                                />
+                                <input class="input custom_width_250" type="text" />
                             </div>
 
-                            <button
-                                id="searchButton"
-                                class="button is-rounded is-small custom_background_color_prime custom_input_enter"
-                                type="button"
-                            >
+                            <button class="button is-rounded is-small custom_background_color_prime" type="button">
                                 조회
                             </button>
                         </div>
@@ -111,7 +114,13 @@
                                             >
                                                 <p>중분류</p>
                                                 <div class="select">
-                                                    <select id="parentCategorySel" class="custom_width_300"></select>
+                                                    <select id="parentCategorySel" class="custom_width_300">
+                                                        <option value="텐트/타프">텐트/타프</option>
+                                                        <option value="침낭">침낭</option>
+                                                        <option value="퍼니처">퍼니처</option>
+                                                        <option value="주방/바베큐">주방/바베큐</option>
+                                                        <option value="악세사리">악세사리</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div
@@ -123,7 +132,10 @@
                                                         id="childCategorySel"
                                                         class="custom_width_300"
                                                         name="categoryId"
-                                                    ></select>
+                                                    >
+                                                        <option value="651e5fd7bdfd9dbe2858c88b">텐트</option>
+                                                        <option value="651e603ebdfd9dbe2858c896">타프</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
