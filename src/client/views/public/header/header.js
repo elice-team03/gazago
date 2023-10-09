@@ -72,20 +72,3 @@ function insertHeader() {
     header.innerHTML = headerContent;
 }
 insertHeader();
-
-const navbarItems = document.querySelectorAll('.main-nav ul li');
-//이벤트 리스너
-navbarItems.forEach((navItem, index) => {
-    navItem.addEventListener('click', function () {
-        //서브 네브바 숨기기
-        const submenus = document.querySelectorAll('.sub-nav');
-        submenus.forEach((submenu) => {
-            submenu.style.display = 'none';
-        });
-        //서브 네브바 보여주기
-        const subnav = document.getElementById(`sub-nav${index + 1}`);
-        if (subnav) {
-            subnav.style.display = 'block';
-        }
-    });
-});

@@ -29,13 +29,14 @@ a{
 .user-login {
     display: flex;
     justify-content:right;
-    padding-top: 10px;
+    padding: 10px 40px 0 0;
     font-size: 15px;
 }
 
 .user-cart-mypage{
     display: flex;
     justify-content:right;
+    padding-right: 40px;
     font-size: 18px;
     font-weight: bold;
 }
@@ -61,10 +62,6 @@ a{
 .search input{
     width: 500px;
     padding: 23px;
-}
-
-ul.navbar {
-    background:none;
 }
 
 .search button {
