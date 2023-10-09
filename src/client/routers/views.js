@@ -14,13 +14,12 @@ viewsRouter.use('/mypage/wishlist', requiredLogin, serveStatic('mypage_wishlist'
 viewsRouter.use('/mypage/account', requiredLogin, serveStatic('mypage_account'));
 viewsRouter.use('/product/detail', serveStatic('product_detail'));
 viewsRouter.use('/product/list', serveStatic('product_list'));
-viewsRouter.use('/order', serveStatic('order_page'));
-viewsRouter.use('/order/result', serveStatic('order_result'));
-viewsRouter.use('/admin/category', serveStatic('admin_category'));
-viewsRouter.use('/admin/product', serveStatic('admin_product'));
-viewsRouter.use('/admin/order', serveStatic('admin_order'));
+viewsRouter.use('/order', requiredLogin, serveStatic('order_page'));
+viewsRouter.use('/order/result', requiredLogin, serveStatic('order_result'));
+viewsRouter.use('/admin/category', checkAdmin, serveStatic('admin_category'));
+viewsRouter.use('/admin/product', checkAdmin, serveStatic('admin_product'));
+viewsRouter.use('/admin/order', checkAdmin, serveStatic('admin_order'));
 viewsRouter.use('/module', serveStatic('module'));
-viewsRouter.use('/', serveStatic(''));
 
 function serveStatic(resource) {
     const resourcePath = path.join(__dirname, `../views/${resource}`);
