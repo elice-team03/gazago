@@ -138,197 +138,46 @@ router.post(
     })
 );
 
-/** 회원 임시 비밀번호 발송 API */
-router.post(
-    '/password',
-    asyncHandler(async (req, res, next) => {
-        const { email } = req.body;
-        await userService.changePasswordAndSendByEmail(email);
-
-        res.status(200).json({
-            code: 200,
-            message: '임시 비밀번호가 이메일로 발송되었습니다',
-            data: null,
-        });
-    })
-);
-
 /** 회원정보 조회 API */
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
+        if (!req.user) {
+            throw Object.assign(new Error('로그인이 필요합니다'), { status: 401 });
+        }
         const loggedInUser = req.user.user;
-        const id = loggedInUser._id;
-        const user = await userService.findUserById(id);
-        const { _id, email, role, wishList, delivery, orders, createdAt, updatedAt } = user;
-
+        const { email, _id, wishList, delivery } = loggedInUser;
+        const orders = await orderService.findByOrderer(_id);
+        const deliveyInform = await deliveryService.findDeliveryById(delivery);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: {
-                _id,
-                email,
-                role,
-                wishList,
-                delivery,
-                orders,
-                createdAt,
-                updatedAt,
-            },
+            data: { email, _id, wishList, orders, deliveyInform },
         });
     })
 );
 
-/** 사용자 위시리스트 조회 API */
-router.get(
-    '/wishlist',
-    asyncHandler(async (req, res, next) => {
-        const user = req.user.user;
-        const foundUser = await userService.findUserById(user._id);
-        const wishlist = foundUser.wishList;
-        const result = await productService.findProductsInWishList(wishlist);
-        res.json({
-            code: 200,
-            message: '요청이 성공하였습니다',
-            data: result,
-        });
-    })
-);
-
-/** 사용자 주문 내역 조회 API */
-router.get(
-    '/orders',
-    asyncHandler(async (req, res, next) => {
-        const ITEMS_PER_PAGE = 20;
-        const page = parseInt(req.query.page) || 1;
-        const skip = (page - 1) * ITEMS_PER_PAGE;
-        const limit = ITEMS_PER_PAGE;
-
-        const user = req.user.user;
-        const result = await userService.findUserById(user._id);
-
-        const orders = result.orders.slice(skip, skip + limit);
-
-        res.json({
-            code: 200,
-            message: '요청이 성공하였습니다',
-            data: {
-                orders,
-                currentPage: page,
-                totalPages: Math.ceil(result.orders.length / ITEMS_PER_PAGE),
-            },
-        });
-    })
-);
-
-/** 회원 비밀번호 변경 API */
+/** 회원정보 변경 API */
 router.patch(
-    '/password',
+    '/',
     asyncHandler(async (req, res, next) => {
+        // delivery 없는 유저는 변경이 가능하게
+
+        const { contact, code, address } = req.body;
         const loggedInUser = req.user.user;
-        const { newPassword } = req.body;
+        const id = loggedInUser.delivery;
 
-        await userService.changePassword({ newPassword, loggedInUser });
-        res.json({
-            code: 200,
-            message: '비밀번호 변경을 완료하였습니다',
-            data: null,
-        });
-    })
-);
-
-/** 사용자 배송 정보 변경 API */
-router.patch(
-    '/delivery',
-    asyncHandler(async (req, res, next) => {
-        const userId = req.user.user._id;
-        const loggedInUser = await userService.findUserById(userId);
-        const delivery = loggedInUser.delivery;
-
-        const { contact, code, address, subAddress } = req.body;
-        let result = null;
-        if (!delivery) {
-            result = await deliveryService.addDeliveryAndSetUserDelivery({
-                code,
-                address,
-                subAddress,
-                contact,
-                loggedInUser,
-            });
-        } else {
-            result = await deliveryService.modifyDelivery(delivery, {
-                code,
-                address,
-                subAddress,
-                contact,
-            });
-        }
-
-        res.json({
-            code: 200,
-            message: '요청을 성공적으로 완료했습니다.',
-            data: result,
-        });
-    })
-);
-
-/** 위시리스트 추가 API */
-router.patch(
-    '/wishlist',
-    asyncHandler(async (req, res, next) => {
-        const user = req.user.user;
-        const { productId } = req.body;
-
-        if (!user) {
-            const error = new Error('로그인 후 이용 가능합니다.');
-            error.status = 400;
-            throw error;
-        }
-
-        if (!mongoose.Types.ObjectId.isValid(productId)) {
-            const error = new Error('상품 ID가 올바르지 않습니다.');
-            error.status = 400;
-            throw error;
-        }
-
-        const product = await productService.findProduct(productId);
-
-        if (!product) {
-            const error = new Error('상품 정보를 찾을 수 없습니다..');
-            error.status = 400;
-            throw error;
-        }
-
-        const result = await userService.addUserWishlist(user._id, productId);
-
+        const result = await deliveryService.findDeliveryAndUpdate({ contact, code, address, id });
+        console.log(result);
         res.status(200).json({
             code: 200,
-            message: '요청이 성공적으로 완료되었습니다.',
+            message: '유저 정보가 업데이트 되었습니다',
             data: result,
         });
     })
 );
 
-/** 위시리스트 삭제 API */
-router.delete(
-    '/wishlist/:productIds',
-    asyncHandler(async (req, res, next) => {
-        const productIds = req.params.productIds.split(',');
-        const user = req.user.user;
-        if (!user) {
-            const error = new Error('로그인 후 이용 가능합니다.');
-            error.status = 400;
-            throw error;
-        }
 
-        const result = await userService.removeUserWishlist(user._id, productIds);
 
-        res.status(200).json({
-            code: 200,
-            message: '요청이 성공적으로 완료되었습니다.',
-            data: result,
-        });
-    })
-);
 
 module.exports = router;
