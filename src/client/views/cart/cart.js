@@ -20,7 +20,7 @@ function createCartElement(idx) {
     const emptyItem = document.querySelector('.empty');
     if (emptyItem) emptyItem.remove();
     cart.innerHTML += `
-        <section class="content content-${idx}">
+        <section class="content">
             <div class="product">
                 <label class="checkbox">
                     <input type="checkbox"></label>
@@ -175,17 +175,23 @@ function selectAll() {
 }
 if (allCheckbox) allCheckbox.addEventListener('click', selectAll);
 //체크박스를 하나씩 선택 or 해제할 때 실행되는 이벤트
+const deleteButton = document.querySelector('.delete__button');
 checkboxes.forEach((item) => {
     item.addEventListener('click', (e) => {
         calculateTotalPrice();
         if (!e.target.checked) checkboxes[0].checked = false; //하나라도 선택 해제시 전체선택이 해제됨
+        const numberTotalProductPrice = Number(totalProductPrice.innerHTML.replace(',', ''));
+        if (numberTotalProductPrice > 0) {
+            deleteButton.removeAttribute('disabled');
+        } else {
+            deleteButton.setAttribute('disabled', '');
+        }
     });
 });
-const deleteButton = document.querySelector('.delete__button');
 function deleteCheckedItems() {
     if (checkboxes[0].checked) {
-        //전체선택 체크되었을때
         const contents = document.querySelectorAll('.content');
+        //전체선택 체크되었을때
         contents.forEach((content) => {
             content.remove(); //모든 content element 삭제
         });
@@ -199,14 +205,16 @@ function deleteCheckedItems() {
             const changedCartData = JSON.parse(storage.getItem('cart'));
             const newCartData = [...changedCartData];
             newCartData.forEach((data, dataIndex) => {
+                const contents = document.querySelectorAll('.content');
                 if (data.id === cartData[idx - 1].id) {
+                    const checkedContent = contents[dataIndex];
+                    console.log(dataIndex);
+                    checkedContent.remove(); //해당 element 삭제
                     newCartData.splice(dataIndex, 1); //cartData에서 삭제할 현재 element에 해당하는 위치를 찾아 해당 값을 cartData에서 삭제한다.
                 }
             });
+            item.checked = false;
             storage.setItem('cart', JSON.stringify(newCartData)); //변경된 배열 localStorage에 적용
-
-            const checkedContent = document.querySelector(`.content-${idx - 1}`);
-            checkedContent.remove(); //해당 element 삭제
             if (newCartData.length === 0) {
                 renderEmptyCart(); //장바구니 비었을때 화면 렌더링
             }
