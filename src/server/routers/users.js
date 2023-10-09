@@ -142,22 +142,29 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        if (!req.user) {
-            throw Object.assign(new Error('로그인이 필요합니다'), { status: 401 });
-        }
         const loggedInUser = req.user.user;
-        const { email, _id, wishList, delivery } = loggedInUser;
-        const orders = await orderService.findByOrderer(_id);
-        const deliveyInform = await deliveryService.findDeliveryById(delivery);
+        const id = loggedInUser._id;
+        const user = await userService.findUser(id);
+        const { _id, email, role, wishList, delivery, orders, updatedAt, createdAt } = user;
+        yInform = await deliveryService.findDeliveryById(delivery);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: { email, _id, wishList, orders, deliveyInform },
+            data: {
+                _id,
+                email,
+                role,
+                wishList,
+                delivery,
+                orders,
+                updatedAt,
+                createdAt,
+            },
         });
     })
 );
 
-/** 회원정보 변경 API */
+/** 회원정보 변경 (비밀번호 제외) API */
 router.patch(
     '/',
     asyncHandler(async (req, res, next) => {
@@ -177,7 +184,35 @@ router.patch(
     })
 );
 
+/** 회원 비밀번호 변경 API */
+router.patch(
+    '/password',
+    asyncHandler(async (req, res, next) => {
+        const loggedInUser = req.user.user;
+        const { oldPassword, newPassword } = req.body;
 
+        await userService.changePassword({ oldPassword, newPassword, loggedInUser });
+        res.json({
+            code: 200,
+            message: '비밀번호 변경을 완료하였습니다',
+            data: null,
+        });
+    })
+);
 
+/** 회원 임시 비밀번호 발송 API */
+router.post(
+    '/password',
+    asyncHandler(async (req, res, next) => {
+        const { email } = req.body;
+        await userService.changePasswordAndSendByEmail(email);
+
+        res.status(200).json({
+            code: 200,
+            message: '임시 비밀번호가 이메일로 발송되었습니다',
+            data: null,
+        });
+    })
+);
 
 module.exports = router;
