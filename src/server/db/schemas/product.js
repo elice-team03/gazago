@@ -30,9 +30,17 @@ const ProductSchema = new Schema(
             type: String,
             required: true,
         },
+        status: {
+            type: String,
+            default: '판매중',
+        },
         category: {
             type: Schema.Types.ObjectId,
             ref: 'Category',
+        },
+        totalSales: {
+            type: Number,
+            default: 0,
         },
     },
     {
