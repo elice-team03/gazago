@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+    --color-main: #004225;
+    --color-sub: #ebebeb;
+    --color-font-grey: #8c8c8c;
+    --font-size-title: 20px;
+    --font-size-subtitle: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 700px;
+    padding-top: 70px;
+}
+
+img {
+    width: 130px;
+}
+
+.logo {
+    margin: 0;
+    padding: 0;
+}
+
+.center h1 {
+    text-align: center;
+    padding: 0 0 20px 0;
+    margin-top: 0;
+}
+
+.center form {
+    padding: 0 40px;
+    width: 500px;
+    box-sizing: border-box;
+    height: 500px;
+}
+
+form .title p {
+    border-bottom: 2px solid var(--color-main);
+    letter-spacing: -0.48px;
+    padding-bottom: 15px;
+    margin: 0;
+    text-align: center;
+}
+
+form .text-field {
+    position: relative;
+    border-bottom: 2px solid var(--color-sub);
+    margin: 35px 0;
+}
+
+.text-field input {
+    width: 100%;
+    padding: 0 10px;
+    font-size: 15px;
+    border: none;
+}
+
+.text-field input:focus {
+    outline: none;
+}
+
+.text-field.error input {
+    border-bottom: 2px solid red;
+}
+
+.text-field .error {
+    color: red;
+    font-size: 9px;
+    height: 0px;
+}
+
+.text-field label {
+    font-size: 16px;
+}
+
+input::placeholder {
+    color: #a1a1a1;
+    font-size: 14px;
+}
+
+#submit {
+    width: 100%;
+    height: 45px;
+    border: 1px solid;
+    background-color: var(--color-main);
+    border-radius: 25px;
+    font-size: 15px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+}
+
+#submit:hover {
+    border-color: var(--color-main);
+    transition: 0.5s;
+}
+
+.btn {
+    background: none;
+    border: 1px solid var(--color-main);
+    border-radius: 25px;
+    color: black;
+    font-size: 12px;
+}
+
+.btn:hover {
+    background-color: var(--color-main);
+    color: white;
+}

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- cdn resource -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+        <!-- common css -->
+        <link rel="stylesheet" href="/stylesheets/normalize.css" />
+        <link rel="stylesheet" href="/stylesheets/admin.css" />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <title>admin_category</title>
+    </head>
+    <body>
+        <header></header>
+        <main>
+            <div class="container is-widescreen">
+                <div class="columns">
+                    <aside class="side_menu column cus_flex_w_15">
+                        <ul>
+                            <li class="cus_p_10">
+                                <a
+                                    href="http://localhost:5001/admin/category"
+                                    class="cus_c_black subtitle is-5 cus_hover"
+                                    >카테고리 관리</a
+                                >
+                            </li>
+                            <li class="cus_p_10">
+                                <a
+                                    href="http://localhost:5001/admin/product/"
+                                    class="cus_c_gray subtitle is-5 cus_hover"
+                                    >상품 관리</a
+                                >
+                            </li>
+                            <li class="cus_p_10">
+                                <a href="http://localhost:5001/admin/order/" class="cus_c_gray subtitle is-5 cus_hover"
+                                    >주문 관리</a
+                                >
+                            </li>
+                        </ul>
+                    </aside>
+                    <div class="category_box column">
+                        <section class="category_description cus_mtb_30">
+                            <h2 class="title is-4">카테고리 목록</h2>
+                            <p class="is-size-6 pt-2 pb-1">
+                                숨김을 선택하시면 해당 카테고리가 메뉴에서 보이지 않으며 포함된 상품 또한 숨김
+                                처리됩니다.
+                            </p>
+                        </section>
+                        <section class="table_btn is-flex is-justify-content-flex-end cus_mtb_30">
+                            <button id="category_btn_add" class="button is-rounded is-small cus_btn_bc_gr">
+                                카테고리 등록
+                            </button>
+                        </section>
+                        <section class="category_modal">
+                            <div class="modal" id="myModal">
+                                <div class="modal-background"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title">카테고리 등록</p>
+                                        <button class="delete" aria-label="close" data-bulma-modal="close"></button>
+                                    </header>
+                                    <section class="modal-card-body">
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>중분류</p>
+                                            <div class="select">
+                                                <select class="cus_w_300" id="parentCategorySel">
+                                                    <option value="651e5fbcbdfd9dbe2858c888">텐트/타프</option>
+                                                    <option value="침낭">침낭</option>
+                                                    <option value="퍼니처" selected>퍼니처</option>
+                                                    <option value="주방/바베큐">주방/바베큐</option>
+                                                    <option value="악세사리">악세사리</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <p>소분류</p>
+                                            <input
+                                                class="input cus_w_50"
+                                                type="text"
+                                                id="childCategoryInp"
+                                                name="childCategoryInp"
+                                            />
+                                        </div>
+                                    </section>
+                                    <footer class="modal-card-foot">
+                                        <button
+                                            id="category_btn_save"
+                                            class="button is-rounded is-small cus_btn_bc_gr"
+                                            type="button"
+                                        >
+                                            등록하기
+                                        </button>
+                                        <button
+                                            class="button is-rounded is-small cus_btn_bc_red"
+                                            data-bulma-modal="close"
+                                        >
+                                            취소
+                                        </button>
+                                    </footer>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="category_table columns cus_mtb_30">
+                            <table class="table column is-full is-striped cus_display_table">
+                                <thead>
+                                    <tr>
+                                        <th class="cus_text_align_center">No</th>
+                                        <th class="cus_text_align_center">중분류</th>
+                                        <th class="cus_text_align_center">소분류</th>
+                                        <th class="cus_w_150 cus_text_align_center">상품수</th>
+                                        <th class="cus_text_align_center">사용여부</th>
+                                        <th class="cus_text_align_center">적용 및 삭제</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="category_list_tbody" />
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
+        <script type="module" src="./admin_category.js"></script>
+    </body>
+</html>
