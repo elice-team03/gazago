@@ -149,7 +149,6 @@ class userService {
             transport.close();
             return;
         });
-
     }
 
     /** 비밀번호 변경 */
@@ -167,6 +166,8 @@ class userService {
 
         return;
     }
+
+    
 }
 
 module.exports = { userService };

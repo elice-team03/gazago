@@ -1,4 +1,4 @@
-const { Delivery } = require('../db');
+const { Delivery, User } = require('../db');
 const { userService } = require('./userService');
 
 class deliveryService {
@@ -11,6 +11,7 @@ class deliveryService {
             code,
             address,
             contact,
+            owner: loggedInUser._id,
         });
 
         const delivery = await Delivery.create(buildDelivery);
@@ -40,12 +41,19 @@ class deliveryService {
                 code: code,
                 address: address,
             }
-            //업데이트 후 값이 안 담겨서 일단 다시 DB에서 불러옵니다.
         );
-
         return await Delivery.findById({ _id: id });
-
         //
+    }
+
+    /** 주소변경 */
+    static async changeAddress(userId, newAddress) {
+        const user = User.findById(userId);
+        if (!user) {
+            throw Object.assign(new Error('유저 ID가 올바르지 않습니다'), { status: 400 });
+        }
+
+        return await Delivery.findOneAndUpdate({ owner: userId }, { address: newAddress });
     }
 }
 module.exports = { deliveryService };

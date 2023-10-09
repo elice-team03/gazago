@@ -24,6 +24,12 @@ const DeliverySchema = new Schema(
         subcontact: {
             type: Number,
         },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+            index: true,
+        },
     },
     {
         timestamps: true,
