@@ -2,7 +2,7 @@
 
 header {
     height: 200px;
-    padding: 0px 0px;
+    padding: 0px 20px;
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
 
@@ -100,12 +100,11 @@ nav ul {
     padding-left: 30px;
     font-size: 13px;
     font-weight: 400 !important;
-    display: none;
 }
 
 .sub-nav .navbar .navbar-item {
-    color: #004225 !important;
-    border: 10px #004225 !important;
+    color: #8c8c8c !important;
+    border: 10px #8c8c8c !important;
     
 }
 .sub-nav .navbar {

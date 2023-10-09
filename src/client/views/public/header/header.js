@@ -7,7 +7,7 @@ const headerContent = `<header class="header container">
 </div>
 <div class="header-main">
     <div class="logo">
-        <img src="https://i.ibb.co/F4qgZ08/156202b42d984ce6a8190464c2e43215-2.png" alt="Logo">
+        <img src="logo.png" alt="Logo">
     </div>
     <form action="#" method="GET" class="search">
             <input name="q" class="input is-normal is-rounded" type="text" placeholder="검색">
