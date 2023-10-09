@@ -1,20 +1,18 @@
 import * as Api from '../api.js';
 
-async function getData(page) {
-    const result = await Api.get('http://127.0.0.1:5001/api/products?page', page);
+async function getPage(page) {
+    const result = await Api.get('http://127.0.0.1:5001/api',`products?page=${page}`);
     const data = result.data;
     return data;
-    // const url = `http://127.0.0.1:5001/api/products?page=${page}_limit=20`;
-    // return fetch(url).then((response) => response.json());
 }
 // 테스트
-(async function test (){
-    let a = await getData(1);
-    displayProducts(productDataMapping(a));
-})();
+async function loadPage (page){
+    const a = await getPage(page);
+    const mappedData = productDataMapping(a);
+    displayProducts(mappedData);
+};
 
-
-
+loadPage(1);
 
 function productDataMapping(products) {
     return products.map((data) => {
@@ -67,5 +65,29 @@ function displayProducts(products) {
         productContainer.insertAdjacentHTML('beforeend',productBoxContent);
     });
 }
-//상품 렌더링 테스트용
+//무한스크롤
+const getNextPage = (()=>{
+    let page = 1;
+    let isFetching = false;
+    return () => {
+      if(!isFetching){
+        isFetching = true;
+        const nextPage = ++page;
+        //동작확인용 
+        console.log('page:', nextPage);
+        loadPage(nextPage).then(()=>{
+          isFetching = false;
+        })
+      }
+    }
+  })();
+
+  window.addEventListener("scroll", ()=>{
+    const scrollPos = window.innerHeight + window.scrollY;
+    const bodyHeight = document.body.offsetHeight;
+
+    if(scrollPos >= bodyHeight){
+      getNextPage();
+    }
+  });
 

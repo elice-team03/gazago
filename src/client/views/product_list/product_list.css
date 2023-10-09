@@ -30,6 +30,12 @@ a {
     position: -webkit-sticky;
     top: 0px;
 }
+
+.product__img-box {
+    width: 200px;
+    height: 200px;
+}
+
 .product__img {
     width: 200px;
 }
