@@ -4,14 +4,23 @@ const storage = window.localStorage;
 const cartData = JSON.parse(storage.getItem('cart'));
 const cart = document.querySelector('.cart');
 
-//Cart element를 먼저 만들고, Cart Items를 그 후에 렌더링
-cartData.forEach(() => createCartElement());
-cartData.forEach((item, idx) => {
-    renderCartItems(item, idx);
-});
-function createCartElement() {
+if (cartData === null || cartData.length === 0) {
+    renderEmptyCart(); //CartData가 비어있을 때만 렌더링
+} else {
+    //CartData가 하나라도 들어있을 때 렌더링
+    //Cart element를 먼저 만들고, Cart Items를 그 후에 렌더링
+    cartData.forEach((item, idx) => {
+        createCartElement(idx);
+    });
+    cartData.forEach((item, idx) => {
+        renderCartItems(item, idx);
+    });
+}
+function createCartElement(idx) {
+    const emptyItem = document.querySelector('.empty');
+    if (emptyItem) emptyItem.remove();
     cart.innerHTML += `
-        <section class="content">
+        <section class="content content-${idx}">
             <div class="product">
                 <label class="checkbox">
                     <input type="checkbox"></label>
@@ -68,6 +77,13 @@ async function renderCartItems(item, idx) {
     counterNumbers[idx].value = item.quantity;
 } //장바구니 아이템들을 렌더링 하는 함수
 
+function renderEmptyCart() {
+    cart.innerHTML += `
+        <section class="empty">
+            <h6>장바구니에 담긴 상품이 없습니다.</h6>
+        </section>
+    `;
+} //장바구니 아이템이 비어있을 때 렌더링 하는 함수
 const originalPrices = document.querySelectorAll('.product__price');
 const prices = document.querySelectorAll('.counter__price');
 const productPlusButtons = document.querySelectorAll('.counter__plus');
@@ -162,4 +178,44 @@ checkboxes.forEach((item) => {
         calculateTotalPrice();
         if (!e.target.checked) checkboxes[0].checked = false; //하나라도 선택 해제시 전체선택이 해제됨
     });
+});
+const deleteButton = document.querySelector('.delete__button');
+function deleteCheckedItems() {
+    if (checkboxes[0].checked) {
+        //전체선택 체크되었을때
+        const contents = document.querySelectorAll('.content');
+        contents.forEach((content) => {
+            content.remove(); //모든 content element 삭제
+        });
+        storage.setItem('cart', JSON.stringify([])); //cartData를 빈 배열로 비워준다.
+        checkboxes[0].checked = false; //전체선택 체크 해제
+        renderEmptyCart(); //장바구니 비었을때 화면 렌더링
+        return;
+    }
+    checkboxes.forEach((item, idx) => {
+        if (item.checked) {
+            const changedCartData = JSON.parse(storage.getItem('cart'));
+            const newCartData = [...changedCartData];
+            newCartData.forEach((data, dataIndex) => {
+                if (data.id === cartData[idx - 1].id) {
+                    newCartData.splice(dataIndex, 1); //cartData에서 삭제할 현재 element에 해당하는 위치를 찾아 해당 값을 cartData에서 삭제한다.
+                }
+            });
+            storage.setItem('cart', JSON.stringify(newCartData)); //변경된 배열 localStorage에 적용
+
+            const checkedContent = document.querySelector(`.content-${idx - 1}`);
+            checkedContent.remove(); //해당 element 삭제
+            if (newCartData.length === 0) {
+                renderEmptyCart(); //장바구니 비었을때 화면 렌더링
+            }
+        }
+    });
+}
+deleteButton.addEventListener('click', () => {
+    if (confirm('선택된 아이템이 삭제됩니다. 계속하시겠습니까?')) {
+        deleteCheckedItems();
+        totalProductPrice.innerHTML = '0';
+        deliveryPrice.innerHTML = '0';
+        totalPrice.innerHTML = '0'; //체크된 상품의 총 상품 가격 0원으로 변경
+    }
 });
