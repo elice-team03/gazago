@@ -7,12 +7,12 @@ async function getPage(page) {
 }
 // 테스트
 async function loadPage (page){
-    const a = await getPage(page);
-    const mappedData = productDataMapping(a);
+    const pageData = await getPage(page);
+    const mappedData = productDataMapping(pageData);
     displayProducts(mappedData);
 };
 
-loadPage(1);
+
 
 function productDataMapping(products) {
     return products.map((data) => {
@@ -90,4 +90,6 @@ const getNextPage = (()=>{
       getNextPage();
     }
   });
+
+  loadPage(1);
 
