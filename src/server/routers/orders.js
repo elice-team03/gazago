@@ -38,12 +38,68 @@ router.post(
         } else {
             delivery = await deliveryService.findDeliveryById(userWantingToBuy.delivery);
         }
-        const { comment, productIds } = req.body;
-        const result = await orderService.addOrder({ comment, userWantingToBuy, delivery, productIds });
+
+        const { comment, totalAmount, productIds } = req.body;
+        const result = await orderService.addOrder({
+            comment,
+            totalAmount,
+            loggedInUser,
+            delivery,
+            productIds,
+        });
 
         res.status(201).json({
             code: 201,
             message: '주문이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+router.get(
+    '/',
+    asyncHandler(async (req, res, next) => {
+        const { beginDate, endDate, orderNumber, status, name } = req.query;
+        const filter = {};
+
+        if (beginDate && endDate) {
+            const beginTimestamp = new Date(beginDate).getTime();
+            const endTimestamp = new Date(endDate).getTime();
+
+            filter.createdAt = { $gte: beginTimestamp, $lte: endTimestamp + 86400000 };
+        }
+        if (orderNumber) {
+            filter.orderNumber = orderNumber;
+        }
+        if (status) {
+            filter.status = status;
+        }
+
+        const deliveryFilter = {};
+        if (name) {
+            deliveryFilter.receiver = { $regex: new RegExp(name, 'i') };
+        }
+
+        const result = await orderService.findAllOrders(filter, deliveryFilter);
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+router.patch(
+    '/status/:id',
+    asyncHandler(async (req, res, next) => {
+        const _id = req.params.id;
+        const status = req.body.status;
+
+        const result = await orderService.modifyOrderStatus({ _id, status });
+
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
             data: result,
         });
     })
