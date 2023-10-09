@@ -1,12 +1,14 @@
 const path = require('path');
 const { mongoose } = require('mongoose');
-const { Product } = require('../db');
+const { Product, Order } = require('../db');
 const { categoryService } = require('./categoryService');
+const { orderService } = require('./orderService');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
+
+const uploadDirectory = path.join('upload', 'product');
 
 class productService {
     static async addProduct({ newProduct, contentFile }) {
-        const uploadDirectory = path.join('upload', 'product');
         const [contentInfo] = await Promise.all([uploadFile(contentFile, uploadDirectory)]);
 
         newProduct.contentUsrFileName = contentInfo.userFileName;
@@ -25,8 +27,36 @@ class productService {
         return await Product.create(newProduct);
     }
 
-    static async findProductsPaginated(skip, limit) {
-        return await Product.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }).exec();
+    static async findProductsPaginated(skip, limit, filter) {
+        const products = await Product.find(filter)
+            .skip(skip)
+            .limit(limit)
+            .sort({ createdAt: -1 })
+            .populate({
+                path: 'category',
+                populate: {
+                    path: 'parentCategory',
+                },
+            })
+            .exec();
+
+        for (const product of products) {
+            product.totalSales = await orderService.findOrderedProduct(product._id);
+        }
+
+        return products;
+    }
+
+    static async findProductOrdered(productId) {
+        const orders = await Order.find({ products: productId });
+
+        let totalSales = 0;
+        for (const order of orders) {
+            const productCount = order.products.filter((pId) => pId.toString() === productId.toString()).length;
+            totalSales += productCount;
+        }
+
+        return totalSales;
     }
 
     static async findProductsByCategory(categoryId) {
@@ -44,7 +74,17 @@ class productService {
             error.status = 400;
             throw error;
         }
-        return await Product.findById(id);
+
+        const result = await Product.findById(id)
+            .populate({
+                path: 'category',
+                populate: {
+                    path: 'parentCategory',
+                },
+            })
+            .exec();
+
+        return result;
     }
 
     static async getTotalProductsCount() {
@@ -60,7 +100,6 @@ class productService {
         }
 
         if (contentFile) {
-            const uploadDirectory = path.join('public', 'upload', 'product');
             const contentSrvFileName = product.contentSrvFileName;
             await deleteFile(contentSrvFileName, uploadDirectory);
 
@@ -83,12 +122,32 @@ class productService {
         });
     }
 
+    static async modifyProductStatus({ _id, status }) {
+        if (!mongoose.Types.ObjectId.isValid(_id)) {
+            const error = new Error('상품 Id 값이 유효하지 않습니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        return await Product.findByIdAndUpdate(
+            _id,
+            { status: status },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+    }
+
     static async removeProduct(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('상품 Id 값이 유효하지 않습니다.');
             error.status = 400;
             throw error;
         }
+        const product = await this.findProduct(id);
+        await deleteFile(product.contentSrvFileName, uploadDirectory);
+
         return await Product.findByIdAndDelete(id);
     }
 }
