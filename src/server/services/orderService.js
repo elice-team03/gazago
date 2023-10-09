@@ -19,7 +19,7 @@ class orderService {
 
         const order = await Order.create(buildOrder);
 
-        await userService.addUserOrder(userWantingToBuy._id, order._id);
+        await userService.addUserOrder(loggedInUser._id, order._id);
 
         return order;
     }

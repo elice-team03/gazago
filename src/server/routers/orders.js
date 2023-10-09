@@ -10,15 +10,16 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        let userWantingToBuy = null;
-        let guest = null;
+        let loggedInUser = req.user?.user;
 
-        if (!req.user) {
-            const { userName, email } = req.body;
-            guest = await userService.signUpGuest({ userName, email });
-        }
+        // let guest = null;
 
-        req.user ? (userWantingToBuy = req.user.user) : (userWantingToBuy = guest);
+        // if (!req.user) {
+        //     const { userName, email } = req.body;
+        //     guest = await userService.signUpGuest({ userName, email });
+        // }
+
+        // req.user ? (userWantingToBuy = req.user.user) : (userWantingToBuy = guest);
 
         const { title, receiver, code, address, contact } = req.body;
         if (!receiver || !code || !address || !contact) {
@@ -26,17 +27,17 @@ router.post(
         }
 
         let delivery = null;
-        if (!userWantingToBuy.delivery) {
+        if (!loggedInUser.delivery) {
             delivery = await deliveryService.addDeliveryAndSetUserDelivery({
                 title: title || '',
                 receiver,
                 code,
                 address,
                 contact,
-                userWantingToBuy,
+                loggedInUser,
             });
         } else {
-            delivery = await deliveryService.findDeliveryById(userWantingToBuy.delivery);
+            delivery = await deliveryService.findDeliveryById(loggedInUser.delivery);
         }
 
         const { comment, totalAmount, productIds } = req.body;

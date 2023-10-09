@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const setUserToken = require('../utils/jwt');
 const generateRandomPasswrod = require('../utils/generate-password');
 const nodemailer = require('nodemailer');
-const { use } = require('passport');
 class userService {
     static async addUser(newUser) {
         return await User.create(newUser);
@@ -94,11 +93,11 @@ class userService {
         const newPassword = generateRandomPasswrod();
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
 
-        const user = await User.findOneAndUpdate({ email: email }, { password: newHashedPassword });
-
+        const user = await User.findOne({ email: email });
         if (!user) {
             throw Object.assign(new Error('이메일이 일치하지 않습니다'), { status: 400 });
         }
+        await User.updateOne({ email: email }, { password: newHashedPassword });
 
         const transport = nodemailer.createTransport({
             service: 'Gmail',
