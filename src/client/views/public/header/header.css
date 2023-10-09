@@ -1,0 +1,122 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+header {
+    height: 200px;
+    padding: 0px 20px;
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+
+}
+.container {
+    width: 1152px !important;
+    padding-bottom: 100px;
+}
+
+a{
+    text-decoration: none;
+    color: #4a4a4a;
+}
+.logo {
+    width: 160px;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-login {
+    display: flex;
+    justify-content:right;
+    padding: 10px 40px 0 0;
+    font-size: 15px;
+}
+
+.user-cart-mypage{
+    display: flex;
+    justify-content:right;
+    padding-right: 40px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user-login li {
+    padding: 0px 10px;
+    font-size: 13px;
+    color: #8c8c8c;
+}
+
+.user-cart-mypage li{
+    padding: 0 20px 2px 20px;
+    
+}
+
+.search{
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    position: relative;
+}
+
+.search input{
+    width: 500px;
+    padding: 23px;
+}
+
+.search button {
+    padding: 18px;
+    background-color: #004225;
+    border-radius: 50px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    position: absolute;
+    right: 6px;
+}
+
+nav ul {
+    display: flex;
+    padding-left: 45px;
+
+}
+
+.main nav ul li a{
+    padding: 0px 20px;
+    font-weight: 450;
+}
+.nav-bar {
+    padding-bottom: 20px;
+}
+.navbar-item:hover {
+    color: #004225 !important;
+}
+
+.sub-nav {
+    padding-left: 30px;
+    font-size: 13px;
+    font-weight: 400 !important;
+}
+
+.sub-nav .navbar .navbar-item {
+    color: #8c8c8c !important;
+    border: 10px #8c8c8c !important;
+    
+}
+.sub-nav .navbar {
+    gap: 10px;
+}
+.sub-nav .navbar li {
+    display: flex;
+    align-items: center;
+    border: 1px solid #f0f0f0;
+    border-radius: 50px ;
+    height: 25px;
+}
+
+.sub-nav .navbar .navbar-item:hover {
+    background-color: #f0f0f0;
+    border-radius: 50px !important;
+    height: 30px;
+}
