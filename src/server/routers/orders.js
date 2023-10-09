@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { orderService } = require('../services/orderService');
 const { deliveryService } = require('../services/deliveryService');
 const asyncHandler = require('../utils/async-handler');
+const { userService } = require('../services/userService');
 
 const router = Router();
 
@@ -9,15 +10,12 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
+        let loggedInUser = req.user?.user;
+
         const { title, receiver, code, address, contact } = req.body;
         if (!receiver || !code || !address || !contact) {
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });
         }
-
-        // TODO: 구현예정) 비회원 로그인 시 주문가능 로직
-
-        // 로그인이 된 상황만 전제, 로그아웃 시 에러
-        const loggedInUser = req.user.user;
 
         let delivery = null;
         if (!loggedInUser.delivery) {
