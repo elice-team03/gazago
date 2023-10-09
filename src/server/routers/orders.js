@@ -61,7 +61,7 @@ router.get(
             filter.createdAt = { $gte: beginTimestamp, $lte: endTimestamp + 86400000 };
         }
         if (orderNumber) {
-            filter.orderNumber = orderNumber;
+            filter.orderNumber = { $regex: new RegExp(orderNumber, 'i') };
         }
         if (status) {
             filter.status = status;
@@ -69,7 +69,7 @@ router.get(
 
         const deliveryFilter = {};
         if (name) {
-            deliveryFilter.receiver = { $regex: new RegExp(name, 'i') };
+            deliveryFilter.receiver = name;
         }
 
         const result = await orderService.findAllOrders(filter, deliveryFilter);

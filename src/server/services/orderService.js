@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Order, Delivery } = require('../db');
+const { Order, Delivery, Product } = require('../db');
 const { userService } = require('./userService');
 
 class orderService {
@@ -34,10 +34,11 @@ class orderService {
                 path: 'delivery',
                 select: 'receiver',
             })
+            .populate('orderUserId')
             .exec();
     }
 
-    static async findOrderedProduct(productId) {
+    static async findProductOrderedCount(productId) {
         const orders = await Order.find({ products: productId });
 
         let totalSales = 0;
