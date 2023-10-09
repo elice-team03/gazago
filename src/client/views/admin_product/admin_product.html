@@ -26,41 +26,33 @@
         <main>
             <div class="container is-widescreen">
                 <div class="columns">
-                    <aside class="side_menu column cus_flex_w_15">
+                    <aside class="side_menu column custom_flex_none_width_15">
                         <ul>
-                            <li class="cus_p_10">
-                                <a
-                                    href="http://localhost:5001/admin/category"
-                                    class="cus_c_gray subtitle is-5 cus_hover"
+                            <li class="custom_padding_10">
+                                <a href="/admin/category" class="custom_color_gray subtitle is-5 cus_hover"
                                     >카테고리 관리</a
                                 >
                             </li>
-                            <li class="cus_p_10">
-                                <a
-                                    href="http://localhost:5001/admin/product"
-                                    class="cus_c_black subtitle is-5 cus_hover"
+                            <li class="custom_padding_10">
+                                <a href="/admin/product" class="custom_color_black subtitle is-5 cus_hover"
                                     >상품 관리</a
                                 >
                             </li>
-                            <li class="cus_p_10">
-                                <a href="http://localhost:5001/admin/order" class="cus_c_gray subtitle is-5 cus_hover"
-                                    >주문 관리</a
-                                >
+                            <li class="custom_padding_10">
+                                <a href="/admin/order" class="custom_color_gray subtitle is-5 cus_hover">주문 관리</a>
                             </li>
                         </ul>
                     </aside>
                     <div class="product_box column">
-                        <section class="product_description cus_mtb_30">
+                        <div class="product_description custom_margin_top_bottom_30">
                             <h2 class="title is-4">상품 목록</h2>
-                        </section>
-                        <section
-                            class="fillter_section is-flex box is-justify-content-space-between is-align-items-center"
-                        >
-                            <div class="is-flex is-align-items-center cus_flex_gap_20 is-flex-grow-1">
-                                <p class="cus_text_align_center">중분류</p>
+                        </div>
+                        <div class="fillter_section is-flex box is-justify-content-space-between is-align-items-center">
+                            <div class="is-flex is-align-items-center custom_flex_gap_20 is-flex-grow-1">
+                                <p class="custom_text_align_center">중분류</p>
 
                                 <div class="select">
-                                    <select class="cus_w_250">
+                                    <select class="custom_width_250">
                                         <option>전체보기</option>
                                         <option>텐트/타프</option>
                                         <option>침낭</option>
@@ -70,99 +62,134 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="is-flex is-align-items-center cus_flex_gap_20 is-flex-grow-1">
-                                <p class="cus_text_align_center">소분류</p>
+                            <div class="is-flex is-align-items-center custom_flex_gap_20 is-flex-grow-1">
+                                <p class="custom_text_align_center">소분류</p>
                                 <div class="select">
-                                    <select class="cus_w_250">
+                                    <select class="custom_width_250">
                                         <option>전체보기</option>
                                         <option>텐트</option>
                                         <option>타프</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="is-flex is-align-items-center cus_flex_gap_20 is-flex-grow-1">
-                                <p class="cus_text_align_center">상품명</p>
-                                <input class="input cus_w_250" type="text" />
+                            <div class="is-flex is-align-items-center custom_flex_gap_20 is-flex-grow-1">
+                                <p class="custom_text_align_center">상품명</p>
+                                <input class="input custom_width_250" type="text" />
                             </div>
 
-                            <button class="button is-rounded is-small cus_btn_bc_gr">조회</button>
-                        </section>
-                        <section class="table_btn is-flex is-justify-content-flex-end cus_mtb_30 cus_flex_gap_20">
-                            <button class="product_btn button is-rounded is-small cus_btn_bc_gr">상품등록</button>
-                        </section>
+                            <button class="button is-rounded is-small custom_background_color_prime" type="button">
+                                조회
+                            </button>
+                        </div>
+                        <div
+                            class="table_btn is-flex is-justify-content-flex-end custom_margin_top_bottom_30 custom_flex_gap_20"
+                        >
+                            <button
+                                class="product_btn button is-rounded is-small custom_background_color_prime"
+                                type="button"
+                            >
+                                상품등록
+                            </button>
+                        </div>
                         <section class="product_modal">
                             <div class="modal" id="myModal">
                                 <div class="modal-background"></div>
                                 <div class="modal-card">
                                     <header class="modal-card-head">
-                                        <p class="modal-card-title">상품 등록</p>
-                                        <button class="delete" aria-label="close" data-bulma-modal="close"></button>
+                                        <p id="modalTitleId" class="modal-card-title">상품 등록</p>
+                                        <button
+                                            class="delete"
+                                            aria-label="close"
+                                            data-bulma-modal="close"
+                                            type="button"
+                                        ></button>
                                     </header>
                                     <form id="product_add_form">
                                         <section class="modal-card-body">
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <div style="display: none">
+                                                <p id="productId"></p>
+                                            </div>
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
                                                 <p>중분류</p>
                                                 <div class="select">
-                                                    <select id="parentCategorySel" class="cus_w_300">
-                                                        <option value="651e5fbcbdfd9dbe2858c888">텐트/타프</option>
-                                                        <option>침낭</option>
-                                                        <option>퍼니처</option>
-                                                        <option>주방/바베큐</option>
-                                                        <option>악세사리</option>
+                                                    <select id="parentCategorySel" class="custom_width_300">
+                                                        <option value="텐트/타프">텐트/타프</option>
+                                                        <option value="침낭">침낭</option>
+                                                        <option value="퍼니처">퍼니처</option>
+                                                        <option value="주방/바베큐">주방/바베큐</option>
+                                                        <option value="악세사리">악세사리</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
                                                 <p>소분류</p>
                                                 <div class="select">
-                                                    <select id="childCategorySel" class="cus_w_300" name="categoryId">
+                                                    <select
+                                                        id="childCategorySel"
+                                                        class="custom_width_300"
+                                                        name="categoryId"
+                                                    >
                                                         <option value="651e5fd7bdfd9dbe2858c88b">텐트</option>
                                                         <option value="651e603ebdfd9dbe2858c896">타프</option>
                                                     </select>
                                                 </div>
                                             </div>
 
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
                                                 <p>브랜드</p>
                                                 <input
                                                     id="brandInput"
-                                                    class="input cus_w_50"
+                                                    class="input custom_width_300"
                                                     type="text"
                                                     name="brand"
                                                 />
                                             </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
                                                 <p>상품명</p>
                                                 <input
                                                     id="productNameInput"
-                                                    class="input cus_w_50"
+                                                    class="input custom_width_300"
                                                     type="text"
                                                     name="name"
                                                 />
                                             </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
                                                 <p>가격</p>
                                                 <input
                                                     id="priceInput"
-                                                    class="input cus_w_50"
+                                                    class="input custom_width_300"
                                                     type="text"
                                                     name="price"
                                                 />
                                             </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
                                                 <p>썸네일 이미지 URL</p>
                                                 <input
                                                     id="thumbnailInput"
-                                                    class="input cus_w_50"
+                                                    class="input custom_width_300"
                                                     type="text"
                                                     name="thumbnailPath"
                                                 />
                                             </div>
-                                            <div class="is-flex is-justify-content-space-between cus_pb_20">
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
                                                 <p>상세 이미지</p>
                                                 <input
                                                     id="contentFile"
-                                                    class="cus_file_uploard"
+                                                    class="custom_border_transparent"
                                                     type="file"
                                                     name="content"
                                                 />
@@ -171,14 +198,15 @@
                                         <footer class="modal-card-foot">
                                             <button
                                                 id="product_btn_save"
-                                                class="button is-rounded is-small cus_btn_bc_gr"
+                                                class="button is-rounded is-small custom_background_color_prime"
                                                 type="button"
                                             >
                                                 등록하기
                                             </button>
                                             <button
-                                                class="button is-rounded is-small cus_btn_bc_red"
+                                                class="button is-rounded is-small custom_background_color_red"
                                                 data-bulma-modal="close"
+                                                type="button"
                                             >
                                                 취소
                                             </button>
@@ -187,21 +215,21 @@
                                 </div>
                             </div>
                         </section>
-                        <section class="product_table columns cus_mtb_30">
-                            <table class="table column is-full is-striped cus_display_table">
+                        <section class="product_table columns custom_margin_top_bottom_30">
+                            <table class="table column is-full is-striped custom_display_table">
                                 <thead>
                                     <tr>
-                                        <th class="cus_text_align_center">No</th>
-                                        <th class="cus_text_align_center">이미지</th>
-                                        <th class="cus_text_align_center">등록일시</th>
-                                        <th class="cus_text_align_center">중분류</th>
-                                        <th class="cus_text_align_center">소분류</th>
-                                        <th class="cus_text_align_center">브랜드</th>
-                                        <th class="cus_text_align_center">상품명</th>
-                                        <th class="cus_text_align_center">상품가격</th>
-                                        <th class="cus_text_align_center">누적 판매량</th>
-                                        <th class="cus_text_align_center">판매상태</th>
-                                        <th class="cus_text_align_center">수정 및 삭제</th>
+                                        <th class="custom_text_align_center">No</th>
+                                        <th class="custom_text_align_center">이미지</th>
+                                        <th class="custom_text_align_center">등록일시</th>
+                                        <th class="custom_text_align_center">중분류</th>
+                                        <th class="custom_text_align_center">소분류</th>
+                                        <th class="custom_text_align_center">브랜드</th>
+                                        <th class="custom_text_align_center">상품명</th>
+                                        <th class="custom_text_align_center">상품가격</th>
+                                        <th class="custom_text_align_center">누적 판매량</th>
+                                        <th class="custom_text_align_center">판매상태</th>
+                                        <th class="custom_text_align_center">수정 및 삭제</th>
                                     </tr>
                                 </thead>
                                 <tbody id="product_list_tbody" />
@@ -212,6 +240,6 @@
             </div>
         </main>
         <footer></footer>
-        <script src="./admin_product.js"></script>
+        <script type="module" src="./admin_product.js"></script>
     </body>
 </html>
