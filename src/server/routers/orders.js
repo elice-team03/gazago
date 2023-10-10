@@ -11,8 +11,8 @@ router.post(
     asyncHandler(async (req, res, next) => {
         let loggedInUser = req.user?.user;
 
-        const { title, receiver, code, address, contact } = req.body;
-        if (!receiver || !code || !address || !contact) {
+        const { title, receiver, code, address, subAddress, contact } = req.body;
+        if (!receiver || !code || !address || !subAddress || !contact) {
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });
         }
 
@@ -23,6 +23,7 @@ router.post(
                 receiver,
                 code,
                 address,
+                subAddress,
                 contact,
                 loggedInUser,
             });

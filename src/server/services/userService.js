@@ -185,6 +185,12 @@ class userService {
 
         return;
     }
+
+    static async tempChangePassword(email, password) {
+        await User.findOneAndUpdate({ email: email }, { password: password });
+
+        return;
+    }
 }
 
 module.exports = { userService };

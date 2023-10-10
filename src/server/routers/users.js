@@ -89,6 +89,21 @@ router.post(
     })
 );
 
+/** 회원 임시 비밀번호 발송 API */
+router.post(
+    '/password',
+    asyncHandler(async (req, res, next) => {
+        const { email } = req.body;
+        await userService.changePasswordAndSendByEmail(email);
+
+        res.status(200).json({
+            code: 200,
+            message: '임시 비밀번호가 이메일로 발송되었습니다',
+            data: null,
+        });
+    })
+);
+
 /** 회원정보 조회 API */
 router.get(
     '/',
@@ -103,6 +118,7 @@ router.get(
             message: '요청이 성공하였습니다',
             data: {
                 _id,
+                password,
                 email,
                 role,
                 wishList,
@@ -129,33 +145,24 @@ router.get(
     })
 );
 
-/** 회원 임시 비밀번호 발송 API */
-router.post(
-    '/password',
-    asyncHandler(async (req, res, next) => {
-        const { email } = req.body;
-        await userService.changePasswordAndSendByEmail(email);
-
-        res.status(200).json({
-            code: 200,
-            message: '임시 비밀번호가 이메일로 발송되었습니다',
-            data: null,
-        });
-    })
-);
-
 /** 회원정보 변경 (비밀번호 제외) API */
 router.patch(
     '/',
     asyncHandler(async (req, res, next) => {
-        // delivery 없는 유저는 변경이 가능하게
-
-        const { contact, code, address } = req.body;
+        const { contact, code, address, subAddress, password } = req.body;
         const loggedInUser = req.user.user;
         const id = loggedInUser.delivery;
 
-        const result = await deliveryService.findDeliveryAndUpdate({ contact, code, address, id });
-        console.log(result);
+        //임시 비밀번호 변경
+        await userService.tempChangePassword(loggedInUser.email, password);
+
+        const result = await deliveryService.findDeliveryAndUpdate({
+            contact,
+            code,
+            address,
+            subAddress,
+            id,
+        });
         res.status(200).json({
             code: 200,
             message: '유저 정보가 업데이트 되었습니다',
