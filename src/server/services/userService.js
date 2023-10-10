@@ -3,20 +3,10 @@ const bcrypt = require('bcrypt');
 const setUserToken = require('../utils/jwt');
 const generateRandomPasswrod = require('../utils/generate-password');
 const nodemailer = require('nodemailer');
+
 class userService {
     static async addUser(newUser) {
         return await User.create(newUser);
-    }
-
-    static async findAllUsers() {
-        return await User.find({});
-    }
-
-    static async findUser(_id) {
-        return await User.findById(_id).populate('orders').populate('delivery').populate('wishList');
-    }
-    static async findOneUser(email) {
-        return await User.findOne({ email: email });
     }
 
     static async addUserOrder(userId, orderId) {
@@ -38,16 +28,37 @@ class userService {
     }
 
     static async addUserWishlist(userId, productId) {
-        const user = await User.findById({ _id: userId });
-        if (user.wishList.includes(productId)) {
-            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
-            error.status = 400;
-            throw error;
+        await User.findByIdAndUpdate(
+            { _id: userId },
+            {
+                $push: { wishList: productId },
+            }
+        );
+        const updatedUser = await User.findById({ _id: userId });
+        return updatedUser.wishList;
+    }
+
+    static async findUser(_id) {
+        return await User.findById(_id).populate('orders').populate('delivery').populate('wishList');
+    }
+
+    static async findUserByEmail(email) {
+        return await User.findOne({ email: email });
+    }
+
+    static async removeUserWishlist(userId, productIds) {
+        const user = await User.findById(userId);
+        console.log(user.wishList);
+        for (const productId of productIds) {
+            console.log(productId);
+            const index = user.wishList.indexOf(productId);
+
+            if (index !== -1) {
+                user.wishList.splice(index, 1);
+            }
         }
 
-        user.wishList.push(productId);
         await user.save();
-
         return user.wishList;
     }
 
@@ -102,49 +113,50 @@ class userService {
             subject: `[GAZAGO] 유저님의 비밀번호가 초기화 되었습니다`,
             html: `
             <div style="width: 500px; margin: auto; text-align: center">
-            <div style="text-align: center">
-                <img src="https://i.imgur.com/onyitJ3.png" alt="" style="width: 200px" />
-            </div>
-            <div style="text-align: left; margin-top: 2rem">
-                <p style="text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 30px">
-                    임시 비밀번호 발급
-                </p>
-                <hr style="background: #395144; height: 3px; border: 0" />
-                <p
-                    style="
-                        font-size: 18px;
-                        width: 32ch;
-                        text-align: left;
-                        word-spacing: -1px;
-                        line-height: 1.1;
-                        font-weight: bold;
-                        word-break: keep-all;
-                    "
-                >
-                    임시 비밀번호로 로그인 하신 후에, 안전한 비밀번호로 변경 부탁드립니다.
-                </p>
-                <p style="text-indent: 10px; font-size: 18px; margin-top: 40px">임시 비밀번호</p>
-                <p style="border-bottom: 1px solid lightgrey; padding-bottom: 5px">${newPassword}</p>
-                <a
-                    href="http://localhost:5001/login"
-                    style="
-                        display: block;
-                        width: 100%;
-                        background: #004225;
-                        height: 45px;
-                        line-height: 45px;
-                        border-radius: 100vmax;
-                        color: white;
-                        text-decoration: none;
-                        font-weight: bold;
-                        text-align: center;
-                        margin-top: 2em;
-                        font-size: 18px;
-                    "
-                    >로그인 하러가기</a
-                >
-            </div>
-        </div>
+                <div style="text-align: center">
+                    <img src="https://i.imgur.com/onyitJ3.png" alt="" style="width: 200px" />
+                </div>
+                <div style="text-align: left; margin-top: 2rem">
+                    <p style="text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 30px">
+                        임시 비밀번호 발급
+                    </p>
+                    <hr style="background: #395144; height: 3px; border: 0" />
+                    <p
+                        style="
+                            font-size: 18px;
+                            width: 32ch;
+                            text-align: left;
+                            word-spacing: -1px;
+                            line-height: 1.1;
+                            font-weight: bold;
+                            word-break: keep-all;
+                        "
+                    >
+                        임시 비밀번호로 로그인 하신 후에, 안전한 비밀번호로 변경 부탁드립니다.
+                    </p>
+                    <p style="text-indent: 10px; font-size: 18px; margin-top: 40px">임시 비밀번호</p>
+                    <p style="border-bottom: 1px solid lightgrey; padding-bottom: 5px">${newPassword}</p>
+                    <a
+                        href="http://localhost:5001/login"
+                        style="
+                            display: block;
+                            width: 100%;
+                            background: #004225;
+                            height: 45px;
+                            line-height: 45px;
+                            border-radius: 100vmax;
+                            color: white;
+                            text-decoration: none;
+                            font-weight: bold;
+                            text-align: center;
+                            margin-top: 2em;
+                            font-size: 18px;
+                        "
+                    >
+                        로그인 하러가기
+                    </a>
+                </div>
+            </div> 
             `,
         };
 
