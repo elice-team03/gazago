@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { productService } = require('../services/productService');
+const { categoryService } = require('../services/categoryService');
 const asyncHandler = require('../utils/async-handler');
 
 const router = Router();
@@ -36,7 +37,7 @@ router.get(
         const skip = (page - 1) * ITEMS_PER_PAGE;
         const limit = ITEMS_PER_PAGE;
 
-        const { brand, beginPrice, endPrice, color } = req.query;
+        const { brand, beginPrice, endPrice, color, parentCategoryId, categoryId, searchKeyword } = req.query;
         const filter = {};
 
         if (brand) {
@@ -49,8 +50,20 @@ router.get(
             filter.color = color;
         }
 
+        if (categoryId) {
+            filter.category = categoryId;
+        } else if (parentCategoryId) {
+            const categories = await categoryService.findCategoriesByParent(parentCategoryId);
+            const categoryIds = categories.map((category) => category._id);
+            filter.category = { $in: categoryIds };
+        }
+
+        if (searchKeyword) {
+            filter.name = { $regex: new RegExp(searchKeyword, 'i') };
+        }
+
         const result = await productService.findProductsPaginated(skip, limit, filter);
-        const totalProductsCount = await productService.getTotalProductsCount();
+        const totalProductsCount = await productService.getTotalProductsCount(filter);
 
         res.status(200).json({
             code: 200,
@@ -80,9 +93,14 @@ router.patch(
     asyncHandler(async (req, res, next) => {
         const _id = req.params.id;
         const productInfo = req.body;
-        const contentFile = req.files.content;
+        let contentFile;
+        try {
+            contentFile = req.files.content;
+        } catch (e) {
+            contentFile = null;
+        }
 
-        const requiredFields = ['name', 'brand', 'price', 'thumbnailPath'];
+        const requiredFields = ['name', 'brand', 'price', 'thumbnailPath', 'categoryId'];
         const missingFields = requiredFields.filter((field) => !productInfo[field]);
 
         if (missingFields.length > 0) {
@@ -92,6 +110,7 @@ router.patch(
         }
 
         const result = await productService.modifyProduct({ _id, productInfo, contentFile });
+
         res.status(201).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
