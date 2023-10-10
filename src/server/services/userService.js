@@ -170,7 +170,7 @@ class userService {
         });
     }
 
-    /** 비밀번호 변경 */
+    /** 비밀번호 변경. */
     static async changePassword(userInform) {
         const { oldPassword, newPassword, loggedInUser } = userInform;
         const checkOldPassword = await bcrypt.compare(oldPassword, loggedInUser.password);
