@@ -118,7 +118,6 @@ router.get(
             message: '요청이 성공하였습니다',
             data: {
                 _id,
-                password,
                 email,
                 role,
                 wishList,
@@ -149,12 +148,9 @@ router.get(
 router.patch(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { contact, code, address, subAddress, password } = req.body;
+        const { contact, code, address, subAddress } = req.body;
         const loggedInUser = req.user.user;
-        const id = loggedInUser.delivery;
-
-        //임시 비밀번호 변경
-        await userService.tempChangePassword(loggedInUser.email, password);
+        const id = loggedInUser._id;
 
         const result = await deliveryService.findDeliveryAndUpdate({
             contact,
