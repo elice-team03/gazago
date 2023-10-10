@@ -75,58 +75,25 @@
           </div>
         </div>
       </section>
-      <div class="payment__line"></div>
-      <section>
-        <h6 class="container__text">결제 정보</h6>
-        <div class="input__box">
-          <span class="input__label">이메일</span>
-          <input class="input input__email" type="email">
-        </div>
-        <div class="input__box">
-          <span class="input__label">카드번호</span>
-          <input class="input input__min" type="text">
-          <span class="hipen">-</span>
-          <input class="input input__min" type="text">
-          <span class="hipen">-</span>
-          <input class="input input__min" type="text">
-          <span class="hipen">-</span>
-          <input class="input input__min" type="text">
-        </div>
-        <div class="input__box">
-          <span class="input__label">유효기간</span>
-          <input class="input input__expire" type="text" placeholder="MM/YY">
-          <span class="input__label--cvc">CVC</span>
-          <input class="input input__expire" type="text">
-        </div>
-      </section>
     </article>
     <article class="product">
-      <section>
-        <h6 class="container__text">주문상품 정보 / 총 1개</h6>
+      <section class="products">
+        <h6 class="container__text">주문상품 정보 / 총 <span class="product__count"></span>개</h6>
         <div class="product__line"></div>
         <div class="product__box">
-          <div class="product__detail">
-            <img src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000242.jpg?1584076493"
-              class="product__image">
-            <!-- 임시 더미 데이터 -->
-            <div class="product__description">
-              <span class="product__text--brand">헬리녹스</span>
-              <span class="product__text--name">체어원 / 올 블랙</span>
-              <span>115,000원 / 수량 1개</span>
-            </div>
-          </div>
+          <div class="product__item"></div>
           <div class="product__line--thin"></div>
           <div class="order__box">
             <span>총 상품금액</span>
-            <span>115,000원</span>
+            <span class="order__product">0원</span>
           </div>
           <div class="order__box">
             <span>배송비</span>
-            <span>+ 0원</span>
+            <span class="order__delivery">+ 0원</span>
           </div>
           <div class="order__box--total">
             <span>총 결제금액</span>
-            <span class="order__total">115,000원</span>
+            <span class="order__total">0원</span>
           </div>
       </section>
       <section>
@@ -161,7 +128,7 @@
     </article>
   </main>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src="./order_page.js"></script>
+  <script type="module" src="./order_page.js"></script>
   <script src="../public/zipcodeBtn/zipcodeBtn.js"></script>
 </body>
 
