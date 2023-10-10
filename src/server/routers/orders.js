@@ -1,8 +1,7 @@
 const { Router } = require('express');
+const asyncHandler = require('../utils/async-handler');
 const { orderService } = require('../services/orderService');
 const { deliveryService } = require('../services/deliveryService');
-const asyncHandler = require('../utils/async-handler');
-const { userService } = require('../services/userService');
 
 const router = Router();
 
@@ -62,7 +61,7 @@ router.get(
             filter.createdAt = { $gte: beginTimestamp, $lte: endTimestamp + 86400000 };
         }
         if (orderNumber) {
-            filter.orderNumber = orderNumber;
+            filter.orderNumber = { $regex: new RegExp(orderNumber, 'i') };
         }
         if (status) {
             filter.status = status;
@@ -70,10 +69,25 @@ router.get(
 
         const deliveryFilter = {};
         if (name) {
-            deliveryFilter.receiver = { $regex: new RegExp(name, 'i') };
+            deliveryFilter.receiver = name;
         }
 
         const result = await orderService.findAllOrders(filter, deliveryFilter);
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+router.get(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        const _id = req.params.id;
+
+        const result = await orderService.findOrderWithProducts(_id);
+
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
