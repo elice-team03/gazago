@@ -2,7 +2,6 @@ const { Router } = require('express');
 const asyncHandler = require('../utils/async-handler');
 const { orderService } = require('../services/orderService');
 const { deliveryService } = require('../services/deliveryService');
-const { userService } = require('../services/userService');
 
 const router = Router();
 
@@ -94,6 +93,21 @@ router.get(
                 currentPage: page,
                 totalPages: Math.ceil(totalOrdersCount / ITEMS_PER_PAGE),
             },
+        });
+    })
+);
+
+router.get(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        const _id = req.params.id;
+
+        const result = await orderService.findOrderWithProducts(_id);
+
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
         });
     })
 );

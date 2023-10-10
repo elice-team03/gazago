@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Order, Delivery, Product } = require('../db');
+const { userService } = require('./userService');
 
 class orderService {
     static async addOrder(newOrder) {
@@ -30,8 +31,6 @@ class orderService {
                 select: 'receiver',
             })
             .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit)
             .exec();
 
         const ordersWithProductQty = orders.map((order) => {
@@ -83,6 +82,23 @@ class orderService {
         filter.delivery = { $in: orderIds };
 
         return await Order.countDocuments(filter).exec();
+    }
+
+    static async findOrderWithProducts(_id) {
+        const order = await Order.findById(_id).populate('delivery');
+        if (!order) {
+            throw Object.assign(new Error('주문 내역을 찾을 수 없습니다.'), { status: 400 });
+        }
+        const productIds = order.products;
+        const products = await Product.find({ _id: { $in: productIds } }).populate({
+            path: 'category',
+            populate: {
+                path: 'parentCategory',
+            },
+        });
+        order.products = products;
+
+        return order;
     }
 
     static async modifyOrderStatus({ _id, status }) {
