@@ -95,7 +95,6 @@ router.get(
         const id = loggedInUser._id;
         const user = await userService.findUser(id);
         const { _id, email, password, role, wishList, delivery, orders, updatedAt, createdAt } = user;
-        await deliveryService.findDeliveryById(delivery);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
