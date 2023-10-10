@@ -34,7 +34,7 @@ class orderService {
                 path: 'delivery',
                 select: 'receiver',
             })
-            .populate('orderUserId')
+            .sort({ createdAt: -1 })
             .exec();
     }
 
@@ -52,6 +52,23 @@ class orderService {
 
     static async findByOrderer(orderUserId) {
         return await Order.find({ orderUserId: orderUserId });
+    }
+
+    static async findOrderWithProducts(_id) {
+        const order = await Order.findById(_id).populate('delivery');
+        if (!order) {
+            throw Object.assign(new Error('주문 내역을 찾을 수 없습니다.'), { status: 400 });
+        }
+        const productIds = order.products;
+        const products = await Product.find({ _id: { $in: productIds } }).populate({
+            path: 'category',
+            populate: {
+                path: 'parentCategory',
+            },
+        });
+        order.products = products;
+
+        return order;
     }
 
     static async modifyOrderStatus({ _id, status }) {
