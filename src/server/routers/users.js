@@ -191,7 +191,7 @@ router.patch(
 router.patch(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
-        const productId = req.body.productId;
+        const { productId } = req.body;
         const user = req.user.user;
 
         if (!user) {
