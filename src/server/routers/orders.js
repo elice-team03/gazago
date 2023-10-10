@@ -14,19 +14,25 @@ router.post(
         const loggedInUser = await userService.findUserById(userId);
         const { title, receiver, code, address, subAddress, contact, comment, totalAmount, productIds } = req.body;
 
+        const { title, receiver, code, address, subAddress, contact } = req.body;
         if (!receiver || !code || !address || !subAddress || !contact) {
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });
         }
 
-        const delivery = await deliveryService.addDelivery({
-            title: title || '',
-            receiver,
-            code,
-            address,
-            subAddress,
-            contact,
-            loggedInUser,
-        });
+        let delivery = null;
+        if (!loggedInUser.delivery) {
+            delivery = await deliveryService.addDeliveryAndSetUserDelivery({
+                title: title || '',
+                receiver,
+                code,
+                address,
+                subAddress,
+                contact,
+                loggedInUser,
+            });
+        } else {
+            delivery = await deliveryService.findDeliveryById(loggedInUser.delivery);
+        }
 
         await userService.addUserDelivery(loggedInUser._id, delivery._id);
 
