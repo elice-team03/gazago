@@ -23,7 +23,7 @@ function productDataMapping(products) {
             name: data.name,
             brand: data.brand,
             price: data.price,
-            url: `http://localhost:5001/product/detail/#`,
+            url: `http://localhost:5001/product/detail/${data._id}`,
         };
     });
 };
@@ -42,23 +42,21 @@ function displayProducts(products) {
         
         const productBoxContent = `<div class="product-box">
                                     <div class="product__img-box">
-                                        <a href="#">
+                                        <a href=${product.url}>
                                             <img class="product__img"
-                                                src="https://cdn-pro-web-251-115.cdn-nhncommerce.com/minimatr4152_godomall_com/data/goods/23/03/13/726/726_detail_027.jpg" alt="">
+                                                src=${product.imgUrl} alt="">
                                         </a>
                                     </div>
                                     <div class="brand__box-good">
                                         <div class="brand__box">
-                                            
                                                 <span class="brand">${product.brand}</span>
-                                            
                                         </div>
                                         <div class="good-box">
                                             <i class="fa-regular fa-bookmark" style="color: #8c8c8c;"></i>
                                         </div>
                                     </div>
                                     <div class="product__name-box">
-                                        <a href="#">
+                                        <a href=${product.url}>
                                             <span class="product">${product.name}</span>
                                         </a>
                                     </div>
