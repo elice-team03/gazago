@@ -16,6 +16,7 @@ const DeliverySchema = new Schema(
             type: String,
             required: true,
         },
+        //상세주소
         subAddress: {
             type: String,
             required: true,
@@ -26,6 +27,12 @@ const DeliverySchema = new Schema(
         },
         subcontact: {
             type: String,
+        },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+            index: true,
         },
         owner: {
             type: Schema.Types.ObjectId,
