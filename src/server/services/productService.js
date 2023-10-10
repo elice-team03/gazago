@@ -41,7 +41,7 @@ class productService {
             .exec();
 
         for (const product of products) {
-            product.totalSales = await orderService.findOrderedProduct(product._id);
+            product.totalSales = await orderService.findProductOrderedCount(product._id);
         }
 
         return products;
