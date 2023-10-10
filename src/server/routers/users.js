@@ -1,7 +1,7 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
-const { validateObjectId } = require('../utils/validate-utils');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
 
@@ -97,7 +97,7 @@ router.get(
         const id = loggedInUser._id;
         const user = await userService.findUser(id);
         const { _id, email, role, wishList, delivery, orders, updatedAt, createdAt } = user;
-        yInform = await deliveryService.findDeliveryById(delivery);
+
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
@@ -111,6 +111,20 @@ router.get(
                 updatedAt,
                 createdAt,
             },
+        });
+    })
+);
+
+/** 위시리스트 조회 API */
+router.get(
+    '/wishlist',
+    asyncHandler(async (req, res, next) => {
+        const result = await userService.findUser(req.user.user._id);
+
+        res.json({
+            code: 200,
+            message: '요청이 성공하였습니다',
+            data: result.wishList,
         });
     })
 );
@@ -166,10 +180,46 @@ router.patch(
     })
 );
 
+/** 위시리스트 추가 API */
 router.patch(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
         const productId = req.body.productId;
+        const user = req.user.user;
+
+        if (!user) {
+            const error = new Error('로그인 후 이용 가능합니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            const error = new Error('상품 ID가 올바르지 않습니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        if (user.wishList.includes(productId)) {
+            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await userService.addUserWishlist(user._id, productId);
+
+        res.status(201).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+/** 위시리스트 삭제 API */
+router.delete(
+    '/wishlist/:productIds',
+    asyncHandler(async (req, res, next) => {
+        const productIds = req.params.productIds.split(',');
         const user = req.user.user;
         if (!user) {
             const error = new Error('로그인 후 이용 가능합니다.');
@@ -177,8 +227,8 @@ router.patch(
             throw error;
         }
 
-        validateObjectId(productId, 400, '상품 정보를 확인해주세요.');
-        const result = await userService.addUserWishlist(user._id, productId);
+        console.log(productIds);
+        const result = await userService.removeUserWishlist(user._id, productIds);
 
         res.status(201).json({
             code: 200,

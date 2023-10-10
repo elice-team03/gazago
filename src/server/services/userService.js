@@ -34,7 +34,8 @@ class userService {
                 $push: { wishList: productId },
             }
         );
-        return User.findById({ _id: userId });
+        const updatedUser = await User.findById({ _id: userId });
+        return updatedUser.wishList;
     }
 
     static async findUser(_id) {
@@ -43,6 +44,22 @@ class userService {
 
     static async findUserByEmail(email) {
         return await User.findOne({ email: email });
+    }
+
+    static async removeUserWishlist(userId, productIds) {
+        const user = await User.findById(userId);
+        console.log(user.wishList);
+        for (const productId of productIds) {
+            console.log(productId);
+            const index = user.wishList.indexOf(productId);
+
+            if (index !== -1) {
+                user.wishList.splice(index, 1);
+            }
+        }
+
+        await user.save();
+        return user.wishList;
     }
 
     /** 회원가입 */
