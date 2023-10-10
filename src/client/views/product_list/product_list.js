@@ -1,30 +1,60 @@
 import * as Api from '../api.js';
 
-async function getPage(page) {
-    const result = await Api.get('http://127.0.0.1:5001/api',`products?page=${page}`);
-    const data = result.data;
+const params = window.location.search;
+
+async function getPage(page, params) {
+    const response = await Api.get('http://127.0.0.1:5001/api',`products?page=${page}${params}`);
+    const data = response.data;
     return data;
 }
-// 테스트
-async function loadPage (page){
-    const pageData = await getPage(page);
+
+async function loadPage (page, params){
+    const pageData = await getPage(page, params);
     const mappedData = productDataMapping(pageData);
     displayProducts(mappedData);
 };
 
-
+//첫페이지 불러오기
+loadPage(1, params);
 
 function productDataMapping(products) {
     return products.map((data) => {
         return {
+            id : data._id,
             imgUrl: data.thumbnailPath,
             name: data.name,
             brand: data.brand,
             price: data.price,
-            url: `#`,
+            url: `http://localhost:5001/product/detail/#`,
         };
     });
 };
+
+//무한스크롤
+const getNextPage = (()=>{
+    let page = 1;
+    let isFetching = false;
+    return () => {
+      if(!isFetching){
+        isFetching = true;
+        const nextPage = ++page;
+        //동작확인용 
+        console.log('page:', nextPage);
+        loadPage(nextPage, params).then(()=>{
+          isFetching = false;
+        })
+      }
+    }
+  })();
+//스크롤 이벤트
+  window.addEventListener("scroll", ()=>{
+    const scrollPos = window.innerHeight + window.scrollY;
+    const bodyHeight = document.body.offsetHeight;
+
+    if(scrollPos >= bodyHeight){
+      getNextPage();
+    }
+  });
 
 const productContainer = document.querySelector('.product__container');
 
@@ -65,31 +95,6 @@ function displayProducts(products) {
         productContainer.insertAdjacentHTML('beforeend',productBoxContent);
     });
 }
-//무한스크롤
-const getNextPage = (()=>{
-    let page = 1;
-    let isFetching = false;
-    return () => {
-      if(!isFetching){
-        isFetching = true;
-        const nextPage = ++page;
-        //동작확인용 
-        console.log('page:', nextPage);
-        loadPage(nextPage).then(()=>{
-          isFetching = false;
-        })
-      }
-    }
-  })();
 
-  window.addEventListener("scroll", ()=>{
-    const scrollPos = window.innerHeight + window.scrollY;
-    const bodyHeight = document.body.offsetHeight;
 
-    if(scrollPos >= bodyHeight){
-      getNextPage();
-    }
-  });
-
-  loadPage(1);
 

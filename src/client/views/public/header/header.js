@@ -29,7 +29,7 @@ const headerContent = `<header class="header container">
 </nav>
 <nav class="navbar-container sub-nav" id="sub-nav1">
     <ul class="navbar">
-        <li><a class="navbar-item" href="#">텐트</a></li>
+        <li><a class="navbar-item" href="http://localhost:5001/product-list/?categoryId=651eb15f0e1595ed0dd3b703">텐트</a></li>
         <li><a class="navbar-item" href="#">타프</a></li>
         <li><a class="navbar-item" href="#">쉘터</a></li>
     </ul>

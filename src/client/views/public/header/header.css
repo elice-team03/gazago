@@ -8,7 +8,7 @@ header {
 
 }
 .container {
-    width: 1152px !important;
+    max-width: 1152px !important;
     padding-bottom: 100px;
 }
 
