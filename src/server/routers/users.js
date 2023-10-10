@@ -94,13 +94,14 @@ router.get(
         const loggedInUser = req.user.user;
         const id = loggedInUser._id;
         const user = await userService.findUser(id);
-        const { _id, email, role, wishList, delivery, orders, updatedAt, createdAt } = user;
-        yInform = await deliveryService.findDeliveryById(delivery);
+        const { _id, email, password, role, wishList, delivery, orders, updatedAt, createdAt } = user;
+        await deliveryService.findDeliveryById(delivery);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
             data: {
                 _id,
+                password,
                 email,
                 role,
                 wishList,
@@ -113,17 +114,22 @@ router.get(
     })
 );
 
-/** 회원정보 변경 (비밀번호 제외) API */
+/** 회원정보 변경 (임시 비밀번호 변경) API */
 router.patch(
     '/',
     asyncHandler(async (req, res, next) => {
-        // delivery 없는 유저는 변경이 가능하게
-
-        const { contact, code, address } = req.body;
+        const { contact, code, address, subAddress, password } = req.body;
         const loggedInUser = req.user.user;
         const id = loggedInUser.delivery;
 
-        const result = await deliveryService.findDeliveryAndUpdate({ contact, code, address, id });
+        const result = await deliveryService.findDeliveryAndUpdate({
+            contact,
+            code,
+            address,
+            subAddress,
+            id,
+            password,
+        });
         console.log(result);
         res.status(200).json({
             code: 200,

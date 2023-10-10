@@ -17,6 +17,11 @@ const DeliverySchema = new Schema(
             type: String,
             required: true,
         },
+        //상세주소
+        subAddress: {
+            type: String,
+            required: true,
+        },
         contact: {
             type: Number,
             required: true,

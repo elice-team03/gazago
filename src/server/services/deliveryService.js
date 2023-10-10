@@ -3,13 +3,14 @@ const { userService } = require('./userService');
 
 class deliveryService {
     static async addDeliveryAndSetUserDelivery(newDelivery) {
-        const { title, receiver, code, address, contact, loggedInUser } = newDelivery;
+        const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
             title: title || '',
             receiver,
             code,
             address,
+            subAddress,
             contact,
             owner: loggedInUser._id,
         });
@@ -33,13 +34,16 @@ class deliveryService {
     }
 
     static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, id } = changedDelivery;
+        const { contact, code, address, subAddress, id, password } = changedDelivery;
+
         await Delivery.updateOne(
             { _id: id },
             {
                 contact: contact,
                 code: code,
                 address: address,
+                subAddress: subAddress,
+                password: password,
             }
         );
         return await Delivery.findById({ _id: id });
