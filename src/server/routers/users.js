@@ -4,6 +4,7 @@ const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
+
 /** 회원가입 API */
 router.post(
     '/register',
@@ -92,11 +93,26 @@ router.post(
 router.post(
     '/password',
     asyncHandler(async (req, res, next) => {
+        const { email } = req.body;
+        await userService.changePasswordAndSendByEmail(email);
+
+        res.status(200).json({
+            code: 200,
+            message: '임시 비밀번호가 이메일로 발송되었습니다',
+            data: null,
+        });
+    })
+);
+
+/** 회원정보 조회 API */
+router.get(
+    '/',
+    asyncHandler(async (req, res, next) => {
         const loggedInUser = req.user.user;
         const id = loggedInUser._id;
         const user = await userService.findUser(id);
-        const { _id, email, password, role, wishList, delivery, orders, updatedAt, createdAt } = user;
-        await deliveryService.findDeliveryById(delivery);
+        const { _id, email, role, wishList, delivery, orders, updatedAt, createdAt } = user;
+
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
@@ -115,7 +131,21 @@ router.post(
     })
 );
 
-/** 회원정보 변경 (임시 비밀번호 변경) API */
+/** 위시리스트 조회 API */
+router.get(
+    '/wishlist',
+    asyncHandler(async (req, res, next) => {
+        const result = await userService.findUser(req.user.user._id);
+
+        res.json({
+            code: 200,
+            message: '요청이 성공하였습니다',
+            data: result.wishList,
+        });
+    })
+);
+
+/** 회원정보 변경 (비밀번호 제외) API */
 router.patch(
     '/',
     asyncHandler(async (req, res, next) => {
@@ -180,17 +210,60 @@ router.patch(
     })
 );
 
-/** 회원 임시 비밀번호 발송 API */
-router.post(
-    '/password',
+/** 위시리스트 추가 API */
+router.patch(
+    '/wishlist',
     asyncHandler(async (req, res, next) => {
-        const { email } = req.body;
-        await userService.changePasswordAndSendByEmail(email);
+        const { productId } = req.body;
+        const user = req.user.user;
 
-        res.status(200).json({
+        if (!user) {
+            const error = new Error('로그인 후 이용 가능합니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            const error = new Error('상품 ID가 올바르지 않습니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        if (user.wishList.includes(productId)) {
+            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await userService.addUserWishlist(user._id, productId);
+
+        res.status(201).json({
             code: 200,
-            message: '임시 비밀번호가 이메일로 발송되었습니다',
-            data: null,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+/** 위시리스트 삭제 API */
+router.delete(
+    '/wishlist/:productIds',
+    asyncHandler(async (req, res, next) => {
+        const productIds = req.params.productIds.split(',');
+        const user = req.user.user;
+        if (!user) {
+            const error = new Error('로그인 후 이용 가능합니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        console.log(productIds);
+        const result = await userService.removeUserWishlist(user._id, productIds);
+
+        res.status(201).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
         });
     })
 );
