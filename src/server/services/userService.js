@@ -155,7 +155,6 @@ class userService {
             transport.close();
             return;
         });
-
     }
 
     /** 비밀번호 변경 */
@@ -170,6 +169,12 @@ class userService {
         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
         await User.findOneAndUpdate({ _id: loggedInUser._id }, { password: hashedNewPassword });
+
+        return;
+    }
+
+    static async tempChangePassword(email, password) {
+        await User.findOneAndUpdate({ email: email }, { password: password });
 
         return;
     }
