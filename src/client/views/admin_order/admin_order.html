@@ -12,6 +12,10 @@
             referrerpolicy="no-referrer"
         />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker-bulma.min.css"
+        />
         <!-- common css -->
         <link rel="stylesheet" href="/stylesheets/normalize.css" />
         <link rel="stylesheet" href="/stylesheets/admin.css" />
@@ -55,16 +59,23 @@
                                             class="is-flex is-align-items-center custom_width_50_percent custom_flex_gap_20"
                                         >
                                             <p class="custom_text_align_center">주문일시</p>
-                                            <input
-                                                id="beginDate"
-                                                class="input custom_width_123 custom_input_enter"
-                                                type="text"
-                                            />~
-                                            <input
-                                                id="endDate"
-                                                class="input custom_width_123 custom_input_enter"
-                                                type="text"
-                                            />
+                                            <div id="date_picker" class="is-flex is-align-items-center">
+                                                <input
+                                                    id="beginDate"
+                                                    class="input custom_width_123 custom_input_enter"
+                                                    type="text"
+                                                    name="start"
+                                                    readonly
+                                                />
+                                                <span class="custom_padding_left_right_21">~</span>
+                                                <input
+                                                    id="endDate"
+                                                    class="input custom_width_123 custom_input_enter"
+                                                    type="text"
+                                                    name="end"
+                                                    readonly
+                                                />
+                                            </div>
                                         </div>
                                         <div
                                             class="is-flex is-align-items-center custom_width_50_percent custom_flex_gap_20"
@@ -137,6 +148,8 @@
             </div>
         </main>
         <footer></footer>
+        <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/ko.js"></script>
         <script type="module" src="./admin_order.js"></script>
     </body>
 </html>

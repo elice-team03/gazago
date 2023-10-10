@@ -13,6 +13,9 @@
 .custom_margin_left_15 {
     margin-left: 15px;
 }
+.custom_padding_left_right_21 {
+    padding: 0 21px;
+}
 
 /* color */
 
@@ -79,6 +82,9 @@
 /* display */
 .custom_display_table {
     display: table;
+}
+.custom_display_inline_block {
+    display: inline-block;
 }
 
 /* flex */

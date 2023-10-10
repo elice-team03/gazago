@@ -1,5 +1,28 @@
 import * as Api from '../../api.js';
 
+const dateFormater = (date) => {
+    const dateArr = [date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()];
+
+    dateArr.forEach((item, idx, arr) => {
+        if (item <= 9) {
+            arr[idx] = '0' + item;
+        }
+    });
+
+    let stringDate = `${date.getFullYear()}년${dateArr[0]}월${dateArr[1]}일 ${dateArr[2]}:${dateArr[3]}:${dateArr[4]}`;
+    return stringDate;
+};
+
+const datePickerInputs = document.querySelector('#date_picker');
+const datepicker = new DateRangePicker(datePickerInputs, {
+    autohide: true,
+    language: 'ko',
+    todayButton: true,
+    todayButtonMode: 1,
+    todayHighlight: true,
+    format: 'yyyy-mm-dd',
+});
+
 const order = {
     orderStatusUpdate: async (e, id, idx) => {
         e.preventDefault();
@@ -50,9 +73,10 @@ const order = {
         let orderNumber = document.querySelector('#orderNumber').value;
         let orderStatusSelect = document.querySelector('#orderStatusSelect option:checked').value;
         let queryStringList = [];
+        console.log(beginDate, endDate);
         if (isStringValue(beginDate)) {
             beginDate = beginDate.trim();
-            queryStringList.push('beginData=' + beginDate);
+            queryStringList.push('beginDate=' + beginDate);
         }
         if (isStringValue(endDate)) {
             endDate = endDate.trim();
@@ -76,7 +100,19 @@ const order = {
             queryString = '?' + queryString;
         }
 
-        let res = await Api.get('/api/orders', isStringValue(queryString) ? queryString : '');
+        const endpoint = '/api/orders';
+        const params = queryString;
+        const apiUrl = `${endpoint}${params}`;
+        // HTTP GET 요청 보내기
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        const result = await response.json();
+        return result;
+        // let res = await Api.get('/api/orders', isStringValue(queryString) ? queryString : '');
         return res;
     },
 };
@@ -114,7 +150,9 @@ const initialize = async () => {
                                                 <p>${element.orderNumber}</p>
                                             </td>
                                             <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
-                                                <p>${element.createdAt}</p>
+                                                <p id="dateFormatBefore">${dateFormater(
+                                                    new Date(element.createdAt)
+                                                )}</p>
                                             </td>
                                             <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                                 <p>${element.delivery.receiver}</p>
