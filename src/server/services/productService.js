@@ -87,8 +87,8 @@ class productService {
         return result;
     }
 
-    static async getTotalProductsCount() {
-        return await Product.countDocuments({}).exec();
+    static async getTotalProductsCount(filter) {
+        return await Product.countDocuments(filter).exec();
     }
 
     static async modifyProduct({ _id, productInfo, contentFile }) {
@@ -108,13 +108,12 @@ class productService {
             productInfo.contentSrvFileName = contentInfo.serverFileName;
         }
 
-        const category = await categoryService.findCategory(productInfo.categoryId);
-        if (!category) {
-            const error = new Error('카테고리를 찾을 수 없습니다.');
+        if (!mongoose.Types.ObjectId.isValid(productInfo.categoryId)) {
+            const error = new Error('카테고리 Id 값이 유효하지 않습니다.');
             error.status = 400;
             throw error;
         }
-        productInfo.category = category;
+        productInfo.category = productInfo.categoryId;
 
         return await Product.findByIdAndUpdate(_id, productInfo, {
             new: true,
