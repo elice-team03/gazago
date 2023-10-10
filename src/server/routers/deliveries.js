@@ -7,9 +7,9 @@ const { deliveryService } = require('../services/deliveryService');
 router.patch(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { userId, newAddress } = req.body;
+        const { orderId, newAddress } = req.body;
 
-        const result = await deliveryService.changeAddress(userId, newAddress);
+        const result = await deliveryService.changeAddress(orderId, newAddress);
 
         res.json({
             code: 200,
