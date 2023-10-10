@@ -122,15 +122,16 @@ router.patch(
         const loggedInUser = req.user.user;
         const id = loggedInUser.delivery;
 
+        //임시 비밀번호 변경
+        await userService.tempChangePassword(loggedInUser.email, password);
+
         const result = await deliveryService.findDeliveryAndUpdate({
             contact,
             code,
             address,
             subAddress,
             id,
-            password,
         });
-        console.log(result);
         res.status(200).json({
             code: 200,
             message: '유저 정보가 업데이트 되었습니다',
