@@ -1,18 +1,43 @@
 const express = require('express');
 const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
+const { userService } = require('../services/userService');
+const { deliveryService } = require('../services/deliveryService');
 
-router.post(
+router.patch(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { title, code, address, contact, defaultYn } = req.body;
+        const { orderId, newAddress } = req.body;
 
-        console.log(req.body);
+        const result = await deliveryService.changeAddress(orderId, newAddress);
 
         res.json({
             code: 200,
-            message: '요청이 성공하였습니다',
-            data: null,
+            message: '주소 변경이 성공하였습니다',
+            data: result,
+        });
+    })
+);
+
+/** 배송지 정보 변경  API */
+router.patch(
+    '/informs',
+    asyncHandler(async (req, res, next) => {
+        const { contact, code, address, subAddress } = req.body;
+        const loggedInUser = req.user.user;
+        const deliveryId = loggedInUser.delivery;
+
+        const result = await deliveryService.findDeliveryAndUpdate({
+            contact,
+            code,
+            address,
+            subAddress,
+            deliveryId,
+        });
+        res.status(200).json({
+            code: 200,
+            message: '유저 정보가 업데이트 되었습니다',
+            data: result,
         });
     })
 );
