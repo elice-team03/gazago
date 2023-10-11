@@ -15,8 +15,18 @@ router.post(
         res.status(201).json({
             code: 201,
             message: '회원가입이 완료되었습니다',
-            data: result,
+            data: result._id,
         });
+    })
+);
+
+/** 이메일 인증번호 비교 */
+router.post(
+    '/register/:userId',
+    asyncHandler(async (req, res, next) => {
+        const { userId } = req.params;
+        const { certificationNumber } = req.body;
+        const result = userService.compareEmailNumber(userId, certificationNumber);
     })
 );
 

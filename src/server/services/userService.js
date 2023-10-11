@@ -1,8 +1,7 @@
 const { User } = require('../db');
 const bcrypt = require('bcrypt');
 const setUserToken = require('../utils/jwt');
-const generateRandomPasswrod = require('../utils/generate-password');
-const nodemailer = require('nodemailer');
+const { generateRandomPassword, generateRandomNumber } = require('../utils/generate-password');
 const { sendEmail } = require('../utils/send-email');
 
 class userService {
@@ -67,12 +66,25 @@ class userService {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await userService.addUser({
+        return await userService.addUser({
             email,
             password: hashedPassword,
+            confirmationToken: generateRandomNumber(),
         });
+    }
 
-        return user;
+    static async compareEmailNumber(userId, certificationNumber) {
+        const user = await User.findById({ _id: userId });
+
+        if (!user) {
+            throw Object.assign(new Error('올바른 메일이 아닙니다'), { status: 400 });
+        }
+
+        if (user.confirmationToken !== certificationNumber) {
+            throw Object.assign(new Error('인증번호가 일치하지 않습니다. 다시 입력해 주세요'), { status: 400 });
+        }
+
+        await User.updateOne({ _id: userId }, { confirmationAt: Date.now() });
     }
 
     /** 로그인 */
@@ -89,7 +101,7 @@ class userService {
 
     /** 임시 비밀번호 메일발송 */
     static async changePasswordAndSendByEmail(email) {
-        const newPassword = generateRandomPasswrod();
+        const newPassword = generateRandomPassword();
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
 
         const user = await User.findOne({ email: email });
