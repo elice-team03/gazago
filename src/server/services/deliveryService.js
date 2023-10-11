@@ -1,4 +1,4 @@
-const { Delivery, User } = require('../db');
+const { Delivery } = require('../db');
 const { userService } = require('./userService');
 
 class deliveryService {
@@ -35,51 +35,28 @@ class deliveryService {
         return uniqueDeliveries;
     }
 
+    static async findAllDeliveriesByOwner(userId) {
+        return await Delivery.find({ owner: userId });
+    }
+
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
     static async getTotaldeliveriesCount(userId) {
         const deliveries = await Delivery.find({ owner: userId }).exec();
 
-        const uniqueAddresses = new Set();
-
-        deliveries.forEach((delivery) => {
-            uniqueAddresses.add(delivery.address);
-        });
-
-        return uniqueAddresses.size;
-    }
     static async modifyDelivery(deliveryId, newDelivery) {
         const { contact, code, address, subAddress } = newDelivery;
-
-    static async removeDelivery(_id) {
-        return await Delivery.findByIdAndDelete(_id);
-    }
-
-    static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, subAddress, deliveryId } = changedDelivery;
         await Delivery.updateOne(
             { _id: deliveryId },
             {
-                contact: contact,
                 code: code,
                 address: address,
                 subAddress: subAddress,
+                contact: contact,
             }
         );
-
-        return await Delivery.findById({ _id: deliveryId });
-
-        return updatedDelivery;
-    }
-
-    static async changeAddress(userId, newAddress) {
-        const user = User.findById(userId);
-        if (!user) {
-            throw Object.assign(new Error('유저 ID가 올바르지 않습니다'), { status: 400 });
-        }
-
-        return await Delivery.findOneAndUpdate({ owner: userId }, { address: newAddress });
+        return Delivery.findById(deliveryId);
     }
 }
 
