@@ -25,14 +25,14 @@ router.patch(
     asyncHandler(async (req, res, next) => {
         const { contact, code, address, subAddress } = req.body;
         const loggedInUser = req.user.user;
-        const userId = loggedInUser._id;
+        const deliveryId = loggedInUser.delivery;
 
         const result = await deliveryService.findDeliveryAndUpdate({
             contact,
             code,
             address,
             subAddress,
-            userId,
+            deliveryId,
         });
         res.status(200).json({
             code: 200,

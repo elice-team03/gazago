@@ -34,9 +34,9 @@ class deliveryService {
     }
 
     static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, subAddress, userId } = changedDelivery;
+        const { contact, code, address, subAddress, deliveryId } = changedDelivery;
         await Delivery.updateOne(
-            { owner: userId },
+            { _id: deliveryId },
             {
                 contact: contact,
                 code: code,
@@ -45,7 +45,7 @@ class deliveryService {
             }
         );
 
-        return await Delivery.findById({ owner: userId });
+        return await Delivery.findById({ _id: deliveryId });
 
         //
     }
