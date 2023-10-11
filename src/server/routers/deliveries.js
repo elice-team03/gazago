@@ -8,7 +8,6 @@ router.get(
     '/',
     asyncHandler(async (req, res, next) => {
         const user = req.user.user;
-        console.log(user._id);
         const result = await deliveryService.findAllDeliveriesByOwner(user._id);
         res.json({
             code: 200,

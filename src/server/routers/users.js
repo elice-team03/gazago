@@ -58,7 +58,6 @@ router.post(
 router.get(
     '/check',
     asyncHandler(async (req, res, next) => {
-        console.log(req.user);
         if (req.user) {
             res.json({
                 code: 200,
@@ -223,7 +222,6 @@ router.delete(
             throw error;
         }
 
-        console.log(productIds);
         const result = await userService.removeUserWishlist(user._id, productIds);
 
         res.status(201).json({
