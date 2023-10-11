@@ -39,7 +39,7 @@ main {
     margin-top: 0;
 }
 
-.center form {
+.center #form-container {
     padding: 0 0px;
     box-sizing: border-box;
     width: 500px;
@@ -113,6 +113,20 @@ main {
 }
 
 #submit:hover {
+    border-color: var(--color-main);
+    transition: 0.5s;
+}
+
+#submitNewCode {
+    background-color: var(--color-main);
+    /* font-size: 15px; */
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+}
+
+#submitNewCode:hover {
     border-color: var(--color-main);
     transition: 0.5s;
 }
