@@ -15,7 +15,6 @@ body {
     padding: 0;
     font-family: 'Noto Sans KR', sans-serif;
     height: 100vh;
-    overflow: hidden;
 }
 
 main {
@@ -47,10 +46,8 @@ main {
 
 #form-container .title p {
     border-bottom: 2px solid var(--color-main);
-    color: var(--color-main);
-    font-size: var(--font-size-title);
     letter-spacing: -0.48px;
-    padding-bottom: 35px;
+    padding-bottom: 15px;
     margin: 0;
     text-align: center;
 }
@@ -69,9 +66,24 @@ main {
     outline: none;
 }
 
+.text_filed .error {
+    color: red;
+    position: absolute;
+    border-top: 2px solid;
+    width: 100%;
+    font-size: 9px;
+    padding: 5px;
+    height: auto; /* 변경된 부분 */
+    display: none; /* 에러 메시지를 숨김으로 설정 */
+}
+
+.text_filed.error .error {
+    display: block; /* .error 클래스가 추가된 경우 표시되도록 설정 */
+}
+
 .text_filed input::placeholder {
-    color: #d9d9d9;
-    font-size: 10px;
+    color: #a1a1a1;
+    font-size: 14px;
 }
 .text_filed label {
     position: absolute;
@@ -82,6 +94,7 @@ main {
     font-size: 14px;
     pointer-events: none;
 }
+
 
 /* 추후 js로 구현 예정인 CSS */
 /* .text_filed span::before {
