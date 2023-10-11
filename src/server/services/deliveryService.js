@@ -7,7 +7,7 @@ class deliveryService {
 
         const buildDelivery = new Delivery({
             title: title || '',
-            receiver,
+            receiver: receiver || '',
             code,
             address,
             subAddress,
@@ -34,10 +34,10 @@ class deliveryService {
         await Delivery.updateOne(
             { _id: deliveryId },
             {
-                contact: contact,
                 code: code,
                 address: address,
                 subAddress: subAddress,
+                contact: contact,
             }
         );
         return Delivery.findById(deliveryId);

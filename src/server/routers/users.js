@@ -175,6 +175,40 @@ router.patch(
     })
 );
 
+/** 사용자 배송 정보 변경 API */
+router.patch(
+    '/delivery',
+    asyncHandler(async (req, res, next) => {
+        const user = req.user.user;
+        const deliveryId = user.delivery;
+        const { contact, code, address, subAddress } = req.body;
+
+        let result = null;
+        if (!deliveryId) {
+            result = await deliveryService.addDeliveryAndSetUserDelivery({
+                code,
+                address,
+                subAddress,
+                contact,
+                user,
+            });
+        } else {
+            result = await deliveryService.modifyDelivery(deliveryId, {
+                code,
+                address,
+                subAddress,
+                contact,
+            });
+        }
+
+        res.json({
+            code: 200,
+            message: '요청을 성공적으로 완료했습니다.',
+            data: result,
+        });
+    })
+);
+
 /** 위시리스트 추가 API */
 router.patch(
     '/wishlist',
