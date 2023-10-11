@@ -66,7 +66,8 @@ const headerContent = `<header class="header container">
         <li><a class="navbar-item" href="#">샤워용품/세탁용품</a></li>
     </ul>
 </nav>
-</header>`
+
+</header>`;
 const header = document.querySelector('header');
 function insertHeader() {
     header.innerHTML = headerContent;
@@ -74,15 +75,15 @@ function insertHeader() {
 insertHeader();
 
 const navbarItems = document.querySelectorAll('.main-nav ul li');
-//이벤트 리스너
+const submenus = document.querySelectorAll('.sub-nav');
+
 navbarItems.forEach((navItem, index) => {
-    navItem.addEventListener('click', function () {
-        //서브 네브바 숨기기
-        const submenus = document.querySelectorAll('.sub-nav');
+    navItem.addEventListener('mouseenter', function () {
+      
         submenus.forEach((submenu) => {
             submenu.style.display = 'none';
         });
-        //서브 네브바 보여주기
+
         const subnav = document.getElementById(`sub-nav${index + 1}`);
         if (subnav) {
             subnav.style.display = 'block';
