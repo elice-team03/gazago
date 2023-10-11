@@ -16,10 +16,10 @@ async function getUserData() {
             const user = result.data;
             console.log(user);
             userMailInput.value = user.email;
-            phoneInput.value = user.delivery.contact;
-            zipcodeInput.value = user.delivery.code;
-            addressInput.value = user.delivery.address;
-            detailAddressInput.value = user.delivery.subAddress;
+            phoneInput.value = user.delivery?.contact;
+            zipcodeInput.value = user.delivery?.code;
+            addressInput.value = user.delivery?.address;
+            detailAddressInput.value = user.delivery?.subAddress;
         } else {
             alert(result.message);
         }
