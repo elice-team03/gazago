@@ -57,9 +57,9 @@ class deliveryService {
     }
 
     static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, subAddress, id } = changedDelivery;
+        const { contact, code, address, subAddress, deliveryId } = changedDelivery;
         await Delivery.updateOne(
-            { _id: id },
+            { _id: deliveryId },
             {
                 contact: contact,
                 code: code,
@@ -68,12 +68,11 @@ class deliveryService {
             }
         );
 
-        return await Delivery.findOne({ id });
+        return await Delivery.findById({ _id: deliveryId });
 
         return updatedDelivery;
     }
 
-    /** 주소변경 */
     static async changeAddress(userId, newAddress) {
         const user = User.findById(userId);
         if (!user) {

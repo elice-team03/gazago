@@ -118,7 +118,6 @@ router.get(
             message: '요청이 성공하였습니다',
             data: {
                 _id,
-                password,
                 email,
                 role,
                 wishList,
@@ -141,55 +140,6 @@ router.get(
             code: 200,
             message: '요청이 성공하였습니다',
             data: result.wishList,
-        });
-    })
-);
-
-/** 회원정보 변경 (비밀번호 제외) API */
-router.patch(
-    '/',
-    asyncHandler(async (req, res, next) => {
-        const { contact, code, address, subAddress, password } = req.body;
-        const loggedInUser = req.user.user;
-        const id = loggedInUser._id;
-        const user = await userService.findUserById(id);
-        const { _id, email, role, wishList, delivery, orders, createdAt, updatedAt } = user;
-
-        const result = await deliveryService.findDeliveryAndUpdate({
-            contact,
-            code,
-            address,
-            subAddress,
-            id,
-        });
-        res.status(200).json({
-            code: 200,
-            message: '요청이 성공하였습니다',
-                _id,
-                email,
-                role,
-                wishList,
-                delivery,
-                orders,
-                createdAt,
-                updatedAt,
-            },
-        });
-    })
-);
-
-/** 사용자 위시리스트 조회 API */
-router.get(
-    '/wishlist',
-    asyncHandler(async (req, res, next) => {
-        const user = req.user.user;
-        const foundUser = await userService.findUserById(user._id);
-        const wishlist = foundUser.wishList;
-        const result = await productService.findProductsInWishList(wishlist);
-        res.json({
-            code: 200,
-            message: '요청이 성공하였습니다',
-            data: result,
         });
     })
 );
