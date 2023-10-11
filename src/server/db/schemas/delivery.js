@@ -21,11 +21,11 @@ const DeliverySchema = new Schema(
             required: true,
         },
         contact: {
-            type: Number,
+            type: String,
             required: true,
         },
         subcontact: {
-            type: Number,
+            type: String,
         },
         owner: {
             type: Schema.Types.ObjectId,
