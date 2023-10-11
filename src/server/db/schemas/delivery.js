@@ -7,7 +7,6 @@ const DeliverySchema = new Schema(
         },
         receiver: {
             type: String,
-            required: true,
         },
         code: {
             type: Number,
@@ -17,17 +16,16 @@ const DeliverySchema = new Schema(
             type: String,
             required: true,
         },
-        //상세주소
         subAddress: {
             type: String,
             required: true,
         },
         contact: {
-            type: Number,
+            type: String,
             required: true,
         },
         subcontact: {
-            type: Number,
+            type: String,
         },
         owner: {
             type: Schema.Types.ObjectId,
