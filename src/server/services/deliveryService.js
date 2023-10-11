@@ -1,4 +1,4 @@
-const { Delivery, User } = require('../db');
+const { Delivery } = require('../db');
 const { userService } = require('./userService');
 
 class deliveryService {
@@ -21,20 +21,16 @@ class deliveryService {
         return delivery;
     }
 
+    static async findAllDeliveriesByOwner(userId) {
+        return await Delivery.find({ owner: userId });
+    }
+
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
 
-    static async findByOrderer(ordererId) {
-        return await Delivery.find({ orderer: ordererId });
-    }
-
-    static async removeDelivery(_id) {
-        return await Delivery.findByIdAndDelete(_id);
-    }
-
-    static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, subAddress, deliveryId } = changedDelivery;
+    static async modifyDelivery(deliveryId, newDelivery) {
+        const { contact, code, address, subAddress } = newDelivery;
         await Delivery.updateOne(
             { _id: deliveryId },
             {
@@ -44,19 +40,8 @@ class deliveryService {
                 subAddress: subAddress,
             }
         );
-
-        return await Delivery.findById({ _id: deliveryId });
-
-        //
-    }
-
-    static async changeAddress(userId, newAddress) {
-        const user = User.findById(userId);
-        if (!user) {
-            throw Object.assign(new Error('유저 ID가 올바르지 않습니다'), { status: 400 });
-        }
-
-        return await Delivery.findOneAndUpdate({ owner: userId }, { address: newAddress });
+        return Delivery.findById(deliveryId);
     }
 }
+
 module.exports = { deliveryService };

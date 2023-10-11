@@ -59,10 +59,6 @@ class orderService {
         return totalSales;
     }
 
-    static async findByOrderer(orderUserId) {
-        return await Order.find({ orderUserId: orderUserId });
-    }
-
     static async findOrderWithProducts(_id) {
         const order = await Order.findById(_id).populate('delivery');
         if (!order) {
@@ -78,6 +74,10 @@ class orderService {
         order.products = products;
 
         return order;
+    }
+
+    static async findOrder(_id) {
+        return Order.findById(_id);
     }
 
     static async modifyOrderStatus({ _id, status }) {

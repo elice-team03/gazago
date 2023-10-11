@@ -1,42 +1,54 @@
 const express = require('express');
 const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
-const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
 
-router.patch(
+/** 배송지 정보 전체 조회 API */
+router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { orderId, newAddress } = req.body;
-
-        const result = await deliveryService.changeAddress(orderId, newAddress);
-
+        const user = req.user.user;
+        console.log(user._id);
+        const result = await deliveryService.findAllDeliveriesByOwner(user._id);
         res.json({
             code: 200,
-            message: '주소 변경이 성공하였습니다',
+            message: '요청이 성공적으로 완료되었습니다.',
             data: result,
         });
     })
 );
 
-/** 배송지 정보 변경  API */
-router.patch(
-    '/informs',
+/** 배송지 정보 상세 조회 API */
+router.get(
+    '/:id',
     asyncHandler(async (req, res, next) => {
-        const { contact, code, address, subAddress } = req.body;
-        const loggedInUser = req.user.user;
-        const deliveryId = loggedInUser.delivery;
+        const deliveryId = req.params.id;
+        const result = await deliveryService.findDeliveryById(deliveryId);
+        res.json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
 
-        const result = await deliveryService.findDeliveryAndUpdate({
+/** 배송지 정보 변경 API */
+router.patch(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        const deliveryId = req.params.id;
+        const { contact, code, address, subAddress } = req.body;
+
+        const result = await deliveryService.modifyDelivery(deliveryId, {
             contact,
             code,
             address,
             subAddress,
-            deliveryId,
         });
-        res.status(200).json({
+
+        res.json({
             code: 200,
-            message: '유저 정보가 업데이트 되었습니다',
+            message: '주소 변경이 완료되었습니다',
             data: result,
         });
     })

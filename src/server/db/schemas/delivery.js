@@ -7,7 +7,6 @@ const DeliverySchema = new Schema(
         },
         receiver: {
             type: String,
-            required: true,
         },
         code: {
             type: Number,
@@ -17,7 +16,6 @@ const DeliverySchema = new Schema(
             type: String,
             required: true,
         },
-        //상세주소
         subAddress: {
             type: String,
             required: true,
