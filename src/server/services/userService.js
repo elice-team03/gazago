@@ -39,7 +39,7 @@ class userService {
     }
 
     static async findUser(_id) {
-        return await User.findById(_id).populate('orders').populate('delivery').populate('wishList');
+        return await User.findById(_id).populate('orders').populate('delivery');
     }
 
     static async findUserByEmail(email) {

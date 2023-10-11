@@ -178,7 +178,7 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const user = req.user.user;
         const result = await userService.findUser(user._id);
-
+        console.log(result);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
