@@ -144,29 +144,6 @@ router.get(
     })
 );
 
-/** 회원정보 변경 (비밀번호 제외) API */
-router.patch(
-    '/',
-    asyncHandler(async (req, res, next) => {
-        const { contact, code, address, subAddress } = req.body;
-        const loggedInUser = req.user.user;
-        const id = loggedInUser._id;
-
-        const result = await deliveryService.findDeliveryAndUpdate({
-            contact,
-            code,
-            address,
-            subAddress,
-            id,
-        });
-        res.status(200).json({
-            code: 200,
-            message: '유저 정보가 업데이트 되었습니다',
-            data: result,
-        });
-    })
-);
-
 /** 회원 비밀번호 변경 API */
 router.patch(
     '/password',
