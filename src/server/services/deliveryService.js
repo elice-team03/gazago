@@ -1,4 +1,4 @@
-const { Delivery } = require('../db');
+const { Delivery, User } = require('../db');
 const { userService } = require('./userService');
 
 class deliveryService {
@@ -48,6 +48,15 @@ class deliveryService {
         return await Delivery.findById({ _id: id });
 
         //
+    }
+
+    static async changeAddress(userId, newAddress) {
+        const user = User.findById(userId);
+        if (!user) {
+            throw Object.assign(new Error('유저 ID가 올바르지 않습니다'), { status: 400 });
+        }
+
+        return await Delivery.findOneAndUpdate({ owner: userId }, { address: newAddress });
     }
 }
 module.exports = { deliveryService };
