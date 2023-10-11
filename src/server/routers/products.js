@@ -124,7 +124,6 @@ router.patch(
     asyncHandler(async (req, res, next) => {
         const _id = req.params.id;
         const status = req.body.status;
-        console.log(status);
         if (!status) {
             const error = new Error('변경 상태 값을 입력해주세요.');
             error.status = 400;
