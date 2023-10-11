@@ -90,6 +90,8 @@ async function sendPayment() {
         comment = directMessage.value;
     }
     const productIds = orderData.map((input) => input.id);
+    const orderTotal = document.querySelector('.order__total');
+    const totalAmount = Number(orderTotal.innerHTML.replace(',', '').replace('원', ''));
 
     let isLostRequired = false;
     [receiver, code, address, subAddress, contact].forEach((item) => {
@@ -119,7 +121,7 @@ async function sendPayment() {
         contact: contact,
         comment: comment,
         productIds: productIds,
-        totalAmount: totalPrice,
+        totalAmount: totalAmount,
     }); //주문 전송
     const data = response.data;
     if (confirm('결제가 완료되었습니다. 결제내역 페이지로 이동하시겠습니까?')) {
