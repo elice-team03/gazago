@@ -80,6 +80,9 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const _id = req.params.id;
         const result = await productService.findProduct(_id);
+        if (!result) {
+            throw Object.assign(new Error('상품 정보를 찾을 수 없습니다.'), { status: 400 });
+        }
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
