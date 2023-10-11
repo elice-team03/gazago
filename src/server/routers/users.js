@@ -165,9 +165,9 @@ router.patch(
     '/password',
     asyncHandler(async (req, res, next) => {
         const loggedInUser = req.user.user;
-        const { oldPassword, newPassword } = req.body;
+        const { newPassword } = req.body;
 
-        await userService.changePassword({ oldPassword, newPassword, loggedInUser });
+        await userService.changePassword({ newPassword, loggedInUser });
         res.json({
             code: 200,
             message: '비밀번호 변경을 완료하였습니다',
