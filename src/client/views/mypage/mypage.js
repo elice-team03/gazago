@@ -17,7 +17,7 @@ async function getUserData() {
               // 주문 내역이 있을 때 상품명을 가져옴
               const itemNames = await Promise.all(orderList.map(item => getItemName(item._id)));
               // 주문 내역에 상품이 1개 이상일 때 상품 갯수 가져옴
-              // const itemQty = await Promise.all(orderList.map(item))
+              // const itemQty = await Promise.all(orderList.map(item => getItemQty(item._id)));
 
                 orderList.forEach((item, i) => {
                     const orderNumber = item.orderNumber;
@@ -56,6 +56,7 @@ async function getItemName(itemId) {
       const result = await Api.get(`http://localhost:5001/api/orders/${itemId}`);
       if (result.code === 200) {
           let detailOrder = result.data.products;
+          console.log(result.data.products.length)
           let itemNames = detailOrder.map(item => item.name); // 상품명을 배열로 추출
           console.log(itemNames.join(', '));
           return itemNames.join(', ');
@@ -68,20 +69,20 @@ async function getItemName(itemId) {
   }
 }
 
-// 구매 상품명 데이터
+// 구매 상품 갯수
 // async function getItemQty(itemId) {
 //   try {
 //       const result = await Api.get(`http://localhost:5001/api/orders/${itemId}`);
 //       if (result.code === 200) {
-//           let detailOrder = result.data.products;
-//           let itemQty = detailOrder.map(item => item); // 상품명을 배열로 추출
-//           console.log(itemQty);
-//           return itemNames.join(', ');
+//           let qty = result.data.products.length;
+//           // let itemQty = qty.map(item => item); // 상품명을 배열로 추출
+//           // console.log(itemQty);
+//           return qty;
 //       } else {
-//           return '상품명 없음';
+//           return 0;
 //       }
 //   } catch (error) {
 //       console.error(error);
-//       return '상품명 오류';
+//       return 'qty 오류';
 //   }
 // }
