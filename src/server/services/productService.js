@@ -74,8 +74,7 @@ class productService {
             error.status = 400;
             throw error;
         }
-
-        const result = await Product.findById(id)
+        return await Product.findById(id)
             .populate({
                 path: 'category',
                 populate: {
@@ -83,8 +82,6 @@ class productService {
                 },
             })
             .exec();
-
-        return result;
     }
 
     static async getTotalProductsCount(filter) {
