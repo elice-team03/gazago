@@ -48,9 +48,7 @@ class userService {
 
     static async removeUserWishlist(userId, productIds) {
         const user = await User.findById(userId);
-        console.log(user.wishList);
         for (const productId of productIds) {
-            console.log(productId);
             const index = user.wishList.indexOf(productId);
 
             if (index !== -1) {
@@ -173,7 +171,6 @@ class userService {
     /** 비밀번호 변경. */
     static async changePassword(userInform) {
         const { newPassword, loggedInUser } = userInform;
-
         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
         await User.findOneAndUpdate({ _id: loggedInUser._id }, { password: hashedNewPassword });

@@ -1,4 +1,4 @@
-const { Delivery, User, Order } = require('../db');
+const { Delivery } = require('../db');
 const { userService } = require('./userService');
 
 class deliveryService {
@@ -7,7 +7,7 @@ class deliveryService {
 
         const buildDelivery = new Delivery({
             title: title || '',
-            receiver,
+            receiver: receiver || '',
             code,
             address,
             subAddress,
@@ -21,52 +21,27 @@ class deliveryService {
         return delivery;
     }
 
+    static async findAllDeliveriesByOwner(userId) {
+        return await Delivery.find({ owner: userId });
+    }
+
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
 
-    static async findByOrderer(ordererId) {
-        return await Delivery.find({ orderer: ordererId });
-    }
-
-    static async removeDelivery(_id) {
-        return await Delivery.findByIdAndDelete(_id);
-    }
-
-    static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, subAddress, deliveryId } = changedDelivery;
+    static async modifyDelivery(deliveryId, newDelivery) {
+        const { contact, code, address, subAddress } = newDelivery;
         await Delivery.updateOne(
             { _id: deliveryId },
             {
-                contact: contact,
                 code: code,
                 address: address,
                 subAddress: subAddress,
+                contact: contact,
             }
         );
-
-        return await Delivery.findById({ _id: deliveryId });
-
-        //
-    }
-
-    static async changeAddress(userData) {
-        const { orderId, code, newAddress, newSubAddress } = userData;
-        console.log(orderId);
-
-        const order = await Order.findById({ _id: orderId });
-        const deliveryId = order.delivery;
-
-        await Delivery.updateOne(
-            { _id: deliveryId },
-            {
-                code: code,
-                address: newAddress,
-                subAddress: newSubAddress,
-            }
-        );
-
-        return await Delivery.findById({ _id: deliveryId });
+        return Delivery.findById(deliveryId);
     }
 }
+
 module.exports = { deliveryService };
