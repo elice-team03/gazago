@@ -172,12 +172,7 @@ class userService {
 
     /** 비밀번호 변경. */
     static async changePassword(userInform) {
-        const { oldPassword, newPassword, loggedInUser } = userInform;
-        const checkOldPassword = await bcrypt.compare(oldPassword, loggedInUser.password);
-
-        if (!checkOldPassword) {
-            throw Object.assign(new Error('변경 전 비밀번호가 일치하지 않습니다'), { status: 400 });
-        }
+        const { newPassword, loggedInUser } = userInform;
 
         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 

@@ -1,4 +1,4 @@
-const { Delivery, User } = require('../db');
+const { Delivery, User, Order } = require('../db');
 const { userService } = require('./userService');
 
 class deliveryService {
@@ -50,13 +50,23 @@ class deliveryService {
         //
     }
 
-    static async changeAddress(userId, newAddress) {
-        const user = User.findById(userId);
-        if (!user) {
-            throw Object.assign(new Error('유저 ID가 올바르지 않습니다'), { status: 400 });
-        }
+    static async changeAddress(userData) {
+        const { orderId, code, newAddress, newSubAddress } = userData;
+        console.log(orderId);
 
-        return await Delivery.findOneAndUpdate({ owner: userId }, { address: newAddress });
+        const order = await Order.findById({ _id: orderId });
+        const deliveryId = order.delivery;
+
+        await Delivery.updateOne(
+            { _id: deliveryId },
+            {
+                code: code,
+                address: newAddress,
+                subAddress: newSubAddress,
+            }
+        );
+
+        return await Delivery.findById({ _id: deliveryId });
     }
 }
 module.exports = { deliveryService };

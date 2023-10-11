@@ -4,12 +4,13 @@ const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
 
+/** 배송지 주소만 변경 */
 router.patch(
-    '/',
+    '/:orderId',
     asyncHandler(async (req, res, next) => {
-        const { orderId, newAddress } = req.body;
-
-        const result = await deliveryService.changeAddress(orderId, newAddress);
+        const { orderId } = req.params;
+        const { code, newAddress, newSubAddress } = req.body;
+        const result = await deliveryService.changeAddress({ orderId, code, newAddress, newSubAddress });
 
         res.json({
             code: 200,
