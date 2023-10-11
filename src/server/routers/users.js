@@ -130,16 +130,32 @@ router.get(
     })
 );
 
-/** 위시리스트 조회 API */
+/** 사용자 위시리스트 조회 API */
 router.get(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
-        const result = await userService.findUser(req.user.user._id);
+        const user = req.user.user;
+        const result = await userService.findUser(user._id);
 
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
             data: result.wishList,
+        });
+    })
+);
+
+/** 사용자 주문 내역 조회 API */
+router.get(
+    '/orders',
+    asyncHandler(async (req, res, next) => {
+        const user = req.user.user;
+        const result = await userService.findUser(user._id);
+
+        res.json({
+            code: 200,
+            message: '요청이 성공하였습니다',
+            data: result.orders,
         });
     })
 );
