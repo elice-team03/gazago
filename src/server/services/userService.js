@@ -48,9 +48,7 @@ class userService {
 
     static async removeUserWishlist(userId, productIds) {
         const user = await User.findById(userId);
-        console.log(user.wishList);
         for (const productId of productIds) {
-            console.log(productId);
             const index = user.wishList.indexOf(productId);
 
             if (index !== -1) {

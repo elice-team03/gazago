@@ -73,32 +73,7 @@ class orderService {
     }
 
     static async findOrder(_id) {
-        return await Order.findById(_id);
-    }
-
-    static async getTotalOrdersCount(filter, deliveryFilter) {
-        const deliveryDocs = await Delivery.find(deliveryFilter, '_id');
-        const orderIds = deliveryDocs.map((doc) => doc._id);
-        filter.delivery = { $in: orderIds };
-
-        return await Order.countDocuments(filter).exec();
-    }
-
-    static async findOrderWithProducts(_id) {
-        const order = await Order.findById(_id).populate('delivery');
-        if (!order) {
-            throw Object.assign(new Error('주문 내역을 찾을 수 없습니다.'), { status: 400 });
-        }
-        const productIds = order.products;
-        const products = await Product.find({ _id: { $in: productIds } }).populate({
-            path: 'category',
-            populate: {
-                path: 'parentCategory',
-            },
-        });
-        order.products = products;
-
-        return order;
+        return Order.findById(_id);
     }
 
     static async modifyOrderStatus({ _id, status }) {
