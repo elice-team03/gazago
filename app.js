@@ -28,6 +28,7 @@ require('dotenv').config();
 const port = process.env.PORT || 5001;
 const mongo_uri = process.env.MONGO_URI;
 
+// TODO: 이 부분 동기적으로 체크하고 넘어가면 더 안정적인 운영이 가능합니다.
 mongoose.connect(mongo_uri);
 mongoose.connection.on('connected', () => {
     console.log('Successfully connected to MongoDB');
@@ -39,7 +40,7 @@ app.listen(port, () => {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'src', 'client', 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'jade'); // TODO: 필요하지 않으면 삭제하기
 
 require('./src/server/passport')();
 app.use(passport.initialize());
@@ -54,7 +55,7 @@ app.use(getUserFromJwt);
 app.use('/', viewsRotuer);
 
 app.use('/api', indexRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/users', usersRouter); // TODO: 라우트 폴더 아래 index.js에 모두 옮기면 좋음
 app.use('/api/products', productsRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/deliveries', deliveriesRouter);
