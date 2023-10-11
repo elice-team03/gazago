@@ -73,7 +73,6 @@ const order = {
         let orderNumber = document.querySelector('#orderNumber').value;
         let orderStatusSelect = document.querySelector('#orderStatusSelect option:checked').value;
         let queryStringList = [];
-        console.log(beginDate, endDate);
         if (isStringValue(beginDate)) {
             beginDate = beginDate.trim();
             queryStringList.push('beginDate=' + beginDate);
