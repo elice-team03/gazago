@@ -63,7 +63,7 @@ class userService {
 
     /** 회원가입 */
     static async signUpUser(userInform) {
-        const { password, email, res } = userInform;
+        const { password, email } = userInform;
 
         const hashedPassword = await bcrypt.hash(password, 10);
 

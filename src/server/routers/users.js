@@ -5,7 +5,40 @@ const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
 
-/** 회원가입 API */
+/**이메일 인증 방식회원가입 API */
+router.post(
+    '/register/email',
+    asyncHandler(async (req, res, next) => {
+        const { email, password } = req.body;
+
+        const result = await userService.signUpUser({ email, password, res });
+        res.status(201).json({
+            code: 201,
+            message: '회원가입이 완료되었습니다',
+            data: result,
+        });
+    })
+);
+
+/** 이메일 중복확인 */
+router.post(
+    '/check-email',
+    asyncHandler(async (req, res, next) => {
+        const { email } = req.body;
+
+        const checkUser = await userService.findUserByEmail(email);
+        if (checkUser) {
+            throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
+        }
+        res.stauts(200).json({
+            code: 200,
+            message: '사용 가능한 이메일입니다',
+            data: true,
+        });
+    })
+);
+
+/** 회원가입 */
 router.post(
     '/register',
     asyncHandler(async (req, res, next) => {
