@@ -170,7 +170,7 @@ class userService {
         });
     }
 
-    /** 비밀번호 변경 */
+    /** 비밀번호 변경. */
     static async changePassword(userInform) {
         const { oldPassword, newPassword, loggedInUser } = userInform;
         const checkOldPassword = await bcrypt.compare(oldPassword, loggedInUser.password);
@@ -182,12 +182,6 @@ class userService {
         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
         await User.findOneAndUpdate({ _id: loggedInUser._id }, { password: hashedNewPassword });
-
-        return;
-    }
-
-    static async tempChangePassword(email, password) {
-        await User.findOneAndUpdate({ email: email }, { password: password });
 
         return;
     }
