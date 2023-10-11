@@ -3,14 +3,16 @@ const { userService } = require('./userService');
 
 class deliveryService {
     static async addDeliveryAndSetUserDelivery(newDelivery) {
-        const { title, receiver, code, address, contact, loggedInUser } = newDelivery;
+        const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
             title: title || '',
-            receiver,
+            receiver: receiver || '',
             code,
             address,
+            subAddress,
             contact,
+            owner: loggedInUser._id,
         });
 
         const delivery = await Delivery.create(buildDelivery);
@@ -19,33 +21,27 @@ class deliveryService {
         return delivery;
     }
 
+    static async findAllDeliveriesByOwner(userId) {
+        return await Delivery.find({ owner: userId });
+    }
+
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
 
-    static async findByOrderer(ordererId) {
-        return await Delivery.find({ orderer: ordererId });
-    }
-
-    static async removeDelivery(_id) {
-        return await Delivery.findByIdAndDelete(_id);
-    }
-
-    static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, id } = changedDelivery;
+    static async modifyDelivery(deliveryId, newDelivery) {
+        const { contact, code, address, subAddress } = newDelivery;
         await Delivery.updateOne(
-            { _id: id },
+            { _id: deliveryId },
             {
-                contact: contact,
                 code: code,
                 address: address,
+                subAddress: subAddress,
+                contact: contact,
             }
-            //업데이트 후 값이 안 담겨서 일단 다시 DB에서 불러옵니다.
         );
-
-        return await Delivery.findById({ _id: id });
-
-        //
+        return Delivery.findById(deliveryId);
     }
 }
+
 module.exports = { deliveryService };
