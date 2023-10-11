@@ -12,7 +12,7 @@
             <h1 class="logo">
                 <img src="../login/gazagologo.png" alt="logo" />
             </h1>
-            <form action="post">
+            <form id="form-container">
                 <div class="title">
                     <p>비밀번호 찾기</p>
                     <p>
@@ -22,11 +22,12 @@
                 </div>
                 <div class="text_filed">
                     <label for="userMail">이메일 주소</label>
-                    <input type="text" name="userMail" placeholder="gazago@gazago.com" required />
+                    <input type="text" id="userMail" placeholder="gazago@gazago.com" required />
                     <span></span>
                 </div>
                 <button id="submit" type="submit" class="button is-fullwidth is-rounded">메일 발송하기</button>
             </form>
         </section>
+        <script src="./pw_find.js" type="module" defer></script>
     </body>
 </html>

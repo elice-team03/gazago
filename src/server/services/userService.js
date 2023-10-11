@@ -48,9 +48,7 @@ class userService {
 
     static async removeUserWishlist(userId, productIds) {
         const user = await User.findById(userId);
-        console.log(user.wishList);
         for (const productId of productIds) {
-            console.log(productId);
             const index = user.wishList.indexOf(productId);
 
             if (index !== -1) {
@@ -170,23 +168,15 @@ class userService {
         });
     }
 
-    /** 비밀번호 변경 */
+    /** 비밀번호 변경. */
     static async changePassword(userInform) {
-        const { oldPassword, newPassword, loggedInUser } = userInform;
-        const checkOldPassword = await bcrypt.compare(oldPassword, loggedInUser.password);
-
-        if (!checkOldPassword) {
-            throw Object.assign(new Error('변경 전 비밀번호가 일치하지 않습니다'), { status: 400 });
-        }
-
+        const { newPassword, loggedInUser } = userInform;
         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
         await User.findOneAndUpdate({ _id: loggedInUser._id }, { password: hashedNewPassword });
 
         return;
     }
-
-    
 }
 
 module.exports = { userService };
