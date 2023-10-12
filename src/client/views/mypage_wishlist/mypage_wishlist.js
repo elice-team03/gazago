@@ -14,9 +14,13 @@ async function getUserData() {
             // 관심 상품이 없을 때
             if (wishList.length === 0) {
                 const emptyListRow = document.createElement('tr');
+                const emptyCheckContainer = document.querySelector('.check-container');
 
-                emptyListRow.innerHTML = `<tr class="emptyEl"><td colspan="3"><h6>관심 상품이 없습니다.</h6></td><tr>`;
+                emptyListRow.innerHTML = `<td class="empty"><h6>관심 상품이 없습니다.</h6></td>`;
                 wishListTable.append(emptyListRow);
+
+                emptyCheckContainer.classList.add('emptyCheck');
+                
             } else {
                 // 관심 상품이 있을 때
                 wishList.map((item) => {
