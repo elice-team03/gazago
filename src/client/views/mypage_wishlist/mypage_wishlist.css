@@ -50,12 +50,13 @@ table {
     border: 2px solid #ebebeb;
     border-collapse: collapse;
     border-spacing: 0 40px;
-    margin: 40px;
+    margin: 3
+    0px;
 }
 
 tr {
     border: 1px solid #ebebeb ;
-    margin: 10px;
+    /* margin: 10px; */
 }
 
 td:nth-child(3) {
@@ -71,10 +72,16 @@ td:nth-child(3) p {
 button:nth-child(1) {
     border-color: var(--color-main)
 }
-button:nth-child(2) {
+button:nth-child(1) {
     border-color: var(--color-main);
 }
-button:nth-child(2):hover {
+button:nth-child(1):hover {
     background-color: var(--color-main);
     color: white;
+}
+
+h6 {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
 }
