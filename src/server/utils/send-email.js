@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 
 function sendEmail(type, email, contentOfEmail) {
     let mail = null;
+    //TODO: 함수밖으로 빼라
     const templatePasswordReset = {
         from: process.env.NODEMAILER_ID,
         to: email,
@@ -87,7 +88,6 @@ function sendEmail(type, email, contentOfEmail) {
         </div> 
         `,
     };
-
     if (type === 'resetPassword') {
         mail = templatePasswordReset;
     }

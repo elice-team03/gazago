@@ -16,6 +16,8 @@ const productsRouter = require('./src/server/routers/products');
 const categoriesRouter = require('./src/server/routers/categories');
 const deliveriesRouter = require('./src/server/routers/deliveries');
 const ordersRouter = require('./src/server/routers/orders');
+const controlAccess = require('./src/server/middlewares/access-control.js');
+const { requiredLogin, checkAdmin, blockLogin } = require('./src/server/middlewares/access-control.js');
 
 const app = express();
 
@@ -49,6 +51,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(getUserFromJwt);
+
+app.use(requiredLogin, checkAdmin, blockLogin);
 
 app.use('/', viewsRotuer);
 
