@@ -99,3 +99,12 @@ button:nth-child(1):hover {
 .main-header {
     padding-bottom: 25px;
 }
+
+a .itemName{
+    text-decoration: none; /* 하이퍼링크의 기본 텍스트 밑줄 및 스타일 제거 */
+    color: black;
+}
+
+a .itemName:hover {
+    font-weight: 800;
+}

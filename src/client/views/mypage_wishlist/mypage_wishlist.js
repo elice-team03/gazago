@@ -20,7 +20,6 @@ async function getUserData() {
                 wishListTable.append(emptyListRow);
 
                 emptyCheckContainer.classList.add('emptyCheck');
-                
             } else {
                 // 관심 상품이 있을 때
                 wishList.map((item) => {
@@ -28,6 +27,7 @@ async function getUserData() {
                     const itemName = item.name;
                     const itemPrice = item.price;
                     const formatPrice = new Intl.NumberFormat('ko-KR').format(itemPrice) + '원';
+                    const itemId = item._id;
                     let row = document.createElement('tr');
 
                     row.innerHTML = `
@@ -38,15 +38,19 @@ async function getUserData() {
                     <td>
                         <div class="photo">
                             <figure class="image is-128x128">
+                                <a href="/product/detail" onclick="localStorage.setItem('order_result', JSON.stringify('${itemId}'));"> 
                                 <img
                                     src="${itemThumnail}"
                                     alt="${itemName}"
                                 />
+                                <a> 
                             </figure>
                         </div>
                     </td>
                     <td>
-                        <p>${itemName}</p>
+                        <a href="/product/detail" onclick="localStorage.setItem('order_result', JSON.stringify('${itemId}'));">
+                        <p class="itemName">${itemName}</p>
+                        </a>
                         <span>${formatPrice}</span>
                     </td>
                     </tr>
@@ -95,7 +99,7 @@ document.getElementById('delete-button').addEventListener('click', async () => {
     checkboxes.forEach(async (checkbox, index) => {
         if (checkbox.checked) {
             const itemId = wishList[index]._id;
-            
+
             wishLists.push(itemId);
             checkbox.parentElement.parentElement.parentElement.remove();
         }
