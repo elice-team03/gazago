@@ -20,7 +20,7 @@ class productService {
         const products = await Product.find(filter).skip(skip).limit(limit);
 
         for (const product of products) {
-            product.totalSales = await orderService.findProductOrderedCount(product._id);
+            product.totalSales = await this.findProductOrderedCount(product._id);
         }
 
         return products;

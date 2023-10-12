@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Order, Delivery, Product } = require('../db');
-const { userService } = require('./userService');
 
 class orderService {
     static async addOrder(newOrder) {
