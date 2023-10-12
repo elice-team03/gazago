@@ -1,8 +1,7 @@
 const { Delivery } = require('../db');
-const { userService } = require('./userService');
 
 class deliveryService {
-    static async addDeliveryAndSetUserDelivery(newDelivery) {
+    static async addDelivery(newDelivery) {
         const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
@@ -15,10 +14,7 @@ class deliveryService {
             owner: loggedInUser._id,
         });
 
-        const delivery = await Delivery.create(buildDelivery);
-
-        await userService.addUserDelivery(loggedInUser._id, delivery._id);
-        return delivery;
+        return await Delivery.create(buildDelivery);
     }
 
     static async findAllDeliveriesByOwner(userId) {
@@ -31,16 +27,25 @@ class deliveryService {
 
     static async modifyDelivery(deliveryId, newDelivery) {
         const { contact, code, address, subAddress } = newDelivery;
-        await Delivery.updateOne(
-            { _id: deliveryId },
+
+        const updatedDelivery = await Delivery.findByIdAndUpdate(
+            deliveryId,
             {
-                code: code,
-                address: address,
-                subAddress: subAddress,
-                contact: contact,
-            }
+                code,
+                address,
+                subAddress,
+                contact,
+            },
+            { new: true }
         );
-        return Delivery.findById(deliveryId);
+
+        if (!updatedDelivery) {
+            const error = new Error('배송 정보를 찾을 수 없습니다.');
+            error.status = 404;
+            throw error;
+        }
+
+        return updatedDelivery;
     }
 }
 
