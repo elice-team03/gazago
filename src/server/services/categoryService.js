@@ -1,6 +1,5 @@
 const { mongoose } = require('mongoose');
-const { Product } = require('../db');
-const { Category } = require('../db');
+const { Category, Product } = require('../db');
 
 class categoryService {
     static async addCategory(name, parentCategoryId) {
