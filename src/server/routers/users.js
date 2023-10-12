@@ -129,13 +129,6 @@ router.get(
     })
 );
 
-<<<<<<< HEAD
-/** 위시리스트 조회 API */
-router.get(
-    '/wishlist',
-    asyncHandler(async (req, res, next) => {
-        const result = await userService.findUser(req.user.user._id);
-=======
 /** 사용자 위시리스트 조회 API */
 router.get(
     '/wishlist',
@@ -157,16 +150,11 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const user = req.user.user;
         const result = await userService.findUser(user._id);
->>>>>>> dev
 
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-<<<<<<< HEAD
-            data: result.wishList,
-=======
             data: result.orders,
->>>>>>> dev
         });
     })
 );
@@ -187,37 +175,6 @@ router.patch(
     })
 );
 
-<<<<<<< HEAD
-/** 위시리스트 추가 API */
-router.patch(
-    '/wishlist',
-    asyncHandler(async (req, res, next) => {
-        const { productId } = req.body;
-        const user = req.user.user;
-
-        if (!user) {
-            const error = new Error('로그인 후 이용 가능합니다.');
-            error.status = 400;
-            throw error;
-        }
-
-        if (!mongoose.Types.ObjectId.isValid(productId)) {
-            const error = new Error('상품 ID가 올바르지 않습니다.');
-            error.status = 400;
-            throw error;
-        }
-
-        if (user.wishList.includes(productId)) {
-            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
-            error.status = 400;
-            throw error;
-        }
-
-        const result = await userService.addUserWishlist(user._id, productId);
-
-        res.status(201).json({
-            code: 200,
-=======
 /** 사용자 배송 정보 변경 API */
 router.patch(
     '/delivery',
@@ -281,7 +238,6 @@ router.patch(
 
         res.status(201).json({
             code: 200,
->>>>>>> dev
             message: '요청이 성공적으로 완료되었습니다.',
             data: result,
         });
@@ -300,10 +256,6 @@ router.delete(
             throw error;
         }
 
-<<<<<<< HEAD
-        console.log(productIds);
-=======
->>>>>>> dev
         const result = await userService.removeUserWishlist(user._id, productIds);
 
         res.status(201).json({
