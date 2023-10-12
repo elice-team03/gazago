@@ -85,6 +85,8 @@ class userService {
         }
 
         await User.updateOne({ _id: userId }, { confirmationAt: Date.now() });
+
+        return;
     }
 
     /** 로그인 */

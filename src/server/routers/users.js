@@ -5,16 +5,16 @@ const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
 
-/**이메일 인증 방식회원가입 API */
+/**이메일 인증 방식회원가입 */
 router.post(
     '/register/email',
     asyncHandler(async (req, res, next) => {
         const { email, password } = req.body;
 
         const result = await userService.signUpUser({ email, password, res });
-        res.status(201).json({
-            code: 201,
-            message: '회원가입이 완료되었습니다',
+        res.status(200).json({
+            code: 200,
+            message: '이메일 인증 단계로 넘어갑니다',
             data: result._id,
         });
     })
@@ -26,7 +26,13 @@ router.post(
     asyncHandler(async (req, res, next) => {
         const { userId } = req.params;
         const { certificationNumber } = req.body;
-        const result = userService.compareEmailNumber(userId, certificationNumber);
+        await userService.compareEmailNumber(userId, certificationNumber);
+
+        res.status(201).json({
+            code: 201,
+            message: '회원가입이 완료되었습니다',
+            data: null,
+        });
     })
 );
 

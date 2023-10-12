@@ -40,6 +40,7 @@ class deliveryService {
                 contact: contact,
             }
         );
+        console.log('hi');
         return Delivery.findById(deliveryId);
     }
 }
