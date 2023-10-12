@@ -153,10 +153,22 @@ const product = {
     },
     getProductList: async () => {
         let productNameInput = document.querySelector('#modalProductNameInput').value;
+        let parentCategorySel = document.querySelector('#parentCategorySel').value;
+        let childCategorySel = document.querySelector('#childCategorySel').value;
+        let currentNumber = document.querySelector('.currentNumber').value;
+
         let queryStringList = [];
         if (isStringValue(productNameInput)) {
             productNameInput = productNameInput.trim();
             queryStringList.push('searchKeyword=' + productNameInput);
+        }
+        if (isStringValue(parentCategorySel)) {
+            parentCategorySel = parentCategorySel.trim();
+            queryStringList.push('parentCategoryId=' + parentCategorySel);
+        }
+        if (isStringValue(currentNumber)) {
+            currentNumber = currentNumber.trim();
+            queryStringList.push('page=' + currentNumber);
         }
 
         let queryString = queryStringList.join('&');
@@ -331,3 +343,28 @@ customInputEnter.addEventListener('keypress', (e) => {
         initialize();
     }
 });
+
+// 페이지네이션
+//
+const pagenation = async (page) => {
+    try {
+        let currentPage = 1;
+
+        const endpoint = '/api/products';
+        const params = `page=${currentPage}`;
+        const apiUrl = `${endpoint}${params}`;
+        const res = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        if (res.code == 200) {
+            const result = await response.json();
+
+            return result;
+        }
+    } catch (err) {
+        console.log(err.message);
+    }
+};
