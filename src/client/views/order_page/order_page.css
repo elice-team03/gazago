@@ -188,3 +188,15 @@
 .input__expire {
     width: 16%;
 }
+.direct__message {
+    resize: none;
+    border-color: #dbdbdb;
+    width: 420px;
+    height: 100px;
+    display: none;
+    border-top: none;
+    padding: 10px;
+}
+.direct__message:focus {
+    outline: none;
+}
