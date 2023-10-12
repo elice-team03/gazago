@@ -9,7 +9,7 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        let loggedInUser = req.user?.user;
+        let loggedInUser = req.user.user;
 
         const { title, receiver, code, address, subAddress, contact } = req.body;
         if (!receiver || !code || !address || !subAddress || !contact) {

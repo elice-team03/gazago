@@ -182,14 +182,9 @@ router.get(
 router.get(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
-        console.log('req.user');
-        console.log(req.user);
-        console.log('req.user.user');
-        console.log(req.user.user);
         const user = req.user.user;
-
         const result = await userService.findUser(user._id);
-        console.log(result);
+
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
@@ -278,12 +273,6 @@ router.patch(
 
         if (!mongoose.Types.ObjectId.isValid(productId)) {
             const error = new Error('상품 ID가 올바르지 않습니다.');
-            error.status = 400;
-            throw error;
-        }
-
-        if (user.wishList.includes(productId)) {
-            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
             error.status = 400;
             throw error;
         }
