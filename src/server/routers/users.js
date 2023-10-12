@@ -4,6 +4,7 @@ const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
+const { productService } = require('../services/productService');
 
 /** 회원가입 API */
 router.post(
@@ -109,8 +110,8 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const loggedInUser = req.user.user;
         const id = loggedInUser._id;
-        const user = await userService.findUser(id);
-        const { _id, email, role, wishList, delivery, orders, updatedAt, createdAt } = user;
+        const user = await userService.findUserById(id);
+        const { _id, email, role, wishList, delivery, orders, createdAt, updatedAt } = user;
 
         res.json({
             code: 200,
@@ -122,8 +123,8 @@ router.get(
                 wishList,
                 delivery,
                 orders,
-                updatedAt,
                 createdAt,
+                updatedAt,
             },
         });
     })
@@ -134,12 +135,13 @@ router.get(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
         const user = req.user.user;
-        const result = await userService.findUser(user._id);
-
+        const foundUser = await userService.findUserById(user._id);
+        const wishlist = foundUser.wishList;
+        const result = await productService.findProductsInWishList(wishlist);
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: result.wishList,
+            data: result,
         });
     })
 );
@@ -149,7 +151,7 @@ router.get(
     '/orders',
     asyncHandler(async (req, res, next) => {
         const user = req.user.user;
-        const result = await userService.findUser(user._id);
+        const result = await userService.findUserById(user._id);
 
         res.json({
             code: 200,
@@ -181,11 +183,11 @@ router.patch(
     asyncHandler(async (req, res, next) => {
         const userId = req.user.user._id;
         const loggedInUser = await userService.findUserById(userId);
-        const deliveryId = loggedInUser.delivery;
+        const delivery = loggedInUser.delivery;
 
         const { contact, code, address, subAddress } = req.body;
         let result = null;
-        if (!deliveryId) {
+        if (!delivery) {
             result = await deliveryService.addDeliveryAndSetUserDelivery({
                 code,
                 address,
@@ -194,7 +196,7 @@ router.patch(
                 loggedInUser,
             });
         } else {
-            result = await deliveryService.modifyDelivery(deliveryId, {
+            result = await deliveryService.modifyDelivery(delivery, {
                 code,
                 address,
                 subAddress,
@@ -215,10 +217,9 @@ router.patch(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
         const { productId } = req.body;
-        const userId = req.user.user._id;
-        const loggedInUser = await userService.findUserById(userId);
+        const user = req.user.user;
 
-        if (!req.user) {
+        if (!user) {
             const error = new Error('로그인 후 이용 가능합니다.');
             error.status = 400;
             throw error;
@@ -232,7 +233,7 @@ router.patch(
 
         const result = await userService.addUserWishlist(user._id, productId);
 
-        res.status(201).json({
+        res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
             data: result,
@@ -254,7 +255,7 @@ router.delete(
 
         const result = await userService.removeUserWishlist(user._id, productIds);
 
-        res.status(201).json({
+        res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
             data: result,
