@@ -1,11 +1,13 @@
 import * as Api from '/api.js';
 
+const storage = window.localStorage;
+
 // 로그인 회원의 주문 내역
 async function getUserData() {
     try {
-        const result = await Api.get('http://localhost:5001/api/users');
+        const result = await Api.get('http://localhost:5001/api/users/orders');
         if (result.code === 200) {
-            let orderList = result.data.orders;
+            let orderList = result.data;
             let orderListTbody = document.querySelector('#orderlist-tbody');
             console.log(orderList);
             // 주문 내역이 없을 때
@@ -16,8 +18,6 @@ async function getUserData() {
             } else {
                 // 주문 내역이 있을 때 상품명을 가져옴
                 const itemNames = await Promise.all(orderList.map((item) => getItemName(item._id)));
-                // 주문 내역에 상품이 1개 이상일 때 상품 갯수 가져옴
-                // const itemQty = await Promise.all(orderList.map(item => getItemQty(item._id)));
 
                 orderList.forEach((item, i) => {
                     const orderNumber = item.orderNumber;
@@ -30,12 +30,15 @@ async function getUserData() {
                     const amount = item.totalAmount;
                     const formatAmount = `${new Intl.NumberFormat('ko-KR').format(amount)}원`;
                     const deliveryStatus = item.status;
+                    const itemId = item._id;
+                    console.log(itemId);
                     let row = document.createElement('tr');
 
+                    // 클릭할 때 해당 주문 아이디를 localStorage에 저장
                     row.innerHTML = `
-                    <td><a href="#">${orderNumber}</a></td>
+                    <td><a href='/order/result' onclick="saveOrderId(${itemId})">${orderNumber}</a></td>
                     <td>${formatDate}</td>
-                    <td>${itemName}</td>
+                    <td>${itemQty > 1 ? `${itemName} 외 ${itemQty - 1}` : itemName}</td>
                     <td>${formatAmount}</td>
                     <td>${deliveryStatus}</td>
                     `;
@@ -57,9 +60,7 @@ async function getItemName(itemId) {
         const result = await Api.get(`http://localhost:5001/api/orders/${itemId}`);
         if (result.code === 200) {
             let detailOrder = result.data.products;
-            // console.log(result.data.products.length);
             let itemNames = detailOrder.map((item) => item.name); // 상품명을 배열로 추출
-            // console.log(itemNames.join(', '));
             return itemNames.join(', ');
         } else {
             return '상품명 없음';
@@ -68,6 +69,12 @@ async function getItemName(itemId) {
         console.error(error);
         return '상품명 오류';
     }
+}
+
+// 주문 id를 localStorage에 저장
+function saveOrderId(orderId) {
+    const stringOrderId = orderId.toString();
+    storage.setItem('order_result', stringOrderId);
 }
 
 // 구매 상품 갯수
