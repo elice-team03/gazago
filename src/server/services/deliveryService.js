@@ -3,7 +3,7 @@ const { userService } = require('./userService');
 
 class deliveryService {
     static async addDeliveryAndSetUserDelivery(newDelivery) {
-        const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
+        const { title, receiver, code, address, subAddress, contact, user } = newDelivery;
 
         const buildDelivery = new Delivery({
             title: title || '',
@@ -12,27 +12,14 @@ class deliveryService {
             address,
             subAddress,
             contact,
-            owner: loggedInUser._id,
+            owner: user._id,
         });
 
         return await Delivery.create(buildDelivery);
     }
 
-    static async findAllDeliveriesByOwner(userId, skip, limit) {
-        const deliveries = await Delivery.find({ owner: userId }).skip(skip).limit(limit);
-
-        const uniqueAddresses = new Set();
-        const uniqueDeliveries = [];
-
-        deliveries.forEach((delivery) => {
-            const address = delivery.address;
-            if (!uniqueAddresses.has(address)) {
-                uniqueAddresses.add(address);
-                uniqueDeliveries.push(delivery);
-            }
-        });
-
-        return uniqueDeliveries;
+        await userService.addUserDelivery(user._id, delivery._id);
+        return delivery;
     }
 
     static async findAllDeliveriesByOwner(userId) {
