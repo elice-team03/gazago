@@ -3,51 +3,44 @@ const { userService } = require('./userService');
 
 class deliveryService {
     static async addDeliveryAndSetUserDelivery(newDelivery) {
-        const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
+        const { title, receiver, code, address, subAddress, contact, user } = newDelivery;
 
         const buildDelivery = new Delivery({
             title: title || '',
-            receiver,
+            receiver: receiver || '',
             code,
             address,
             subAddress,
             contact,
-            owner: loggedInUser._id,
+            owner: user._id,
         });
 
         const delivery = await Delivery.create(buildDelivery);
 
-        await userService.addUserDelivery(loggedInUser._id, delivery._id);
+        await userService.addUserDelivery(user._id, delivery._id);
         return delivery;
+    }
+
+    static async findAllDeliveriesByOwner(userId) {
+        return await Delivery.find({ owner: userId });
     }
 
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
 
-    static async findByOrderer(ordererId) {
-        return await Delivery.find({ orderer: ordererId });
-    }
-
-    static async removeDelivery(_id) {
-        return await Delivery.findByIdAndDelete(_id);
-    }
-
-    static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, subAddress, deliveryId } = changedDelivery;
+    static async modifyDelivery(deliveryId, newDelivery) {
+        const { contact, code, address, subAddress } = newDelivery;
         await Delivery.updateOne(
             { _id: deliveryId },
             {
-                contact: contact,
                 code: code,
                 address: address,
                 subAddress: subAddress,
+                contact: contact,
             }
         );
-
-        return await Delivery.findById({ _id: deliveryId });
-
-        //
+        return Delivery.findById(deliveryId);
     }
 
     static async changeAddress(userId, newAddress) {
@@ -59,4 +52,5 @@ class deliveryService {
         return await Delivery.findOneAndUpdate({ owner: userId }, { address: newAddress });
     }
 }
+
 module.exports = { deliveryService };

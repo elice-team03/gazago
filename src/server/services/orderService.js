@@ -29,13 +29,22 @@ class orderService {
         const orderIds = deliveryDocs.map((doc) => doc._id);
         filter.delivery = { $in: orderIds };
 
-        return await Order.find(filter)
+        const orders = await Order.find(filter)
             .populate({
                 path: 'delivery',
                 select: 'receiver',
             })
             .sort({ createdAt: -1 })
             .exec();
+
+        const ordersWithProductQty = orders.map((order) => {
+            return {
+                ...order.toObject(),
+                productQty: order.products.length,
+            };
+        });
+
+        return ordersWithProductQty;
     }
 
     static async findProductOrderedCount(productId) {
@@ -50,8 +59,25 @@ class orderService {
         return totalSales;
     }
 
-    static async findByOrderer(orderUserId) {
-        return await Order.find({ orderUserId: orderUserId });
+    static async findOrderWithProducts(_id) {
+        const order = await Order.findById(_id).populate('delivery');
+        if (!order) {
+            throw Object.assign(new Error('주문 내역을 찾을 수 없습니다.'), { status: 400 });
+        }
+        const productIds = order.products;
+        const products = await Product.find({ _id: { $in: productIds } }).populate({
+            path: 'category',
+            populate: {
+                path: 'parentCategory',
+            },
+        });
+        order.products = products;
+
+        return order;
+    }
+
+    static async findOrder(_id) {
+        return Order.findById(_id);
     }
 
     static async findOrderWithProducts(_id) {

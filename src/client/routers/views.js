@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const { requiredLogin, blockLogin, checkAdmin } = require('../../server/middlewares/access-control');
 
 const viewsRouter = express.Router();
 viewsRouter.use('/', serveStatic(''));
