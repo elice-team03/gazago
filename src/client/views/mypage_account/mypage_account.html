@@ -17,7 +17,7 @@
             <div class="main-container">
                 <h1 class="title">회원정보 변경</h1>
                 <section class="center">
-                    <form action="post">
+                    <div id="form-container">
                         <div class="text_filed">
                             <label for="userMail">이메일 주소</label>
                             <input type="text" name="userMail" id="userMail" disabled />
@@ -25,7 +25,7 @@
                         </div>
                         <div class="text_filed">
                             <label for="authCode">비밀번호</label>
-                            <input type="password" name="authCode" id="authCode"/>
+                            <input type="password" name="authCode" id="authCode" />
                             <span></span>
                         </div>
                         <div class="text_filed">
@@ -35,29 +35,33 @@
                         </div>
                         <div class="address-container">
                             <div class="text_filed">
-                                <label for="address1">배송지</label>
-                                <input type="text" name="address1" id="address1" placeholder="우편번호" />
+                                <label for="zipcode">배송지</label>
+                                <input type="text" id="zipcode" claplaceholder="우편번호" />
                                 <span></span>
-                                <button class="button zipcode-btn">우편번호 검색</button>
+                                <button class="button zipcode-btn input__button--zipcode">우편번호 검색</button>
                             </div>
                             <div class="text_filed">
-                                <label for="address2"></label>
-                                <input type="text" name="address2" id="address2" placeholder="주소" />
-                                <span></span>
-                            </div>
-                            <div class="text_filed">
-                                <label for="address3"></label>
-                                <input type="text" name="address3" id="address3" placeholder="상세주소" />
+                                <label for="address"></label>
+                                <input type="text" id="address" placeholder="주소" />
                                 <span></span>
                             </div>
                             <div class="text_filed">
-                                <button id="submit" type="submit" class="button address-btn">변경</button>
+                                <label for="detailAddress"></label>
+                                <input type="text" id="detailAddress" placeholder="상세주소" />
+                                <span></span>
+                            </div>
+                            <div class="text_filed">
+                                <button id="submit" class="button edit-btn">변경</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </section>
             </div>
         </main>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="/public/zipcodeBtn/zipcodeBtn.js"></script>
         <script src="/module/mypage_menu.js"></script>
+        <script src="./mypage_account.js" type="module" defer></script>
+        <!-- 우편번호 찾기 API -->
     </body>
 </html>

@@ -1,51 +1,52 @@
 const { Delivery } = require('../db');
-const { userService } = require('./userService');
 
 class deliveryService {
-    static async addDeliveryAndSetUserDelivery(newDelivery) {
-        const { title, receiver, code, address, contact, loggedInUser } = newDelivery;
+    static async addDelivery(newDelivery) {
+        const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
             title: title || '',
-            receiver,
+            receiver: receiver || '',
             code,
             address,
+            subAddress,
             contact,
+            owner: loggedInUser._id,
         });
 
-        const delivery = await Delivery.create(buildDelivery);
+        return await Delivery.create(buildDelivery);
+    }
 
-        await userService.addUserDelivery(loggedInUser._id, delivery._id);
-        return delivery;
+    static async findAllDeliveriesByOwner(userId) {
+        return await Delivery.find({ owner: userId });
     }
 
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
 
-    static async findByOrderer(ordererId) {
-        return await Delivery.find({ orderer: ordererId });
-    }
+    static async modifyDelivery(deliveryId, newDelivery) {
+        const { contact, code, address, subAddress } = newDelivery;
 
-    static async removeDelivery(_id) {
-        return await Delivery.findByIdAndDelete(_id);
-    }
-
-    static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, id } = changedDelivery;
-        await Delivery.updateOne(
-            { _id: id },
+        const updatedDelivery = await Delivery.findByIdAndUpdate(
+            deliveryId,
             {
-                contact: contact,
-                code: code,
-                address: address,
-            }
-            //업데이트 후 값이 안 담겨서 일단 다시 DB에서 불러옵니다.
+                code,
+                address,
+                subAddress,
+                contact,
+            },
+            { new: true }
         );
 
-        return await Delivery.findById({ _id: id });
+        if (!updatedDelivery) {
+            const error = new Error('배송 정보를 찾을 수 없습니다.');
+            error.status = 404;
+            throw error;
+        }
 
-        //
+        return updatedDelivery;
     }
 }
+
 module.exports = { deliveryService };
