@@ -1,0 +1,87 @@
+/* padding */
+
+.custom_margin_top_bottom_30 {
+    margin: 30px 0;
+}
+.custom_padding_10 {
+    padding: 10px;
+}
+
+.custom_margin_bottom_20 {
+    padding-bottom: 20px;
+}
+
+/* color */
+
+.custom_background_color_prime:hover {
+    background-color: #004225;
+    color: white;
+}
+.custom_background_color_red:hover {
+    background-color: red;
+    color: white;
+}
+.custom_color_black {
+    color: #0d0d0d;
+}
+.custom_color_gray {
+    color: #8c8c8c;
+}
+
+/* sort */
+
+.custom_text_align_center {
+    text-align: center !important;
+}
+.custom_vertical_align_middle {
+    vertical-align: middle !important;
+}
+
+/* width */
+.custom_width_50 {
+    width: 50px;
+}
+.custom_width_50_percent {
+    width: 50%;
+}
+
+.custom_width_150 {
+    width: 150px;
+}
+.custom_width_160 {
+    width: 160px;
+}
+
+.custom_width_250 {
+    width: 250px;
+}
+
+.custom_width_200 {
+    width: 200px;
+}
+.custom_flex_none_width_15 {
+    flex: none;
+    width: 15%;
+}
+.custom_width_300 {
+    width: 300px;
+}
+
+/* display */
+.custom_display_table {
+    display: table;
+}
+
+/* flex */
+.custom_flex_gap_20 {
+    gap: 20px;
+}
+.custom_flex_justify_content_center {
+    display: flex;
+    justify-content: center;
+}
+
+/* input */
+.custom_border_transparent {
+    border: transparent;
+}
