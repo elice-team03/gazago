@@ -18,13 +18,13 @@ body {
 }
 .product {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     padding: 0 20px;
 }
 .product__image {
     width: 240px;
 }
-.product__text--brand {
+.product__text--brand, .product__text--quantity {
     font-size: 13px;
     color: #8c8c8c;
 }
@@ -36,7 +36,7 @@ body {
     gap: 4px;
     align-items: center;
 }
-.product__delivery {
+.product__status {
     border: 1px solid #ccc;
     font-size: 14px;
     padding: 2px 4px;
@@ -61,7 +61,7 @@ body {
 .divider--thin {
     display: inline-block;
     border-top: 2px solid #ebebeb;
-    margin: 10px auto;
+    margin: 10px 40px;
     width: 93%;
 }
 .delivery__box {
@@ -124,4 +124,12 @@ body {
 }
 .input__delivery {
     width: 33%;
+}
+.comment {
+    margin-left: -2px;
+}
+.product__box {
+    display: flex;
+    align-items: center;
+    gap: 40px;
 }

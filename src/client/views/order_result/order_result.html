@@ -14,17 +14,6 @@
     <main class="container">
         <article class="order">
             <section class="product">
-                <img class="product__image"
-                    src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000242.jpg?1584076493"></img>
-                <div>
-                    <span class="product__text--brand">헬리녹스</span>
-                    <div class="product__detail">
-                        <span class="product__delivery">배송중</span>
-                        <h6>체어원 / 올 블랙</h6>
-                    </div>
-                    <span class="product__text--price">115,000원</span>
-                    <span class="product__text--brand">주문수량 : 1개</span>
-                </div>
             </section>
             <section>
                 <div class="divider"></div>
@@ -35,25 +24,25 @@
                 <div class="divider--thin"></div>
                 <div class="delivery__box">
                     <span class="input__label">수령인</span>
-                    <span>홍길동</span>
+                    <span class="receiver"></span>
                 </div>
                 <div class="delivery__box">
                     <span class="input__label">연락처</span>
-                    <input class="input" type="text" value="010-1234-5678" readonly>
+                    <span class="contact"></span>
                 </div>
                 <div class="delivery__box">
                     <span class="input__label">배송지</span>
-                    <input class="input input__delivery" type="text" value="12345" readonly>
+                    <span class="code"></span>
                 </div>
                 <div class="delivery__box--empty">
-                    <input class="input input__half" type="text" value="OOO도 OO시 OO동" readonly>
+                    <span class="address"></span>
                 </div>
                 <div class="delivery__box--empty">
-                    <input class="input input__half" type="text" value="OOO호" readonly>
+                    <span class="subAddress"></span>
                 </div>
                 <div class="delivery__box" style="gap: 66px">
                     <span class="input__label">배송메모</span>
-                    <input class="input" type="text" value="문 앞에 놔주세요." readonly>
+                    <span class="comment"></span>
                 </div>
             </section>
             <section>
@@ -65,20 +54,11 @@
                 <div class="divider--thin"></div>
                 <div class="order__box">
                     <span>상품금액</span>
-                    <span><b>115,000</b>원</span>
+                    <span class="order__price">115,000원</span>
                 </div>
                 <div class="order__box">
                     <span>배송비</span>
-                    <span><b>0</b>원</span>
-                </div>
-            </section>
-            <section>
-                <div class="divider"></div>
-                <h6 class="delivery__text">결제상세</h6>
-                <div class="divider--thin"></div>
-                <div class="order__box">
-                    <span>신용카드 결제</span>
-                    <span><b>115,000</b>원</span>
+                    <span class="order__delivery">0원</span>
                 </div>
             </section>
         </article>
@@ -86,6 +66,7 @@
             주문 취소
         </button>
     </main>
+    <script type="module" src="./order_result.js"></script>
 </body>
 
 </html>
