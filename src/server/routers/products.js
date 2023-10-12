@@ -64,14 +64,8 @@ router.get(
             const categories = await categoryService.findCategoriesByParent(parentCategoryId);
             const categoryIds = categories.map((category) => category._id);
 
-        if (categoryId) {
-            filter.category = categoryId;
-        } else if (parentCategoryId) {
-            const categories = await categoryService.findCategoriesByParent(parentCategoryId);
-            const categoryIds = categories.map((category) => category._id);
             filter.category = { $in: categoryIds };
         }
-
         if (searchKeyword) {
             filter.name = { $regex: new RegExp(searchKeyword, 'i') };
         }

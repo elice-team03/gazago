@@ -3,7 +3,7 @@ const { userService } = require('./userService');
 
 class deliveryService {
     static async addDeliveryAndSetUserDelivery(newDelivery) {
-        const { title, receiver, code, address, subAddress, contact, user } = newDelivery;
+        const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
             title: title || '',
@@ -12,13 +12,13 @@ class deliveryService {
             address,
             subAddress,
             contact,
-            owner: user._id,
+            owner: loggedInUser._id,
         });
 
         return await Delivery.create(buildDelivery);
     }
 
-        await userService.addUserDelivery(user._id, delivery._id);
+        await userService.addUserDelivery(loggedInUser._id, delivery._id);
         return delivery;
     }
 

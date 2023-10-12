@@ -28,14 +28,16 @@ class userService {
     }
 
     static async addUserWishlist(userId, productId) {
-        await User.findByIdAndUpdate(
-            { _id: userId },
-            {
-                $push: { wishList: productId },
-            }
-        );
-        const updatedUser = await User.findById({ _id: userId });
-        return updatedUser.wishList;
+        const user = await User.findById({ _id: userId });
+        if (user.wishList.includes(productId)) {
+            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
+            error.status = 400;
+            throw error;
+        }
+        user.wishList.push(productId);
+        await user.save();
+
+        return user.wishList;
     }
 
     static async findUser(_id) {
