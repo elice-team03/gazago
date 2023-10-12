@@ -1,16 +1,18 @@
-const { Delivery } = require('../db');
+const { Delivery, User } = require('../db');
 const { userService } = require('./userService');
 
 class deliveryService {
     static async addDeliveryAndSetUserDelivery(newDelivery) {
-        const { title, receiver, code, address, contact, loggedInUser } = newDelivery;
+        const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
             title: title || '',
             receiver,
             code,
             address,
+            subAddress,
             contact,
+            owner: loggedInUser._id,
         });
 
         const delivery = await Delivery.create(buildDelivery);
@@ -32,20 +34,29 @@ class deliveryService {
     }
 
     static async findDeliveryAndUpdate(changedDelivery) {
-        const { contact, code, address, id } = changedDelivery;
+        const { contact, code, address, subAddress, deliveryId } = changedDelivery;
         await Delivery.updateOne(
-            { _id: id },
+            { _id: deliveryId },
             {
                 contact: contact,
                 code: code,
                 address: address,
+                subAddress: subAddress,
             }
-            //업데이트 후 값이 안 담겨서 일단 다시 DB에서 불러옵니다.
         );
 
-        return await Delivery.findById({ _id: id });
+        return await Delivery.findById({ _id: deliveryId });
 
         //
+    }
+
+    static async changeAddress(userId, newAddress) {
+        const user = User.findById(userId);
+        if (!user) {
+            throw Object.assign(new Error('유저 ID가 올바르지 않습니다'), { status: 400 });
+        }
+
+        return await Delivery.findOneAndUpdate({ owner: userId }, { address: newAddress });
     }
 }
 module.exports = { deliveryService };
