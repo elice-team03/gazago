@@ -24,15 +24,15 @@
                         <label for="total-check">전체선택</label>
                     </div>
                     <div class="button-container">
-                        <button class="button is-small is-rounded">삭제</button>
-                        <button class="button is-small is-rounded">구매</button>
+                        <button class="button is-small is-rounded" id="delete-button">삭제</button>
+                        <!-- <button class="button is-small is-rounded">구매</button> -->
                     </div>
                 </div>
                 <div class="product-list">
-                    <table>
-                        <tr>
+                    <table id="wishlist-table">
+                        <!-- <tr>
                             <td>
-                                <input type="checkbox" id="total-check" name="total-check" />
+                                <input type="checkbox" id="" name="" />
                             </td>
                             <td>
                                 <div class="photo">
@@ -49,30 +49,31 @@
                                 <span>115,000원</span>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="" name="" />
+                            </td>
+                            <td>
+                                <div class="photo">
+                                    <figure class="image is-128x128">
+                                        <img
+                                            src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000172.jpg?1584431466"
+                                            alt="체어원 블랙"
+                                        />
+                                    </figure>
+                                </div>
+                            </td>
+                            <td>
+                                <p>체어원 / 블랙</p>
+                                <span>115,000원</span>
+                            </td>
+                        </tr> -->
                     </table>
                 </div>
-                <!-- <div class="wish-item">
-                    <div class="photo">
-                        <figure class="image is-96x96">
-                            <img
-                                src="http://www.helinoxstore.co.kr/shopimages/helinox/0020030001312.jpg?1675745142"
-                                alt="체어원 홈"
-                            />
-                        </figure>
-                    </div>
-                    <div class="item-detail">
-                        <div class="item-name">체어원 홈</div>
-                        <div class="item-price">130,000원</div>
-                    </div>
-                    <div class="item-btn">
-                        <div>
-                            <button class="button is-small is-rounded">구매</button>
-                        </div>
-                        <button class="button is-small is-rounded">삭제</button>
-                    </div>
-                </div> -->
             </div>
         </main>
         <script src="/module/mypage_menu.js"></script>
+        <script src="./mypage_wishlist.js" type="module" defer></script>
     </body>
 </html>
