@@ -3,21 +3,9 @@ import * as Api from '../api.js';
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
 const brand = searchParams.get('brand');
-const beginPrice = searchParams.get('beginPrice')
+const beginPrice = searchParams.get('beginPrice');
 const searchKeyword = searchParams.get('searchKeyword');
 const params = queryString.substring(1);
-
-//위시리스트 불러오기
-async function getWishList() {
-    const response = await Api.get('/api/users/wishlist');
-    const data = response.data;
-    return data;
-}
-console.log(getWishList());
-
-async function wishlistData() {
-
-}
 
 async function getPage(page, params) {
     const response = await Api.get('/api', `products?page=${page}&${params}`);
@@ -29,6 +17,7 @@ async function loadPage(page, params) {
     const pageData = await getPage(page, params);
     const mappedData = productDataMapping(pageData);
     displayProducts(mappedData);
+    bookMarker();
 }
 function productDataMapping(products) {
     return products.map((data) => {
@@ -43,6 +32,33 @@ function productDataMapping(products) {
     });
 }
 
+//위시리스트 불러오기
+let wishList = [];
+async function getWishList() {
+    const response = await Api.get('/api/users/wishlist');
+    const data = response.data;
+    data.forEach((item) => {
+        wishList.push(item);
+    });
+}
+getWishList();
+
+function bookMarker() {
+    const wishBookMark = document.querySelectorAll('.fa-bookmark');
+    wishBookMark.forEach((bookmark) => {
+        bookmark.addEventListener('click', (e) => {
+            const icon = e.target.classList;
+            if (icon.contains('fa-solid')) {
+                icon.remove('fa-solid');
+                icon.add('fa-regular');
+            } else if (icon.contains('fa-regular')) {
+                icon.remove('fa-regular');
+                icon.add('fa-solid');
+            }
+        });
+    });
+}
+
 const productContainer = document.querySelector('.product__container');
 
 const priceString = (product) => {
@@ -51,8 +67,14 @@ const priceString = (product) => {
 
 function displayProducts(products) {
     // 상품 목록을 돌면서 화면에 표시
-    // if(위시리스트 에 있으면 ){기존}
+    let isWish = '';
     products.forEach((product) => {
+        if (wishList.includes(product.id)) {
+            isWish = 'fa-solid';
+        } else {
+            isWish = 'fa-regular';
+        }
+
         const productBoxContent = `<div class="product-box">
         <div class="product__img-box">
         <a href=${product.url}>
@@ -65,7 +87,7 @@ function displayProducts(products) {
         <span class="brand">${product.brand}</span>
         </div>
         <div class="good-box">
-        <i class="fa-regular fa-bookmark" style="color: #8c8c8c;"></i>
+        <i class="${isWish} fa-bookmark" style="color: #8c8c8c;"></i>
         </div>
         </div>
                                     <div class="product__name-box">
@@ -119,9 +141,12 @@ url.searchParams.forEach((value, key) => {
 });
 
 function newParams() {
-    return '?' + Object.keys(paramsObj)
-                        .map((key) => `${key}=${paramsObj[key]}`)
-                        .join('&');
+    return (
+        '?' +
+        Object.keys(paramsObj)
+            .map((key) => `${key}=${paramsObj[key]}`)
+            .join('&')
+    );
 }
 
 const brandCheckBox = 'input[name="brand"]';
@@ -144,7 +169,7 @@ const selectedPrice = document.querySelectorAll(priceCheckBox);
 
 function parsePrice(priceString) {
     return priceString.replace(/,/g, '');
-  }
+}
 
 selectedPrice.forEach((a) => {
     a.addEventListener('click', function (e) {
@@ -173,25 +198,18 @@ if (brand) {
 }
 if (beginPrice) {
     document.getElementById(beginPrice).checked = true;
-}else {
+} else {
     priceAll.checked = true;
 }
-if(searchKeyword) {
+if (searchKeyword) {
     document.querySelector('.input').value = searchKeyword;
 }
 console.log(brand);
 console.log(beginPrice);
 console.log(searchKeyword);
 
-const wishwish = {
-    "productId": "6523a2514a8e39461a38d43e"
-}
 // const addWishList = async () => {
 //     const response = await Api.patch('/api/users/wishlist', wishwish);
 //     console.log(response);
 // }
 // addWishList();
-
-
-
-

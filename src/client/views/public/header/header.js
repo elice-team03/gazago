@@ -102,7 +102,7 @@ searchButton.addEventListener('click', function(e){
     }
 })
 
-//로그인확인
+
 // async function getLogin() {
 //     const response = await Api.get('/api/users/check');
 //     const data = response.data;
