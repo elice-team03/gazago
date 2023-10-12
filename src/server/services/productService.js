@@ -1,50 +1,41 @@
 const path = require('path');
 const { mongoose } = require('mongoose');
 const { Product, Order } = require('../db');
-const { categoryService } = require('./categoryService');
-const { orderService } = require('./orderService');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
 
 const uploadDirectory = path.join('public', 'upload', 'product');
 
 class productService {
-    static async addProduct({ newProduct, contentFile }) {
+    static async addProduct({ newProduct, category, contentFile }) {
         const [contentInfo] = await Promise.all([uploadFile(contentFile, uploadDirectory)]);
 
         newProduct.contentUsrFileName = contentInfo.userFileName;
         newProduct.contentSrvFileName = contentInfo.serverFileName;
-
-        const category = await categoryService.findCategory(newProduct.categoryId);
-
-        if (!category) {
-            const error = new Error('카테고리를 찾을 수 없습니다.');
-            error.status = 400;
-            throw error;
-        }
-
         newProduct.category = category;
 
         return await Product.create(newProduct);
     }
 
-    static async findProductsPaginated(skip, limit, filter) {
-        const products = await Product.find(filter)
-            .skip(skip)
-            .limit(limit)
-            .sort({ createdAt: -1 })
-            .populate({
-                path: 'category',
-                populate: {
-                    path: 'parentCategory',
-                },
-            })
-            .exec();
+    static async findProductsWithTotalSales(skip, limit, filter) {
+        const products = await Product.find(filter).skip(skip).limit(limit);
 
         for (const product of products) {
-            product.totalSales = await orderService.findProductOrderedCount(product._id);
+            product.totalSales = await this.findProductOrderedCount(product._id);
         }
 
         return products;
+    }
+
+    static async findProductOrderedCount(productId) {
+        const orders = await Order.find({ products: productId });
+
+        let totalSales = 0;
+        for (const order of orders) {
+            const productCount = order.products.filter((pId) => pId.toString() === productId.toString()).length;
+            totalSales += productCount;
+        }
+
+        return totalSales;
     }
 
     static async findProductOrdered(productId) {
