@@ -4,13 +4,13 @@ const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const errorHandler = require('./errorHandler');
 const path = require('path');
 const passport = require('passport');
-const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
-const connectToMongoDB = require('./db-connect');
+const errorHandler = require('./src/server/utils/error-handler');
+const connectToMongoDB = require('./src/server/db/db-connect');
 const viewsRotuer = require('./src/client/routers/views');
 const apiRouter = require('./src/server/routers/index');
+const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
 const { requiredLogin, checkAdmin, blockLogin } = require('./src/server/middlewares/access-control');
 
 const app = express();
