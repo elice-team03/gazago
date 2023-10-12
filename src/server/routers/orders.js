@@ -10,7 +10,7 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        let userId = req.user?.user._id;
+        let userId = req.user.user._id;
         const loggedInUser = await userService.findUserById(userId);
         const { title, receiver, code, address, subAddress, contact } = req.body;
         if (!receiver || !code || !address || !subAddress || !contact) {
