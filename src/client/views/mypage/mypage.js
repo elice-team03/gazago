@@ -31,12 +31,11 @@ async function getUserData() {
                     const formatAmount = `${new Intl.NumberFormat('ko-KR').format(amount)}원`;
                     const deliveryStatus = item.status;
                     const itemId = item._id;
-                    console.log(itemId);
                     let row = document.createElement('tr');
 
                     // 클릭할 때 해당 주문 아이디를 localStorage에 저장
                     row.innerHTML = `
-                    <td><a href='/order/result' onclick="saveOrderId(${itemId})">${orderNumber}</a></td>
+                    <td><a href='/order/result' onclick="onclick=localStorage.setItem('order_result', JSON.stringify('${itemId}'));">${orderNumber}</a></td>
                     <td>${formatDate}</td>
                     <td>${itemQty > 1 ? `${itemName} 외 ${itemQty - 1}` : itemName}</td>
                     <td>${formatAmount}</td>
@@ -71,26 +70,3 @@ async function getItemName(itemId) {
     }
 }
 
-// 주문 id를 localStorage에 저장
-function saveOrderId(orderId) {
-    const stringOrderId = orderId.toString();
-    storage.setItem('order_result', stringOrderId);
-}
-
-// 구매 상품 갯수
-// async function getItemQty(itemId) {
-//   try {
-//       const result = await Api.get(`http://localhost:5001/api/orders/${itemId}`);
-//       if (result.code === 200) {
-//           let qty = result.data.products.length;
-//           // let itemQty = qty.map(item => item); // 상품명을 배열로 추출
-//           // console.log(itemQty);
-//           return qty;
-//       } else {
-//           return 0;
-//       }
-//   } catch (error) {
-//       console.error(error);
-//       return 'qty 오류';
-//   }
-// }
