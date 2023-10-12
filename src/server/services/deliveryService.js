@@ -1,4 +1,5 @@
 const { Delivery } = require('../db');
+const { sendEmail } = require('../utils/send-email');
 const { userService } = require('./userService');
 
 class deliveryService {
@@ -40,7 +41,13 @@ class deliveryService {
                 contact: contact,
             }
         );
-        return Delivery.findById(deliveryId);
+        const delivery = await Delivery.findById(deliveryId);
+        const user = await userService.findUserById(delivery.owner);
+        const email = user.email;
+
+        sendEmail('changeDelivery', email, newDelivery);
+
+        return delivery;
     }
 }
 

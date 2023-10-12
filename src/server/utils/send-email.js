@@ -1,8 +1,16 @@
 const nodemailer = require('nodemailer');
 
 function sendEmail(type, email, contentOfEmail) {
+    
+    contentOfEmail.contact = '연락처: ' + String(contentOfEmail.contact);
+    contentOfEmail.code = '우편번호: ' + String(contentOfEmail.code);
+    contentOfEmail.address = '주소: ' + String(contentOfEmail.address);
+    contentOfEmail.subAddress = '상세주소: ' + String(contentOfEmail.subAddress);
+
+    /** 임시 비밀번호 발송하는 메일형식 html inline style */
     let mail = null;
-    //TODO: 함수밖으로 빼라
+
+    /** 임시비밀번호 메일발송 템플릿 */
     const templatePasswordReset = {
         from: process.env.NODEMAILER_ID,
         to: email,
@@ -55,6 +63,7 @@ function sendEmail(type, email, contentOfEmail) {
         </div> 
         `,
     };
+    /** 이메일 인증 메일발송 템플릿 */
     const templateEmailCertification = {
         from: process.env.NODEMAILER_ID,
         to: email,
@@ -88,11 +97,50 @@ function sendEmail(type, email, contentOfEmail) {
         </div> 
         `,
     };
+    /** 배송지 변경 메일 */
+    const templateDeliveryInform = {
+        from: process.env.NODEMAILER_ID,
+        to: email,
+        subject: `[GAZAGO] 유저님의 배송지가 다음으로 변경되었습니다`,
+        html: `
+        <div style="width: 500px; margin: auto; text-align: center">
+            <div style="text-align: center">
+                <img src="https://i.imgur.com/onyitJ3.png" alt="" style="width: 200px" />
+            </div>
+            <div style="text-align: left; margin-top: 2rem">
+                <p style="text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 30px">
+                    배송지 변경 안내
+                </p>
+                <hr style="background: #395144; height: 3px; border: 0" />
+                <p
+                    style="
+                        font-size: 18px;
+                        width: 32ch;
+                        text-align: left;
+                        word-spacing: -1px;
+                        line-height: 1.1;
+                        font-weight: bold;
+                        word-break: keep-all;
+                    "
+                >
+                    다음의 배송지 정보로 변경되었습니다.
+                </p>
+                <p style="font-size: 18px; margin-top: 40px">${contentOfEmail.contact}</p>
+                <p style="font-size: 18px;">${contentOfEmail.code}</p>
+                <p style="font-size: 18px;">${contentOfEmail.address}</p>
+                <p style="font-size: 18px;">${contentOfEmail.subAddress}</p>
+            </div>
+        </div> 
+        `,
+    };
     if (type === 'resetPassword') {
         mail = templatePasswordReset;
     }
     if (type === 'certificateEmail') {
         mail = templateEmailCertification;
+    }
+    if (type === 'changeDelivery') {
+        mail = templateDeliveryInform;
     }
     const transport = nodemailer.createTransport({
         service: 'Gmail',
@@ -101,8 +149,6 @@ function sendEmail(type, email, contentOfEmail) {
             pass: process.env.NODEMAILER_SECRET,
         },
     });
-
-    /** 임시 비밀번호 발송하는 메일형식 html inline style */
 
     return transport.sendMail(mail, (error) => {
         if (error) {
