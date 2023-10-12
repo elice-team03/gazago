@@ -12,7 +12,7 @@ viewsRouter.use('/mypage', serveStatic('mypage'));
 viewsRouter.use('/mypage/wishlist', serveStatic('mypage_wishlist'));
 viewsRouter.use('/mypage/account', serveStatic('mypage_account'));
 viewsRouter.use('/product/detail', serveStatic('product_detail'));
-viewsRouter.use('/product/list', serveStatic('product_list'));
+viewsRouter.use('/product-list', serveStatic('product_list'));
 viewsRouter.use('/order', serveStatic('order_page'));
 viewsRouter.use('/order/result', serveStatic('order_result'));
 viewsRouter.use('/admin/category', serveStatic('admin_category'));

@@ -15,6 +15,10 @@ async function getWishList() {
 }
 console.log(getWishList());
 
+async function wishlistData() {
+
+}
+
 async function getPage(page, params) {
     const response = await Api.get('/api', `products?page=${page}&${params}`);
     const data = response.data;
