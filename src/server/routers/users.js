@@ -227,10 +227,11 @@ router.patch(
 router.patch(
     '/delivery',
     asyncHandler(async (req, res, next) => {
-        const loggedInUser = req.user.user;
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
         const deliveryId = loggedInUser.delivery;
-        const { contact, code, address, subAddress } = req.body;
 
+        const { contact, code, address, subAddress } = req.body;
         let result = null;
         if (!deliveryId) {
             result = await deliveryService.addDeliveryAndSetUserDelivery({
@@ -262,9 +263,10 @@ router.patch(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
         const { productId } = req.body;
-        const user = req.user.user;
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
 
-        if (!user) {
+        if (!req.user) {
             const error = new Error('로그인 후 이용 가능합니다.');
             error.status = 400;
             throw error;
@@ -276,13 +278,13 @@ router.patch(
             throw error;
         }
 
-        if (user.wishList.includes(productId)) {
+        if (loggedInUser.wishList.includes(productId)) {
             const error = new Error('이미 위시리스트에 추가된 상품입니다.');
             error.status = 400;
             throw error;
         }
 
-        const result = await userService.addUserWishlist(user._id, productId);
+        const result = await userService.addUserWishlist(loggedInUser._id, productId);
 
         res.status(201).json({
             code: 200,
