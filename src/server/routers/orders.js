@@ -18,7 +18,7 @@ router.post(
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });
         }
 
-        const delivery = await deliveryService.addDeliveryAndSetUserDelivery({
+        const delivery = await deliveryService.addDelivery({
             title: title || '',
             receiver,
             code,
@@ -28,7 +28,9 @@ router.post(
             loggedInUser,
         });
 
-        const result = await orderService.addOrder({
+        await userService.addUserDelivery(loggedInUser._id, delivery._id);
+
+        const order = await orderService.addOrder({
             comment,
             totalAmount,
             loggedInUser,
@@ -36,10 +38,12 @@ router.post(
             productIds,
         });
 
+        await userService.addUserOrder(loggedInUser._id, order._id);
+
         res.status(201).json({
             code: 201,
             message: '주문이 성공적으로 완료되었습니다.',
-            data: result,
+            data: order,
         });
     })
 );
