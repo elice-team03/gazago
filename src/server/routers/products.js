@@ -49,15 +49,14 @@ router.get(
         if (color) {
             filter.color = color;
         }
-
         if (categoryId) {
             filter.category = categoryId;
         } else if (parentCategoryId) {
             const categories = await categoryService.findCategoriesByParent(parentCategoryId);
             const categoryIds = categories.map((category) => category._id);
+
             filter.category = { $in: categoryIds };
         }
-
         if (searchKeyword) {
             filter.name = { $regex: new RegExp(searchKeyword, 'i') };
         }
@@ -80,6 +79,9 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const _id = req.params.id;
         const result = await productService.findProduct(_id);
+        if (!result) {
+            throw Object.assign(new Error('상품 정보를 찾을 수 없습니다.'), { status: 400 });
+        }
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',

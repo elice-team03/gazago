@@ -5,7 +5,56 @@ const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
 
-/** 회원가입 API */
+/**이메일 인증 방식회원가입 */
+router.post(
+    '/register/email',
+    asyncHandler(async (req, res, next) => {
+        const { email, password } = req.body;
+
+        const result = await userService.signUpUser({ email, password, res });
+        res.status(200).json({
+            code: 200,
+            message: '이메일 인증 단계로 넘어갑니다',
+            data: result._id,
+        });
+    })
+);
+
+/** 이메일 인증번호 비교 */
+router.post(
+    '/register/:userId',
+    asyncHandler(async (req, res, next) => {
+        const { userId } = req.params;
+        const { certificationNumber } = req.body;
+        await userService.compareEmailNumber(userId, certificationNumber);
+
+        res.status(201).json({
+            code: 201,
+            message: '회원가입이 완료되었습니다',
+            data: null,
+        });
+    })
+);
+
+/** 이메일 중복확인 */
+router.post(
+    '/check-email',
+    asyncHandler(async (req, res, next) => {
+        const { email } = req.body;
+
+        const checkUser = await userService.findUserByEmail(email);
+        if (checkUser) {
+            throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
+        }
+        res.stauts(200).json({
+            code: 200,
+            message: '사용 가능한 이메일입니다',
+            data: true,
+        });
+    })
+);
+
+/** 회원가입 */
 router.post(
     '/register',
     asyncHandler(async (req, res, next) => {
@@ -179,10 +228,11 @@ router.patch(
 router.patch(
     '/delivery',
     asyncHandler(async (req, res, next) => {
-        const user = req.user.user;
-        const deliveryId = user.delivery;
-        const { contact, code, address, subAddress } = req.body;
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
+        const deliveryId = loggedInUser.delivery;
 
+        const { contact, code, address, subAddress } = req.body;
         let result = null;
         if (!deliveryId) {
             result = await deliveryService.addDeliveryAndSetUserDelivery({
@@ -190,7 +240,7 @@ router.patch(
                 address,
                 subAddress,
                 contact,
-                user,
+                loggedInUser,
             });
         } else {
             result = await deliveryService.modifyDelivery(deliveryId, {
@@ -228,15 +278,9 @@ router.patch(
             throw error;
         }
 
-        if (user.wishList.includes(productId)) {
-            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
-            error.status = 400;
-            throw error;
-        }
-
         const result = await userService.addUserWishlist(user._id, productId);
 
-        res.status(201).json({
+        res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
             data: result,
@@ -258,7 +302,7 @@ router.delete(
 
         const result = await userService.removeUserWishlist(user._id, productIds);
 
-        res.status(201).json({
+        res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
             data: result,

@@ -5,7 +5,7 @@ const { categoryService } = require('./categoryService');
 const { orderService } = require('./orderService');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
 
-const uploadDirectory = path.join('upload', 'product');
+const uploadDirectory = path.join('public', 'upload', 'product');
 
 class productService {
     static async addProduct({ newProduct, contentFile }) {
@@ -74,8 +74,7 @@ class productService {
             error.status = 400;
             throw error;
         }
-
-        const result = await Product.findById(id)
+        return await Product.findById(id)
             .populate({
                 path: 'category',
                 populate: {
@@ -83,8 +82,6 @@ class productService {
                 },
             })
             .exec();
-
-        return result;
     }
 
     static async getTotalProductsCount(filter) {
