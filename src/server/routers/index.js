@@ -1,8 +1,16 @@
 const express = require('express');
-const router = express.Router();
+const usersRouter = require('./users');
+const productsRouter = require('./products');
+const categoriesRouter = require('./categories');
+const deliveriesRouter = require('./deliveries');
+const ordersRouter = require('./orders');
 
-router.get('/', function (req, res, next) {
-    res.json({ result: 'index' });
-});
+const app = express();
 
-module.exports = router;
+app.use('/users', usersRouter);
+app.use('/products', productsRouter);
+app.use('/categories', categoriesRouter);
+app.use('/deliveries', deliveriesRouter);
+app.use('/orders', ordersRouter);
+
+module.exports = app;
