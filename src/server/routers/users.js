@@ -228,10 +228,11 @@ router.patch(
 router.patch(
     '/delivery',
     asyncHandler(async (req, res, next) => {
-        const loggedInUser = req.user.user;
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
         const deliveryId = loggedInUser.delivery;
-        const { contact, code, address, subAddress } = req.body;
 
+        const { contact, code, address, subAddress } = req.body;
         let result = null;
         if (!deliveryId) {
             result = await deliveryService.addDeliveryAndSetUserDelivery({
@@ -263,9 +264,10 @@ router.patch(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
         const { productId } = req.body;
-        const user = req.user.user;
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
 
-        if (!user) {
+        if (!req.user) {
             const error = new Error('로그인 후 이용 가능합니다.');
             error.status = 400;
             throw error;
