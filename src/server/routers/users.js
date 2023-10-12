@@ -264,10 +264,9 @@ router.patch(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
         const { productId } = req.body;
-        const userId = req.user.user._id;
-        const loggedInUser = await userService.findUserById(userId);
+        const user = req.user.user;
 
-        if (!req.user) {
+        if (!user) {
             const error = new Error('로그인 후 이용 가능합니다.');
             error.status = 400;
             throw error;
@@ -281,7 +280,7 @@ router.patch(
 
         const result = await userService.addUserWishlist(user._id, productId);
 
-        res.status(201).json({
+        res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
             data: result,
@@ -303,7 +302,7 @@ router.delete(
 
         const result = await userService.removeUserWishlist(user._id, productIds);
 
-        res.status(201).json({
+        res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
             data: result,
