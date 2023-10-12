@@ -146,8 +146,7 @@ const initialize = async () => {
                                             </td>
                                             -->
                                             <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
-                                                <p>${element.orderNumber}</p>
-                                            </td>
+                                                <a href="/" id="moveOrderResultPage">${element.orderNumber}</a>
                                             <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                                 <p id="dateFormatBefore">${dateFormater(
                                                     new Date(element.createdAt)
@@ -221,6 +220,16 @@ const initialize = async () => {
                             }
                         }
                     }
+
+                    const storage = window.localStorage;
+                    const moveOrderResultPage = document.querySelector('#moveOrderResultPage');
+                    moveOrderResultPage.addEventListener('click', movePage);
+
+                    const movePage = () => {
+                        storage.setItem('order_result', JSON.stringify(element._id));
+                        window.location.replace('');
+                    };
+                    // 주문 내역 상세 페이지 pull 받아서 진행
 
                     tbody.append(tempRow);
                 });
