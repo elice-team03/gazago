@@ -17,12 +17,23 @@ const DeliverySchema = new Schema(
             type: String,
             required: true,
         },
+        //상세주소
+        subAddress: {
+            type: String,
+            required: true,
+        },
         contact: {
             type: Number,
             required: true,
         },
         subcontact: {
             type: Number,
+        },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+            index: true,
         },
     },
     {
