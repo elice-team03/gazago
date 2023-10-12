@@ -184,7 +184,7 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const user = req.user.user;
         const result = await userService.findUser(user._id);
-        console.log(result);
+
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
@@ -228,10 +228,11 @@ router.patch(
 router.patch(
     '/delivery',
     asyncHandler(async (req, res, next) => {
-        const user = req.user.user;
-        const deliveryId = user.delivery;
-        const { contact, code, address, subAddress } = req.body;
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
+        const deliveryId = loggedInUser.delivery;
 
+        const { contact, code, address, subAddress } = req.body;
         let result = null;
         if (!deliveryId) {
             result = await deliveryService.addDeliveryAndSetUserDelivery({
@@ -239,7 +240,7 @@ router.patch(
                 address,
                 subAddress,
                 contact,
-                user,
+                loggedInUser,
             });
         } else {
             result = await deliveryService.modifyDelivery(deliveryId, {
@@ -263,9 +264,10 @@ router.patch(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
         const { productId } = req.body;
-        const user = req.user.user;
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
 
-        if (!user) {
+        if (!req.user) {
             const error = new Error('로그인 후 이용 가능합니다.');
             error.status = 400;
             throw error;
@@ -273,12 +275,6 @@ router.patch(
 
         if (!mongoose.Types.ObjectId.isValid(productId)) {
             const error = new Error('상품 ID가 올바르지 않습니다.');
-            error.status = 400;
-            throw error;
-        }
-
-        if (user.wishList.includes(productId)) {
-            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
             error.status = 400;
             throw error;
         }
