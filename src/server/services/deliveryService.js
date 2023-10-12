@@ -17,16 +17,16 @@ class deliveryService {
         return await Delivery.create(buildDelivery);
     }
 
-    static async findAllDeliveriesByOwner(userId) {
-        return await Delivery.find({ owner: userId });
+    static async findAllDeliveriesByOwner(userId, skip, limit) {
+        return await Delivery.find({ owner: userId }).skip(skip).limit(limit);
     }
 
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
     static async getTotaldeliveriesCount(userId) {
-        const deliveries = await Delivery.find({ owner: userId }).exec();
-
+        return await Delivery.countDocuments({ owner: userId }).exec();
+    }
     static async modifyDelivery(deliveryId, newDelivery) {
         const { contact, code, address, subAddress } = newDelivery;
 

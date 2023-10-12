@@ -30,6 +30,8 @@ class orderService {
                 select: 'receiver',
             })
             .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit)
             .exec();
 
         const ordersWithProductQty = orders.map((order) => {
@@ -72,7 +74,15 @@ class orderService {
     }
 
     static async findOrder(_id) {
-        return Order.findById(_id);
+        return await Order.findById(_id);
+    }
+
+    static async getTotalOrdersCount(filter, deliveryFilter) {
+        const deliveryDocs = await Delivery.find(deliveryFilter, '_id');
+        const orderIds = deliveryDocs.map((doc) => doc._id);
+        filter.delivery = { $in: orderIds };
+
+        return await Order.countDocuments(filter).exec();
     }
 
     static async modifyOrderStatus({ _id, status }) {
