@@ -68,6 +68,11 @@ class productService {
         return await Product.find({ category: categoryId });
     }
 
+    static async findProductsInWishList(wishlist) {
+        const products = await Product.find({ _id: { $in: wishlist } });
+        return products;
+    }
+
     static async findProduct(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             const error = new Error('상품 Id 값이 유효하지 않습니다.');
