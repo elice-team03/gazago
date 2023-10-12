@@ -34,17 +34,15 @@ class userService {
             error.status = 400;
             throw error;
         }
+
         user.wishList.push(productId);
         await user.save();
 
         return user.wishList;
     }
 
-    static async findUser(_id) {
-        return await User.findById(_id).populate('orders').populate('delivery');
-    }
     static async findUserById(_id) {
-        return await User.findById(_id);
+        return await User.findById(_id).populate('orders').populate('delivery');
     }
 
     static async findUserByEmail(email) {
