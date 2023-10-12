@@ -70,7 +70,7 @@ router.get(
             filter.name = { $regex: new RegExp(searchKeyword, 'i') };
         }
 
-        const result = await productService.findProductsPaginated(skip, limit, filter);
+        const products = await productService.findProductsWithTotalSales(skip, limit, filter);
         const totalProductsCount = await productService.getTotalProductsCount(filter);
 
         res.status(200).json({

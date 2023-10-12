@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const setUserToken = require('../utils/jwt');
 const { generateRandomPassword, generateRandomNumber } = require('../utils/generate-password');
 const { sendEmail } = require('../utils/send-email');
-const { productService } = require('./productService');
 
 class userService {
     static async addUser(newUser) {
@@ -35,12 +34,7 @@ class userService {
             error.status = 400;
             throw error;
         }
-        const product = await productService.findProduct(productId);
-        if (!product) {
-            const error = new Error('상품 정보를 찾을 수 없습니다..');
-            error.status = 400;
-            throw error;
-        }
+
         user.wishList.push(productId);
         await user.save();
 
