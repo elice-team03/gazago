@@ -9,7 +9,7 @@ async function getUserData() {
         if (result.code === 200) {
             wishList = result.data;
             let wishListTable = document.querySelector('#wishlist-table');
-            console.log(result);
+            // console.log(result);
 
             // 관심 상품이 없을 때
             if (wishList.length === 0) {
@@ -84,41 +84,25 @@ async function deleteWishlistItem(itemId) {
 }
 
 // 삭제 버튼 이벤트 핸들러
-document.getElementById('delete-button').addEventListener('click', () => {
+document.getElementById('delete-button').addEventListener('click', async () => {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const wishLists = [];
 
     checkboxes.forEach(async (checkbox, index) => {
         if (checkbox.checked) {
-            // 해당 체크박스가 체크되었을 때, 체크된 항목을 삭제
-            console.log(wishList);
             const itemId = wishList[index]._id;
+            
             wishLists.push(itemId);
-
-            // 삭제가 여러건일 떄
-            if (wishLists.length > 0) {
-                wishLists.join(', ');
-                const itemsId = wishLists;
-                console.log(itemsId);
-                await deleteWishlistItem(itemsId);
-            } else {
-                await deleteWishlistItem(itemId);
-            }
-            // console.log(wishLists);
-
-            // 삭제한 항목은 화면에서도 제거
             checkbox.parentElement.parentElement.parentElement.remove();
         }
     });
-
-    // 모든 항목 삭제 후, 관심 상품이 없을 때 메시지 추가
-    // const wishListTable = document.querySelector('#wishlist-table');
-    // if (wishListTable.children.length === 0) {
-    //     const emptyListRow = document.createElement('tr');
-    //     emptyListRow.innerHTML = `
-    //         <td colspan="3"><h6>관심 상품이 없습니다.</h6>
-    //         </td>
-    //       `;
-    //     wishListTable.append(emptyListRow);
-    // }
+    // 삭제 2건 이상인 경우
+    if (wishLists.length > 0) {
+        try {
+            const itemsId = wishLists.join(',');
+            await deleteWishlistItem(itemsId);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 });
