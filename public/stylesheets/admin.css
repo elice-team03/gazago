@@ -3,12 +3,18 @@
 .custom_margin_top_bottom_30 {
     margin: 30px 0;
 }
+.custom_padding_top_bottom_50 {
+    padding: 30px 0;
+}
 .custom_padding_10 {
     padding: 10px;
 }
 
 .custom_margin_bottom_20 {
     padding-bottom: 20px;
+}
+.custom_margin_top_50 {
+    padding-top: 50px;
 }
 .custom_margin_left_15 {
     margin-left: 15px;
@@ -32,6 +38,9 @@
 }
 .custom_color_gray {
     color: #8c8c8c;
+}
+span.currentNumber {
+    color: #004225;
 }
 
 /* sort */
@@ -101,4 +110,10 @@
 /* input */
 .custom_border_transparent {
     border: transparent;
+}
+
+.numberButton {
+    padding-right: 10px;
+    cursor: pointer;
+    font-size: 18px;
 }

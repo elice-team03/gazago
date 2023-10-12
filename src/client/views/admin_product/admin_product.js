@@ -109,7 +109,6 @@ const product = {
     saveInModal: async (e) => {
         e.preventDefault();
         let productId = document.querySelector('#productId').value;
-        let parentCategorySel = document.querySelector('#parentCategorySel').value;
         let childCategorySel = document.querySelector('#childCategorySel').value;
         let brandInput = document.querySelector('#brandInput').value;
         let productNameInput = document.querySelector('#modalProductNameInput').value;
@@ -123,7 +122,9 @@ const product = {
         productSaveFormdata.append('name', productNameInput);
         productSaveFormdata.append('price', priceInput);
         productSaveFormdata.append('thumbnailPath', thumbnailInput);
-        productSaveFormdata.append('content', content.files[0]);
+        if (content.files[0].size > 0) {
+            productSaveFormdata.append('content', content.files[0]);
+        }
 
         let targetUrl = isUpdate ? `/api/products/${productId}` : '/api/products';
 
@@ -152,12 +153,17 @@ const product = {
         return null;
     },
     getProductList: async () => {
-        let productNameInput = document.querySelector('#modalProductNameInput').value;
-        let parentCategorySel = document.querySelector('#parentCategorySel').value;
-        let childCategorySel = document.querySelector('#childCategorySel').value;
-        let currentNumber = document.querySelector('.currentNumber').value;
+        let productNameInput = document.querySelector('#productNameInput').value;
+        let parentCategorySel = document.querySelector('#parentCategorySelect').value;
+        let childCategorySel = document.querySelector('#categorySelect').value;
+        let currentNumber;
+        if (document.querySelector('.currentNumber') != null) {
+            currentNumber = document.querySelector('.currentNumber').innerText;
+        } else {
+            currentNumber = 1;
+        }
+        let queryStringList = ['page=' + currentNumber];
 
-        let queryStringList = [];
         if (isStringValue(productNameInput)) {
             productNameInput = productNameInput.trim();
             queryStringList.push('searchKeyword=' + productNameInput);
@@ -166,9 +172,9 @@ const product = {
             parentCategorySel = parentCategorySel.trim();
             queryStringList.push('parentCategoryId=' + parentCategorySel);
         }
-        if (isStringValue(currentNumber)) {
-            currentNumber = currentNumber.trim();
-            queryStringList.push('page=' + currentNumber);
+        if (isStringValue(childCategorySel)) {
+            childCategorySel = childCategorySel.trim();
+            queryStringList.push('categoryId=' + childCategorySel);
         }
 
         let queryString = queryStringList.join('&');
@@ -233,8 +239,12 @@ const initialize = async () => {
                                     <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${
                                         element.price
                                     }</td>
-                                    <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${'누적 판매량'}</td>
-                                    <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${'판매상태'}</td>
+                                    <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${
+                                        element.totalSales
+                                    }</td>
+                                    <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${
+                                        element.status
+                                    }</td>
                                     <td class="custom_text_align_center custom_vertical_align_middle">
                                         <button id="prodeuct_btn_upd${idx}" class="button is-rounded is-small custom_background_color_prime">수정</button>
                                         <button id="prodeuct_btn_del${idx}" class="button is-rounded is-small custom_background_color_red">삭제</button>
@@ -254,6 +264,28 @@ const initialize = async () => {
 
                     tbody.append(tempRow);
                 });
+                const numberWrapper = document.querySelector('.number_wrapper');
+                numberWrapper.innerHTML = '';
+                for (
+                    let i = res.currentPage - 2 <= 0 ? 1 : res.currentPage - 2;
+                    i <= (res.currentPage + 2 > res.totalPages ? res.totalPages : res.currentPage + 2);
+                    i++
+                ) {
+                    const span = document.createElement('span');
+                    span.innerText = i;
+                    span.className = 'numberButton';
+
+                    if (i == res.currentPage) {
+                        span.className += ' currentNumber';
+                    }
+                    numberWrapper.append(span);
+                    span.addEventListener('click', (e) => {
+                        let currentPageNumber = document.querySelector('.currentNumber');
+                        currentPageNumber.classList.remove('currentNumber');
+                        e.target.classList.add('currentNumber');
+                        initialize();
+                    });
+                }
             }
         }
     } catch (err) {
@@ -270,6 +302,11 @@ let modal = new BulmaModal('#myModal');
 productBtnAdd.addEventListener('click', function () {
     document.querySelector('#modalTitleId').innerText = '상품등록';
     isUpdate = false;
+    const modalParentCategorySel = document.querySelector('.modal #parentCategorySel');
+    getParentOption(modalParentCategorySel, false);
+    document.querySelector('.modal #childCategorySel').innerHTML = '';
+    document.querySelector('#contentFile').files = new DataTransfer().files;
+
     modal.show();
 });
 
@@ -277,12 +314,13 @@ modal.addEventListener('modal:close', function () {
     const parentCategorySel = document.querySelector('.modal #parentCategorySel');
     parentCategorySel.options[parentCategorySel.options.selectedIndex].selected = true;
     const childCategorySel = document.querySelector('.modal #childCategorySel');
-    childCategorySel.options[childCategorySel.options.selectedIndex].selected = true;
+    if (childCategorySel.options == null) {
+        childCategorySel.options[childCategorySel.options.selectedIndex].selected = true;
+    }
     document.querySelector('.modal #brandInput').value = '';
     document.querySelector('.modal #modalProductNameInput').value = '';
     document.querySelector('.modal #priceInput').value = '';
     document.querySelector('.modal #thumbnailInput').value = '';
-    document.querySelector('#contentFile').files = '';
 });
 
 const setDataInModal = async (id, contentUsrFileName) => {
@@ -344,27 +382,12 @@ customInputEnter.addEventListener('keypress', (e) => {
     }
 });
 
-// 페이지네이션
-//
-const pagenation = async (page) => {
-    try {
-        let currentPage = 1;
-
-        const endpoint = '/api/products';
-        const params = `page=${currentPage}`;
-        const apiUrl = `${endpoint}${params}`;
-        const res = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                // Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        });
-        if (res.code == 200) {
-            const result = await response.json();
-
-            return result;
-        }
-    } catch (err) {
-        console.log(err.message);
+const fileInputInModal = document.querySelector('.modal #contentFile');
+fileInputInModal.addEventListener('change', (e) => {
+    let fileInput = e.target;
+    if (fileInput.files[0].size > 50000000) {
+        // 50mb
+        alert('파일 용량이 50mb를 초과하였습니다.');
+        fileInput.files = new DataTransfer().files;
     }
-};
+});
