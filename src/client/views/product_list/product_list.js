@@ -43,19 +43,37 @@ async function getWishList() {
 }
 getWishList();
 
+async function addWishList(data) {
+    const response = await Api.patch('/api/users/wishlist', data);
+    console.log(response);
+}
+async function removeWishList(id) {
+    const response = await Api.deleteRequest(`/api/users/wishlist/${id}`);
+    console.log(response);
+}
+    
+
+function wisheventcallback(e) {
+    const icon = e.target.classList;
+    if (icon.contains('fa-solid')) {
+        icon.remove('fa-solid');
+        icon.add('fa-regular');
+        const id = e.target.parentElement.id;
+        removeWishList(id);
+    } else if (icon.contains('fa-regular')) {
+        icon.remove('fa-regular');
+        icon.add('fa-solid');
+        const data = {};
+        data['productId'] = e.target.parentElement.id;
+        addWishList(data);
+    }
+}
+
 function bookMarker() {
-    const wishBookMark = document.querySelectorAll('.fa-bookmark');
-    wishBookMark.forEach((bookmark) => {
-        bookmark.addEventListener('click', (e) => {
-            const icon = e.target.classList;
-            if (icon.contains('fa-solid')) {
-                icon.remove('fa-solid');
-                icon.add('fa-regular');
-            } else if (icon.contains('fa-regular')) {
-                icon.remove('fa-regular');
-                icon.add('fa-solid');
-            }
-        });
+    const wishIcon = document.querySelectorAll('.fa-bookmark');
+    wishIcon.forEach((bookmark) => {
+        bookmark.removeEventListener('click', wisheventcallback);
+        bookmark.addEventListener('click', wisheventcallback);
     });
 }
 
@@ -86,7 +104,7 @@ function displayProducts(products) {
         <div class="brand__box">
         <span class="brand">${product.brand}</span>
         </div>
-        <div class="good-box">
+        <div class="good-box" id=${product.id}>
         <i class="${isWish} fa-bookmark" style="color: #8c8c8c;"></i>
         </div>
         </div>
@@ -208,8 +226,4 @@ console.log(brand);
 console.log(beginPrice);
 console.log(searchKeyword);
 
-// const addWishList = async () => {
-//     const response = await Api.patch('/api/users/wishlist', wishwish);
-//     console.log(response);
-// }
-// addWishList();
+
