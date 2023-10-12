@@ -19,6 +19,7 @@ class deliveryService {
     }
 
         await userService.addUserDelivery(loggedInUser._id, delivery._id);
+
         return delivery;
     }
 
@@ -34,16 +35,25 @@ class deliveryService {
 
     static async modifyDelivery(deliveryId, newDelivery) {
         const { contact, code, address, subAddress } = newDelivery;
-        await Delivery.updateOne(
-            { _id: deliveryId },
+
+        const updatedDelivery = await Delivery.findByIdAndUpdate(
+            deliveryId,
             {
-                code: code,
-                address: address,
-                subAddress: subAddress,
-                contact: contact,
-            }
+                code,
+                address,
+                subAddress,
+                contact,
+            },
+            { new: true }
         );
-        return Delivery.findById(deliveryId);
+
+        if (!updatedDelivery) {
+            const error = new Error('배송 정보를 찾을 수 없습니다.');
+            error.status = 404;
+            throw error;
+        }
+
+        return updatedDelivery;
     }
 }
 
