@@ -45,7 +45,7 @@ main {
     width: 500px;
 }
 
-form .title p {
+#form-container .title p {
     border-bottom: 2px solid var(--color-main);
     color: var(--color-main);
     font-size: var(--font-size-title);
@@ -55,7 +55,7 @@ form .title p {
     text-align: center;
 }
 
-form .text_filed {
+#form-container .text_filed {
     position: relative;
     border-bottom: 2px solid var(--color-sub);
     margin: 46px 0;

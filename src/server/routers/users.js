@@ -1,9 +1,61 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
-/** 회원가입 API */
+const { productService } = require('../services/productService');
+
+/**이메일 인증 방식회원가입 */
+router.post(
+    '/register/email',
+    asyncHandler(async (req, res, next) => {
+        const { email, password } = req.body;
+
+        const result = await userService.signUpUser({ email, password, res });
+        res.status(200).json({
+            code: 200,
+            message: '이메일 인증 단계로 넘어갑니다',
+            data: result._id,
+        });
+    })
+);
+
+/** 이메일 인증번호 비교 */
+router.post(
+    '/register/:userId',
+    asyncHandler(async (req, res, next) => {
+        const { userId } = req.params;
+        const { certificationNumber } = req.body;
+        await userService.compareEmailNumber(userId, certificationNumber);
+
+        res.status(201).json({
+            code: 201,
+            message: '회원가입이 완료되었습니다',
+            data: null,
+        });
+    })
+);
+
+/** 이메일 중복확인 */
+router.post(
+    '/check-email',
+    asyncHandler(async (req, res, next) => {
+        const { email } = req.body;
+
+        const checkUser = await userService.findUserByEmail(email);
+        if (checkUser) {
+            throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
+        }
+        res.stauts(200).json({
+            code: 200,
+            message: '사용 가능한 이메일입니다',
+            data: true,
+        });
+    })
+);
+
+/** 회원가입 */
 router.post(
     '/register',
     asyncHandler(async (req, res, next) => {
@@ -13,7 +65,7 @@ router.post(
             throw Object.assign(new Error('이메일 혹은 패스워드를 입력해주세요'), { status: 400 });
         }
 
-        const checkUser = await userService.findOneUser(email);
+        const checkUser = await userService.findUserByEmail(email);
         if (checkUser) {
             throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
         }
@@ -37,7 +89,7 @@ router.post(
             throw Object.assign(new Error('이메일 혹은 패스워드를 입력해주세요'), { status: 400 });
         }
 
-        const checkedUser = await userService.findOneUser(email);
+        const checkedUser = await userService.findUserByEmail(email);
 
         if (!checkedUser) {
             throw Object.assign(new Error('이메일 혹은 패스워드가 일치하지 않습니다'), { status: 400 });
@@ -56,7 +108,6 @@ router.post(
 router.get(
     '/check',
     asyncHandler(async (req, res, next) => {
-        console.log(req.user);
         if (req.user) {
             res.json({
                 code: 200,
@@ -87,68 +138,6 @@ router.post(
     })
 );
 
-/** 회원정보 조회 API */
-router.get(
-    '/',
-    asyncHandler(async (req, res, next) => {
-        const loggedInUser = req.user.user;
-        const id = loggedInUser._id;
-        const user = await userService.findUser(id);
-        const { _id, email, role, wishList, delivery, orders, updatedAt, createdAt } = user;
-        yInform = await deliveryService.findDeliveryById(delivery);
-        res.json({
-            code: 200,
-            message: '요청이 성공하였습니다',
-            data: {
-                _id,
-                email,
-                role,
-                wishList,
-                delivery,
-                orders,
-                updatedAt,
-                createdAt,
-            },
-        });
-    })
-);
-
-/** 회원정보 변경 (비밀번호 제외) API */
-router.patch(
-    '/',
-    asyncHandler(async (req, res, next) => {
-        // delivery 없는 유저는 변경이 가능하게
-
-        const { contact, code, address } = req.body;
-        const loggedInUser = req.user.user;
-        const id = loggedInUser.delivery;
-
-        const result = await deliveryService.findDeliveryAndUpdate({ contact, code, address, id });
-        console.log(result);
-        res.status(200).json({
-            code: 200,
-            message: '유저 정보가 업데이트 되었습니다',
-            data: result,
-        });
-    })
-);
-
-/** 회원 비밀번호 변경 API */
-router.patch(
-    '/password',
-    asyncHandler(async (req, res, next) => {
-        const loggedInUser = req.user.user;
-        const { oldPassword, newPassword } = req.body;
-
-        await userService.changePassword({ oldPassword, newPassword, loggedInUser });
-        res.json({
-            code: 200,
-            message: '비밀번호 변경을 완료하였습니다',
-            data: null,
-        });
-    })
-);
-
 /** 회원 임시 비밀번호 발송 API */
 router.post(
     '/password',
@@ -160,6 +149,173 @@ router.post(
             code: 200,
             message: '임시 비밀번호가 이메일로 발송되었습니다',
             data: null,
+        });
+    })
+);
+
+/** 회원정보 조회 API */
+router.get(
+    '/',
+    asyncHandler(async (req, res, next) => {
+        const loggedInUser = req.user.user;
+        const id = loggedInUser._id;
+        const user = await userService.findUserById(id);
+        const { _id, email, role, wishList, delivery, orders, createdAt, updatedAt } = user;
+
+        res.json({
+            code: 200,
+            message: '요청이 성공하였습니다',
+            data: {
+                _id,
+                email,
+                role,
+                wishList,
+                delivery,
+                orders,
+                createdAt,
+                updatedAt,
+            },
+        });
+    })
+);
+
+/** 사용자 위시리스트 조회 API */
+router.get(
+    '/wishlist',
+    asyncHandler(async (req, res, next) => {
+        const user = req.user.user;
+        const foundUser = await userService.findUserById(user._id);
+        const wishlist = foundUser.wishList;
+        const result = await productService.findProductsInWishList(wishlist);
+        res.json({
+            code: 200,
+            message: '요청이 성공하였습니다',
+            data: result,
+        });
+    })
+);
+
+/** 사용자 주문 내역 조회 API */
+router.get(
+    '/orders',
+    asyncHandler(async (req, res, next) => {
+        const user = req.user.user;
+        const result = await userService.findUserById(user._id);
+
+        res.json({
+            code: 200,
+            message: '요청이 성공하였습니다',
+            data: result.orders,
+        });
+    })
+);
+
+/** 회원 비밀번호 변경 API */
+router.patch(
+    '/password',
+    asyncHandler(async (req, res, next) => {
+        const loggedInUser = req.user.user;
+        const { newPassword } = req.body;
+
+        await userService.changePassword({ newPassword, loggedInUser });
+        res.json({
+            code: 200,
+            message: '비밀번호 변경을 완료하였습니다',
+            data: null,
+        });
+    })
+);
+
+/** 사용자 배송 정보 변경 API */
+router.patch(
+    '/delivery',
+    asyncHandler(async (req, res, next) => {
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
+        const delivery = loggedInUser.delivery;
+
+        const { contact, code, address, subAddress } = req.body;
+        let result = null;
+        if (!delivery) {
+            result = await deliveryService.addDeliveryAndSetUserDelivery({
+                code,
+                address,
+                subAddress,
+                contact,
+                loggedInUser,
+            });
+        } else {
+            result = await deliveryService.modifyDelivery(delivery, {
+                code,
+                address,
+                subAddress,
+                contact,
+            });
+        }
+
+        res.json({
+            code: 200,
+            message: '요청을 성공적으로 완료했습니다.',
+            data: result,
+        });
+    })
+);
+
+/** 위시리스트 추가 API */
+router.patch(
+    '/wishlist',
+    asyncHandler(async (req, res, next) => {
+        const user = req.user.user;
+        const { productId } = req.body;
+
+        if (!user) {
+            const error = new Error('로그인 후 이용 가능합니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            const error = new Error('상품 ID가 올바르지 않습니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        const product = await productService.findProduct(productId);
+
+        if (!product) {
+            const error = new Error('상품 정보를 찾을 수 없습니다..');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await userService.addUserWishlist(user._id, productId);
+
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+/** 위시리스트 삭제 API */
+router.delete(
+    '/wishlist/:productIds',
+    asyncHandler(async (req, res, next) => {
+        const productIds = req.params.productIds.split(',');
+        const user = req.user.user;
+        if (!user) {
+            const error = new Error('로그인 후 이용 가능합니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await userService.removeUserWishlist(user._id, productIds);
+
+        res.status(200).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
         });
     })
 );
