@@ -17,8 +17,8 @@ a {
 .product__container {
     display: flex;
     flex-wrap: wrap;
-    gap: 100px 0;
-    justify-content: space-between;
+    gap: 100px 30px;
+    justify-content: space-evenly;
     padding-left: 30px;
 }
 

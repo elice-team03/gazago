@@ -1,32 +1,14 @@
 import * as Api from '../api.js';
-const currentURL = window.location.href;
-
-// URL 객체를 생성
-const url = new URL(currentURL);
-
-// URL에서 파라미터 값을 객체로 저장
-const paramsObj = {};
-url.searchParams.forEach((value, key) => {
-    paramsObj[key] = value;
-});
-
-console.log('파라미터 객체:', paramsObj);
 
 const queryString = window.location.search;
-console.log(queryString);
-
 const searchParams = new URLSearchParams(queryString);
 const brand = searchParams.get('brand');
-console.log(paramsObj.brand);
-//화면바뀔떄 해당 브렌드 체크
-if (brand) {
-    document.querySelector(`input[value=${brand}]`).checked = true;
-}
-
+const beginPrice = searchParams.get('beginPrice')
+const searchKeyword = searchParams.get('searchKeyword');
 const params = queryString.substring(1);
 
 async function getPage(page, params) {
-    const response = await Api.get('http://127.0.0.1:5001/api', `products?page=${page}&${params}`);
+    const response = await Api.get('/api', `products?page=${page}&${params}`);
     const data = response.data;
     return data;
 }
@@ -116,6 +98,13 @@ window.addEventListener('scroll', () => {
 
 loadPage(1, params);
 
+const currentURL = window.location.href;
+const url = new URL(currentURL);
+const paramsObj = {};
+url.searchParams.forEach((value, key) => {
+    paramsObj[key] = value;
+});
+
 function newParams() {
     return '?' + Object.keys(paramsObj)
                         .map((key) => `${key}=${paramsObj[key]}`)
@@ -137,12 +126,59 @@ selectedBrand.forEach((a) => {
     });
 });
 
+const priceCheckBox = 'input[name="priceCheckBox"]';
+const selectedPrice = document.querySelectorAll(priceCheckBox);
+
+function parsePrice(priceString) {
+    return priceString.replace(/,/g, '');
+  }
+
+selectedPrice.forEach((a) => {
+    a.addEventListener('click', function (e) {
+        if (e.target.checked) {
+            const priceCategory = e.target.nextElementSibling.innerText.split(' ~ ');
+            paramsObj.beginPrice = parsePrice(priceCategory[0]);
+            paramsObj.endPrice = parsePrice(priceCategory[1]);
+            window.location.href = 'http://localhost:5001/product-list/' + newParams();
+        } else {
+            delete paramsObj.beginPrice;
+            delete paramsObj.endPrice;
+            window.location.href = 'http://localhost:5001/product-list/' + newParams();
+        }
+    });
+});
+
+const priceAll = document.querySelector('input[name="priceAll"]');
+priceAll.addEventListener('click', function (e) {
+    delete paramsObj.beginPrice;
+    delete paramsObj.endPrice;
+    window.location.href = 'http://localhost:5001/product-list/' + newParams();
+});
+
+if (brand) {
+    document.querySelector(`input[value=${brand}]`).checked = true;
+}
+if (beginPrice) {
+    document.getElementById(beginPrice).checked = true;
+}else {
+    priceAll.checked = true;
+}
+if(searchKeyword) {
+    document.querySelector('.input').value = searchKeyword;
+}
+console.log(brand);
+console.log(beginPrice);
+console.log(searchKeyword);
+
+const wishwish = {
+    "productId": "6523a2514a8e39461a38d43e"
+}
+const addWishList = async () => {
+    const response = await Api.patch('/api/users/wishlist', wishwish);
+    console.log(response);
+}
+addWishList();
 
 
 
-// 1. 체크박스를 체크한다
-// 2. 체크박스의 벨류를 가져온다
-// 3. 해당 벨류로 params 수정
-// 4. 새로운 params 로 api 호출해서 상품목록 랜더링
-// 5. 기존 상품목록 노드 제거
-// 6. 체크 박스를 해제하면 처음의 params 로 상품목록 렌더링 렌더링된 상품 노드 삭제, 다른 체크박스를 체크하면 기존에 체크되었던 체크박스 체크 해제 다시 1번으로
+

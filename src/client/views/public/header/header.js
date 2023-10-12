@@ -11,7 +11,7 @@ const headerContent = `<header class="header container">
     </div>
     <form action="#" method="GET" class="search">
             <input name="q" class="input is-normal is-rounded" type="text" placeholder="검색">
-            <button class="button" type="submit">검색</button>
+            <button id="search-button" class="button" type="submit">검색</button>
     </form>
     <ul class="user-cart-mypage">
         <li><a href="#">장바구니</a></li>
@@ -90,3 +90,26 @@ navbarItems.forEach((navItem, index) => {
         }
     });
 });
+
+const searchButton = document.getElementById('search-button');
+searchButton.addEventListener('click', function(e){
+    e.preventDefault();
+    const searchKeyWord = e.target.previousElementSibling.value;
+    if(searchKeyWord){
+        window.location.href = 'http://localhost:5001/product-list/?searchKeyword=' + searchKeyWord;
+    } else {
+        alert('검색어를 입력해주세요');
+    }
+})
+
+//로그인확인
+// async function getLogin() {
+//     const response = await Api.get('/api/users/check');
+//     const data = response.data;
+//     return data;
+// }
+// async function login() {
+//     const isLogin = await getLogin();
+//     console.log(isLogin);
+// }
+// login();
