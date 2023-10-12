@@ -71,7 +71,7 @@ body {
     margin-bottom: 10px;
 }
 .delivery__box--empty {
-    margin-left: 14.2%;
+    margin-left: 14.3%;
     margin-bottom: 10px;
 }
 .input__label {
@@ -101,7 +101,7 @@ body {
 .button {
     font-family: 'Noto Sans KR', sans-serif;
 }
-.delivery__button--zipcode {
+.delivery__button, .delivery__button--submit {
     margin-right: 40px;
     height: 30px;
 }
@@ -118,12 +118,13 @@ body {
 }
 .input {
     width: 43%;
+    display: none;
 }
 .input__half {
-    width: 50%;
+    width: 50.2%;
 }
 .input__delivery {
-    width: 33%;
+    width: 32%;
 }
 .comment {
     margin-left: -2px;
@@ -132,4 +133,12 @@ body {
     display: flex;
     align-items: center;
     gap: 40px;
+}
+.input__button--zipcode {
+    cursor: pointer;
+    padding: 8px 14px;
+    margin-left: -74px;
+    border-radius: 4px;
+    background-color: #ebebeb;
+    display: none;
 }
