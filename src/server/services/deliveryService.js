@@ -30,8 +30,13 @@ class deliveryService {
         return await Delivery.findById(_id);
     }
     static async getTotaldeliveriesCount(userId) {
+<<<<<<< HEAD
         const deliveries = await Delivery.find({ owner: userId }).exec();
 
+=======
+        return await Delivery.countDocuments({ owner: userId }).exec();
+    }
+>>>>>>> 6fd42b7 (feature: 페이지네이션 필요한 목록 조회 API에 페이지네이션 기능 추가)
     static async modifyDelivery(deliveryId, newDelivery) {
         const { contact, code, address, subAddress } = newDelivery;
 

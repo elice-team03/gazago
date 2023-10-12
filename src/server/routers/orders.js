@@ -102,7 +102,11 @@ router.get(
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
-            data: result,
+            data: {
+                orders,
+                currentPage: page,
+                totalPages: Math.ceil(totalOrdersCount / ITEMS_PER_PAGE),
+            },
         });
     })
 );
