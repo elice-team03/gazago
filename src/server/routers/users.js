@@ -184,6 +184,7 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const user = req.user.user;
         const result = await userService.findUser(user._id);
+
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
@@ -278,13 +279,7 @@ router.patch(
             throw error;
         }
 
-        if (loggedInUser.wishList.includes(productId)) {
-            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
-            error.status = 400;
-            throw error;
-        }
-
-        const result = await userService.addUserWishlist(loggedInUser._id, productId);
+        const result = await userService.addUserWishlist(user._id, productId);
 
         res.status(201).json({
             code: 200,
