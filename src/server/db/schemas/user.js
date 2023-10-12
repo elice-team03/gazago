@@ -23,6 +23,12 @@ const UserSchema = new Schema(
         },
         wishList: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
         orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
+        confirmationToken: {
+            type: String,
+        },
+        confirmationAt: {
+            type: Date,
+        },
     },
     {
         timestamps: true,
