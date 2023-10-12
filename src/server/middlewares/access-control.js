@@ -15,7 +15,6 @@ const requiredLogin = (req, res, next) => {
 
 const checkAdmin = (req, res, next) => {
     if (req.user?.user.role !== 'admin' && checkUrl(req, ['admin'])) {
-        console.log('hi');
         return res.send("<script>alert('관리자만 접근이 가능합니다');location.href='http://localhost:5001/';</script>");
     }
     next();
