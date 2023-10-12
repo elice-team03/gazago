@@ -182,7 +182,12 @@ router.get(
 router.get(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
+        console.log('req.user');
+        console.log(req.user);
+        console.log('req.user.user');
+        console.log(req.user.user);
         const user = req.user.user;
+
         const result = await userService.findUser(user._id);
         console.log(result);
         res.json({

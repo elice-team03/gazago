@@ -6,6 +6,7 @@ const deliveriesRouter = require('./deliveries');
 const ordersRouter = require('./orders');
 
 const app = express();
+app.use(express.json());
 
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
