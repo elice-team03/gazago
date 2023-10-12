@@ -7,6 +7,14 @@ const beginPrice = searchParams.get('beginPrice')
 const searchKeyword = searchParams.get('searchKeyword');
 const params = queryString.substring(1);
 
+//위시리스트 불러오기
+async function getWishList() {
+    const response = await Api.get('/api/users/wishlist');
+    const data = response.data;
+    return data;
+}
+console.log(getWishList());
+
 async function getPage(page, params) {
     const response = await Api.get('/api', `products?page=${page}&${params}`);
     const data = response.data;
@@ -39,6 +47,7 @@ const priceString = (product) => {
 
 function displayProducts(products) {
     // 상품 목록을 돌면서 화면에 표시
+    // if(위시리스트 에 있으면 ){기존}
     products.forEach((product) => {
         const productBoxContent = `<div class="product-box">
         <div class="product__img-box">
@@ -173,11 +182,11 @@ console.log(searchKeyword);
 const wishwish = {
     "productId": "6523a2514a8e39461a38d43e"
 }
-const addWishList = async () => {
-    const response = await Api.patch('/api/users/wishlist', wishwish);
-    console.log(response);
-}
-addWishList();
+// const addWishList = async () => {
+//     const response = await Api.patch('/api/users/wishlist', wishwish);
+//     console.log(response);
+// }
+// addWishList();
 
 
 
