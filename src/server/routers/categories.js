@@ -1,6 +1,6 @@
 const express = require('express');
-const { categoryService } = require('../services/categoryService');
 const asyncHandler = require('../utils/async-handler');
+const { categoryService } = require('../services/categoryService');
 
 const router = express.Router();
 
