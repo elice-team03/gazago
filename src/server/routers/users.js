@@ -179,8 +179,8 @@ router.patch(
 router.patch(
     '/delivery',
     asyncHandler(async (req, res, next) => {
-        const user = req.user.user;
-        const deliveryId = user.delivery;
+        const loggedInUser = req.user.user;
+        const deliveryId = loggedInUser.delivery;
         const { contact, code, address, subAddress } = req.body;
 
         let result = null;
@@ -190,7 +190,7 @@ router.patch(
                 address,
                 subAddress,
                 contact,
-                user,
+                loggedInUser,
             });
         } else {
             result = await deliveryService.modifyDelivery(deliveryId, {
