@@ -1,8 +1,10 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
 const { userService } = require('../services/userService');
 const { deliveryService } = require('../services/deliveryService');
+
 /** 회원가입 API */
 router.post(
     '/register',
@@ -13,7 +15,7 @@ router.post(
             throw Object.assign(new Error('이메일 혹은 패스워드를 입력해주세요'), { status: 400 });
         }
 
-        const checkUser = await userService.findOneUser(email);
+        const checkUser = await userService.findUserByEmail(email);
         if (checkUser) {
             throw Object.assign(new Error('이미 등록된 메일입니다'), { status: 400 });
         }
@@ -37,7 +39,7 @@ router.post(
             throw Object.assign(new Error('이메일 혹은 패스워드를 입력해주세요'), { status: 400 });
         }
 
-        const checkedUser = await userService.findOneUser(email);
+        const checkedUser = await userService.findUserByEmail(email);
 
         if (!checkedUser) {
             throw Object.assign(new Error('이메일 혹은 패스워드가 일치하지 않습니다'), { status: 400 });
@@ -56,7 +58,6 @@ router.post(
 router.get(
     '/check',
     asyncHandler(async (req, res, next) => {
-        console.log(req.user);
         if (req.user) {
             res.json({
                 code: 200,
@@ -87,6 +88,21 @@ router.post(
     })
 );
 
+/** 회원 임시 비밀번호 발송 API */
+router.post(
+    '/password',
+    asyncHandler(async (req, res, next) => {
+        const { email } = req.body;
+        await userService.changePasswordAndSendByEmail(email);
+
+        res.status(200).json({
+            code: 200,
+            message: '임시 비밀번호가 이메일로 발송되었습니다',
+            data: null,
+        });
+    })
+);
+
 /** 회원정보 조회 API */
 router.get(
     '/',
@@ -95,7 +111,7 @@ router.get(
         const id = loggedInUser._id;
         const user = await userService.findUser(id);
         const { _id, email, role, wishList, delivery, orders, updatedAt, createdAt } = user;
-        yInform = await deliveryService.findDeliveryById(delivery);
+
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
@@ -113,22 +129,32 @@ router.get(
     })
 );
 
-/** 회원정보 변경 (비밀번호 제외) API */
-router.patch(
-    '/',
+/** 사용자 위시리스트 조회 API */
+router.get(
+    '/wishlist',
     asyncHandler(async (req, res, next) => {
-        // delivery 없는 유저는 변경이 가능하게
-
-        const { contact, code, address } = req.body;
-        const loggedInUser = req.user.user;
-        const id = loggedInUser.delivery;
-
-        const result = await deliveryService.findDeliveryAndUpdate({ contact, code, address, id });
+        const user = req.user.user;
+        const result = await userService.findUser(user._id);
         console.log(result);
-        res.status(200).json({
+        res.json({
             code: 200,
-            message: '유저 정보가 업데이트 되었습니다',
-            data: result,
+            message: '요청이 성공하였습니다',
+            data: result.wishList,
+        });
+    })
+);
+
+/** 사용자 주문 내역 조회 API */
+router.get(
+    '/orders',
+    asyncHandler(async (req, res, next) => {
+        const user = req.user.user;
+        const result = await userService.findUser(user._id);
+
+        res.json({
+            code: 200,
+            message: '요청이 성공하였습니다',
+            data: result.orders,
         });
     })
 );
@@ -138,9 +164,9 @@ router.patch(
     '/password',
     asyncHandler(async (req, res, next) => {
         const loggedInUser = req.user.user;
-        const { oldPassword, newPassword } = req.body;
+        const { newPassword } = req.body;
 
-        await userService.changePassword({ oldPassword, newPassword, loggedInUser });
+        await userService.changePassword({ newPassword, loggedInUser });
         res.json({
             code: 200,
             message: '비밀번호 변경을 완료하였습니다',
@@ -149,17 +175,93 @@ router.patch(
     })
 );
 
-/** 회원 임시 비밀번호 발송 API */
-router.post(
-    '/password',
+/** 사용자 배송 정보 변경 API */
+router.patch(
+    '/delivery',
     asyncHandler(async (req, res, next) => {
-        const { email } = req.body;
-        await userService.changePasswordAndSendByEmail(email);
+        const user = req.user.user;
+        const deliveryId = user.delivery;
+        const { contact, code, address, subAddress } = req.body;
 
-        res.status(200).json({
+        let result = null;
+        if (!deliveryId) {
+            result = await deliveryService.addDeliveryAndSetUserDelivery({
+                code,
+                address,
+                subAddress,
+                contact,
+                user,
+            });
+        } else {
+            result = await deliveryService.modifyDelivery(deliveryId, {
+                code,
+                address,
+                subAddress,
+                contact,
+            });
+        }
+
+        res.json({
             code: 200,
-            message: '임시 비밀번호가 이메일로 발송되었습니다',
-            data: null,
+            message: '요청을 성공적으로 완료했습니다.',
+            data: result,
+        });
+    })
+);
+
+/** 위시리스트 추가 API */
+router.patch(
+    '/wishlist',
+    asyncHandler(async (req, res, next) => {
+        const { productId } = req.body;
+        const user = req.user.user;
+
+        if (!user) {
+            const error = new Error('로그인 후 이용 가능합니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            const error = new Error('상품 ID가 올바르지 않습니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        if (user.wishList.includes(productId)) {
+            const error = new Error('이미 위시리스트에 추가된 상품입니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await userService.addUserWishlist(user._id, productId);
+
+        res.status(201).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
+        });
+    })
+);
+
+/** 위시리스트 삭제 API */
+router.delete(
+    '/wishlist/:productIds',
+    asyncHandler(async (req, res, next) => {
+        const productIds = req.params.productIds.split(',');
+        const user = req.user.user;
+        if (!user) {
+            const error = new Error('로그인 후 이용 가능합니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await userService.removeUserWishlist(user._id, productIds);
+
+        res.status(201).json({
+            code: 200,
+            message: '요청이 성공적으로 완료되었습니다.',
+            data: result,
         });
     })
 );
