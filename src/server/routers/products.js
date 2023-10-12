@@ -71,11 +71,7 @@ router.get(
             filter.name = { $regex: new RegExp(searchKeyword, 'i') };
         }
 
-        const products = await productService.findProductsPaginated(skip, limit, filter);
-        for (const product of products) {
-            product.totalSales = await orderService.findProductOrderedCount(product._id);
-        }
-
+        const products = await productService.findProductsWithTotalSales(skip, limit, filter);
         const totalProductsCount = await productService.getTotalProductsCount(filter);
 
         res.status(200).json({

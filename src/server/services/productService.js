@@ -16,20 +16,26 @@ class productService {
         return await Product.create(newProduct);
     }
 
-    static async findProductsPaginated(skip, limit, filter) {
-        const products = await Product.find(filter)
-            .skip(skip)
-            .limit(limit)
-            .sort({ createdAt: -1 })
-            .populate({
-                path: 'category',
-                populate: {
-                    path: 'parentCategory',
-                },
-            })
-            .exec();
+    static async findProductsWithTotalSales(skip, limit, filter) {
+        const products = await Product.find(filter).skip(skip).limit(limit);
+
+        for (const product of products) {
+            product.totalSales = await this.findProductOrderedCount(product._id);
+        }
 
         return products;
+    }
+
+    static async findProductOrderedCount(productId) {
+        const orders = await Order.find({ products: productId });
+
+        let totalSales = 0;
+        for (const order of orders) {
+            const productCount = order.products.filter((pId) => pId.toString() === productId.toString()).length;
+            totalSales += productCount;
+        }
+
+        return totalSales;
     }
 
     static async findProductOrdered(productId) {
