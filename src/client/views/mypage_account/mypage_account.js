@@ -42,8 +42,8 @@ async function editUserInfo(event) {
     const address = $address.value;
     const subAddress = $subAddress.value;
     const inputData = { contact, code, address, subAddress };
-    console.log(inputData);
     try {
+        console.log('hi');
         const result = await Api.patch('http://localhost:5001/api/users/delivery', inputData);
         if (result.code === 200) {
             alert('회원 정보 수정 완료');

@@ -1,7 +1,8 @@
 const { Delivery } = require('../db');
+const { userService } = require('./userService');
 
 class deliveryService {
-    static async addDelivery(newDelivery) {
+    static async addDeliveryAndSetUserDelivery(newDelivery) {
         const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
@@ -14,7 +15,10 @@ class deliveryService {
             owner: loggedInUser._id,
         });
 
-        return await Delivery.create(buildDelivery);
+        const delivery = await Delivery.create(buildDelivery);
+
+        await userService.addUserDelivery(loggedInUser._id, delivery._id);
+        return delivery;
     }
 
     static async findAllDeliveriesByOwner(userId) {
