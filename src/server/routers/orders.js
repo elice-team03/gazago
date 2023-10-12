@@ -107,21 +107,6 @@ router.get(
     })
 );
 
-router.get(
-    '/:id',
-    asyncHandler(async (req, res, next) => {
-        const _id = req.params.id;
-
-        const result = await orderService.findOrderWithProducts(_id);
-
-        res.status(200).json({
-            code: 200,
-            message: '요청이 성공적으로 완료되었습니다.',
-            data: result,
-        });
-    })
-);
-
 router.patch(
     '/status/:id',
     asyncHandler(async (req, res, next) => {

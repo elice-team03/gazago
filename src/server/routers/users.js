@@ -199,13 +199,24 @@ router.get(
 router.get(
     '/orders',
     asyncHandler(async (req, res, next) => {
+        const ITEMS_PER_PAGE = 20;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * ITEMS_PER_PAGE;
+        const limit = ITEMS_PER_PAGE;
+
         const user = req.user.user;
         const result = await userService.findUserById(user._id);
+
+        const orders = result.orders.slice(skip, skip + limit);
 
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: result.orders,
+            data: {
+                orders,
+                currentPage: page,
+                totalPages: Math.ceil(result.orders.length / ITEMS_PER_PAGE),
+            },
         });
     })
 );
