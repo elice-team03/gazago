@@ -20,7 +20,16 @@ router.post(
             throw error;
         }
 
-        const result = await productService.addProduct({ newProduct, contentFile });
+        const category = await categoryService.findCategory(newProduct.categoryId);
+
+        if (!category) {
+            const error = new Error('카테고리를 찾을 수 없습니다.');
+            error.status = 400;
+            throw error;
+        }
+
+        const result = await productService.addProduct({ newProduct, category, contentFile });
+
         res.status(201).json({
             code: 201,
             message: '상품 등록이 완료되었습니다.',
@@ -61,15 +70,17 @@ router.get(
             filter.name = { $regex: new RegExp(searchKeyword, 'i') };
         }
 
-        const result = await productService.findProductsPaginated(skip, limit, filter);
+        const products = await productService.findProductsWithTotalSales(skip, limit, filter);
         const totalProductsCount = await productService.getTotalProductsCount(filter);
 
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
-            data: result,
-            currentPage: page,
-            totalPages: Math.ceil(totalProductsCount / ITEMS_PER_PAGE),
+            data: {
+                products,
+                currentPage: page,
+                totalPages: Math.ceil(totalProductsCount / ITEMS_PER_PAGE),
+            },
         });
     })
 );
