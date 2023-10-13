@@ -309,11 +309,12 @@ async function sendPayment() {
         totalAmount: totalAmount,
     }); //주문 전송
     const data = response.data;
-    if (confirm('결제가 완료되었습니다. 결제내역 페이지로 이동하시겠습니까?')) {
-        storage.setItem('order_result', JSON.stringify(data._id)); //확인 버튼 눌렀을 때, 결제내역 페이지로 id를 전달하기 위해 localStorage에 저장
-        window.location.href = '/order-result/'; //결제내역 페이지로 이동
-    } else {
-        window.location.href = '/';
-    } //취소 버튼 눌렀을 때, 홈 화면으로 이동
+    const positionX = window.screen.width / 2 - 500 / 2;
+    const positionY = window.screen.height / 2 - 500 / 2;
+    const openWin = window.open('/stripe', 'stripe', `width=500, height=500, left=${positionX}, top=${positionY}, resizable=no`);
+    openWin.addEventListener('beforeunload', () => {
+        storage.setItem('order_result', JSON.stringify(data._id));
+        window.location.href = '/order-result/';
+    });
 }
 payButton.addEventListener('click', sendPayment);
