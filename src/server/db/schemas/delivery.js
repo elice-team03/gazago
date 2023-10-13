@@ -33,6 +33,12 @@ const DeliverySchema = new Schema(
             required: true,
             index: true,
         },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+            index: true,
+        },
     },
     {
         timestamps: true,
