@@ -116,9 +116,11 @@ body {
 .cancle__button:hover, .cancle__button:focus {
     color: #fff;
 }
-.input {
-    width: 43%;
+.input__none {
     display: none;
+}
+.input__default {
+    width: 43%;
 }
 .input__half {
     width: 50.2%;

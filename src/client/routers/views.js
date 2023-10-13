@@ -20,6 +20,7 @@ viewsRouter.use('/admin', serveStatic('admin_category'));
 viewsRouter.use('/admin/product', serveStatic('admin_product'));
 viewsRouter.use('/admin/order', serveStatic('admin_order'));
 viewsRouter.use('/module', serveStatic('module'));
+viewsRouter.use('/stripe', serveStatic('stripe'));
 viewsRouter.use('/', serveStatic(''));
 
 function serveStatic(resource) {

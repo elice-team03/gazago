@@ -58,9 +58,20 @@ orderButton.addEventListener('click', () => {
     setProductData('order');
     window.location.href = '/order/';
 });
-wishButton.addEventListener('click', () => {
-    setProductData('wish');
-    // window.location.href = '/mypage/wishlist/';
+wishButton.addEventListener('click', async () => {
+    const response = await Api.patch('/api/users/wishlist', {
+        productId: id,
+    });
+    if (response.message === '이미 위시리스트에 추가된 상품입니다.') {
+        if (!confirm('이미 위시리스트에 추가된 상품입니다. 위시리스트로 이동하시겠습니까?')) {
+            return;
+        }
+    } else {
+        if (!confirm('위시리스트에 상품이 추가되었습니다. 위시리스트로 이동하시겠습니까?')) {
+            return;
+        }
+    }
+    window.location.href = '/mypage/wishlist/';
 });
 //상품정보 더보기 눌렀을때 상세 이미지 전체 렌더링
 const renderButton = document.querySelector('.more__button');

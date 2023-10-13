@@ -3,7 +3,6 @@ const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const path = require('path');
 const passport = require('passport');
 const errorHandler = require('./src/server/utils/error-handler');
