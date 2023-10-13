@@ -82,9 +82,7 @@ const initialize = async () => {
                             element.parentCategory.name
                         }</td>
                         <td class="custom_text_align_center custom_vertical_align_middle">${element.name}</td>
-                        <td class="custom_text_align_center custom_vertical_align_middle">${
-                            element.count ? element.count : 10
-                        }</td>
+                        <td class="custom_text_align_center custom_vertical_align_middle">${item.productCount}</td>
                         <td class="custom_vertical_align_middle">
                             <div class="control custom_text_align_center">
                                 <label class="radio">
