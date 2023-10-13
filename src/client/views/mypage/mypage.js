@@ -1,15 +1,19 @@
 import * as Api from '/api.js';
 
-const storage = window.localStorage;
+let currentPage = 1;
 
 // 로그인 회원의 주문 내역
-async function getUserData() {
+async function getUserData(page) {
     try {
-        const result = await Api.get('http://localhost:5001/api/users/orders');
+        const url = `http://localhost:5001/api/users/orders?page=${page}`;
+        const result = await Api.get(url);
+        const pageData = result.data;
+        updatePage(pageData);
+
         if (result.code === 200) {
-            let orderList = result.data;
+            let orderList = result.data.orders;
             let orderListTbody = document.querySelector('#orderlist-tbody');
-            console.log(orderList);
+
             // 주문 내역이 없을 때
             if (orderList.length === 0) {
                 const emptyListRow = document.createElement('tr');
@@ -51,7 +55,6 @@ async function getUserData() {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
     }
 }
-getUserData();
 
 // 구매 상품명 데이터
 async function getItemName(itemId) {
@@ -70,3 +73,34 @@ async function getItemName(itemId) {
     }
 }
 
+// Pagenation
+document.querySelector('.pagination-list').addEventListener('click', (event) => {
+    if (event.target.classList.contains('pagination-link')) {
+        currentPage = parseInt(event.target.textContent);
+
+        // 이전 데이터 지우기
+        const orderListTbody = document.querySelector('#orderlist-tbody');
+        orderListTbody.innerHTML = '';
+
+        getUserData(currentPage);
+    }
+});
+
+// 페이지 업데이트 함수
+async function updatePage(data) {
+    const totalPages = data.totalPages;
+    let currentPage = data.currentPage;
+
+    const paginationList = document.querySelector('.pagination-list');
+    paginationList.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        const paginationLink = document.createElement('li');
+        paginationLink.innerHTML = `<a class="pagination-link ${
+            i === currentPage ? 'is-current' : ''
+        }" aria-label="Page ${i}">${i}</a>`;
+        paginationList.appendChild(paginationLink);
+    }
+}
+
+// 초기 페이지 데이터 가져오기
+getUserData(currentPage);

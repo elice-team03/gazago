@@ -13,6 +13,7 @@ async function sendEmailHandler(event) {
         const result = await Api.post('http://localhost:5001/api/users/password', data);
         if (result.code === 200) {
             alert(result.message);
+            window.location.href='/';
         } else {
             alert(result.message);
         }
