@@ -62,18 +62,16 @@ const category = {
     },
 };
 
-console.log(111, category);
-
 // 초기화 : 화면 접근시 데이터베이스에 접근해서 목록 가져오기
 const initialize = async () => {
     try {
         let res = await Api.get('/api/categories');
         if (res.code == 200) {
             if (res != null && res.data != null) {
-                let catagoryList = res.data;
+                let categoryList = res.data.categories;
                 let tBody = document.querySelector('#category_list_tbody');
-
-                catagoryList.forEach((item, idx) => {
+                console.log(categoryList);
+                categoryList.forEach((item, idx) => {
                     const element = item.category;
                     let tempRow = document.createElement('tr');
                     tempRow.innerHTML = `
