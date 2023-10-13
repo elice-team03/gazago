@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>gazago</title>
+    </head>
+
+    <body>
+        <input id="amount" type="text" placeholder="결제금액" />
+        <main class="container">
+            <form id="payment-form">
+                <input id="card-holder-name" type="text" placeholder="카드소유자명" />
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+                <button id="submit">Pay</button>
+            </form>
+        </main>
+    </body>
+</html>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe(
+        'pk_test_51O0aFaI8jrBVRyJkIeQWSPBzzWC1MHM0WU1j7Cw3tYKaUeT0yphF9bTth8uI8HpgWEMPCZrgqMKYTZthw6ajmzDd00VPsH0dtG'
+    );
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+
+    const form = document.getElementById('payment-form');
+    const errorElement = document.getElementById('card-errors');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const cardHolderName = document.getElementById('card-holder-name').value;
+        const amount = document.getElementById('amount').value;
+
+        const { token, error } = await stripe.createToken(cardElement, {
+            name: cardHolderName,
+        });
+
+        if (error) {
+            errorElement.textContent = error.message;
+        } else {
+            fetch('/api/stripe/process-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: token.id,
+                    amount: amount,
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.code === 200) {
+                        // 성공
+                        console.log('Payment was successful');
+                        // 다음 작업 수행
+                    } else {
+                        // 에러 처리
+                        console.error('Payment error:', data.message);
+                    }
+                });
+        }
+    });
+</script>
