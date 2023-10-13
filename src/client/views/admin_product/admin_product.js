@@ -15,7 +15,7 @@ const parentCategoryIdArr = [
 const parentCategorySelect = document.querySelector('#parentCategorySelect');
 
 const getParentOption = (parentCategorySelect, total = true) => {
-    let getparentCategoryKeyword = total ? [`<option value="">전체보기</option>`] : [];
+    let getparentCategoryKeyword = total ? [`<option value="">선택</option>`] : [];
     parentCategoryIdArr.forEach((item) => {
         let [key, value] = Object.entries(item)[0];
         getparentCategoryKeyword.push(`<option value="${value}">${key}</option>`);
@@ -50,7 +50,7 @@ const getOption = async (parentCategorySelect, childCategorySelector, total = tr
                 childCategoryOrder[item.name] = idx;
             });
 
-            let getCategoryKeyword = total ? [`<option value="" selected>전체보기</option>`] : [];
+            let getCategoryKeyword = total ? [`<option value="" selected>선택</option>`] : [];
             if (parentCategorySelectValue == '') {
             } else {
                 categoryObjList.forEach((item, idx) => {
@@ -335,7 +335,7 @@ productBtnAdd.addEventListener('click', function () {
     document.querySelector('#modalTitleId').innerText = '상품등록';
     isUpdate = false;
     const modalParentCategorySel = document.querySelector('.modal #parentCategorySel');
-    getParentOption(modalParentCategorySel, false);
+    getParentOption(modalParentCategorySel);
     document.querySelector('.modal #childCategorySel').innerHTML = '';
     document.querySelector('#contentFile').files = new DataTransfer().files;
 
@@ -359,7 +359,7 @@ const setDataInModal = async (id, contentUsrFileName) => {
     let productInfo = await product.productGetById(id);
     if (productInfo != null) {
         const modalParentCategorySel = document.querySelector('.modal #parentCategorySel');
-        getParentOption(modalParentCategorySel, false);
+        getParentOption(modalParentCategorySel);
         document.querySelector('.modal #productId').value = productInfo._id;
 
         document.querySelector('.modal #parentCategorySel').options[
