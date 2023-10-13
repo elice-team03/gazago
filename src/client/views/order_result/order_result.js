@@ -2,6 +2,7 @@ import * as Api from '../api.js';
 const storage = window.localStorage;
 const orderResultData = JSON.parse(storage.getItem('order_result'));
 const product = document.querySelector('.product');
+let deliveryId = '';
 
 renderOrderResultItems();
 async function renderOrderResultItems() {
@@ -29,6 +30,7 @@ async function renderOrderResultItems() {
         `;
     });
     
+    deliveryId = delivery._id;
     ["receiver", "contact", "code", "address", "subAddress"].forEach((item) => {
         document.querySelector(`.${item}`).innerHTML = delivery[item];
     })
@@ -49,3 +51,46 @@ async function renderOrderResultItems() {
     }
     totalPrice.innerHTML = `${data.totalAmount.toLocaleString()}원`;
 }
+
+const changeDeliveryButton = document.querySelector('.delivery__button');
+function changeDelivery() {
+    const values = [];
+    const inputs = document.querySelectorAll('.input');
+    const zipcodeButton = document.querySelector('.input__button--zipcode');
+
+    ["contact", "code", "address", "subAddress"].forEach((item) => {
+        const itemContainer = document.querySelector(`.${item}`);
+        itemContainer.style.display = 'none';
+        values.push(itemContainer.innerHTML);
+    })
+    inputs.forEach((item, idx) => {
+        item.style.display = 'block';
+        item.setAttribute("value", values[idx]);
+    })
+    zipcodeButton.style.display = 'block';
+    changeDeliveryButton.innerHTML = '변경하기';
+}
+changeDeliveryButton.addEventListener('click', () => {
+    if(changeDeliveryButton.innerHTML === '배송지 변경') changeDelivery();
+    else submitChangeDelivery();
+});
+
+const submitDeliveryButton = document.querySelector('.delivery__button--submit');
+async function submitChangeDelivery() {
+    const inputItems = document.querySelectorAll('input');
+    const inputArray = Array.from(inputItems);
+    const [contact, code, address, subAddress] = inputArray.map((input) => input.value);
+
+    const response = await Api.patch(`/api/deliveries/${deliveryId}`, {
+        contact: contact,
+        code: code,
+        address: address,
+        subAddress: subAddress,
+    });
+    const data = response.data;
+    changeDeliveryButton.innerHTML = '배송지 변경';
+    if(data) alert('배송지 변경이 완료되었습니다.');
+    history.go(0);
+}
+if(submitDeliveryButton) submitDeliveryButton.addEventListener('click', submitChangeDelivery);
+
