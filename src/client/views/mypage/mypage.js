@@ -1,15 +1,13 @@
 import * as Api from '/api.js';
 
-const storage = window.localStorage;
-
 // 로그인 회원의 주문 내역
 async function getUserData() {
     try {
         const result = await Api.get('http://localhost:5001/api/users/orders');
         if (result.code === 200) {
-            let orderList = result.data;
+            let orderList = result.data.orders;
             let orderListTbody = document.querySelector('#orderlist-tbody');
-            console.log(orderList);
+
             // 주문 내역이 없을 때
             if (orderList.length === 0) {
                 const emptyListRow = document.createElement('tr');
