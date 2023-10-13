@@ -261,6 +261,7 @@ router.patch(
                 address,
                 subAddress,
                 contact,
+                email: loggedInUser.email,
             });
         }
 

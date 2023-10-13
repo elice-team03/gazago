@@ -2,7 +2,7 @@ const path = require('path');
 const { mongoose } = require('mongoose');
 const { Product, Order } = require('../db');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
-
+const { sendEmail } = require('../utils/send-email');
 const uploadDirectory = path.join('public', 'upload', 'product');
 
 class productService {
@@ -34,6 +34,16 @@ class productService {
         return products;
     }
 
+    static async findBest3Product() {
+        const best3Items = await Product.find({}).sort({ totalSales: -1 }).limit(3);
+        let totalUserEmailList = [];
+        const totalUser = await User.find({}, 'email');
+        totalUser.forEach((item) => totalUserEmailList.push(item.email));
+
+        await sendEmail('sendCatalog', totalUserEmailList, best3Items);
+
+        return;
+    }
     static async findProductOrderedCount(productId) {
         const orders = await Order.find({ products: productId });
 
