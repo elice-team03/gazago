@@ -51,6 +51,11 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
+        const ITEMS_PER_PAGE = 20;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * ITEMS_PER_PAGE;
+        const limit = ITEMS_PER_PAGE;
+
         const { beginDate, endDate, orderNumber, status, name } = req.query;
         const filter = {};
 
@@ -72,11 +77,17 @@ router.get(
             deliveryFilter.receiver = name;
         }
 
-        const result = await orderService.findAllOrders(filter, deliveryFilter);
+        const orders = await orderService.findAllOrders(filter, deliveryFilter, skip, limit);
+        const totalOrdersCount = await orderService.getTotalOrdersCount(filter, deliveryFilter);
+
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
-            data: result,
+            data: {
+                orders,
+                currentPage: page,
+                totalPages: Math.ceil(totalOrdersCount / ITEMS_PER_PAGE),
+            },
         });
     })
 );

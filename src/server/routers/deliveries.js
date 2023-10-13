@@ -7,12 +7,24 @@ const { deliveryService } = require('../services/deliveryService');
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
+        const ITEMS_PER_PAGE = 20;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * ITEMS_PER_PAGE;
+        const limit = ITEMS_PER_PAGE;
+
         const user = req.user.user;
-        const result = await deliveryService.findAllDeliveriesByOwner(user._id);
+
+        const deliveries = await deliveryService.findAllDeliveriesByOwner(user._id, skip, limit);
+        const totalDeliveriesCount = await deliveryService.getTotaldeliveriesCount(user._id);
+
         res.json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
-            data: result,
+            data: {
+                deliveries,
+                currentPage: page,
+                totalPages: Math.ceil(totalDeliveriesCount / ITEMS_PER_PAGE),
+            },
         });
     })
 );
@@ -22,7 +34,9 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         const deliveryId = req.params.id;
+
         const result = await deliveryService.findDeliveryById(deliveryId);
+
         res.json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
