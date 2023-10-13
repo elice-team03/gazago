@@ -262,7 +262,6 @@ async function loadUserDelivery() {
 const payButton = document.querySelector('.pay__button');
 //input에 입력된 값들을 가져와서 주문을 전송하는 함수
 async function sendPayment() {
-    storage.setItem('order', JSON.stringify([]));
     const inputItems = document.querySelectorAll('input');
     const inputArray = Array.from(inputItems);
     const [title, receiver, code, address, subAddress] = inputArray.map((input) => input.value); //input value 가져오는 과정
@@ -314,6 +313,7 @@ async function sendPayment() {
     const openWin = window.open('/stripe', 'stripe', `width=500, height=500, left=${positionX}, top=${positionY}, resizable=no`);
     openWin.addEventListener('beforeunload', () => {
         storage.setItem('order_result', JSON.stringify(data._id));
+        storage.setItem('order', JSON.stringify([]));
         window.location.href = '/order-result/';
     });
 }

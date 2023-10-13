@@ -52,9 +52,11 @@ async function renderOrderResultItems() {
     }
     totalPrice.innerHTML = `${data.totalAmount.toLocaleString()}원`;
     if(data.status === '주문접수' || data.status === '배송준비중') {
+        changeDeliveryButton.style.display = 'flex';
         cancleButton.style.display = 'block';
     }
     else {
+        changeDeliveryButton.style.display = 'none';
         cancleButton.style.display = 'none';
     }
 }
