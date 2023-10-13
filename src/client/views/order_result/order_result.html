@@ -19,7 +19,7 @@
                 <div class="divider"></div>
                 <div class="delivery__title">
                     <h6 class="delivery__text">배송지정보</h6>
-                    <button class="button is-light is-rounded delivery__button--zipcode">배송지 변경</button>
+                    <button class="button is-light is-rounded delivery__button">배송지 변경</button>
                 </div>
                 <div class="divider--thin"></div>
                 <div class="delivery__box">
@@ -29,16 +29,21 @@
                 <div class="delivery__box">
                     <span class="input__label">연락처</span>
                     <span class="contact"></span>
+                    <input class="input" type="text">
                 </div>
                 <div class="delivery__box">
                     <span class="input__label">배송지</span>
                     <span class="code"></span>
+                    <input class="input input__delivery" id="zipcode" type="text">
+                    <div class="input__button--zipcode">우편번호 검색</div>
                 </div>
                 <div class="delivery__box--empty">
                     <span class="address"></span>
+                    <input class="input input__half" id="address" type="text">
                 </div>
                 <div class="delivery__box--empty">
                     <span class="subAddress"></span>
+                    <input class="input input__half" id="detailAddress" type="text">
                 </div>
                 <div class="delivery__box" style="gap: 66px">
                     <span class="input__label">배송메모</span>
@@ -62,11 +67,15 @@
                 </div>
             </section>
         </article>
-        <button class="button is-medium is-responsive is-rounded cancle__button">
-            주문 취소
-        </button>
+        <div class="column">
+            <button class="button is-medium is-responsive is-rounded cancle__button">
+                주문 취소
+            </button>
+        </div>
     </main>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="module" src="./order_result.js"></script>
+    <script src="../public/zipcodeBtn/zipcodeBtn.js"></script>
 </body>
 
 </html>

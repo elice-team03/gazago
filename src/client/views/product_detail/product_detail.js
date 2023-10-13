@@ -12,7 +12,7 @@ let id = '';
 
 //api에서 상품 데이터 가져오는 함수
 async function getData() {
-    const response = await Api.get('/api/products', '6522b92718c5ae854f7372ae'); //임시로 id 파라미터 적용(상품 리스트에서 넘겨주는 기능 구현될시 수정 예정)
+    const response = await Api.get('/api/products', '65278bd89601191bae5d31dd'); //임시로 id 파라미터 적용(상품 리스트에서 넘겨주는 기능 구현될시 수정 예정)
     const data = response.data;
     id = data._id;
 
