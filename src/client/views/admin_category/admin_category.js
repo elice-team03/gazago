@@ -29,7 +29,7 @@ const category = {
         const parentCategorySel = document.querySelector('#parentCategorySel');
         const childCategoryInp = document.querySelector('#childCategoryInp');
         try {
-            let response = await Api.post('http://localhost:5001/api/categories', {
+            let response = await Api.post('/api/categories/', {
                 name: childCategoryInp.value,
                 parentCategoryId: parentCategoryIdObj[parentCategorySel.value],
             });
@@ -57,10 +57,12 @@ const category = {
                 alert('수정 중 오류가 발생했습니다.');
             }
         } catch (err) {
-            alert(err?.response?.data?.message);
+            alert(err.message);
         }
     },
 };
+
+console.log(111, category);
 
 // 초기화 : 화면 접근시 데이터베이스에 접근해서 목록 가져오기
 const initialize = async () => {
@@ -80,9 +82,7 @@ const initialize = async () => {
                             element.parentCategory.name
                         }</td>
                         <td class="custom_text_align_center custom_vertical_align_middle">${element.name}</td>
-                        <td class="custom_text_align_center custom_vertical_align_middle">${
-                            element.count ? element.count : 10
-                        }</td>
+                        <td class="custom_text_align_center custom_vertical_align_middle">${item.productCount}</td>
                         <td class="custom_vertical_align_middle">
                             <div class="control custom_text_align_center">
                                 <label class="radio">

@@ -56,10 +56,16 @@ span.currentNumber {
 .custom_width_50 {
     width: 50px;
 }
+.custom_width_70 {
+    width: 70px;
+}
 .custom_width_50_percent {
     width: 50%;
 }
 
+.custom_width_123 {
+    width: 123px;
+}
 .custom_width_150 {
     width: 150px;
 }
@@ -97,6 +103,9 @@ span.currentNumber {
 .custom_flex_justify_content_center {
     display: flex;
     justify-content: center;
+}
+.custom_flex_1 {
+    flex: 1;
 }
 /* input */
 .custom_border_transparent {
