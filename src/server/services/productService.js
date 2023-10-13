@@ -1,6 +1,6 @@
 const path = require('path');
 const { mongoose } = require('mongoose');
-const { Product, Order } = require('../db');
+const { Product, Order, User } = require('../db');
 const { uploadFile, deleteFile } = require('../utils/file-upload');
 const { sendEmail } = require('../utils/send-email');
 const uploadDirectory = path.join('public', 'upload', 'product');
@@ -34,16 +34,21 @@ class productService {
         return products;
     }
 
-    static async findBest3Product() {
-        const best3Items = await Product.find({}).sort({ totalSales: -1 }).limit(3);
-        let totalUserEmailList = [];
-        const totalUser = await User.find({}, 'email');
-        totalUser.forEach((item) => totalUserEmailList.push(item.email));
+    static async findBest3ProductsAndSendEmailToAllUsers() {
+        const best3Items = await this.findBest3Products();
+        const totalUsers = await User.find({}, 'email');
 
-        await sendEmail('sendCatalog', totalUserEmailList, best3Items);
-
-        return;
+        for (let i = 0; i < totalUsers.length; i++) {
+            const user = totalUsers[i];
+            await sendEmail('sendCatalog', user.email, best3Items);
+            console.log(`진행 중: ${i + 1} / ${totalUsers.length}`);
+        }
     }
+
+    static async findBest3Products() {
+        return await Product.find({}).sort({ totalSales: -1 }).limit(3);
+    }
+
     static async findProductOrderedCount(productId) {
         const orders = await Order.find({ products: productId });
 
