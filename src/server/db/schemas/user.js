@@ -6,8 +6,10 @@ const UserSchema = new Schema(
             type: String,
             required: true,
         },
+
         password: {
             type: String,
+
             required: true,
         },
         role: {
@@ -20,6 +22,13 @@ const UserSchema = new Schema(
             index: true,
         },
         wishList: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+        orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
+        confirmationToken: {
+            type: String,
+        },
+        confirmationAt: {
+            type: Date,
+        },
     },
     {
         timestamps: true,

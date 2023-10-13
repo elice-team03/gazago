@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+    <link rel="stylesheet" href="./cart.css">
+    <title>gazago</title>
+</head>
+
+<body>
+    <main class="container">
+        <article class="manage">
+            <label class="checkbox">
+                <input type="checkbox" class="checkbox__all">전체선택</label>
+            <button class="button is-light is-rounded delete__button" disabled>삭제하기</button>
+        </article>
+        <article class="cart">
+        </article>
+        <article class="total">
+            <section>
+                <hgroup class="total__title">
+                    <h6><strong>총 주문금액</strong></h6>
+                    <h6><strong>총 배송비</strong></h6>
+                    <h6><strong>총 결제금액</strong></h6>
+                </hgroup>
+                <div class="divider"></div>
+                <div class="total__price">
+                    <div class="total__box">
+                        <span class="total__price--big" id="total__price--product">0</span>원
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-plus-circle">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 12h8" />
+                        <path d="M12 8v8" />
+                    </svg>
+                    <div class="total__box">
+                        <span class="total__price--big" id="total__price--delivery">0</span>원
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-plus-circle">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 12h8" />
+                        <path d="M12 8v8" />
+                    </svg>
+                    <div class="total__box">
+                        <span class="total__price--big" id="total__price">0</span>원
+                    </div>
+                </div>
+            </section>
+        </article>
+        <article class="pagemove">
+            <button class="button is-medium is-responsive is-rounded is-outlined back__button">
+                계속 쇼핑하기
+            </button>
+            <button class="button is-medium is-responsive is-rounded order__button">
+                구매하기
+            </button>
+        </article>
+    </main>
+    <script type="module" src="./cart.js"></script>
+</body>
+
+</html>

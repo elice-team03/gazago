@@ -27,43 +27,6 @@ main {
     height: 100vh;
 }
 
-aside {
-    grid-area: aside; /* aside 요소를 정의된 영역에 배치합니다. */
-    margin: 50px;
-}
-
-.main-container {
-    grid-area: main-container; /* main-container 요소를 정의된 영역에 배치합니다. */
-    padding: 80px;
-}
-
-.sub-title {
-    display: inline-block;
-    font-size: var(--font-size-subtitle);
-    font-weight: 700;
-    letter-spacing: -0.27px;
-    line-height: 22px;
-    margin-bottom: 12px;
-    vertical-align: top;
-    /* color: #004225; */
-}
-
-ul {
-    margin-bottom: 30px;
-}
-
-.menu-link {
-    color: var(--color-font-grey);
-    font-size: var(--font-size-sm);
-    letter-spacing: -0.15px;
-    line-height: 30px;
-}
-
-.menu-link a {
-    text-decoration: none;
-    cursor: pointer;
-}
-
 .title {
     border-bottom: 3px solid;
 }
@@ -84,14 +47,31 @@ td {
 
 table {
     width: 90%;
-    border: 1px solid var(--color-font-grey);
-    margin: 40px;
+    border-collapse: collapse;
+    border-spacing: 0 40px;
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
+tr {
+    display: flex;
+    border: 1px solid #ebebeb ;
+    margin: 8px;
+}
+td {
+    display: flex;
+    justify-content: center;
+    padding-left: 50px;
+
+}
 td:nth-child(3) {
     text-align: center;
     vertical-align: middle;
     font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 40%;
 }
 
 td:nth-child(3) p {
@@ -99,12 +79,32 @@ td:nth-child(3) p {
 }
 
 button:nth-child(1) {
-    border-color: var(--color-main)
-}
-button:nth-child(2) {
     border-color: var(--color-main);
 }
-button:nth-child(2):hover {
+button:nth-child(1):hover {
     background-color: var(--color-main);
     color: white;
+}
+
+.empty {
+    justify-content: center;
+    width: 100%;
+    margin-right: 50px;
+}
+
+.check-container.emptyCheck {
+    display: none;
+}
+
+.main-header {
+    padding-bottom: 25px;
+}
+
+a .itemName{
+    text-decoration: none; /* 하이퍼링크의 기본 텍스트 밑줄 및 스타일 제거 */
+    color: black;
+}
+
+a .itemName:hover {
+    font-weight: 800;
 }

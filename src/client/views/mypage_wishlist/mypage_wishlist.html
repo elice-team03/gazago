@@ -89,3 +89,44 @@
         </main>
     </body>
 </html>
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>gazago</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+        <link rel="stylesheet" href="./mypage_wishlist.css" />
+        <link rel="stylesheet" href="/module/mypage_menu.css" />
+    </head>
+    <body>
+        <main class="container is-widescreen">
+            <!-- side bar -->
+            <div id="menu-container"></div>
+    
+            <!-- main -->
+            <div class="main-container">
+                <div class="main-header">
+                    <h1 class="title">관심 상품</h1>
+                </div>
+                <div class="check-container">
+                    <div>
+                        <input type="checkbox" id="total-check" name="total-check" />
+                        <label for="total-check">전체선택</label>
+                    </div>
+                    <div class="button-container">
+                        <button class="button is-small is-rounded" id="delete-button">삭제</button>
+                        <!-- <button class="button is-small is-rounded">구매</button> -->
+                    </div>
+                </div>
+                <div class="product-list">
+                    <table id="wishlist-table">
+                    </table>
+                </div>
+            </div>
+        </main>
+        <script src="/module/mypage_menu.js"></script>
+        <script src="./mypage_wishlist.js" type="module" defer></script>
+    </body>
+</html>

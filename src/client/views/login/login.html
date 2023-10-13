@@ -12,7 +12,7 @@
             <h1 class="logo">
                 <img src="./gazagologo.png" alt="logo" />
             </h1>
-            <form action="/login" method="get">
+            <form action="/login" method="get" id="form-container">
                 <div class="text-filed">
                     <label for="user-mail">이메일 주소</label>
                     <input type="text" name="user-mail" id="user-mail" required />
@@ -24,16 +24,17 @@
                     <span></span>
                 </div>
                 <!-- <input id="submit" type="submit" value="로그인"/> -->
-                <button id="submit" class="button is-fullwidth is-rounded">로그인</button>
+                <button id="submit" class="btn button is-fullwidth is-rounded">로그인</button>
                 <ul class="look-box">
                     <li class="look-link">
-                        <a href="#">회원 가입</a>
+                        <a href="/register">회원 가입</a>
                     </li>
                     <li class="look-link">
-                        <a href="#">비밀번호 찾기</a>
+                        <a href="/pw-find">비밀번호 찾기</a>
                     </li>
                 </ul>
             </form>
         </section>
+        <script src="./login.js" type="module" defer></script>
     </body>
 </html>

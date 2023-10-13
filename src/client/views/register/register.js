@@ -64,25 +64,24 @@ const validateRegister = () => {
 
 registerForm.addEventListener('submit', async function (event) {
     event.preventDefault();
-    
     // 유효성 검사를 먼저 실행하고, 검사가 성공적이면 API 호출
     if (validateRegister()) {
         const { email, password } = validateRegister();
 
         try {
             const data = { email, password };
-            const join = await Api.post('http://localhost:5001/api/users/register', data);
+            const join = await Api.post('/api/users/register', data);
 
             if (join.code === 201) {
                 // 서버에서 받은 메시지를 사용
                 alert(join.message);
-                window.location.href = '../login';
+                window.location.href = '/';
             } else {
                 alert(join.message);
                 window.location.href = '/';
             }
         } catch (error) {
-            alert("클라이언트 예외가 발생했습니다: " + error);
+            console.error('클라이언트 예외가 발생했습니다:', error);
         }
     }
 });
