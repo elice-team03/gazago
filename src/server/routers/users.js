@@ -134,14 +134,26 @@ router.get(
 router.get(
     '/wishlist',
     asyncHandler(async (req, res, next) => {
+        const ITEMS_PER_PAGE = 10;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * ITEMS_PER_PAGE;
+        const limit = ITEMS_PER_PAGE;
+
         const user = req.user.user;
         const foundUser = await userService.findUserById(user._id);
-        const wishlist = foundUser.wishList;
-        const result = await productService.findProductsInWishList(wishlist);
+        const wishlist = await productService.findProductsInWishList(foundUser.wishList, skip, limit);
+
+        const totalItems = foundUser.wishList.length;
+        const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
         res.json({
             code: 200,
             message: '요청이 성공하였습니다',
-            data: result,
+            data: {
+                wishlist,
+                currentPage: page,
+                totalPages: totalPages,
+            },
         });
     })
 );

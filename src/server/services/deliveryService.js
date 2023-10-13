@@ -14,7 +14,9 @@ class deliveryService {
             owner: loggedInUser._id,
         });
 
-        return await Delivery.create(buildDelivery);
+        const delivery = await Delivery.create(buildDelivery);
+
+        return delivery;
     }
 
     static async findAllDeliveriesByOwner(userId, skip, limit) {
