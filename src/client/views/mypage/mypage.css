@@ -40,4 +40,14 @@ td {
 
 .table {
     margin-top: 80px;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+    
+}
+
+.table th:not([align]) {
+    text-align: center;
 }
