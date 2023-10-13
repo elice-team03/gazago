@@ -77,8 +77,10 @@ class productService {
         return await Product.find({ category: categoryId });
     }
 
-    static async findProductsInWishList(wishlist) {
-        const products = await Product.find({ _id: { $in: wishlist } });
+    static async findProductsInWishList(wishlist, skip, limit) {
+        const products = await Product.find({ _id: { $in: wishlist } })
+            .skip(skip)
+            .limit(limit);
         return products;
     }
 
