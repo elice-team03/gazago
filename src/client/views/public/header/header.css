@@ -2,7 +2,7 @@
 
 header {
     display: grid !important;
-    place-items: center
+    place-items: center;
 }
 .header-wraper {
     display: flex;
@@ -14,19 +14,17 @@ header {
     width: 1152px;
 }
 
-a{
+a {
     text-decoration: none;
     color: #4a4a4a;
 }
 .logo {
     width: 160px;
-
 }
 
 #logout {
     display: none;
 }
-
 
 .header-main {
     min-width: 1152px;
@@ -38,14 +36,14 @@ a{
 .user-login {
     display: flex;
     width: 1152px;
-    justify-content:right;
+    justify-content: right;
     padding-top: 10px;
     font-size: 15px;
 }
 
-.user-cart-mypage{
+.user-cart-mypage {
     display: flex;
-    justify-content:right;
+    justify-content: right;
     font-size: 18px;
     font-weight: bold;
 }
@@ -56,28 +54,26 @@ a{
     color: #8c8c8c;
 }
 
-.user-cart-mypage li{
+.user-cart-mypage li {
     padding: 0 20px 2px 20px;
 }
 
-.search{
+.search {
     display: flex;
     align-items: center;
     padding-left: 30px;
     position: relative;
 }
 
-.search input{
+.search input {
     width: 500px;
     padding: 23px;
 }
 
-
 ul.navbar {
-    background:none;
+    background: none;
     min-width: 1152px;
     padding-left: 100px;
-
 }
 
 .search button {
@@ -97,7 +93,7 @@ nav ul {
     padding-left: 45px;
 }
 
-.main nav ul li a{
+.main nav ul li a {
     padding: 0px 20px;
     font-weight: 450;
 }
@@ -107,8 +103,6 @@ nav ul {
 .navbar-item:hover {
     color: #004225 !important;
 }
-
-
 
 .sub-nav {
     padding-left: 100px;
@@ -120,7 +114,6 @@ nav ul {
 .sub-nav .navbar .navbar-item {
     color: #004225 !important;
     border: 10px #004225 !important;
-    
 }
 .sub-nav .navbar {
     gap: 10px;
@@ -148,4 +141,3 @@ nav ul {
     pointer-events: none; /* 이 박스를 클릭이나 호버 이벤트를 무시 */
     z-index: 1; /* 다른 요소 위에 놓기 */
 }
-
