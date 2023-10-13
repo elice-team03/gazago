@@ -38,7 +38,7 @@ async function getUserData() {
                     <td>
                         <div class="photo">
                             <figure class="image is-128x128">
-                                <a href="/product/detail" onclick="localStorage.setItem('order_result', JSON.stringify('${itemId}'));"> 
+                                <a href="/product-detail" onclick="localStorage.setItem('product_detail', JSON.stringify('${itemId}'));"> 
                                 <img
                                     src="${itemThumnail}"
                                     alt="${itemName}"
@@ -48,7 +48,7 @@ async function getUserData() {
                         </div>
                     </td>
                     <td>
-                        <a href="/product/detail" onclick="localStorage.setItem('order_result', JSON.stringify('${itemId}'));">
+                        <a href="/product-detail" onclick="localStorage.setItem('product_detail', JSON.stringify('${itemId}'));">
                         <p class="itemName">${itemName}</p>
                         </a>
                         <span>${formatPrice}</span>
@@ -98,7 +98,11 @@ document.getElementById('delete-button').addEventListener('click', async () => {
 
     checkboxes.forEach(async (checkbox, index) => {
         if (checkbox.checked) {
-            const itemId = wishList[index]._id;
+            //checkbox[0]이면 삭제를 시도하지 않도록 검증
+            if (index === 0) {
+                return; // 삭제를 시도하지 않고 종료
+            }
+            const itemId = wishList[index - 1]._id;
 
             wishLists.push(itemId);
             checkbox.parentElement.parentElement.parentElement.remove();
