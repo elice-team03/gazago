@@ -32,6 +32,10 @@ main {
     margin-bottom: 30px;
 }
 
+.center {
+    padding-top: 13px;
+}
+
 .center h1 {
     text-align: center;
     padding: 0 0 20px 0;
@@ -55,7 +59,7 @@ main {
 #form-container .text_filed {
     position: relative;
     border-bottom: 2px solid var(--color-sub);
-    margin: 46px 0;
+    margin: 51px 0;
 }
 
 .text_filed input {
@@ -87,14 +91,13 @@ main {
 }
 .text_filed label {
     position: absolute;
-    top: 50%;
+    top: 14%;
     left: 5px;
     color: var(--color-main);
     transform: translateY(-160%);
     font-size: 14px;
     pointer-events: none;
 }
-
 
 /* 추후 js로 구현 예정인 CSS */
 /* .text_filed span::before {
@@ -113,8 +116,8 @@ main {
 } */
 
 #submit {
-    width: 100%;
-    height: 45px;
+    width: 50%;
+    /* height: 45px; */
     border: 1px solid;
     background-color: var(--color-main);
     border-radius: 25px;
@@ -122,24 +125,10 @@ main {
     color: white;
     font-weight: 700;
     cursor: pointer;
-    outline: none;
+    /* outline: none; */
 }
 
 #submit:hover {
-    border-color: var(--color-main);
-    transition: 0.5s;
-}
-
-#submitNewCode {
-    background-color: var(--color-main);
-    /* font-size: 15px; */
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    outline: none;
-}
-
-#submitNewCode:hover {
     border-color: var(--color-main);
     transition: 0.5s;
 }
@@ -148,7 +137,7 @@ main {
     padding-right: 40px; /* 오른쪽 여백을 버튼의 폭만큼 추가 */
 }
 
-.button {
+.zipcode-btn {
     position: absolute;
     top: -15px;
     right: 0;
@@ -159,8 +148,12 @@ main {
     font-size: 12px;
 }
 
-.button:hover {
+.zipcode-btn:hover {
     background-color: var(--color-main);
     color: white;
 }
+
+.button_filed {
+    text-align: center;
+  }
 
