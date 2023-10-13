@@ -42,7 +42,7 @@ async function sendEmail(type, email, contentOfEmail) {
                 <p style="text-indent: 10px; font-size: 18px; margin-top: 40px">임시 비밀번호</p>
                 <p style="border-bottom: 1px solid lightgrey; padding-bottom: 5px">${contentOfEmail}</p>
                 <a
-                    href="http://localhost:5001/login"
+                    href="http://kdt-sw-6-team03.elicecoding.com/login"
                     style="
                         display: block;
                         width: 100%;
@@ -226,7 +226,7 @@ async function sendEmail(type, email, contentOfEmail) {
                 </div>
             </div>
             <a
-                    href="http://localhost:5001/"
+                    href="http://kdt-sw-6-team03.elicecoding.com/"
                     style="
                         display:inline-block;
                         width: 50%;
