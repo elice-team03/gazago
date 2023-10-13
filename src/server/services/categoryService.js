@@ -22,11 +22,11 @@ class categoryService {
         return await Category.find({}).populate('parentCategory');
     }
 
-    static async findCategoriesWithProductCountByDepth(depth) {
-        const categories = await this.findCategoriesByDepth(depth);
+    static async findCategoriesWithProductCountByDepth(categories, skip, limit) {
+        const paginatedCategories = categories.slice(skip, skip + limit);
 
         const result = [];
-        for (const category of categories) {
+        for (const category of paginatedCategories) {
             const products = await Product.find({ category: category._id });
             const productCount = products.length;
 
