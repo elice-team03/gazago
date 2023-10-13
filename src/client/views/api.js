@@ -9,7 +9,6 @@ async function post(endpoint, data) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
             body: dataJson,
         });
@@ -28,7 +27,6 @@ async function get(endpoint, params = '') {
         const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
-                // Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
         const result = await response.json();
@@ -48,7 +46,6 @@ async function patch(endpoint, data) {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
             body: dataJson,
         });
@@ -69,7 +66,6 @@ async function put(endpoint, data) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
             body: dataJson,
         });
@@ -89,7 +85,6 @@ async function deleteRequest(endpoint) {
         const response = await fetch(apiUrl, {
             method: 'DELETE',
             headers: {
-                // Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
         const result = await response.json();

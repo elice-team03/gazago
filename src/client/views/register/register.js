@@ -71,12 +71,12 @@ registerForm.addEventListener('submit', async function (event) {
 
         try {
             const data = { email, password };
-            const join = await Api.post('http://localhost:5001/api/users/register', data);
+            const join = await Api.post('/api/users/register', data);
 
             if (join.code === 201) {
                 // 서버에서 받은 메시지를 사용
                 alert(join.message);
-                window.location.href = '../login';
+                window.location.href = '/';
             } else {
                 alert(join.message);
                 window.location.href = '/';
