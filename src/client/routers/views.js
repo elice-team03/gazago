@@ -27,4 +27,6 @@ function serveStatic(resource) {
     return express.static(resourcePath, option);
 }
 
+viewsRouter.use('/stripe', serveStatic('stripe'));
+
 module.exports = viewsRouter;
