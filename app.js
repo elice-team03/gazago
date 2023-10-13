@@ -11,6 +11,7 @@ const connectToMongoDB = require('./src/server/db/db-connect');
 const fileUpload = require('express-fileupload');
 const viewsRotuer = require('./src/client/routers/views');
 const apiRouter = require('./src/server/routers/index');
+const stripeRouter = require('./src/server/stripe');
 const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
 const { requiredLogin, checkAdmin, blockLogin } = require('./src/server/middlewares/access-control');
 

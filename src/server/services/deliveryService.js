@@ -31,10 +31,22 @@ class deliveryService {
     }
     static async getTotaldeliveriesCount(userId) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         const deliveries = await Delivery.find({ owner: userId }).exec();
 
 =======
         return await Delivery.countDocuments({ owner: userId }).exec();
+=======
+        const deliveries = await Delivery.find({ owner: userId }).exec();
+
+        const uniqueAddresses = new Set();
+
+        deliveries.forEach((delivery) => {
+            uniqueAddresses.add(delivery.address);
+        });
+
+        return uniqueAddresses.size;
+>>>>>>> b54ba8b (feature: 결제 시스템 구현 및 배송정보 조회 시 중복 값 제거 로직 추가)
     }
 >>>>>>> 6fd42b7 (feature: 페이지네이션 필요한 목록 조회 API에 페이지네이션 기능 추가)
     static async modifyDelivery(deliveryId, newDelivery) {

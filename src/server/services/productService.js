@@ -26,7 +26,6 @@ class productService {
             })
             .skip(skip)
             .limit(limit);
-
         for (const product of products) {
             product.totalSales = await this.findProductOrderedCount(product._id);
         }
