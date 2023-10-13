@@ -2,23 +2,107 @@ import * as Api from '../api.js';
 
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
-const brand = searchParams.get('brand');
-const beginPrice = searchParams.get('beginPrice');
-const searchKeyword = searchParams.get('searchKeyword');
 const params = queryString.substring(1);
+console.log(params);
+let brand = searchParams.getAll('brand');
+const searchKeyword = searchParams.get('searchKeyword');
 
-async function getPage(page, params) {
-    const response = await Api.get('/api', `products?page=${page}&${params}`);
-    const data = response.data;
-    return data;
+let priceRange = [];
+const storedPriceRange = sessionStorage.getItem('priceRange');
+console.log(storedPriceRange);
+
+if(storedPriceRange){
+    const parsedPriceRange = JSON.parse(storedPriceRange);
+    priceRange = [...parsedPriceRange];
+}
+console.log(priceRange);
+
+function removeCommas(price) {
+    const priceWithoutCommas = price.replace(/,/g, '').replace('원', '');
+    return priceWithoutCommas;
 }
 
-async function loadPage(page, params) {
-    const pageData = await getPage(page, params);
+const dataArr = [];
+const productIdList = new Set();
+
+async function getPage(page, params ='', priceRange) {
+    try {
+        if (priceRange.length === 0) {
+
+            const response = await Api.get('/api', `products?page=${page}&${params}`);
+            const data = response.data;
+            return data;
+        } else {
+            const fetchPromises = priceRange.map(async (price) => {
+                const [beginPrice, endPrice] = price;
+                let url = '';
+                if(!params){
+                    url = `/api/products?page=${page}&beginPrice=${removeCommas(
+                        beginPrice
+                    )}&endPrice=${removeCommas(endPrice)}`;
+                }else {
+                    url = `/api/products?page=${page}&${params}&beginPrice=${removeCommas(
+                        beginPrice
+                    )}&endPrice=${removeCommas(endPrice)}`
+                }
+                console.log(url);
+                const response = await Api.get(url);
+                return response.data;
+            });
+
+            const dataForAllRanges = await Promise.all(fetchPromises);
+            const combinedData = dataForAllRanges.reduce((result, data) => result.concat(data), []);
+
+            dataArr.push(...combinedData);
+            return combinedData;
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
+        throw error;
+    }
+}
+
+const resultRange = [];
+priceRange.forEach((a) => {
+    const range = document.getElementById(a).nextElementSibling.innerText;
+    resultRange.push(range.split(' ~ '));
+});
+console.log(resultRange);
+
+console.log(productIdList);
+
+let total = '';
+let ableWish = ''
+
+async function loadPage(page, params, priceRange) {
+    const pageData = await getPage(page, params, priceRange);
     const mappedData = productDataMapping(pageData);
-    displayProducts(mappedData);
-    bookMarker();
+    const goodBoxes = document.querySelectorAll('.good-box');
+    const idArray = [];
+
+    if (goodBoxes.length > 0) {
+        for (const box of goodBoxes) {
+            idArray.push(box.id);
+        }
+    }
+    let filteredData = [];
+    if (idArray.length > 0) {
+        for (const product of mappedData) {
+            if (!idArray.includes(product.id)) {
+                filteredData.push(product);
+            }
+        }
+    } else {
+        filteredData = mappedData;
+    }
+    displayProducts(filteredData);
+    const response = await getLogin();
+    if(response.data) wishMarker();
+    goDetailPage();
+    total = filteredData.length;
+    ableWish = response.data;
 }
+
 function productDataMapping(products) {
     return products.map((data) => {
         return {
@@ -27,22 +111,27 @@ function productDataMapping(products) {
             name: data.name,
             brand: data.brand,
             price: data.price,
-            url: `http://localhost:5001/product/detail/${data._id}`,
+            url: '/product-detail/',
         };
     });
 }
 
 //위시리스트 불러오기
+
 let wishList = [];
 async function getWishList() {
     const response = await Api.get('/api/users/wishlist');
     const data = response.data;
     data.forEach((item) => {
-        wishList.push(item);
+        wishList.push(item._id);
     });
 }
-getWishList();
 
+if(ableWish){
+    getWishList();
+}
+
+console.log(wishList);
 async function addWishList(data) {
     const response = await Api.patch('/api/users/wishlist', data);
     console.log(response);
@@ -51,7 +140,6 @@ async function removeWishList(id) {
     const response = await Api.deleteRequest(`/api/users/wishlist/${id}`);
     console.log(response);
 }
-    
 
 function wisheventcallback(e) {
     const icon = e.target.classList;
@@ -69,7 +157,22 @@ function wisheventcallback(e) {
     }
 }
 
-function bookMarker() {
+function goDetailPage() {
+    const detail = document.querySelectorAll('.product__img');
+    detail.forEach((item)=>{
+        item.addEventListener('click', function(){
+            localStorage.setItem('order_result', JSON.stringify(item.dataset.id));
+        })
+    })
+    const nameToDetail = document.querySelectorAll('.product');
+    nameToDetail.forEach((item)=>{
+        item.addEventListener('click', function(){
+            localStorage.setItem('order_result', JSON.stringify(item.dataset.id));
+        })
+    })
+}
+
+function wishMarker() {
     const wishIcon = document.querySelectorAll('.fa-bookmark');
     wishIcon.forEach((bookmark) => {
         bookmark.removeEventListener('click', wisheventcallback);
@@ -96,7 +199,7 @@ function displayProducts(products) {
         const productBoxContent = `<div class="product-box">
         <div class="product__img-box">
         <a href=${product.url}>
-        <img class="product__img"
+        <img class="product__img " data-id=${product.id}
         src=${product.imgUrl} alt="">
         </a>
         </div>
@@ -110,7 +213,7 @@ function displayProducts(products) {
         </div>
                                     <div class="product__name-box">
                                     <a href=${product.url}>
-                                    <span class="product">${product.name}</span>
+                                    <span class="product" data-id=${product.id}>${product.name}</span>
                                     </a>
                                     </div>
                                     <div class="price__box">
@@ -131,25 +234,40 @@ const getNextPage = (() => {
             const nextPage = ++page;
             //동작확인용
             console.log('page:', nextPage);
-            loadPage(nextPage, params).then(() => {
+            loadPage(nextPage, params, resultRange).then(() => {
                 isFetching = false;
             });
         }
     };
 })();
-//스크롤 이벤트
-window.addEventListener('scroll', () => {
-    const scrollPos = window.innerHeight + window.scrollY;
-    const bodyHeight = document.body.offsetHeight;
 
-    if (scrollPos >= bodyHeight) {
-        getNextPage();
-    }
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            // 화면에 요소가 표시될 때 무한 스크롤 기능 실행
+            getNextPage();
+            stopPagination();
+        }
+    });
+}, {
+    root: null, // 기본값인 viewport를 사용
+    threshold: 0.1, // 요소가 화면에 10% 이상 표시될 때 실행
 });
 
+// 감시할 요소를 선택하고 감시자(observer) 등록
+const bottom = document.getElementById('bottom-div');
+observer.observe(bottom);
 //첫페이지 불러오기
 
-loadPage(1, params);
+loadPage(1, params, resultRange);
+
+function stopPagination() {
+    const shouldStopPagination = total <= 20; 
+    if (shouldStopPagination) {
+        observer.unobserve(bottom);
+    }
+}
 
 const currentURL = window.location.href;
 const url = new URL(currentURL);
@@ -159,12 +277,12 @@ url.searchParams.forEach((value, key) => {
 });
 
 function newParams() {
-    return (
-        '?' +
-        Object.keys(paramsObj)
-            .map((key) => `${key}=${paramsObj[key]}`)
-            .join('&')
-    );
+    const newBrand = [...new Set(brand.map((a) => `brand=${a}`))].join('&');
+    if (searchKeyword) {
+        return `?${newBrand}&searchKeyword=${searchKeyword}`;
+    } else if (!searchKeyword) {
+        return `?${newBrand}`;
+    }
 }
 
 const brandCheckBox = 'input[name="brand"]';
@@ -173,11 +291,11 @@ const selectedBrand = document.querySelectorAll(brandCheckBox);
 selectedBrand.forEach((a) => {
     a.addEventListener('click', function (e) {
         if (e.target.checked) {
-            paramsObj.brand = e.target.value;
-            window.location.href = 'http://localhost:5001/product-list/' + newParams();
+            brand.push(e.target.value);
+            window.location.href = '/product-list/' + newParams();
         } else {
-            delete paramsObj.brand;
-            window.location.href = 'http://localhost:5001/product-list/' + newParams();
+            brand = brand.filter((item) => item !== e.target.value);
+            window.location.href = '/product-list/' + newParams();
         }
     });
 });
@@ -185,45 +303,51 @@ selectedBrand.forEach((a) => {
 const priceCheckBox = 'input[name="priceCheckBox"]';
 const selectedPrice = document.querySelectorAll(priceCheckBox);
 
-function parsePrice(priceString) {
-    return priceString.replace(/,/g, '');
-}
 
+
+console.log(priceRange);
 selectedPrice.forEach((a) => {
     a.addEventListener('click', function (e) {
         if (e.target.checked) {
-            const priceCategory = e.target.nextElementSibling.innerText.split(' ~ ');
-            paramsObj.beginPrice = parsePrice(priceCategory[0]);
-            paramsObj.endPrice = parsePrice(priceCategory[1]);
-            window.location.href = 'http://localhost:5001/product-list/' + newParams();
+            priceRange.push(e.target.id);
+            priceRange = [...new Set(priceRange)];
+            const priceSession = JSON.stringify(priceRange);
+            sessionStorage.setItem('priceRange', priceSession);
+
+            // const priceCategory = e.target.nextElementSibling.innerText.split(' ~ ');
+            // paramsObj.beginPrice = parsePrice(priceCategory[0]);
+            // paramsObj.endPrice = parsePrice(priceCategory[1]);
+            window.location.href = '/product-list/' + newParams();
         } else {
-            delete paramsObj.beginPrice;
-            delete paramsObj.endPrice;
-            window.location.href = 'http://localhost:5001/product-list/' + newParams();
+            priceRange = priceRange.filter((item) => item !== e.target.id);
+            priceRange = [...new Set(priceRange)];
+            const priceSession = JSON.stringify(priceRange);
+            sessionStorage.setItem('priceRange', priceSession);
+
+            window.location.href = '/product-list/' + newParams();
         }
     });
 });
 
 const priceAll = document.querySelector('input[name="priceAll"]');
 priceAll.addEventListener('click', function (e) {
-    delete paramsObj.beginPrice;
-    delete paramsObj.endPrice;
-    window.location.href = 'http://localhost:5001/product-list/' + newParams();
+    sessionStorage.setItem('priceRange', []);
+    window.location.href = '/product-list/' + newParams();
 });
 
 if (brand) {
-    document.querySelector(`input[value=${brand}]`).checked = true;
+    brand.forEach((item) => {
+        document.querySelector(`input[value=${item}]`).checked = true;
+    });
 }
-if (beginPrice) {
-    document.getElementById(beginPrice).checked = true;
-} else {
-    priceAll.checked = true;
+if (priceRange.length !== 0) {
+    priceRange.forEach((a) => {
+        document.getElementById(a).checked = true;
+    });
+
+    } else {
+        priceAll.checked = true;
 }
 if (searchKeyword) {
     document.querySelector('.input').value = searchKeyword;
 }
-console.log(brand);
-console.log(beginPrice);
-console.log(searchKeyword);
-
-

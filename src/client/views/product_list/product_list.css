@@ -8,11 +8,10 @@ a {
 }
 
 .wrapper {
-    padding: 0 0 100px 0;
     display: flex;
     font-family: 'Noto Sans KR', sans-serif;
-    padding-top: 100px;
     justify-content: space-between;
+    max-width: 1152px !important;
 }
 .product__container {
     display: flex;
@@ -87,4 +86,7 @@ a {
   }
 .menu__brand-check-box-container {
     padding-bottom: 50px;
+}
+i{
+    cursor: pointer;
 }
