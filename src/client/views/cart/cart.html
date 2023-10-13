@@ -14,88 +14,10 @@
     <main class="container">
         <article class="manage">
             <label class="checkbox">
-                <input type="checkbox" onclick="selectAll(this)">전체선택</label>
-            <button class="button is-light is-rounded delete__button">삭제하기</button>
+                <input type="checkbox" class="checkbox__all">전체선택</label>
+            <button class="button is-light is-rounded delete__button" disabled>삭제하기</button>
         </article>
-        <article>
-            <section class="content">
-                <div class="product">
-                    <label class="checkbox">
-                        <input type="checkbox"></label>
-                    <img class="product__image"
-                        src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000242.jpg?1584076493"></img>
-                    <div class="product__detail">
-                        <div>
-                            <h6>체어원 / 올 블랙</h6>
-                        </div>
-                        <b>
-                            <span class="product__price">75,000원</span>
-                        </b>
-                    </div>
-                </div>
-                <div class="price">
-                    <b>
-                        <span class="counter__price">75,000원</span>
-                    </b>
-                    <div class="counter">
-                        <div class="counter__minus">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-minus">
-                                <path d="M5 12h14" />
-                            </svg>
-                        </div>
-                        <input class="counter__number" value="1">
-                        <div class="counter__plus">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-plus">
-                                <path d="M5 12h14" />
-                                <path d="M12 5v14" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="content">
-                <div class="product">
-                    <label class="checkbox">
-                        <input type="checkbox"></label>
-                    <img class="product__image"
-                        src="http://www.helinoxstore.co.kr/shopimages/helinox/0010050000262.jpg?1693890540"></img>
-                    <div class="product__detail">
-                        <div>
-                            <h6>체어원 / 코요테탄</h6>
-                        </div>
-                        <b>
-                            <span class="product__price">135,000원</span>
-                        </b>
-                    </div>
-                </div>
-                <div class="price">
-                    <b>
-                        <span class="counter__price">135,000원</span>
-                    </b>
-                    <div class="counter">
-                        <div class="counter__minus">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-minus">
-                                <path d="M5 12h14" />
-                            </svg>
-                        </div>
-                        <input class="counter__number" value="1">
-                        <div class="counter__plus">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-plus">
-                                <path d="M5 12h14" />
-                                <path d="M12 5v14" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <article class="cart">
         </article>
         <article class="total">
             <section>
@@ -141,7 +63,7 @@
             </button>
         </article>
     </main>
-    <script src="./cart.js"></script>
+    <script type="module" src="./cart.js"></script>
 </body>
 
 </html>

@@ -14,7 +14,10 @@ class deliveryService {
             owner: loggedInUser._id,
         });
 
-        return await Delivery.create(buildDelivery);
+        const delivery = await Delivery.create(buildDelivery);
+
+        await userService.addUserDelivery(loggedInUser._id, delivery._id);
+        return delivery;
     }
 
     static async findAllDeliveriesByOwner(userId, skip, limit) {
@@ -71,6 +74,15 @@ class deliveryService {
         }
 
         return updatedDelivery;
+    }
+
+    static async changeAddress(userId, newAddress) {
+        const user = User.findById(userId);
+        if (!user) {
+            throw Object.assign(new Error('유저 ID가 올바르지 않습니다'), { status: 400 });
+        }
+
+        return await Delivery.findOneAndUpdate({ owner: userId }, { address: newAddress });
     }
 }
 

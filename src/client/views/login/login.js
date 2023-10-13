@@ -11,7 +11,7 @@ async function loginHandler(event) {
 
     try {
         const data = { email, password };
-        const login = await Api.post('http://localhost:5001/api/users/login', data);
+        const login = await Api.post('/api/users/login', data);
 
         if (login.code === 200) {
             alert(login.message);
