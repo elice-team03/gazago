@@ -52,7 +52,7 @@ const navbarText = `<div>
 </nav>
 </div>`;
 
-header.insertAdjacentHTML('beforeend', navbarText);
+document.querySelector('header').insertAdjacentHTML('beforeend', navbarText);
 
 const navbarItems = document.querySelectorAll('.main-nav ul li');
 const submenus = document.querySelectorAll('.sub-nav');
