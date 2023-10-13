@@ -19,6 +19,8 @@
         <!-- common css -->
         <link rel="stylesheet" href="/stylesheets/normalize.css" />
         <link rel="stylesheet" href="/stylesheets/admin.css" />
+        <link rel="stylesheet" href="/public/header/header.css" />
+        <link rel="stylesheet" href="/public/footer/footer.css" />
         <link
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet"
@@ -33,9 +35,7 @@
                     <aside class="side_menu column custom_flex_none_width_15">
                         <ul>
                             <li class="custom_padding_10">
-                                <a href="/admin/category" class="custom_color_gray subtitle is-5 cus_hover"
-                                    >카테고리 관리</a
-                                >
+                                <a href="/admin" class="custom_color_gray subtitle is-5 cus_hover">카테고리 관리</a>
                             </li>
                             <li class="custom_padding_10">
                                 <a href="/admin/product" class="custom_color_gray subtitle is-5 cus_hover">상품 관리</a>
@@ -144,8 +144,8 @@
                             </table>
                         </section>
                         <div
-                        class="pagination-container custom_padding_top_bottom_50 is-flex is-justify-content-center is-align-items-center"
-                    ></div>
+                            class="pagination-container custom_padding_top_bottom_50 is-flex is-justify-content-center is-align-items-center"
+                        ></div>
                     </div>
                 </div>
             </div>
@@ -153,6 +153,8 @@
         <footer></footer>
         <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/locales/ko.js"></script>
-        <script type="module" src="./admin_order.js"></script>
+        <script src="./admin_order.js" type="module"></script>
+        <script src="/public/header/header.js"></script>
+        <script src="/public/footer/footer.js"></script>
     </body>
 </html>
