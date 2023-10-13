@@ -18,14 +18,35 @@ class deliveryService {
     }
 
     static async findAllDeliveriesByOwner(userId, skip, limit) {
-        return await Delivery.find({ owner: userId }).skip(skip).limit(limit);
+        const deliveries = await Delivery.find({ owner: userId }).skip(skip).limit(limit);
+
+        const uniqueAddresses = new Set();
+        const uniqueDeliveries = [];
+
+        deliveries.forEach((delivery) => {
+            const address = delivery.address;
+            if (!uniqueAddresses.has(address)) {
+                uniqueAddresses.add(address);
+                uniqueDeliveries.push(delivery);
+            }
+        });
+
+        return uniqueDeliveries;
     }
 
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
     static async getTotaldeliveriesCount(userId) {
-        return await Delivery.countDocuments({ owner: userId }).exec();
+        const deliveries = await Delivery.find({ owner: userId }).exec();
+
+        const uniqueAddresses = new Set();
+
+        deliveries.forEach((delivery) => {
+            uniqueAddresses.add(delivery.address);
+        });
+
+        return uniqueAddresses.size;
     }
     static async modifyDelivery(deliveryId, newDelivery) {
         const { contact, code, address, subAddress, email } = newDelivery;
