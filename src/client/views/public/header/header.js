@@ -129,6 +129,16 @@ async function logOut() {
     }
 }
 
+function noSearchbar (){
+    document.querySelector('.search').style.display ='none'
+    document.querySelector('.header-main').style.padding = '0 45px 0 45px';
+} 
+
+function noNavbar (){
+    document.querySelectorAll('.navbar-container').forEach((e)=>{
+        e.style.display = 'none';
+    })
+}
 
 // async function getCategoriesMenu() {
 //     const response = await fetch('/api/categories/menu', {
