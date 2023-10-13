@@ -7,7 +7,8 @@ const footerContent = `<footer class="footer-custom">
     </p>
     <p id="copyRightMsg">
       photo source: <br />
-      http://hpix.co.kr/product/concret-d-side-table-3-colors/11902/category/543/display/1/<br />
+      http://minimalworks.co.kr/<br />
+      http://www.helinoxstore.co.kr/<br/>
       저작권 문제시 삭제하겠습니다.
     </p>
   </div>

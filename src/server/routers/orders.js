@@ -51,7 +51,7 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const ITEMS_PER_PAGE = 20;
+        const ITEMS_PER_PAGE = 10;
         const page = parseInt(req.query.page) || 1;
         const skip = (page - 1) * ITEMS_PER_PAGE;
         const limit = ITEMS_PER_PAGE;
