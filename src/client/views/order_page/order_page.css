@@ -163,7 +163,7 @@
 .button {
     font-family: 'Noto Sans KR', sans-serif;
     padding: 30px 0;
-    margin-top: 60px;
+    margin: 30px 0;
     background-color: #004225;
     border-radius: 50px;
     color: #ffffff;
@@ -187,4 +187,55 @@
 }
 .input__expire {
     width: 16%;
+}
+.direct__message {
+    resize: none;
+    border-color: #dbdbdb;
+    width: 420px;
+    height: 100px;
+    display: none;
+    border-top: none;
+    padding: 10px;
+}
+.direct__message:focus {
+    outline: none;
+}
+.title {
+    font-size: 16px;
+    font-weight: normal;
+}
+.title:not(:last-child) {
+    margin-bottom: 0px;
+}
+.last__delivery {
+    margin-left: 99px;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    display: none;
+}
+.box {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.modal__divider {
+    display: inline-block;
+    border-top: 1px solid #ccc;
+    width: 94%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+.modal__detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.add__button {
+    width: 30%;
+    margin: 16px auto;
+    padding: 0;
+}
+.modal__box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
