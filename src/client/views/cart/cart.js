@@ -26,6 +26,7 @@ function createCartElement(idx) {
                     <input type="checkbox"></label>
                 <img class="product__image"></img>
                 <div class="product__detail">
+                    <span class="product__brand"></span>
                     <div>
                         <h6 class="product__title"></h6>
                     </div>
@@ -62,6 +63,7 @@ function createCartElement(idx) {
 }
 async function renderCartItems(item, idx) {
     const productImages = document.querySelectorAll('.product__image');
+    const productBrands = document.querySelectorAll('.product__brand');
     const productTitles = document.querySelectorAll('.product__title');
     const productPrices = document.querySelectorAll('.product__price');
     const counterPrices = document.querySelectorAll('.counter__price');
@@ -71,6 +73,7 @@ async function renderCartItems(item, idx) {
     const data = response.data;
 
     productImages[idx].setAttribute('src', `${data.thumbnailPath}`);
+    productBrands[idx].innerHTML = data.brand;
     productTitles[idx].innerHTML = data.name;
     productPrices[idx].innerHTML = `${data.price.toLocaleString()}원`;
     counterPrices[idx].innerHTML = `${(data.price * item.quantity).toLocaleString()}원`;
@@ -208,7 +211,6 @@ function deleteCheckedItems() {
                 const contents = document.querySelectorAll('.content');
                 if (data.id === cartData[idx - 1].id) {
                     const checkedContent = contents[dataIndex];
-                    console.log(dataIndex);
                     checkedContent.remove(); //해당 element 삭제
                     newCartData.splice(dataIndex, 1); //cartData에서 삭제할 현재 element에 해당하는 위치를 찾아 해당 값을 cartData에서 삭제한다.
                 }

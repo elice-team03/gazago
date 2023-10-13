@@ -21,28 +21,29 @@
         </div>
         <div class="tabs is-boxed">
           <ul>
-            <li><a>기존 배송지</a></li>
-            <li class="is-active"><a>신규입력</a></li>
+            <li class="tab__link"><a>기존 배송지</a></li>
+            <li class="tab__link is-active"><a>신규입력</a></li>
           </ul>
         </div>
         <div class="input__box">
           <span class="input__label">배송지명</span>
-          <input class="input input__half" type="text">
+          <input class="input input__half title" type="text">
+          <span class="last__delivery" data-target="last__delivery--modal">이전 배송지 목록</span>
         </div>
         <div class="input__box">
           <span class="input__label">수령인<span class="point">*</span></span>
-          <input class="input input__half" type="text">
+          <input class="input input__half receiver" type="text">
         </div>
         <div class="input__box">
           <span class="input__label">배송지<span class="point">*</span></span>
-          <input class="input input__zipcode" id="zipcode" type="text">
+          <input class="input input__zipcode code" id="zipcode" type="text">
           <div class="input__button--zipcode">우편번호 검색</div>
         </div>
         <div class="input__box--empty">
-          <input class="input" id="address" type="text">
+          <input class="input address" id="address" type="text">
         </div>
         <div class="input__box--empty">
-          <input class="input" id="detailAddress" type="text">
+          <input class="input subAddress" id="detailAddress" type="text">
         </div>
         <div class="input__box">
           <span class="input__label">연락처<span class="point">*</span></span>
@@ -120,6 +121,18 @@
       <button class="button is-medium is-fullwidth pay__button">결제하기</button>
     </article>
   </main>
+  <div id="last__delivery--modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box">
+        <div class="modal__box">
+          <div class="modal__divider"></div>
+        </div>
+        <div class="pagination-container"></div>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script type="module" src="./order_page.js"></script>
   <script src="../public/zipcodeBtn/zipcodeBtn.js"></script>

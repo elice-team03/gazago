@@ -74,6 +74,164 @@ allCheckbox.addEventListener('click', () => {
         else item.checked = false;
     });
 });
+const tabLinks = document.querySelectorAll('.tab__link');
+tabLinks.forEach((item) => {
+    item.addEventListener('click', () => {
+        tabLinks.forEach((tabLink) => tabLink.classList.remove('is-active'));
+        item.classList.add('is-active');
+        const lastDeliveryButton = document.querySelector('.last__delivery');
+        if (item.innerText === '기존 배송지') {
+            loadUserDelivery();
+            lastDeliveryButton.style.display = 'block';
+        } else {
+            const inputItems = document.querySelectorAll('input');
+            inputItems.forEach((item) => {
+                item.value = '';
+            });
+            lastDeliveryButton.style.display = 'none';
+        }
+    });
+});
+
+async function openModal($el, page, recall) {
+    $el.classList.add('is-active');
+    if (!page) page = 1;
+    const response = await Api.get(`/api/deliveries?page=${page}`);
+    console.log(page);
+    const data = response.data;
+    const deliveries = data.deliveries.map((item) => [
+        item.title,
+        item.receiver,
+        item.code,
+        item.address,
+        item.contact,
+    ]);
+
+    const box = document.querySelector('.modal__box');
+    box.innerHTML = `
+        <div class="modal__divider"></div>
+    `;
+    deliveries.forEach((item, itemIdx) => {
+        const labels = ['배송지명', '수령인', '우편번호', '주소', '연락처'];
+        item.forEach((text, textIdx) => {
+            box.innerHTML += `
+            <div class="modal__detail modal-${itemIdx}">
+                <span>${labels[textIdx]}</span>
+                <span>${text}</span>
+            </div>
+          `;
+        });
+        box.innerHTML += `
+            <button class="button add__button modal-${itemIdx}">추가하기</button>
+            <div class="modal__divider"></div>
+        `;
+    });
+    if(recall !== 'none') renderPagination($el, data.totalPages);
+    deliveries.forEach((item, itemIdx) => {
+        const addButton = document.querySelectorAll('.add__button');
+        addButton[itemIdx].addEventListener('click', () => {
+            loadUserLastDelivery($el, item, itemIdx);
+        });
+    });
+}
+let currentIndex;
+function renderPagination($el, totalPages) {
+    const paginationContainer = document.querySelector('.pagination-container');
+    if (paginationContainer.innerHTML === '') {
+        paginationContainer.innerHTML += `
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            <a class="pagination-previous">이전</a>
+            <a class="pagination-next">다음</a>
+            <ul class="pagination-list"></ul>
+            </nav>
+        `;
+        const paginationList = document.querySelector('.pagination-list');
+        for (let i = 0; i < totalPages; i++) {
+            paginationList.innerHTML += `
+                <li><a class="pagination-link">${i + 1}</a></li>
+            `;
+        }
+        currentIndex = 0;
+        const paginationLink = document.querySelectorAll('.pagination-link');
+        paginationLink[currentIndex].classList.add('is-current');
+    }
+    const paginationLink = document.querySelectorAll('.pagination-link');
+    paginationLink.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[idx].classList.add('is-current');
+            currentIndex = idx;
+            openModal($el, currentIndex + 1, 'none');
+        });
+    });
+    const nextPageButton = document.querySelector('.pagination-next');
+    nextPageButton.addEventListener('click', () => {
+        if (currentIndex + 1 < totalPages) {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[currentIndex + 1].classList.add('is-current');
+            currentIndex++;
+            openModal($el, currentIndex + 1, 'none');
+        }
+    });
+    const previousPageButton = document.querySelector('.pagination-previous');
+    previousPageButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[currentIndex - 1].classList.add('is-current');
+            currentIndex--;
+            openModal($el, currentIndex + 1, 'none');
+        }
+    });
+}
+function loadUserLastDelivery($el, item) {
+    closeModal($el);
+    const contact = document.querySelectorAll('.input__min');
+    ['title', 'receiver', 'code', 'address'].forEach((field, idx) => {
+        const value = item[idx];
+        document.querySelector(`.${field}`).value = value;
+    });
+    const contactIndices = [0, 3, 7, 11];
+    contact.forEach((input, idx) => {
+        input.value = item[4].slice(contactIndices[idx], contactIndices[idx + 1]);
+    });
+}
+function closeModal($el) {
+    $el.classList.remove('is-active');
+    const box = document.querySelector('.modal__box');
+    box.innerHTML = `
+        <div class="modal__divider"></div>
+    `;
+}
+(document.querySelectorAll('.last__delivery') || []).forEach(($trigger) => {
+    const modal = $trigger.dataset.target;
+    const $target = document.getElementById(modal);
+    $trigger.addEventListener('click', () => {
+        openModal($target);
+    });
+});
+(
+    document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') ||
+    []
+).forEach(($close) => {
+    const $target = $close.closest('.modal');
+    $close.addEventListener('click', () => {
+        closeModal($target);
+    });
+});
+
+async function loadUserDelivery() {
+    const response = await Api.get('/api/users');
+    const data = response.data;
+    const delivery = data.delivery;
+    const contact = document.querySelectorAll('.input__min');
+
+    ['title', 'receiver', 'code', 'address', 'subAddress'].forEach((item) => {
+        document.querySelector(`.${item}`).value = delivery[item];
+    });
+    contact[0].value = delivery['contact'].slice(0, 3);
+    contact[1].value = delivery['contact'].slice(3, 7);
+    contact[2].value = delivery['contact'].slice(7, 11);
+}
 
 const payButton = document.querySelector('.pay__button');
 //input에 입력된 값들을 가져와서 주문을 전송하는 함수
