@@ -85,6 +85,23 @@ class orderService {
         return await Order.countDocuments(filter).exec();
     }
 
+    static async findOrderWithProducts(_id) {
+        const order = await Order.findById(_id).populate('delivery');
+        if (!order) {
+            throw Object.assign(new Error('주문 내역을 찾을 수 없습니다.'), { status: 400 });
+        }
+        const productIds = order.products;
+        const products = await Product.find({ _id: { $in: productIds } }).populate({
+            path: 'category',
+            populate: {
+                path: 'parentCategory',
+            },
+        });
+        order.products = products;
+
+        return order;
+    }
+
     static async modifyOrderStatus({ _id, status }) {
         if (!mongoose.Types.ObjectId.isValid(_id)) {
             const error = new Error('주문 Id 값이 유효하지 않습니다.');

@@ -14,6 +14,7 @@ const apiRouter = require('./src/server/routers/index');
 const stripeRouter = require('./src/server/stripe');
 const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
 const { requiredLogin, checkAdmin, blockLogin } = require('./src/server/middlewares/access-control');
+const mailScheduler = require('./src/server/utils/time-scheduler');
 
 const app = express();
 const port = process.env.PORT || 5001;
@@ -41,6 +42,9 @@ app.use(passport.initialize());
 // 미들웨어 설정
 app.use(getUserFromJwt);
 app.use(requiredLogin, checkAdmin, blockLogin);
+
+// 메일 스케줄러 실행
+mailScheduler();
 
 // 라우팅 설정
 app.use('/', viewsRotuer);
