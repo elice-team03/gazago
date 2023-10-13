@@ -15,6 +15,8 @@
         <!-- common css -->
         <link rel="stylesheet" href="/stylesheets/normalize.css" />
         <link rel="stylesheet" href="/stylesheets/admin.css" />
+        <link rel="stylesheet" href="../public/header/header.css" />
+        <link rel="stylesheet" href="../public/footer/footer.css" />
         <link
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet"
@@ -29,9 +31,7 @@
                     <aside class="side_menu column custom_flex_none_width_15">
                         <ul>
                             <li class="custom_padding_10">
-                                <a href="/admin/category" class="custom_color_gray subtitle is-5 cus_hover"
-                                    >카테고리 관리</a
-                                >
+                                <a href="/admin" class="custom_color_gray subtitle is-5 cus_hover">카테고리 관리</a>
                             </li>
                             <li class="custom_padding_10">
                                 <a href="/admin/product" class="custom_color_black subtitle is-5 cus_hover"
@@ -220,17 +220,19 @@
                                         <th class="custom_text_align_center">수정 및 삭제</th>
                                     </tr>
                                 </thead>
-                                <tbody id="product_list_tbody">
+                                <tbody id="product_list_tbody"></tbody>
                             </table>
                         </section>
                         <div
-                        class="pagination-container custom_padding_top_bottom_50 is-flex is-justify-content-center is-align-items-center"
-                    ></div>
+                            class="pagination-container custom_padding_top_bottom_50 is-flex is-justify-content-center is-align-items-center"
+                        ></div>
                     </div>
                 </div>
             </div>
         </main>
         <footer></footer>
         <script type="module" src="./admin_product.js"></script>
+        <script type="module" src="../public/header/header.js"></script>
+        <script type="module" src="../public/footer/footer.js"></script>
     </body>
 </html>
