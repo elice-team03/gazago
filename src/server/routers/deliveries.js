@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const asyncHandler = require('../utils/async-handler');
 const { deliveryService } = require('../services/deliveryService');
+const { userService } = require('../services/userService');
 
 /** 배송지 정보 전체 조회 API */
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const ITEMS_PER_PAGE = 20;
+        const ITEMS_PER_PAGE = 3;
         const page = parseInt(req.query.page) || 1;
         const skip = (page - 1) * ITEMS_PER_PAGE;
         const limit = ITEMS_PER_PAGE;
@@ -50,6 +51,8 @@ router.patch(
     '/:id',
     asyncHandler(async (req, res, next) => {
         const deliveryId = req.params.id;
+        const userId = req.user.user._id;
+        const loggedInUser = await userService.findUserById(userId);
         const { contact, code, address, subAddress } = req.body;
 
         const result = await deliveryService.modifyDelivery(deliveryId, {
@@ -57,6 +60,7 @@ router.patch(
             code,
             address,
             subAddress,
+            email: loggedInUser.email,
         });
 
         res.json({

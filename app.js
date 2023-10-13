@@ -1,17 +1,20 @@
 require('dotenv').config();
 const express = require('express');
-const fileUpload = require('express-fileupload');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const path = require('path');
 const passport = require('passport');
 const errorHandler = require('./src/server/utils/error-handler');
 const connectToMongoDB = require('./src/server/db/db-connect');
+const fileUpload = require('express-fileupload');
 const viewsRotuer = require('./src/client/routers/views');
 const apiRouter = require('./src/server/routers/index');
+const stripeRouter = require('./src/server/stripe');
 const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
 const { requiredLogin, checkAdmin, blockLogin } = require('./src/server/middlewares/access-control');
+const mailScheduler = require('./src/server/utils/time-scheduler');
 
 const app = express();
 const port = process.env.PORT || 5001;
@@ -40,9 +43,13 @@ app.use(passport.initialize());
 app.use(getUserFromJwt);
 app.use(requiredLogin, checkAdmin, blockLogin);
 
+// 메일 스케줄러 실행
+mailScheduler();
+
 // 라우팅 설정
 app.use('/', viewsRotuer);
 app.use('/api', apiRouter);
+app.use('/api/stripe', stripeRouter);
 
 // 정적 파일 설정
 app.use('/upload', express.static('upload'));
