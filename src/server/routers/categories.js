@@ -33,12 +33,25 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const result = await categoryService.findCategoriesWithProductCountByDepth(2);
+        const ITEMS_PER_PAGE = 10;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * ITEMS_PER_PAGE;
+        const limit = ITEMS_PER_PAGE;
+
+        const categories = await categoryService.findCategoriesByDepth(2);
+        const result = await categoryService.findCategoriesWithProductCountByDepth(categories, skip, limit);
+
+        const totalItems = categories.length;
+        const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
-            data: result,
+            data: {
+                categories: result,
+                currentPage: page,
+                totalPages: totalPages,
+            },
         });
     })
 );
