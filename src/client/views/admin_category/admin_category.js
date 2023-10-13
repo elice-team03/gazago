@@ -1,5 +1,5 @@
 import * as Api from '../../api.js';
-import BulmaModal from '/js/admin/BulmaModal.js';
+import BulmaModal from '/js/admin/bulmaModal.js';
 
 const parentCategoryIdObj = {
     '텐트/타프': '65254773ae3e0cff77e679bd',
