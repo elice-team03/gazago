@@ -17,8 +17,15 @@ class productService {
     }
 
     static async findProductsWithTotalSales(skip, limit, filter) {
-        const products = await Product.find(filter).skip(skip).limit(limit);
-
+        const products = await Product.find(filter)
+            .populate({
+                path: 'category',
+                populate: {
+                    path: 'parentCategory',
+                },
+            })
+            .skip(skip)
+            .limit(limit);
         for (const product of products) {
             product.totalSales = await this.findProductOrderedCount(product._id);
         }
