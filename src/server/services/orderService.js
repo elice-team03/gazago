@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Order, Delivery, Product } = require('../db');
-const { userService } = require('./userService');
 
 class orderService {
     static async addOrder(newOrder) {
@@ -17,14 +16,10 @@ class orderService {
             products: productIds,
         });
 
-        const order = await Order.create(buildOrder);
-
-        await userService.addUserOrder(loggedInUser._id, order._id);
-
-        return order;
+        return await Order.create(buildOrder);
     }
 
-    static async findAllOrders(filter, deliveryFilter) {
+    static async findAllOrders(filter, deliveryFilter, skip, limit) {
         const deliveryDocs = await Delivery.find(deliveryFilter, '_id');
         const orderIds = deliveryDocs.map((doc) => doc._id);
         filter.delivery = { $in: orderIds };
@@ -35,6 +30,8 @@ class orderService {
                 select: 'receiver',
             })
             .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit)
             .exec();
 
         const ordersWithProductQty = orders.map((order) => {
@@ -77,7 +74,15 @@ class orderService {
     }
 
     static async findOrder(_id) {
-        return Order.findById(_id);
+        return await Order.findById(_id);
+    }
+
+    static async getTotalOrdersCount(filter, deliveryFilter) {
+        const deliveryDocs = await Delivery.find(deliveryFilter, '_id');
+        const orderIds = deliveryDocs.map((doc) => doc._id);
+        filter.delivery = { $in: orderIds };
+
+        return await Order.countDocuments(filter).exec();
     }
 
     static async modifyOrderStatus({ _id, status }) {

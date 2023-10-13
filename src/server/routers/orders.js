@@ -10,30 +10,27 @@ const router = Router();
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        let userId = req.user.user._id;
+        const userId = req.user.user._id;
         const loggedInUser = await userService.findUserById(userId);
-        const { title, receiver, code, address, subAddress, contact } = req.body;
+        const { title, receiver, code, address, subAddress, contact, comment, totalAmount, productIds } = req.body;
+
         if (!receiver || !code || !address || !subAddress || !contact) {
             throw Object.assign(new Error('필수 배송정보를 입력해주세요.'), { status: 400 });
         }
 
-        let delivery = null;
-        if (!loggedInUser.delivery) {
-            delivery = await deliveryService.addDeliveryAndSetUserDelivery({
-                title: title || '',
-                receiver,
-                code,
-                address,
-                subAddress,
-                contact,
-                loggedInUser,
-            });
-        } else {
-            delivery = await deliveryService.findDeliveryById(loggedInUser.delivery);
-        }
+        const delivery = await deliveryService.addDelivery({
+            title: title || '',
+            receiver,
+            code,
+            address,
+            subAddress,
+            contact,
+            loggedInUser,
+        });
 
-        const { comment, totalAmount, productIds } = req.body;
-        const result = await orderService.addOrder({
+        await userService.addUserDelivery(loggedInUser._id, delivery._id);
+
+        const order = await orderService.addOrder({
             comment,
             totalAmount,
             loggedInUser,
@@ -41,10 +38,12 @@ router.post(
             productIds,
         });
 
+        await userService.addUserOrder(loggedInUser._id, order._id);
+
         res.status(201).json({
             code: 201,
             message: '주문이 성공적으로 완료되었습니다.',
-            data: result,
+            data: order,
         });
     })
 );
@@ -52,6 +51,11 @@ router.post(
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
+        const ITEMS_PER_PAGE = 20;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * ITEMS_PER_PAGE;
+        const limit = ITEMS_PER_PAGE;
+
         const { beginDate, endDate, orderNumber, status, name } = req.query;
         const filter = {};
 
@@ -73,11 +77,17 @@ router.get(
             deliveryFilter.receiver = name;
         }
 
-        const result = await orderService.findAllOrders(filter, deliveryFilter);
+        const orders = await orderService.findAllOrders(filter, deliveryFilter, skip, limit);
+        const totalOrdersCount = await orderService.getTotalOrdersCount(filter, deliveryFilter);
+
         res.status(200).json({
             code: 200,
             message: '요청이 성공적으로 완료되었습니다.',
-            data: result,
+            data: {
+                orders,
+                currentPage: page,
+                totalPages: Math.ceil(totalOrdersCount / ITEMS_PER_PAGE),
+            },
         });
     })
 );
