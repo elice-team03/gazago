@@ -114,6 +114,7 @@ async function openModal($el, page, recall) {
         item.receiver,
         item.code,
         item.address,
+        item.subAddress,
         item.contact,
     ]);
 
@@ -122,7 +123,7 @@ async function openModal($el, page, recall) {
         <div class="modal__divider"></div>
     `;
     deliveries.forEach((item, itemIdx) => {
-        const labels = ['배송지명', '수령인', '우편번호', '주소', '연락처'];
+        const labels = ['배송지명', '수령인', '우편번호', '주소', '상세주소', '연락처'];
         item.forEach((text, textIdx) => {
             box.innerHTML += `
             <div class="modal__detail modal-${itemIdx}">
@@ -207,13 +208,13 @@ function loadUserLastDelivery($el, item) {
     lastDeliveryButton.style.display = 'none';
 
     const contact = document.querySelectorAll('.input__min');
-    ['title', 'receiver', 'code', 'address'].forEach((field, idx) => {
+    ['title', 'receiver', 'code', 'address', 'subAddress'].forEach((field, idx) => {
         const value = item[idx];
         document.querySelector(`.${field}`).value = value;
     });
     const contactIndices = [0, 3, 7, 11];
     contact.forEach((input, idx) => {
-        input.value = item[4].slice(contactIndices[idx], contactIndices[idx + 1]);
+        input.value = item[5].slice(contactIndices[idx], contactIndices[idx + 1]);
     });
 }
 function closeModal($el) {
