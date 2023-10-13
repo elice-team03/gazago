@@ -90,3 +90,7 @@ a {
 i{
     cursor: pointer;
 }
+
+.menu__brand {
+    padding-top: 8px;
+}

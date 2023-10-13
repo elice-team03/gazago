@@ -3,19 +3,19 @@ import * as Api from '../api.js';
 const queryString = window.location.search;
 const searchParams = new URLSearchParams(queryString);
 const params = queryString.substring(1);
-console.log(params);
+
 let brand = searchParams.getAll('brand');
 const searchKeyword = searchParams.get('searchKeyword');
 
 let priceRange = [];
 const storedPriceRange = sessionStorage.getItem('priceRange');
-console.log(storedPriceRange);
+
 
 if(storedPriceRange){
     const parsedPriceRange = JSON.parse(storedPriceRange);
     priceRange = [...parsedPriceRange];
 }
-console.log(priceRange);
+
 
 function removeCommas(price) {
     const priceWithoutCommas = price.replace(/,/g, '').replace('원', '');
@@ -30,7 +30,7 @@ async function getPage(page, params ='', priceRange) {
         if (priceRange.length === 0) {
 
             const response = await Api.get('/api', `products?page=${page}&${params}`);
-            const data = response.data;
+            const data = response.data.products;
             return data;
         } else {
             const fetchPromises = priceRange.map(async (price) => {
@@ -45,9 +45,9 @@ async function getPage(page, params ='', priceRange) {
                         beginPrice
                     )}&endPrice=${removeCommas(endPrice)}`
                 }
-                console.log(url);
+                
                 const response = await Api.get(url);
-                return response.data;
+                return response.data.products;
             });
 
             const dataForAllRanges = await Promise.all(fetchPromises);
@@ -67,9 +67,10 @@ priceRange.forEach((a) => {
     const range = document.getElementById(a).nextElementSibling.innerText;
     resultRange.push(range.split(' ~ '));
 });
-console.log(resultRange);
 
-console.log(productIdList);
+
+
+
 
 let total = '';
 let ableWish = ''
@@ -119,26 +120,22 @@ function productDataMapping(products) {
 //위시리스트 불러오기
 
 let wishList = [];
-async function getWishList() {
+(async function getWishList() {
     const response = await Api.get('/api/users/wishlist');
     const data = response.data;
     data.forEach((item) => {
         wishList.push(item._id);
     });
-}
+})();
 
-if(ableWish){
-    getWishList();
-}
 
-console.log(wishList);
+
+
 async function addWishList(data) {
     const response = await Api.patch('/api/users/wishlist', data);
-    console.log(response);
 }
 async function removeWishList(id) {
     const response = await Api.deleteRequest(`/api/users/wishlist/${id}`);
-    console.log(response);
 }
 
 function wisheventcallback(e) {
@@ -305,7 +302,7 @@ const selectedPrice = document.querySelectorAll(priceCheckBox);
 
 
 
-console.log(priceRange);
+
 selectedPrice.forEach((a) => {
     a.addEventListener('click', function (e) {
         if (e.target.checked) {

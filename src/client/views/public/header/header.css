@@ -1,11 +1,5 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-/* header {
-    height: 200px;
-    padding: 0px 0px;
-    margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-} */
 header {
     display: grid !important;
     place-items: center
