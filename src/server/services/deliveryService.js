@@ -1,6 +1,5 @@
 const { Delivery } = require('../db');
-const { userService } = require('./userService');
-
+const { sendEmail } = require('../utils/send-email');
 class deliveryService {
     static async addDeliveryAndSetUserDelivery(newDelivery) {
         const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
@@ -53,7 +52,7 @@ class deliveryService {
         return uniqueAddresses.size;
     }
     static async modifyDelivery(deliveryId, newDelivery) {
-        const { contact, code, address, subAddress } = newDelivery;
+        const { contact, code, address, subAddress, email } = newDelivery;
 
         const updatedDelivery = await Delivery.findByIdAndUpdate(
             deliveryId,
@@ -65,6 +64,8 @@ class deliveryService {
             },
             { new: true }
         );
+
+        await sendEmail('changeDelivery', email, newDelivery);
 
         if (!updatedDelivery) {
             const error = new Error('배송 정보를 찾을 수 없습니다.');
