@@ -7,6 +7,9 @@ async function getUserData() {
         if (result.code === 200) {
             let orderList = result.data.orders;
             let orderListTbody = document.querySelector('#orderlist-tbody');
+            // console.log(result.data);
+            const pageData = result.data;
+            updatePage(pageData);
 
             // 주문 내역이 없을 때
             if (orderList.length === 0) {
@@ -68,3 +71,42 @@ async function getItemName(itemId) {
     }
 }
 
+// Pagenation
+// const ITEMS_PER_PAGE = 20;
+
+// 이전 페이지로 이동
+document.querySelector('.pagination-previous').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        updatePage();
+    }
+});
+
+// 다음 페이지로 이동
+document.querySelector('.pagination-next').addEventListener('click', () => {
+    currentPage++;
+    updatePage();
+});
+
+document.querySelector('.pagination-list').addEventListener('click', (event) => {
+    if (event.target.classList.contains('pagination-link')) {
+        currentPage = parseInt(event.target.textContent);
+        updatePage();
+    }
+});
+
+// 페이지 업데이트 함수
+async function updatePage(data) {
+    const totalPages = data.totalPages;
+    let currentPage = data.currentPage;
+
+    const paginationList = document.querySelector('.pagination-list');
+    paginationList.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        const paginationLink = document.createElement('li');
+        paginationLink.innerHTML = `<a class="pagination-link ${
+            i === currentPage ? 'is-current' : ''
+        }" aria-label="Page ${i}">${i}</a>`;
+        paginationList.appendChild(paginationLink);
+    }
+}
