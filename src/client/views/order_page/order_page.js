@@ -40,6 +40,8 @@ async function renderOrderItems(item, idx) {
     price[idx].innerHTML = `${data.price.toLocaleString()}원 / 수량 ${item.quantity}개`;
     totalPrice += Number(data.price) * Number(item.quantity); //상품 가격에 상품 수량을 곱해서 총 상품 가격 계산
     calculateTotalPrice(totalPrice); //총 상품가격 계산 함수 호출
+
+    storage.setItem('order', JSON.stringify([]));
 }
 //총 상품 가격을 계산하는 함수
 function calculateTotalPrice(totalPrice) {
