@@ -259,20 +259,14 @@ const initialize = async (recall) => {
         if (res.code == 200) {
             if (res != null && res.data != null) {
                 const data = res.data;
-
                 let productList = res.data.products;
                 let tbody = document.querySelector('#product_list_tbody');
                 tbody.innerHTML = '';
-                if (!currentIndex) {
-                    currentIndex = 0;
-                }
                 productList.forEach((item, idx) => {
                     const element = item;
                     let tempRow = document.createElement('tr');
                     tempRow.innerHTML = ` 
-                                    <th class="custom_text_align_center custom_vertical_align_middle">${
-                                        idx + 1 + currentIndex * 20
-                                    }</th>
+                                    <th class="custom_text_align_center custom_vertical_align_middle">${idx + 1}</th>
                                     <td>
                                         <figure class="image image is-64x64">
                                             <img
