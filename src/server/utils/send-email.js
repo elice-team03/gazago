@@ -141,13 +141,13 @@ async function sendEmail(type, email, contentOfEmail) {
                                 margin: 0 auto;
                             "
                         >
-                            <img src="${contentOfEmail[0].thumbnailPath}" alt="" style="object-fit: cover; width: 100%" />
+                            <img src="${contentOfEmail[0]?.thumbnailPath}" alt="" style="object-fit: cover; width: 100%" />
                             
                         </div>
                         <div>
-                            <span>${contentOfEmail[0].brand}</span><span style="margin-left: auto;">${contentOfEmail[0].name}</span>
+                            <span>${contentOfEmail[0]?.brand}</span><span style="margin-left: auto;">${contentOfEmail[0]?.name}</span>
                         </div>
-                        <p>${contentOfEmail[0].price}</p>
+                        <p>${contentOfEmail[0]?.price}</p>
                     </div>
                     <div style="text-align: center;position:relative; margin-right: 20px; border: 1px solid black; border-radius: 10px; padding: 1em; width:30%;">
                     <div
@@ -178,13 +178,13 @@ async function sendEmail(type, email, contentOfEmail) {
                             margin: 0 auto;
                             "
                         >
-                            <img src="${contentOfEmail[1].thumbnailPath}" alt="" style="object-fit: cover; width: 100%" />
+                            <img src="${contentOfEmail[1]?.thumbnailPath}" alt="" style="object-fit: cover; width: 100%" />
                             
                         </div>
                         <div>
-                            <span>${contentOfEmail[1].brand}</span><span style="margin-left: auto;">${contentOfEmail[1].name}</span>
+                            <span>${contentOfEmail[1]?.brand}</span><span style="margin-left: auto;">${contentOfEmail[1]?.name}</span>
                         </div>
-                        <p>${contentOfEmail[1].price}</p>
+                        <p>${contentOfEmail[1]?.price}</p>
                     </div>
                     <div style="text-align: center; border: 1px solid black; border-radius: 10px; padding: 1em; position:relative; width:30%;">
                     <div
@@ -215,13 +215,13 @@ async function sendEmail(type, email, contentOfEmail) {
                             margin: 0 auto
                             "
                         >
-                            <img src="${contentOfEmail[2].thumbnailPath}" alt="" style="object-fit: cove; width: 100%" />
+                            <img src="${contentOfEmail[2]?.thumbnailPath}" alt="" style="object-fit: cove; width: 100%" />
                             
                         </div>
                         <div >
-                            <span>${contentOfEmail[2].brand}</span><span style="margin-left: auto;">${contentOfEmail[2].name}</span>
+                            <span>${contentOfEmail[2]?.brand}</span><span style="margin-left: auto;">${contentOfEmail[2]?.name}</span>
                         </div>
-                        <p>${contentOfEmail[2].price}</p>
+                        <p>${contentOfEmail[2]?.price}</p>
                     </div>
                 </div>
             </div>

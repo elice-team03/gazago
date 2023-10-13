@@ -1,7 +1,5 @@
 const { Delivery } = require('../db');
 const { sendEmail } = require('../utils/send-email');
-const { userService } = require('./userService');
-
 class deliveryService {
     static async addDelivery(newDelivery) {
         const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
@@ -30,7 +28,7 @@ class deliveryService {
         return await Delivery.countDocuments({ owner: userId }).exec();
     }
     static async modifyDelivery(deliveryId, newDelivery) {
-        const { contact, code, address, subAddress } = newDelivery;
+        const { contact, code, address, subAddress, email } = newDelivery;
 
         const updatedDelivery = await Delivery.findByIdAndUpdate(
             deliveryId,
@@ -42,9 +40,6 @@ class deliveryService {
             },
             { new: true }
         );
-        const delivery = await Delivery.findById(deliveryId);
-        const user = await userService.findUserById(delivery.owner);
-        const email = user.email;
 
         await sendEmail('changeDelivery', email, newDelivery);
 
