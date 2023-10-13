@@ -5,7 +5,7 @@ let currentPage = 1;
 // 로그인 회원의 주문 내역
 async function getUserData(page) {
     try {
-        const url = `http://localhost:5001/api/users/orders?page=${page}`;
+        const url = `/api/users/orders?page=${page}`;
         const result = await Api.get(url);
         const pageData = result.data;
         updatePage(pageData);
@@ -39,7 +39,7 @@ async function getUserData(page) {
 
                     // 클릭할 때 해당 주문 아이디를 localStorage에 저장
                     row.innerHTML = `
-                    <td><a href='/order/result' onclick="localStorage.setItem('order_result', JSON.stringify('${itemId}'));">${orderNumber}</a></td>
+                    <td><a href='/order-result' onclick="localStorage.setItem('order_result', JSON.stringify('${itemId}'));">${orderNumber}</a></td>
                     <td>${formatDate}</td>
                     <td>${itemQty > 1 ? `${itemName} 외 ${itemQty - 1}` : itemName}</td>
                     <td>${formatAmount}</td>
@@ -59,7 +59,7 @@ async function getUserData(page) {
 // 구매 상품명 데이터
 async function getItemName(itemId) {
     try {
-        const result = await Api.get(`http://localhost:5001/api/orders/${itemId}`);
+        const result = await Api.get(`/api/orders/${itemId}`);
         if (result.code === 200) {
             let detailOrder = result.data.products;
             let itemNames = detailOrder.map((item) => item.name); // 상품명을 배열로 추출

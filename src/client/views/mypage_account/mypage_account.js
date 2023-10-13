@@ -12,7 +12,7 @@ let loggedInUser = null;
 // 화면 로드시 로그인한 회원정보 불러오는 함수
 async function getUserData() {
     try {
-        const result = await Api.get('http://localhost:5001/api/users');
+        const result = await Api.get('/api/users');
         if (result.code === 200) {
             return result.data;
         }
@@ -37,7 +37,7 @@ async function editUserInfo(event) {
     const subAddress = $subAddress.value;
     const inputData = { contact, code, address, subAddress };
     try {
-        const result = await Api.patch('http://localhost:5001/api/users/delivery', inputData);
+        const result = await Api.patch('/api/users/delivery', inputData);
         if (result.code === 200) {
             alert('회원 정보 수정 완료');
             // window.location.reload();

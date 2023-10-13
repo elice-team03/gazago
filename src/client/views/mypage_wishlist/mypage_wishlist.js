@@ -5,7 +5,7 @@ let wishList = [];
 // 관심 상품 목록
 async function getUserData() {
     try {
-        const result = await Api.get('http://localhost:5001/api/users/wishlist');
+        const result = await Api.get('/api/users/wishlist');
         if (result.code === 200) {
             wishList = result.data;
             let wishListTable = document.querySelector('#wishlist-table');
@@ -79,7 +79,7 @@ document.getElementById('total-check').addEventListener('change', (event) => {
 // 관심 상품 항목 삭제
 async function deleteWishlistItem(itemId) {
     try {
-        const response = await Api.deleteRequest(`http://localhost:5001/api/users/wishlist/${itemId},`);
+        const response = await Api.deleteRequest(`/api/users/wishlist/${itemId},`);
         if (response.code === 200) {
             alert('관심 상품이 삭제되었습니다.');
             window.location.reload();

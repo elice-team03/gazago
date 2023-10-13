@@ -10,7 +10,7 @@ async function sendEmailHandler(event) {
     try {
         const email = emailInput.value;
         const data = { email };
-        const result = await Api.post('http://localhost:5001/api/users/password', data);
+        const result = await Api.post('/api/users/password', data);
         if (result.code === 200) {
             alert(result.message);
             window.location.href='/';
