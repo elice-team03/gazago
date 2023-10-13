@@ -9,14 +9,17 @@ async function getUserData() {
         if (result.code === 200) {
             wishList = result.data;
             let wishListTable = document.querySelector('#wishlist-table');
-            console.log(result);
+            // console.log(result);
 
             // 관심 상품이 없을 때
             if (wishList.length === 0) {
                 const emptyListRow = document.createElement('tr');
+                const emptyCheckContainer = document.querySelector('.check-container');
 
-                emptyListRow.innerHTML = `<tr class="emptyEl"><td colspan="3"><h6>관심 상품이 없습니다.</h6></td><tr>`;
+                emptyListRow.innerHTML = `<td class="empty"><h6>관심 상품이 없습니다.</h6></td>`;
                 wishListTable.append(emptyListRow);
+
+                emptyCheckContainer.classList.add('emptyCheck');
             } else {
                 // 관심 상품이 있을 때
                 wishList.map((item) => {
@@ -24,6 +27,7 @@ async function getUserData() {
                     const itemName = item.name;
                     const itemPrice = item.price;
                     const formatPrice = new Intl.NumberFormat('ko-KR').format(itemPrice) + '원';
+                    const itemId = item._id;
                     let row = document.createElement('tr');
 
                     row.innerHTML = `
@@ -34,15 +38,19 @@ async function getUserData() {
                     <td>
                         <div class="photo">
                             <figure class="image is-128x128">
+                                <a href="/product-detail" onclick="localStorage.setItem('product_detail', JSON.stringify('${itemId}'));"> 
                                 <img
                                     src="${itemThumnail}"
                                     alt="${itemName}"
                                 />
+                                <a> 
                             </figure>
                         </div>
                     </td>
                     <td>
-                        <p>${itemName}</p>
+                        <a href="/product-detail" onclick="localStorage.setItem('product_detail', JSON.stringify('${itemId}'));">
+                        <p class="itemName">${itemName}</p>
+                        </a>
                         <span>${formatPrice}</span>
                     </td>
                     </tr>
@@ -84,41 +92,29 @@ async function deleteWishlistItem(itemId) {
 }
 
 // 삭제 버튼 이벤트 핸들러
-document.getElementById('delete-button').addEventListener('click', () => {
+document.getElementById('delete-button').addEventListener('click', async () => {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const wishLists = [];
 
     checkboxes.forEach(async (checkbox, index) => {
         if (checkbox.checked) {
-            // 해당 체크박스가 체크되었을 때, 체크된 항목을 삭제
-            console.log(wishList);
-            const itemId = wishList[index]._id;
-            wishLists.push(itemId);
-
-            // 삭제가 여러건일 떄
-            if (wishLists.length > 0) {
-                wishLists.join(', ');
-                const itemsId = wishLists;
-                console.log(itemsId);
-                await deleteWishlistItem(itemsId);
-            } else {
-                await deleteWishlistItem(itemId);
+            //checkbox[0]이면 삭제를 시도하지 않도록 검증
+            if (index === 0) {
+                return; // 삭제를 시도하지 않고 종료
             }
-            // console.log(wishLists);
+            const itemId = wishList[index - 1]._id;
 
-            // 삭제한 항목은 화면에서도 제거
+            wishLists.push(itemId);
             checkbox.parentElement.parentElement.parentElement.remove();
         }
     });
-
-    // 모든 항목 삭제 후, 관심 상품이 없을 때 메시지 추가
-    // const wishListTable = document.querySelector('#wishlist-table');
-    // if (wishListTable.children.length === 0) {
-    //     const emptyListRow = document.createElement('tr');
-    //     emptyListRow.innerHTML = `
-    //         <td colspan="3"><h6>관심 상품이 없습니다.</h6>
-    //         </td>
-    //       `;
-    //     wishListTable.append(emptyListRow);
-    // }
+    // 삭제 2건 이상인 경우
+    if (wishLists.length > 0) {
+        try {
+            const itemsId = wishLists.join(',');
+            await deleteWishlistItem(itemsId);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 });
