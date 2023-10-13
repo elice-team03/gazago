@@ -10,7 +10,7 @@ a {
 .wrapper {
     display: flex;
     font-family: 'Noto Sans KR', sans-serif;
-    justify-content: space-between;
+    
     max-width: 1152px !important;
 }
 .product__container {
@@ -19,6 +19,9 @@ a {
     gap: 100px 30px;
     justify-content: space-evenly;
     padding-left: 30px;
+
+    justify-content: flex-start;
+    align-items: flex-start; 
 }
 
 .menu {
