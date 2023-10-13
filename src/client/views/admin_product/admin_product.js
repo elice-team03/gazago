@@ -231,7 +231,7 @@ const renderPagination = (totalPages) => {
             paginationLink[idx].classList.add('is-current');
             currentIndex = idx;
             product.getProductList();
-            initialize();
+            initialize('none');
         })
     })
     const nextPageButton = document.querySelector('.pagination-next');
@@ -241,7 +241,7 @@ const renderPagination = (totalPages) => {
             paginationLink[currentIndex + 1].classList.add('is-current');
             currentIndex++;
             product.getProductList();
-            initialize();
+            initialize('none');
         }
     })
     const previousPageButton = document.querySelector('.pagination-previous');
@@ -251,11 +251,11 @@ const renderPagination = (totalPages) => {
             paginationLink[currentIndex - 1].classList.add('is-current');
             currentIndex--;
             product.getProductList();
-            initialize();
+            initialize('none');
         }
     })
 };
-const initialize = async () => {
+const initialize = async (recall) => {
     try {
         let res = await product.getProductList(1);
         if (res.code == 200) {
@@ -319,7 +319,7 @@ const initialize = async () => {
 
                     tbody.append(tempRow);
                 });
-                renderPagination(data.totalPages);
+                if(recall !== 'none') renderPagination(data.totalPages);
             }
         }
     } catch (err) {
