@@ -7,8 +7,12 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
         <link rel="stylesheet" href="./mypage_wishlist.css" />
         <link rel="stylesheet" href="/module/mypage_menu.css" />
+        <link rel="stylesheet" href="/public/header/header.css" />
+        <link rel="stylesheet" href="/public/footer/footer.css" />
     </head>
     <body>
+        <header></header>
+        <script src="/public/header/header.js"></script>
         <main class="container is-widescreen">
             <!-- side bar -->
             <div id="menu-container"></div>
@@ -30,10 +34,20 @@
                 </div>
                 <div class="product-list">
                     <table id="wishlist-table">
+                        <!-- table tr데이터 바인딩 -->
                     </table>
                 </div>
+                <nav class="pagination is-small" role="navigation" aria-label="pagination">
+                    <!-- <a class="pagination-previous is-disabled" title="This is the first page">Previous</a>
+                    <a class="pagination-next">Next page</a> -->
+                    <ul class="pagination-list">
+                        <!-- insert pagination -->
+                    </ul>
+                </nav>
             </div>
         </main>
+        <footer></footer>
+        <script src="/public/footer/footer.js"></script>
         <script src="/module/mypage_menu.js"></script>
         <script src="./mypage_wishlist.js" type="module" defer></script>
     </body>

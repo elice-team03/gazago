@@ -54,6 +54,7 @@ th {
 
 .pagination-list {
     justify-content: center;
+    padding: 30px;
 }
 
 .pagination-link.is-current {
