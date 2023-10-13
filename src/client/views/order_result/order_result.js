@@ -2,6 +2,7 @@ import * as Api from '../api.js';
 const storage = window.localStorage;
 const orderResultData = JSON.parse(storage.getItem('order_result'));
 const product = document.querySelector('.product');
+const cancleButton = document.querySelector('.cancle__button');
 let deliveryId = '';
 
 renderOrderResultItems();
@@ -50,6 +51,12 @@ async function renderOrderResultItems() {
         productDelivery.innerHTML = '0원';
     }
     totalPrice.innerHTML = `${data.totalAmount.toLocaleString()}원`;
+    if(data.status === '주문접수' || data.status === '배송준비중') {
+        cancleButton.style.display = 'block';
+    }
+    else {
+        cancleButton.style.display = 'none';
+    }
 }
 
 const changeDeliveryButton = document.querySelector('.delivery__button');
@@ -94,3 +101,14 @@ async function submitChangeDelivery() {
 }
 if(submitDeliveryButton) submitDeliveryButton.addEventListener('click', submitChangeDelivery);
 
+cancleButton.addEventListener('click', () => {
+    if(confirm('정말 주문을 취소하시겠습니까?')) cancleOrder();
+});
+async function cancleOrder() {
+    const response = await Api.patch(`/api/orders/status/${orderResultData}`, {
+        status: "주문취소"
+    });
+    const data = response.data;
+    if(data) alert('주문 취소가 완료되었습니다.');
+    history.go();
+}
