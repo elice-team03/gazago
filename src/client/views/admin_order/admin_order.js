@@ -75,6 +75,14 @@ const order = {
         let orderNumber = document.querySelector('#orderNumber').value;
         let orderStatusSelect = document.querySelector('#orderStatusSelect option:checked').value;
         let queryStringList = [];
+        let currentNumber;
+        if (document.querySelector('.is-current')) {
+            currentNumber = document.querySelector('.is-current').innerText;
+        } else {
+            currentNumber = 1;
+        }
+        queryStringList.push('page=' + currentNumber);
+
         if (isStringValue(beginDate)) {
             beginDate = beginDate.trim();
             queryStringList.push('beginDate=' + beginDate);
@@ -121,13 +129,66 @@ const order = {
 const isStringValue = (val) => {
     return !!val?.trim();
 };
-
-const initialize = async () => {
+let currentIndex;
+const renderPagination = (totalPages) => {
+    const paginationContainer = document.querySelector('.pagination-container');
+    if (paginationContainer.innerHTML === '') {
+        paginationContainer.innerHTML += `
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            <a class="pagination-previous">이전</a>
+            <a class="pagination-next">다음</a>
+            <ul class="pagination-list"></ul>
+            </nav>
+        `;
+        const paginationList = document.querySelector('.pagination-list');
+        for (let i = 0; i < totalPages; i++) {
+            paginationList.innerHTML += `
+                <li><a class="pagination-link">${i + 1}</a></li>
+            `;
+        }
+        currentIndex = 0;
+        const paginationLink = document.querySelectorAll('.pagination-link');
+        paginationLink[currentIndex].classList.add('is-current');
+    }
+    console.log(currentIndex);
+    const paginationLink = document.querySelectorAll('.pagination-link');
+    paginationLink.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[idx].classList.add('is-current');
+            currentIndex = idx;
+            order.getOrderList();
+            initialize('none');
+        });
+    });
+    const nextPageButton = document.querySelector('.pagination-next');
+    nextPageButton.addEventListener('click', () => {
+        if (currentIndex + 1 < totalPages) {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[currentIndex + 1].classList.add('is-current');
+            currentIndex++;
+            order.getOrderList();
+            initialize('none');
+        }
+    });
+    const previousPageButton = document.querySelector('.pagination-previous');
+    previousPageButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[currentIndex - 1].classList.add('is-current');
+            currentIndex--;
+            order.getOrderList();
+            initialize('none');
+        }
+    });
+};
+const initialize = async (recall) => {
     try {
         let res = await order.getOrderList();
         if (res.code == 200) {
             if (res != null && res.data != null) {
-                let orderList = res.data;
+                const data = res.data;
+                let orderList = res.data.orders;
                 let tbody = document.querySelector('#order_list_tbody');
                 tbody.innerHTML = '';
                 orderList.forEach((item, idx) => {
@@ -240,6 +301,7 @@ const initialize = async () => {
 
                     tbody.append(tempRow);
                 });
+                if (recall !== 'none') renderPagination(data.totalPages);
             }
         }
     } catch (err) {
