@@ -70,7 +70,6 @@ const initialize = async () => {
             if (res != null && res.data != null) {
                 let categoryList = res.data.categories;
                 let tBody = document.querySelector('#category_list_tbody');
-                console.log(categoryList);
                 categoryList.forEach((item, idx) => {
                     const element = item.category;
                     let tempRow = document.createElement('tr');
