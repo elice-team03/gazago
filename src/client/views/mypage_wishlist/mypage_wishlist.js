@@ -70,7 +70,7 @@ async function getUserData(page) {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
     }
 }
-getUserData();
+
 
 // 전체선택 체크박스 이벤트 핸들러
 document.getElementById('total-check').addEventListener('change', (event) => {
