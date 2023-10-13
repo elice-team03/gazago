@@ -116,7 +116,7 @@ main {
 } */
 
 #submit {
-    width: 50%;
+    width: 90%;
     /* height: 45px; */
     border: 1px solid;
     background-color: var(--color-main);

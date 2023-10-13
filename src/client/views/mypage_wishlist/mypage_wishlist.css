@@ -108,3 +108,13 @@ a .itemName{
 a .itemName:hover {
     font-weight: 800;
 }
+
+.pagination-list {
+    justify-content: center;
+}
+
+.pagination-link.is-current {
+    background-color: var(--color-main);
+    border-color: var(--color-main);
+    color: #fff;
+}
