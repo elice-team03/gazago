@@ -1,15 +1,18 @@
 import * as Api from '/api.js';
 
+let currentPage = 1;
+
 // 로그인 회원의 주문 내역
-async function getUserData() {
+async function getUserData(page) {
     try {
-        const result = await Api.get('http://localhost:5001/api/users/orders');
+        const url = `http://localhost:5001/api/users/orders?page=${page}`;
+        const result = await Api.get(url);
+        const pageData = result.data;
+        updatePage(pageData);
+
         if (result.code === 200) {
             let orderList = result.data.orders;
             let orderListTbody = document.querySelector('#orderlist-tbody');
-            // console.log(result.data);
-            const pageData = result.data;
-            updatePage(pageData);
 
             // 주문 내역이 없을 때
             if (orderList.length === 0) {
@@ -52,7 +55,6 @@ async function getUserData() {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
     }
 }
-getUserData();
 
 // 구매 상품명 데이터
 async function getItemName(itemId) {
@@ -72,26 +74,15 @@ async function getItemName(itemId) {
 }
 
 // Pagenation
-// const ITEMS_PER_PAGE = 20;
-
-// 이전 페이지로 이동
-document.querySelector('.pagination-previous').addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--;
-        updatePage();
-    }
-});
-
-// 다음 페이지로 이동
-document.querySelector('.pagination-next').addEventListener('click', () => {
-    currentPage++;
-    updatePage();
-});
-
 document.querySelector('.pagination-list').addEventListener('click', (event) => {
     if (event.target.classList.contains('pagination-link')) {
         currentPage = parseInt(event.target.textContent);
-        updatePage();
+
+        // 이전 데이터 지우기
+        const orderListTbody = document.querySelector('#orderlist-tbody');
+        orderListTbody.innerHTML = '';
+
+        getUserData(currentPage);
     }
 });
 
@@ -110,3 +101,6 @@ async function updatePage(data) {
         paginationList.appendChild(paginationLink);
     }
 }
+
+// 초기 페이지 데이터 가져오기
+getUserData(currentPage);

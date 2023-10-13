@@ -16,7 +16,7 @@ body {
     padding: 0;
     font-family: 'Noto Sans KR', sans-serif;
     height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 main {
@@ -50,4 +50,14 @@ th {
 
 .table th:not([align]) {
     text-align: center;
+}
+
+.pagination-list {
+    justify-content: center;
+}
+
+.pagination-link.is-current {
+    background-color: var(--color-main);
+    border-color: var(--color-main);
+    color: #fff;
 }
