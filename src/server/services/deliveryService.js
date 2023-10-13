@@ -1,8 +1,7 @@
 const { Delivery } = require('../db');
-const { userService } = require('./userService');
 
 class deliveryService {
-    static async addDeliveryAndSetUserDelivery(newDelivery) {
+    static async addDelivery(newDelivery) {
         const { title, receiver, code, address, subAddress, contact, loggedInUser } = newDelivery;
 
         const buildDelivery = new Delivery({
@@ -15,21 +14,19 @@ class deliveryService {
             owner: loggedInUser._id,
         });
 
-        const delivery = await Delivery.create(buildDelivery);
-
-        await userService.addUserDelivery(loggedInUser._id, delivery._id);
-
-        return delivery;
+        return await Delivery.create(buildDelivery);
     }
 
-    static async findAllDeliveriesByOwner(userId) {
-        return await Delivery.find({ owner: userId });
+    static async findAllDeliveriesByOwner(userId, skip, limit) {
+        return await Delivery.find({ owner: userId }).skip(skip).limit(limit);
     }
 
     static async findDeliveryById(_id) {
         return await Delivery.findById(_id);
     }
-
+    static async getTotaldeliveriesCount(userId) {
+        return await Delivery.countDocuments({ owner: userId }).exec();
+    }
     static async modifyDelivery(deliveryId, newDelivery) {
         const { contact, code, address, subAddress } = newDelivery;
 
