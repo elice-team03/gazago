@@ -153,13 +153,13 @@ function goDetailPage() {
     const detail = document.querySelectorAll('.product__img');
     detail.forEach((item)=>{
         item.addEventListener('click', function(){
-            localStorage.setItem('order_result', JSON.stringify(item.dataset.id));
+            localStorage.setItem('product_detail', JSON.stringify(item.dataset.id));
         })
     })
     const nameToDetail = document.querySelectorAll('.product');
     nameToDetail.forEach((item)=>{
         item.addEventListener('click', function(){
-            localStorage.setItem('order_result', JSON.stringify(item.dataset.id));
+            localStorage.setItem('product_detail', JSON.stringify(item.dataset.id));
         })
     })
 }

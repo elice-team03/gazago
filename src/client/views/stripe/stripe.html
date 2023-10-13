@@ -4,26 +4,36 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css" />
+        <link rel="stylesheet" href="./stripe.css" />
         <title>gazago</title>
     </head>
 
     <body>
-        <input id="amount" type="text" placeholder="결제금액" />
+        <div class="payment__box total">
+            <span class="input__label input__total">최종 결제금액</span>
+            <input class="input" id="amount" type="text" readonly />
+        </div>
         <main class="container">
             <form id="payment-form">
-                <input id="card-holder-name" type="text" placeholder="카드소유자명" />
+                <div class="payment__box owner">
+                    <span class="input__label">카드 소유자명</span>
+                    <input class="input" id="card-holder-name" type="text" />
+                </div>
                 <div id="card-element">
                     <!-- A Stripe Element will be inserted here. -->
                 </div>
                 <!-- Used to display form errors. -->
                 <div id="card-errors" role="alert"></div>
-                <button id="submit">Pay</button>
+                <button class="button is-success" id="submit">결제하기</button>
             </form>
         </main>
     </body>
 </html>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
+    const orderTotal = window.opener.document.querySelector('.order__total');
+    document.getElementById('amount').value = Number(orderTotal.innerHTML.replace(',', '').replace('원', ''));
     const stripe = Stripe(
         'pk_test_51O0aFaI8jrBVRyJkIeQWSPBzzWC1MHM0WU1j7Cw3tYKaUeT0yphF9bTth8uI8HpgWEMPCZrgqMKYTZthw6ajmzDd00VPsH0dtG'
     );
@@ -59,9 +69,8 @@
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.code === 200) {
-                        // 성공
-                        console.log('Payment was successful');
-                        // 다음 작업 수행
+                        alert('결제가 완료되었습니다.');
+                        window.close();
                     } else {
                         // 에러 처리
                         console.error('Payment error:', data.message);
