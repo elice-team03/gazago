@@ -8,17 +8,16 @@ a {
 }
 
 .wrapper {
-    padding: 0 0 100px 0;
     display: flex;
     font-family: 'Noto Sans KR', sans-serif;
-    
     justify-content: space-between;
+    max-width: 1152px !important;
 }
 .product__container {
     display: flex;
     flex-wrap: wrap;
-    gap: 100px 0;
-    justify-content: space-between;
+    gap: 100px 30px;
+    justify-content: space-evenly;
     padding-left: 30px;
 }
 
@@ -28,8 +27,14 @@ a {
     height: 100%;
     position: sticky;
     position: -webkit-sticky;
-    top: -100px;
+    top: 0px;
 }
+
+.product__img-box {
+    width: 200px;
+    height: 200px;
+}
+
 .product__img {
     width: 200px;
 }
@@ -81,4 +86,11 @@ a {
   }
 .menu__brand-check-box-container {
     padding-bottom: 50px;
+}
+i{
+    cursor: pointer;
+}
+
+.menu__brand {
+    padding-top: 8px;
 }
