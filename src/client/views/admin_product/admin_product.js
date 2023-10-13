@@ -157,8 +157,8 @@ const product = {
         let parentCategorySel = document.querySelector('#parentCategorySelect').value;
         let childCategorySel = document.querySelector('#categorySelect').value;
         let currentNumber;
-        if (document.querySelector('.currentNumber') != null) {
-            currentNumber = document.querySelector('.currentNumber').innerText;
+        if (document.querySelector('.is-current')) {
+            currentNumber = document.querySelector('.is-current').innerText;
         } else {
             currentNumber = 1;
         }
@@ -200,13 +200,68 @@ const product = {
 const isStringValue = (val) => {
     return !!val?.trim();
 };
+let currentIndex;
+const renderPagination = (totalPages) => {
+    const paginationContainer = document.querySelector('.pagination-container');
+    if(paginationContainer.innerHTML === '')
+    {
+        paginationContainer.innerHTML += `
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            <a class="pagination-previous">이전</a>
+            <a class="pagination-next">다음</a>
+            <ul class="pagination-list"></ul>
+            </nav>
+        `;
+        const paginationList = document.querySelector('.pagination-list');
+        for(let i=0; i<totalPages; i++)
+        {
+            paginationList.innerHTML += `
+                <li><a class="pagination-link">${i+1}</a></li>
+            `;
+        }
+        currentIndex = 0;
+        const paginationLink = document.querySelectorAll('.pagination-link');
+        paginationLink[currentIndex].classList.add('is-current');
+    }
 
+    const paginationLink = document.querySelectorAll('.pagination-link');
+    paginationLink.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[idx].classList.add('is-current');
+            currentIndex = idx;
+            product.getProductList();
+            initialize();
+        })
+    })
+    const nextPageButton = document.querySelector('.pagination-next');
+    nextPageButton.addEventListener('click', () => {
+        if(currentIndex + 1 < totalPages) {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[currentIndex + 1].classList.add('is-current');
+            currentIndex++;
+            product.getProductList();
+            initialize();
+        }
+    })
+    const previousPageButton = document.querySelector('.pagination-previous');
+    previousPageButton.addEventListener('click', () => {
+        if(currentIndex > 0) {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[currentIndex - 1].classList.add('is-current');
+            currentIndex--;
+            product.getProductList();
+            initialize();
+        }
+    })
+};
 const initialize = async () => {
     try {
-        let res = await product.getProductList();
+        let res = await product.getProductList(1);
         if (res.code == 200) {
             if (res != null && res.data != null) {
-                let productList = res.data;
+                const data = res.data;
+                let productList = res.data.products;
                 let tbody = document.querySelector('#product_list_tbody');
                 tbody.innerHTML = '';
                 productList.forEach((item, idx) => {
@@ -264,28 +319,7 @@ const initialize = async () => {
 
                     tbody.append(tempRow);
                 });
-                const numberWrapper = document.querySelector('.number_wrapper');
-                numberWrapper.innerHTML = '';
-                for (
-                    let i = res.currentPage - 2 <= 0 ? 1 : res.currentPage - 2;
-                    i <= (res.currentPage + 2 > res.totalPages ? res.totalPages : res.currentPage + 2);
-                    i++
-                ) {
-                    const span = document.createElement('span');
-                    span.innerText = i;
-                    span.className = 'numberButton';
-
-                    if (i == res.currentPage) {
-                        span.className += ' currentNumber';
-                    }
-                    numberWrapper.append(span);
-                    span.addEventListener('click', (e) => {
-                        let currentPageNumber = document.querySelector('.currentNumber');
-                        currentPageNumber.classList.remove('currentNumber');
-                        e.target.classList.add('currentNumber');
-                        initialize();
-                    });
-                }
+                renderPagination(data.totalPages);
             }
         }
     } catch (err) {
