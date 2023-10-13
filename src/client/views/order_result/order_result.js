@@ -73,8 +73,10 @@ function changeDelivery() {
         values.push(itemContainer.innerHTML);
     })
     inputs.forEach((item, idx) => {
-        item.style.display = 'block';
-        item.setAttribute("value", values[idx]);
+        if(idx !== 0) {
+            item.style.display = 'block';
+            item.setAttribute("value", values[idx - 1]);
+        }
     })
     zipcodeButton.style.display = 'block';
     changeDeliveryButton.innerHTML = '변경하기';
@@ -88,6 +90,7 @@ const submitDeliveryButton = document.querySelector('.delivery__button--submit')
 async function submitChangeDelivery() {
     const inputItems = document.querySelectorAll('input');
     const inputArray = Array.from(inputItems);
+    inputArray.shift();
     const [contact, code, address, subAddress] = inputArray.map((input) => input.value);
 
     const response = await Api.patch(`/api/deliveries/${deliveryId}`, {

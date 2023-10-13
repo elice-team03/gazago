@@ -94,8 +94,10 @@ tabLinks.forEach((item) => {
             loadUserDelivery();
             lastDeliveryButton.style.display = 'block';
         } else {
-            const inputItems = document.querySelectorAll('input');
-            inputItems.forEach((item) => {
+            const inputItems = document.querySelectorAll('.input');
+            const inputArray = Array.from(inputItems)
+            inputArray.shift();
+            inputArray.forEach((item) => {
                 item.value = '';
                 item.removeAttribute('readonly');
             });
@@ -262,8 +264,9 @@ async function loadUserDelivery() {
 const payButton = document.querySelector('.pay__button');
 //input에 입력된 값들을 가져와서 주문을 전송하는 함수
 async function sendPayment() {
-    const inputItems = document.querySelectorAll('input');
+    const inputItems = document.querySelectorAll('.input');
     const inputArray = Array.from(inputItems);
+    inputArray.shift();
     const [title, receiver, code, address, subAddress] = inputArray.map((input) => input.value); //input value 가져오는 과정
     const contact = inputArray
         .slice(5, 8)
