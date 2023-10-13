@@ -35,7 +35,7 @@ async function getUserData() {
 
                     // 클릭할 때 해당 주문 아이디를 localStorage에 저장
                     row.innerHTML = `
-                    <td><a href='/order/result' onclick="onclick=localStorage.setItem('order_result', JSON.stringify('${itemId}'));">${orderNumber}</a></td>
+                    <td><a href='/order/result' onclick="localStorage.setItem('order_result', JSON.stringify('${itemId}'));">${orderNumber}</a></td>
                     <td>${formatDate}</td>
                     <td>${itemQty > 1 ? `${itemName} 외 ${itemQty - 1}` : itemName}</td>
                     <td>${formatAmount}</td>
