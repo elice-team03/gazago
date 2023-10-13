@@ -179,6 +179,7 @@ function selectAll() {
 if (allCheckbox) allCheckbox.addEventListener('click', selectAll);
 //체크박스를 하나씩 선택 or 해제할 때 실행되는 이벤트
 const deleteButton = document.querySelector('.delete__button');
+const orderButton = document.querySelector('.order__button');
 checkboxes.forEach((item) => {
     item.addEventListener('click', (e) => {
         calculateTotalPrice();
@@ -186,8 +187,9 @@ checkboxes.forEach((item) => {
         const numberTotalProductPrice = Number(totalProductPrice.innerHTML.replace(',', ''));
         if (numberTotalProductPrice > 0) {
             deleteButton.removeAttribute('disabled');
+            orderButton.removeAttribute('disabled');
         } else {
-            deleteButton.setAttribute('disabled', '');
+            orderButton.setAttribute('disabled', '');
         }
     });
 });
@@ -233,3 +235,17 @@ if (deleteButton) {
         }
     });
 }
+const orderData = [];
+orderButton.addEventListener('click', () => {
+    window.location.href = '/order/';
+    checkboxes.forEach((item, idx) => {
+        if(item.checked && idx !== 0) {
+            orderData.push({"id": cartData[idx - 1].id, "quantity": cartData[idx - 1].quantity});
+        }
+    })
+    storage.setItem('order', JSON.stringify(orderData))
+});
+const backButton = document.querySelector('.back__button');
+backButton.addEventListener('click', () => {
+    window.location.href = '/product-list';
+})

@@ -41,7 +41,15 @@ async function renderOrderItems(item, idx) {
     totalPrice += Number(data.price) * Number(item.quantity); //상품 가격에 상품 수량을 곱해서 총 상품 가격 계산
     calculateTotalPrice(totalPrice); //총 상품가격 계산 함수 호출
 
-    storage.setItem('order', JSON.stringify([]));
+    const userResponse = await Api.get('/api/users');
+    const delivery = userResponse.data.delivery;
+    const tabLinks = document.querySelectorAll('.tab__link');
+    if (delivery) {
+        tabLinks[0].classList.add('is-active');
+        loadUserDelivery();
+        const lastDeliveryButton = document.querySelector('.last__delivery');
+        lastDeliveryButton.style.display = 'block';
+    } else tabLinks[1].classList.add('is-active');
 }
 //총 상품 가격을 계산하는 함수
 function calculateTotalPrice(totalPrice) {
@@ -86,9 +94,12 @@ tabLinks.forEach((item) => {
             loadUserDelivery();
             lastDeliveryButton.style.display = 'block';
         } else {
-            const inputItems = document.querySelectorAll('input');
-            inputItems.forEach((item) => {
+            const inputItems = document.querySelectorAll('.input');
+            const inputArray = Array.from(inputItems)
+            inputArray.shift();
+            inputArray.forEach((item) => {
                 item.value = '';
+                item.removeAttribute('readonly');
             });
             lastDeliveryButton.style.display = 'none';
         }
@@ -99,13 +110,13 @@ async function openModal($el, page, recall) {
     $el.classList.add('is-active');
     if (!page) page = 1;
     const response = await Api.get(`/api/deliveries?page=${page}`);
-    console.log(page);
     const data = response.data;
     const deliveries = data.deliveries.map((item) => [
         item.title,
         item.receiver,
         item.code,
         item.address,
+        item.subAddress,
         item.contact,
     ]);
 
@@ -114,7 +125,7 @@ async function openModal($el, page, recall) {
         <div class="modal__divider"></div>
     `;
     deliveries.forEach((item, itemIdx) => {
-        const labels = ['배송지명', '수령인', '우편번호', '주소', '연락처'];
+        const labels = ['배송지명', '수령인', '우편번호', '주소', '상세주소', '연락처'];
         item.forEach((text, textIdx) => {
             box.innerHTML += `
             <div class="modal__detail modal-${itemIdx}">
@@ -128,7 +139,7 @@ async function openModal($el, page, recall) {
             <div class="modal__divider"></div>
         `;
     });
-    if(recall !== 'none') renderPagination($el, data.totalPages);
+    if (recall !== 'none') renderPagination($el, data.totalPages);
     deliveries.forEach((item, itemIdx) => {
         const addButton = document.querySelectorAll('.add__button');
         addButton[itemIdx].addEventListener('click', () => {
@@ -187,14 +198,25 @@ function renderPagination($el, totalPages) {
 }
 function loadUserLastDelivery($el, item) {
     closeModal($el);
+    const tabLinks = document.querySelectorAll('.tab__link');
+    tabLinks[1].classList.add('is-active');
+    tabLinks[0].classList.remove('is-active');
+    const inputItems = document.querySelectorAll('input');
+    inputItems.forEach((item) => {
+        item.value = '';
+        item.removeAttribute('readonly');
+    });
+    const lastDeliveryButton = document.querySelector('.last__delivery');
+    lastDeliveryButton.style.display = 'none';
+
     const contact = document.querySelectorAll('.input__min');
-    ['title', 'receiver', 'code', 'address'].forEach((field, idx) => {
+    ['title', 'receiver', 'code', 'address', 'subAddress'].forEach((field, idx) => {
         const value = item[idx];
         document.querySelector(`.${field}`).value = value;
     });
     const contactIndices = [0, 3, 7, 11];
     contact.forEach((input, idx) => {
-        input.value = item[4].slice(contactIndices[idx], contactIndices[idx + 1]);
+        input.value = item[5].slice(contactIndices[idx], contactIndices[idx + 1]);
     });
 }
 function closeModal($el) {
@@ -222,24 +244,29 @@ function closeModal($el) {
 });
 
 async function loadUserDelivery() {
-    const response = await Api.get('/api/users');
-    const data = response.data;
-    const delivery = data.delivery;
     const contact = document.querySelectorAll('.input__min');
+    const userResponse = await Api.get('/api/users');
+    const delivery = userResponse.data.delivery;
 
     ['title', 'receiver', 'code', 'address', 'subAddress'].forEach((item) => {
         document.querySelector(`.${item}`).value = delivery[item];
+        document.querySelector(`.${item}`).setAttribute('readonly', '');
     });
     contact[0].value = delivery['contact'].slice(0, 3);
     contact[1].value = delivery['contact'].slice(3, 7);
     contact[2].value = delivery['contact'].slice(7, 11);
+
+    contact.forEach((item) => {
+        item.setAttribute('readonly', '');
+    })
 }
 
 const payButton = document.querySelector('.pay__button');
 //input에 입력된 값들을 가져와서 주문을 전송하는 함수
 async function sendPayment() {
-    const inputItems = document.querySelectorAll('input');
+    const inputItems = document.querySelectorAll('.input');
     const inputArray = Array.from(inputItems);
+    inputArray.shift();
     const [title, receiver, code, address, subAddress] = inputArray.map((input) => input.value); //input value 가져오는 과정
     const contact = inputArray
         .slice(5, 8)
@@ -284,11 +311,13 @@ async function sendPayment() {
         totalAmount: totalAmount,
     }); //주문 전송
     const data = response.data;
-    if (confirm('결제가 완료되었습니다. 결제내역 페이지로 이동하시겠습니까?')) {
-        storage.setItem('order_result', JSON.stringify(data._id)); //확인 버튼 눌렀을 때, 결제내역 페이지로 id를 전달하기 위해 localStorage에 저장
-        window.location.href = '/order-result/'; //결제내역 페이지로 이동
-    } else {
-        window.location.href = '/';
-    } //취소 버튼 눌렀을 때, 홈 화면으로 이동
+    const positionX = window.screen.width / 2 - 500 / 2;
+    const positionY = window.screen.height / 2 - 500 / 2;
+    const openWin = window.open('/stripe', 'stripe', `width=500, height=500, left=${positionX}, top=${positionY}, resizable=no`);
+    openWin.addEventListener('beforeunload', () => {
+        storage.setItem('order_result', JSON.stringify(data._id));
+        storage.setItem('order', JSON.stringify([]));
+        window.location.href = '/order-result/';
+    });
 }
 payButton.addEventListener('click', sendPayment);
