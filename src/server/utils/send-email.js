@@ -1,11 +1,12 @@
 const nodemailer = require('nodemailer');
 
-function sendEmail(type, email, contentOfEmail) {
-    
-    contentOfEmail.contact = '연락처: ' + String(contentOfEmail.contact);
-    contentOfEmail.code = '우편번호: ' + String(contentOfEmail.code);
-    contentOfEmail.address = '주소: ' + String(contentOfEmail.address);
-    contentOfEmail.subAddress = '상세주소: ' + String(contentOfEmail.subAddress);
+async function sendEmail(type, email, contentOfEmail) {
+    if (type === 'changeDelivery') {
+        contentOfEmail.contact = '연락처: ' + String(contentOfEmail.contact);
+        contentOfEmail.code = '우편번호: ' + String(contentOfEmail.code);
+        contentOfEmail.address = '주소: ' + String(contentOfEmail.address);
+        contentOfEmail.subAddress = '상세주소: ' + String(contentOfEmail.subAddress);
+    }
 
     /** 임시 비밀번호 발송하는 메일형식 html inline style */
     let mail = null;
@@ -54,11 +55,8 @@ function sendEmail(type, email, contentOfEmail) {
                         font-weight: bold;
                         text-align: center;
                         margin-top: 2em;
-                        font-size: 18px;
-                    "
-                >
-                    로그인 하러가기
-                </a>
+                        font-size: 18px;">
+                        로그인 하러가기</a>
             </div>
         </div> 
         `,
@@ -97,7 +95,156 @@ function sendEmail(type, email, contentOfEmail) {
         </div> 
         `,
     };
-    /** 배송지 변경 메일 */
+    /** 카탈로그 알림 메일 */
+    const templateCatalog = {
+        from: process.env.NODEMAILER_ID,
+        to: email,
+        subject: `[GAZAGO] "이번 달의 핫 아이템, 놓치지 마세요!"`,
+        html: `
+        <div style="width: 1000px; margin: auto; text-align: center">
+            <div style="text-align: center">
+                <img src="https://i.imgur.com/onyitJ3.png" alt="" style="width: 200px" />
+            </div>
+            <div style="text-align: left; margin-top: 2rem">
+                <p style="text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 30px">
+                    이번 달 핫 아이템
+                </p>
+                <hr style="background: #395144; height: 3px; border: 0" />
+
+                <div style="margin-inline: auto; display:flex; justify-content:space-between; padding: 2rem 0; ">
+                    <div style="text-align:center;position:relative;margin-right: 20px; border: 1px solid black; border-radius: 10px; padding: 1em; width:30%;">
+                    <div
+                                style="
+                                    position: absolute;
+                                    width: 50px;
+                                    height: 50px;
+                                    background: crimson;
+                                    border-radius: 100vmax;
+                                    line-height: 50px;
+                                    text-align: center;
+                                    left: -5px;
+                                    top: -4px;
+
+                                    color: white;
+                                    font-weight: bold;
+                                "
+                            >
+                                1위
+                            </div>
+                        <div
+                            style="  
+                                border-radius: 10px;
+                                overflow: hidden;
+                                background: #ddd;
+                                width: 200px;
+                                height: 200px;
+                                margin: 0 auto;
+                            "
+                        >
+                            <img src="${contentOfEmail[0].thumbnailPath}" alt="" style="object-fit: cover; width: 100%" />
+                            
+                        </div>
+                        <div>
+                            <span>${contentOfEmail[0].brand}</span><span style="margin-left: auto;">${contentOfEmail[0].name}</span>
+                        </div>
+                        <p>${contentOfEmail[0].price}</p>
+                    </div>
+                    <div style="text-align: center;position:relative; margin-right: 20px; border: 1px solid black; border-radius: 10px; padding: 1em; width:30%;">
+                    <div
+                                style="
+                                    position: absolute;
+                                    width: 50px;
+                                    height: 50px;
+                                    background: crimson;
+                                    border-radius: 100vmax;
+                                    line-height: 50px;
+                                    text-align: center;
+                                    left: -5px;
+                                    top: -4px;
+
+                                    color: white;
+                                    font-weight: bold;
+                                "
+                            >
+                                2위
+                            </div>
+                        <div
+                            style="
+                            border-radius: 10px;
+                            overflow: hidden;
+                            background: #ddd;
+                            width: 200px;
+                            height: 200px;
+                            margin: 0 auto;
+                            "
+                        >
+                            <img src="${contentOfEmail[1].thumbnailPath}" alt="" style="object-fit: cover; width: 100%" />
+                            
+                        </div>
+                        <div>
+                            <span>${contentOfEmail[1].brand}</span><span style="margin-left: auto;">${contentOfEmail[1].name}</span>
+                        </div>
+                        <p>${contentOfEmail[1].price}</p>
+                    </div>
+                    <div style="text-align: center; border: 1px solid black; border-radius: 10px; padding: 1em; position:relative; width:30%;">
+                    <div
+                                style="
+                                    position: absolute;
+                                    width: 50px;
+                                    height: 50px;
+                                    background: crimson;
+                                    border-radius: 100vmax;
+                                    line-height: 50px;
+                                    text-align: center;
+                                    left: -5px;
+                                    top: -4px;
+
+                                    color: white;
+                                    font-weight: bold;
+                                "
+                            >
+                                3위
+                            </div>
+                        <div
+                            style="
+                            border-radius: 10px;
+                            overflow: hidden;
+                            background: #ddd;
+                            width: 200px;
+                            height: 200px;
+                            margin: 0 auto
+                            "
+                        >
+                            <img src="${contentOfEmail[2].thumbnailPath}" alt="" style="object-fit: cove; width: 100%" />
+                            
+                        </div>
+                        <div >
+                            <span>${contentOfEmail[2].brand}</span><span style="margin-left: auto;">${contentOfEmail[2].name}</span>
+                        </div>
+                        <p>${contentOfEmail[2].price}</p>
+                    </div>
+                </div>
+            </div>
+            <a
+                    href="http://localhost:5001/"
+                    style="
+                        display:inline-block;
+                        width: 50%;
+                        background: #004225;
+                        height: 45px;
+                        line-height: 45px;
+                        border-radius: 100vmax;
+                        color: white;
+                        text-decoration: none;
+                        font-weight: bold;
+                        text-align: center;
+                        margin-top: 2em;
+                        font-size: 18px;">
+                        구매하러 가기</a>
+            </div>
+        `,
+    };
+    /** 배송지 정보변경 알림메일 */
     const templateDeliveryInform = {
         from: process.env.NODEMAILER_ID,
         to: email,
@@ -133,6 +280,7 @@ function sendEmail(type, email, contentOfEmail) {
         </div> 
         `,
     };
+
     if (type === 'resetPassword') {
         mail = templatePasswordReset;
     }
@@ -141,6 +289,9 @@ function sendEmail(type, email, contentOfEmail) {
     }
     if (type === 'changeDelivery') {
         mail = templateDeliveryInform;
+    }
+    if (type === 'sendCatalog') {
+        mail = templateCatalog;
     }
     const transport = nodemailer.createTransport({
         service: 'Gmail',
