@@ -16,7 +16,6 @@ class deliveryService {
 
         const delivery = await Delivery.create(buildDelivery);
 
-        await userService.addUserDelivery(loggedInUser._id, delivery._id);
         return delivery;
     }
 
