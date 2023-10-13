@@ -6,7 +6,7 @@ const mailScheduler = () => {
     const totalMemory = memoryUsage().heapTotal;
     const usedMemory = memoryUsage().heapUsed;
     // if (usedMemory < totalMemory * 0.7) {
-    cron.schedule('1 13 14 * *', async () => {
+    cron.schedule('1 13 14 * * *', async () => {
         try {
             console.log('scheduler start...');
             await productService.findBest3ProductsAndSendEmailToAllUsers();
