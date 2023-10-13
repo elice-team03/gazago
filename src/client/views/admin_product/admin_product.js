@@ -109,10 +109,9 @@ const product = {
     saveInModal: async (e) => {
         e.preventDefault();
         let productId = document.querySelector('#productId').value;
-        let parentCategorySel = document.querySelector('#parentCategorySel').value;
         let childCategorySel = document.querySelector('#childCategorySel').value;
         let brandInput = document.querySelector('#brandInput').value;
-        let productNameInput = document.querySelector('#productNameInput').value;
+        let productNameInput = document.querySelector('#modalProductNameInput').value;
         let priceInput = document.querySelector('#priceInput').value;
         let thumbnailInput = document.querySelector('#thumbnailInput').value;
         let content = document.querySelector('#contentFile');
@@ -123,7 +122,9 @@ const product = {
         productSaveFormdata.append('name', productNameInput);
         productSaveFormdata.append('price', priceInput);
         productSaveFormdata.append('thumbnailPath', thumbnailInput);
-        productSaveFormdata.append('content', content.files[0]);
+        if (content.files[0].size > 0) {
+            productSaveFormdata.append('content', content.files[0]);
+        }
 
         let targetUrl = isUpdate ? `/api/products/${productId}` : '/api/products';
 
@@ -153,10 +154,27 @@ const product = {
     },
     getProductList: async () => {
         let productNameInput = document.querySelector('#productNameInput').value;
-        let queryStringList = [];
+        let parentCategorySel = document.querySelector('#parentCategorySelect').value;
+        let childCategorySel = document.querySelector('#categorySelect').value;
+        let currentNumber;
+        if (document.querySelector('.currentNumber') != null) {
+            currentNumber = document.querySelector('.currentNumber').innerText;
+        } else {
+            currentNumber = 1;
+        }
+        let queryStringList = ['page=' + currentNumber];
+
         if (isStringValue(productNameInput)) {
             productNameInput = productNameInput.trim();
             queryStringList.push('searchKeyword=' + productNameInput);
+        }
+        if (isStringValue(parentCategorySel)) {
+            parentCategorySel = parentCategorySel.trim();
+            queryStringList.push('parentCategoryId=' + parentCategorySel);
+        }
+        if (isStringValue(childCategorySel)) {
+            childCategorySel = childCategorySel.trim();
+            queryStringList.push('categoryId=' + childCategorySel);
         }
 
         let queryString = queryStringList.join('&');
@@ -221,8 +239,12 @@ const initialize = async () => {
                                     <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${
                                         element.price
                                     }</td>
-                                    <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${'누적 판매량'}</td>
-                                    <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${'판매상태'}</td>
+                                    <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${
+                                        element.totalSales
+                                    }</td>
+                                    <td class="custom_text_align_center custom_vertical_align_middle is-size-7">${
+                                        element.status
+                                    }</td>
                                     <td class="custom_text_align_center custom_vertical_align_middle">
                                         <button id="prodeuct_btn_upd${idx}" class="button is-rounded is-small custom_background_color_prime">수정</button>
                                         <button id="prodeuct_btn_del${idx}" class="button is-rounded is-small custom_background_color_red">삭제</button>
@@ -232,15 +254,38 @@ const initialize = async () => {
                     const productRowUpdateButton = tempRow.querySelector(`#prodeuct_btn_upd${idx}`);
                     productRowUpdateButton.addEventListener('click', (e) => {
                         document.querySelector('#modalTitleId').innerText = '상품수정';
-                        document.querySelector('#product_btn_save').innerText = '수정하기';
+                        document.querySelector('#product_btn_save').innerText = '저장하기';
                         isUpdate = true;
 
-                        setDataInModal(element._id);
+                        setDataInModal(element._id, element.contentUsrFileName);
                     });
                     const productRowDeleteButton = tempRow.querySelector(`#prodeuct_btn_del${idx}`);
                     productRowDeleteButton.addEventListener('click', (e) => product.deleteRow(e, element._id));
+
                     tbody.append(tempRow);
                 });
+                const numberWrapper = document.querySelector('.number_wrapper');
+                numberWrapper.innerHTML = '';
+                for (
+                    let i = res.currentPage - 2 <= 0 ? 1 : res.currentPage - 2;
+                    i <= (res.currentPage + 2 > res.totalPages ? res.totalPages : res.currentPage + 2);
+                    i++
+                ) {
+                    const span = document.createElement('span');
+                    span.innerText = i;
+                    span.className = 'numberButton';
+
+                    if (i == res.currentPage) {
+                        span.className += ' currentNumber';
+                    }
+                    numberWrapper.append(span);
+                    span.addEventListener('click', (e) => {
+                        let currentPageNumber = document.querySelector('.currentNumber');
+                        currentPageNumber.classList.remove('currentNumber');
+                        e.target.classList.add('currentNumber');
+                        initialize();
+                    });
+                }
             }
         }
     } catch (err) {
@@ -257,6 +302,11 @@ let modal = new BulmaModal('#myModal');
 productBtnAdd.addEventListener('click', function () {
     document.querySelector('#modalTitleId').innerText = '상품등록';
     isUpdate = false;
+    const modalParentCategorySel = document.querySelector('.modal #parentCategorySel');
+    getParentOption(modalParentCategorySel, false);
+    document.querySelector('.modal #childCategorySel').innerHTML = '';
+    document.querySelector('#contentFile').files = new DataTransfer().files;
+
     modal.show();
 });
 
@@ -264,15 +314,16 @@ modal.addEventListener('modal:close', function () {
     const parentCategorySel = document.querySelector('.modal #parentCategorySel');
     parentCategorySel.options[parentCategorySel.options.selectedIndex].selected = true;
     const childCategorySel = document.querySelector('.modal #childCategorySel');
-    childCategorySel.options[childCategorySel.options.selectedIndex].selected = true;
+    if (childCategorySel.options == null) {
+        childCategorySel.options[childCategorySel.options.selectedIndex].selected = true;
+    }
     document.querySelector('.modal #brandInput').value = '';
-    document.querySelector('.modal #productNameInput').value = '';
+    document.querySelector('.modal #modalProductNameInput').value = '';
     document.querySelector('.modal #priceInput').value = '';
     document.querySelector('.modal #thumbnailInput').value = '';
-    // document.querySelector('#contentFile');
 });
 
-const setDataInModal = async (id) => {
+const setDataInModal = async (id, contentUsrFileName) => {
     let productInfo = await product.productGetById(id);
     if (productInfo != null) {
         const modalParentCategorySel = document.querySelector('.modal #parentCategorySel');
@@ -289,13 +340,31 @@ const setDataInModal = async (id) => {
                 childCategoryOrder[productInfo.category.name]
             ].selected = true;
         }
+        if (isValidFile(contentUsrFileName)) {
+            let fileName = contentUsrFileName;
+            let file = new File([], fileName, {
+                type: 'image/jpeg',
+                lastModified: new Date().getTime(),
+            });
 
-        document.querySelector('.modal #brandInput').value = productInfo.brand;
-        document.querySelector('.modal #productNameInput').value = productInfo.name;
-        document.querySelector('.modal #priceInput').value = productInfo.price;
-        document.querySelector('.modal #thumbnailInput').value = productInfo.thumbnailPath;
-        // document.querySelector('#contentFile');
-        modal.show();
+            let container = new DataTransfer();
+            container.items.add(file);
+
+            document.querySelector('.modal #brandInput').value = productInfo.brand;
+            document.querySelector('.modal #modalProductNameInput').value = productInfo.name;
+            document.querySelector('.modal #priceInput').value = productInfo.price;
+            document.querySelector('.modal #thumbnailInput').value = productInfo.thumbnailPath;
+            document.querySelector('#contentFile').files = container.files;
+
+            modal.show();
+        } else {
+            console.log('파일이 유효하지 않습니다.');
+        }
+
+        function isValidFile(fileName) {
+            // 파일 크기가 0바이트 이상인 경우를 유효한 파일로 간주
+            return fileName && fileName.trim().length > 0;
+        }
     }
 };
 
@@ -310,5 +379,15 @@ customInputEnter.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         e.preventDefault();
         initialize();
+    }
+});
+
+const fileInputInModal = document.querySelector('.modal #contentFile');
+fileInputInModal.addEventListener('change', (e) => {
+    let fileInput = e.target;
+    if (fileInput.files[0].size > 50000000) {
+        // 50mb
+        alert('파일 용량이 50mb를 초과하였습니다.');
+        fileInput.files = new DataTransfer().files;
     }
 });

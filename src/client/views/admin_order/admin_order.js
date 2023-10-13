@@ -1,5 +1,7 @@
 import * as Api from '../../api.js';
 
+const storage = window.localStorage;
+
 const dateFormater = (date) => {
     const dateArr = [date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()];
 
@@ -146,8 +148,9 @@ const initialize = async () => {
                                             </td>
                                             -->
                                             <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
-                                                <p>${element.orderNumber}</p>
+                                                <a id="moveOrderResultPage">${element.orderNumber}</a>
                                             </td>
+
                                             <td class="custom_text_align_center custom_vertical_align_middle is-size-7">
                                                 <p id="dateFormatBefore">${dateFormater(
                                                     new Date(element.createdAt)
@@ -221,6 +224,19 @@ const initialize = async () => {
                             }
                         }
                     }
+
+                    const moveOrderResultPage = tempRow.querySelector('#moveOrderResultPage');
+                    const movePage = (e, id) => {
+                        e.preventDefault();
+                        debugger;
+                        storage.setItem('order_result', id);
+                        window.location.href = '/order/result';
+                    };
+                    moveOrderResultPage.addEventListener('click', (e) => {
+                        movePage(e, element._id);
+                    });
+
+                    // 주문 내역 상세 페이지 pull 받아서 진행
 
                     tbody.append(tempRow);
                 });
