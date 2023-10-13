@@ -69,9 +69,6 @@ priceRange.forEach((a) => {
 });
 
 
-
-
-
 let total = '';
 let ableWish = ''
 
@@ -127,8 +124,6 @@ let wishList = [];
         wishList.push(item._id);
     });
 })();
-
-
 
 
 async function addWishList(data) {
@@ -311,9 +306,6 @@ selectedPrice.forEach((a) => {
             const priceSession = JSON.stringify(priceRange);
             sessionStorage.setItem('priceRange', priceSession);
 
-            // const priceCategory = e.target.nextElementSibling.innerText.split(' ~ ');
-            // paramsObj.beginPrice = parsePrice(priceCategory[0]);
-            // paramsObj.endPrice = parsePrice(priceCategory[1]);
             window.location.href = '/product-list/' + newParams();
         } else {
             priceRange = priceRange.filter((item) => item !== e.target.id);

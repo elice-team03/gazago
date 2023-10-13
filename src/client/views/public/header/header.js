@@ -140,24 +140,6 @@ function noNavbar (){
     })
 }
 
-// async function getCategoriesMenu() {
-//     const response = await fetch('/api/categories/menu', {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//     });
-    
-//     const data = await response.json();
-    
-//     data.data.forEach((a, i)=>{
-//         document.querySelector('.main-nav .navbar').insertAdjacentHTML('beforeend',
-//         `<li><a class="navbar-item" id="navbar-item-${i+1}" href="/product-list/?parentCategoryId=${a._id}">${a.name}</a></li>`
-//          );
-//     });    
-// }
-
-// getCategoriesMenu();
 const navbarItems = document.querySelectorAll('.main-nav ul li');
 const submenus = document.querySelectorAll('.sub-nav');
 
@@ -173,21 +155,6 @@ navbarItems.forEach((navItem, index) => {
         }
     });
 });
-
-// const subMenu = [];
-// async function getSubCategoriesMenu ()
-//     const response = await fetch('/api/categories/menu', {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//     });
-    
-//     const data = await response.json();
-//     data.data.forEach((a, i)=>{
-//         document.querySelector(`sub-nav${i+1}`);
-//     })
-// // }
 
 
 
