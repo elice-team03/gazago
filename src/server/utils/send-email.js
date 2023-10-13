@@ -96,6 +96,9 @@ async function sendEmail(type, email, contentOfEmail) {
         `,
     };
     /** 카탈로그 알림 메일 */
+    const formattedPrice0 = `₩${contentOfEmail[0]?.price.toLocaleString()}`;
+    const formattedPrice1 = `₩${contentOfEmail[1]?.price.toLocaleString()}`;
+    const formattedPrice2 = `₩${contentOfEmail[2]?.price.toLocaleString()}`;
     const templateCatalog = {
         from: process.env.NODEMAILER_ID,
         to: email,
@@ -147,7 +150,7 @@ async function sendEmail(type, email, contentOfEmail) {
                         <div>
                             <span>${contentOfEmail[0]?.brand}</span><span style="margin-left: auto;">${contentOfEmail[0]?.name}</span>
                         </div>
-                        <p>${contentOfEmail[0]?.price}</p>
+                        <p>${formattedPrice0}</p>
                     </div>
                     <div style="text-align: center;position:relative; margin-right: 20px; border: 1px solid black; border-radius: 10px; padding: 1em; width:30%;">
                     <div
@@ -184,7 +187,7 @@ async function sendEmail(type, email, contentOfEmail) {
                         <div>
                             <span>${contentOfEmail[1]?.brand}</span><span style="margin-left: auto;">${contentOfEmail[1]?.name}</span>
                         </div>
-                        <p>${contentOfEmail[1]?.price}</p>
+                        <p>${formattedPrice1}</p>
                     </div>
                     <div style="text-align: center; border: 1px solid black; border-radius: 10px; padding: 1em; position:relative; width:30%;">
                     <div
@@ -221,7 +224,7 @@ async function sendEmail(type, email, contentOfEmail) {
                         <div >
                             <span>${contentOfEmail[2]?.brand}</span><span style="margin-left: auto;">${contentOfEmail[2]?.name}</span>
                         </div>
-                        <p>${contentOfEmail[2]?.price}</p>
+                        <p>${formattedPrice2}</p>
                     </div>
                 </div>
             </div>
