@@ -152,12 +152,12 @@ const product = {
 
         return null;
     },
-    getProductList: async () => {
+    getProductList: async (render) => {
         let productNameInput = document.querySelector('#productNameInput').value;
         let parentCategorySel = document.querySelector('#parentCategorySelect').value;
         let childCategorySel = document.querySelector('#categorySelect').value;
         let currentNumber;
-        if (document.querySelector('.is-current')) {
+        if (!render && document.querySelector('.is-current')) {
             currentNumber = document.querySelector('.is-current').innerText;
         } else {
             currentNumber = 1;
@@ -255,9 +255,9 @@ const renderPagination = (totalPages) => {
         }
     })
 };
-const initialize = async (render, recall) => {
+const initialize = async (render) => {
     try {
-        let res = await product.getProductList(1);
+        let res = await product.getProductList(render);
         if (res.code == 200) {
             if (res != null && res.data != null) {
                 const data = res.data;
@@ -322,16 +322,15 @@ const initialize = async (render, recall) => {
                 if (render) {
                     const paginationContainer = document.querySelector('.pagination-container');
                     paginationContainer.innerHTML = '';
+                    renderPagination(data.totalPages);
                 }
-                if (recall) renderPagination(data.totalPages);
-                
             }
         }
     } catch (err) {
         console.log(err);
     }
 };
-initialize(true, true);
+initialize(true);
 
 // modal
 
@@ -411,13 +410,13 @@ const productModalSaveButton = document.querySelector('#product_btn_save');
 productModalSaveButton.addEventListener('click', product.saveInModal);
 
 const productSearchButton = document.querySelector('#searchButton');
-productSearchButton.addEventListener('click', () => initialize(true, true));
+productSearchButton.addEventListener('click', () => initialize(true));
 
 const customInputEnter = document.querySelector('.custom_input_enter');
 customInputEnter.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         e.preventDefault();
-        initialize(true, true);
+        initialize(true);
     }
 });
 

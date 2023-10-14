@@ -68,7 +68,7 @@ const order = {
             alert('주문취소 중 오류가 발생했습니다.');
         }
     },
-    getOrderList: async () => {
+    getOrderList: async (render) => {
         let beginDate = document.querySelector('#beginDate').value;
         let endDate = document.querySelector('#endDate').value;
         let orderUserName = document.querySelector('#orderUserName').value;
@@ -76,7 +76,7 @@ const order = {
         let orderStatusSelect = document.querySelector('#orderStatusSelect option:checked').value;
         let queryStringList = [];
         let currentNumber;
-        if (document.querySelector('.is-current')) {
+        if (!render && document.querySelector('.is-current')) {
             currentNumber = document.querySelector('.is-current').innerText;
         } else {
             currentNumber = 1;
@@ -181,9 +181,9 @@ const renderPagination = (totalPages) => {
         }
     });
 };
-const initialize = async (render, recall) => {
+const initialize = async (render) => {
     try {
-        let res = await order.getOrderList();
+        let res = await order.getOrderList(render);
         if (res.code == 200) {
             if (res != null && res.data != null) {
                 const data = res.data;
@@ -303,18 +303,18 @@ const initialize = async (render, recall) => {
                 if (render) {
                     const paginationContainer = document.querySelector('.pagination-container');
                     paginationContainer.innerHTML = '';
+                    renderPagination(data.totalPages);
                 }
-                if (recall) renderPagination(data.totalPages);
             }
         }
     } catch (err) {
         console.log(err);
     }
 };
-initialize(true, true);
+initialize(true);
 
 const orderSearchButton = document.querySelector('#searchButton');
-orderSearchButton.addEventListener('click', () => initialize(true, true));
+orderSearchButton.addEventListener('click', () => initialize(true));
 
 const customInputEnterList = document.querySelectorAll('.custom_input_enter');
 
@@ -322,7 +322,7 @@ customInputEnterList.forEach((item) => {
     item.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            initialize(true, true);
+            initialize(true);
         }
     });
 });

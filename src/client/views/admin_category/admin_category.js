@@ -60,10 +60,10 @@ const category = {
             alert(err.message);
         }
     },
-    getCategoryList: async () => {
+    getCategoryList: async (render) => {
         let queryString = '';
         let currentNumber;
-        if (document.querySelector('.is-current')) {
+        if (!render && document.querySelector('.is-current')) {
             currentNumber = document.querySelector('.is-current').innerText;
         } else {
             currentNumber = 1;
@@ -135,9 +135,9 @@ const renderPagination = (totalPages) => {
     });
 };
 // 초기화 : 화면 접근시 데이터베이스에 접근해서 목록 가져오기
-const initialize = async (render, recall) => {
+const initialize = async (render) => {
     try {
-        let res = await category.getCategoryList();
+        let res = await category.getCategoryList(render);
         if (res.code == 200) {
             if (res != null && res.data != null) {
                 const data = res.data;
@@ -186,8 +186,8 @@ const initialize = async (render, recall) => {
                 if (render) {
                     const paginationContainer = document.querySelector('.pagination-container');
                     paginationContainer.innerHTML = '';
+                    renderPagination(data.totalPages);
                 }
-                if (recall) renderPagination(data.totalPages);
             }
         } else {
             throw new Error('Failed to fetch data');
@@ -196,7 +196,7 @@ const initialize = async (render, recall) => {
         alert(err.message);
     }
 };
-initialize(true, true); // 초기데이터 가져오는 initialize 함수 실행
+initialize(true); // 초기데이터 가져오는 initialize 함수 실행
 
 // modal
 
