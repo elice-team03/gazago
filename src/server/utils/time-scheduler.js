@@ -9,7 +9,7 @@ const mailScheduler = () => {
     cron.schedule('1 55 13 * * *', async () => {
         try {
             console.log('scheduler start...');
-            await productService.findBest3ProductsAndSendEmailToAllUsers();
+            // await productService.findBest3ProductsAndSendEmailToAllUsers();
             console.log('scheduler ended...');
         } catch (e) {
             console.log(e);
