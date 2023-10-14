@@ -60,16 +60,90 @@ const category = {
             alert(err.message);
         }
     },
+    getCategoryList: async () => {
+        let queryString = '';
+        let currentNumber;
+        if (document.querySelector('.is-current')) {
+            currentNumber = document.querySelector('.is-current').innerText;
+        } else {
+            currentNumber = 1;
+        }
+        queryString = '?page=' + currentNumber;
+        const endpoint = '/api/categories';
+        const params = queryString;
+        const apiUrl = `${endpoint}${params}`;
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                // Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        const result = await response.json();
+        return result;
+    },
 };
-
+let currentIndex;
+const renderPagination = (totalPages) => {
+    const paginationContainer = document.querySelector('.pagination-container');
+    if (paginationContainer.innerHTML === '') {
+        paginationContainer.innerHTML += `
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            <a class="pagination-previous">이전</a>
+            <a class="pagination-next">다음</a>
+            <ul class="pagination-list"></ul>
+            </nav>
+        `;
+        const paginationList = document.querySelector('.pagination-list');
+        for (let i = 0; i < totalPages; i++) {
+            paginationList.innerHTML += `
+                <li><a class="pagination-link">${i + 1}</a></li>
+            `;
+        }
+        currentIndex = 0;
+        const paginationLink = document.querySelectorAll('.pagination-link');
+        paginationLink[currentIndex].classList.add('is-current');
+    }
+    const paginationLink = document.querySelectorAll('.pagination-link');
+    paginationLink.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[idx].classList.add('is-current');
+            currentIndex = idx;
+            category.getCategoryList();
+            initialize();
+        });
+    });
+    const nextPageButton = document.querySelector('.pagination-next');
+    nextPageButton.addEventListener('click', () => {
+        if (currentIndex + 1 < totalPages) {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[currentIndex + 1].classList.add('is-current');
+            currentIndex++;
+            category.getCategoryList();
+            initialize();
+        }
+    });
+    const previousPageButton = document.querySelector('.pagination-previous');
+    previousPageButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            paginationLink[currentIndex].classList.remove('is-current');
+            paginationLink[currentIndex - 1].classList.add('is-current');
+            currentIndex--;
+            category.getCategoryList();
+            initialize();
+        }
+    });
+};
 // 초기화 : 화면 접근시 데이터베이스에 접근해서 목록 가져오기
-const initialize = async () => {
+const initialize = async (render, recall) => {
     try {
-        let res = await Api.get('/api/categories');
+        let res = await category.getCategoryList();
         if (res.code == 200) {
             if (res != null && res.data != null) {
+                const data = res.data;
                 let categoryList = res.data.categories;
                 let tBody = document.querySelector('#category_list_tbody');
+                tBody.innerHTML = '';
                 categoryList.forEach((item, idx) => {
                     const element = item.category;
                     let tempRow = document.createElement('tr');
@@ -109,6 +183,11 @@ const initialize = async () => {
                     categoryRowDeleteButton.addEventListener('click', (e) => category.deleteRow(e, element._id));
                     tBody.append(tempRow);
                 });
+                if (render) {
+                    const paginationContainer = document.querySelector('.pagination-container');
+                    paginationContainer.innerHTML = '';
+                }
+                if (recall) renderPagination(data.totalPages);
             }
         } else {
             throw new Error('Failed to fetch data');
@@ -117,7 +196,7 @@ const initialize = async () => {
         alert(err.message);
     }
 };
-initialize(); // 초기데이터 가져오는 initialize 함수 실행
+initialize(true, true); // 초기데이터 가져오는 initialize 함수 실행
 
 // modal
 

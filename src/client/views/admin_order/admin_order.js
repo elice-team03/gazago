@@ -150,7 +150,6 @@ const renderPagination = (totalPages) => {
         const paginationLink = document.querySelectorAll('.pagination-link');
         paginationLink[currentIndex].classList.add('is-current');
     }
-    console.log(currentIndex);
     const paginationLink = document.querySelectorAll('.pagination-link');
     paginationLink.forEach((item, idx) => {
         item.addEventListener('click', () => {
@@ -158,7 +157,7 @@ const renderPagination = (totalPages) => {
             paginationLink[idx].classList.add('is-current');
             currentIndex = idx;
             order.getOrderList();
-            initialize('none');
+            initialize();
         });
     });
     const nextPageButton = document.querySelector('.pagination-next');
@@ -168,7 +167,7 @@ const renderPagination = (totalPages) => {
             paginationLink[currentIndex + 1].classList.add('is-current');
             currentIndex++;
             order.getOrderList();
-            initialize('none');
+            initialize();
         }
     });
     const previousPageButton = document.querySelector('.pagination-previous');
@@ -178,11 +177,11 @@ const renderPagination = (totalPages) => {
             paginationLink[currentIndex - 1].classList.add('is-current');
             currentIndex--;
             order.getOrderList();
-            initialize('none');
+            initialize();
         }
     });
 };
-const initialize = async (recall) => {
+const initialize = async (render, recall) => {
     try {
         let res = await order.getOrderList();
         if (res.code == 200) {
@@ -290,8 +289,8 @@ const initialize = async (recall) => {
                     const movePage = (e, id) => {
                         e.preventDefault();
                         debugger;
-                        storage.setItem('order_result', id);
-                        window.location.href = '/order/result';
+                        storage.setItem('order_result', JSON.stringify(id));
+                        window.location.href = '/order-result';
                     };
                     moveOrderResultPage.addEventListener('click', (e) => {
                         movePage(e, element._id);
@@ -301,17 +300,21 @@ const initialize = async (recall) => {
 
                     tbody.append(tempRow);
                 });
-                if (recall !== 'none') renderPagination(data.totalPages);
+                if (render) {
+                    const paginationContainer = document.querySelector('.pagination-container');
+                    paginationContainer.innerHTML = '';
+                }
+                if (recall) renderPagination(data.totalPages);
             }
         }
     } catch (err) {
         console.log(err);
     }
 };
-initialize();
+initialize(true, true);
 
 const orderSearchButton = document.querySelector('#searchButton');
-orderSearchButton.addEventListener('click', initialize);
+orderSearchButton.addEventListener('click', () => initialize(true, true));
 
 const customInputEnterList = document.querySelectorAll('.custom_input_enter');
 
@@ -319,7 +322,7 @@ customInputEnterList.forEach((item) => {
     item.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            initialize();
+            initialize(true, true);
         }
     });
 });

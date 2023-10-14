@@ -229,7 +229,7 @@ const renderPagination = (totalPages) => {
             paginationLink[idx].classList.add('is-current');
             currentIndex = idx;
             product.getProductList();
-            initialize('none');
+            initialize();
         });
     });
     const nextPageButton = document.querySelector('.pagination-next');
@@ -239,7 +239,7 @@ const renderPagination = (totalPages) => {
             paginationLink[currentIndex + 1].classList.add('is-current');
             currentIndex++;
             product.getProductList();
-            initialize('none');
+            initialize();
         }
     });
     const previousPageButton = document.querySelector('.pagination-previous');
@@ -249,11 +249,11 @@ const renderPagination = (totalPages) => {
             paginationLink[currentIndex - 1].classList.add('is-current');
             currentIndex--;
             product.getProductList();
-            initialize('none');
+            initialize();
         }
     });
 };
-const initialize = async (recall) => {
+const initialize = async (render, recall) => {
     try {
         let res = await product.getProductList(1);
         if (res.code == 200) {
@@ -317,14 +317,19 @@ const initialize = async (recall) => {
 
                     tbody.append(tempRow);
                 });
-                if (recall !== 'none') renderPagination(data.totalPages);
+                if (render) {
+                    const paginationContainer = document.querySelector('.pagination-container');
+                    paginationContainer.innerHTML = '';
+                }
+                if (recall) renderPagination(data.totalPages);
+                
             }
         }
     } catch (err) {
         console.log(err);
     }
 };
-initialize();
+initialize(true, true);
 
 // modal
 
@@ -404,13 +409,13 @@ const productModalSaveButton = document.querySelector('#product_btn_save');
 productModalSaveButton.addEventListener('click', product.saveInModal);
 
 const productSearchButton = document.querySelector('#searchButton');
-productSearchButton.addEventListener('click', initialize);
+productSearchButton.addEventListener('click', () => initialize(true, true));
 
 const customInputEnter = document.querySelector('.custom_input_enter');
 customInputEnter.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         e.preventDefault();
-        initialize();
+        initialize(true, true);
     }
 });
 
