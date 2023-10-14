@@ -45,7 +45,6 @@ td {
 
 th {
     text-align: center;
-    
 }
 
 .table th:not([align]) {
@@ -54,10 +53,16 @@ th {
 
 .pagination-list {
     justify-content: center;
+    padding: 30px;
 }
 
 .pagination-link.is-current {
     background-color: var(--color-main);
     border-color: var(--color-main);
     color: #fff;
+}
+
+td a {
+    color: #485fc7;
+    cursor: pointer;
 }

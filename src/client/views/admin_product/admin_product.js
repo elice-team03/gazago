@@ -15,7 +15,7 @@ const parentCategoryIdArr = [
 const parentCategorySelect = document.querySelector('#parentCategorySelect');
 
 const getParentOption = (parentCategorySelect, total = true) => {
-    let getparentCategoryKeyword = total ? [`<option value="">전체보기</option>`] : [];
+    let getparentCategoryKeyword = total ? [`<option value="">선택</option>`] : [];
     parentCategoryIdArr.forEach((item) => {
         let [key, value] = Object.entries(item)[0];
         getparentCategoryKeyword.push(`<option value="${value}">${key}</option>`);
@@ -50,7 +50,7 @@ const getOption = async (parentCategorySelect, childCategorySelector, total = tr
                 childCategoryOrder[item.name] = idx;
             });
 
-            let getCategoryKeyword = total ? [`<option value="" selected>전체보기</option>`] : [];
+            let getCategoryKeyword = total ? [`<option value="" selected>선택</option>`] : [];
             if (parentCategorySelectValue == '') {
             } else {
                 categoryObjList.forEach((item, idx) => {
@@ -203,8 +203,7 @@ const isStringValue = (val) => {
 let currentIndex;
 const renderPagination = (totalPages) => {
     const paginationContainer = document.querySelector('.pagination-container');
-    if(paginationContainer.innerHTML === '')
-    {
+    if (paginationContainer.innerHTML === '') {
         paginationContainer.innerHTML += `
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
             <a class="pagination-previous">이전</a>
@@ -213,10 +212,9 @@ const renderPagination = (totalPages) => {
             </nav>
         `;
         const paginationList = document.querySelector('.pagination-list');
-        for(let i=0; i<totalPages; i++)
-        {
+        for (let i = 0; i < totalPages; i++) {
             paginationList.innerHTML += `
-                <li><a class="pagination-link">${i+1}</a></li>
+                <li><a class="pagination-link">${i + 1}</a></li>
             `;
         }
         currentIndex = 0;
@@ -236,24 +234,24 @@ const renderPagination = (totalPages) => {
     });
     const nextPageButton = document.querySelector('.pagination-next');
     nextPageButton.addEventListener('click', () => {
-        if(currentIndex + 1 < totalPages) {
+        if (currentIndex + 1 < totalPages) {
             paginationLink[currentIndex].classList.remove('is-current');
             paginationLink[currentIndex + 1].classList.add('is-current');
             currentIndex++;
             product.getProductList();
             initialize();
         }
-    })
+    });
     const previousPageButton = document.querySelector('.pagination-previous');
     previousPageButton.addEventListener('click', () => {
-        if(currentIndex > 0) {
+        if (currentIndex > 0) {
             paginationLink[currentIndex].classList.remove('is-current');
             paginationLink[currentIndex - 1].classList.add('is-current');
             currentIndex--;
             product.getProductList();
             initialize();
         }
-    })
+    });
 };
 const initialize = async (render) => {
     try {
@@ -341,7 +339,7 @@ productBtnAdd.addEventListener('click', function () {
     document.querySelector('#modalTitleId').innerText = '상품등록';
     isUpdate = false;
     const modalParentCategorySel = document.querySelector('.modal #parentCategorySel');
-    getParentOption(modalParentCategorySel, false);
+    getParentOption(modalParentCategorySel);
     document.querySelector('.modal #childCategorySel').innerHTML = '';
     document.querySelector('#contentFile').files = new DataTransfer().files;
 
@@ -365,7 +363,7 @@ const setDataInModal = async (id, contentUsrFileName) => {
     let productInfo = await product.productGetById(id);
     if (productInfo != null) {
         const modalParentCategorySel = document.querySelector('.modal #parentCategorySel');
-        getParentOption(modalParentCategorySel, false);
+        getParentOption(modalParentCategorySel);
         document.querySelector('.modal #productId').value = productInfo._id;
 
         document.querySelector('.modal #parentCategorySel').options[

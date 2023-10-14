@@ -84,6 +84,7 @@ class productService {
 
     static async findProductsInWishList(wishlist, skip, limit) {
         const products = await Product.find({ _id: { $in: wishlist } })
+            .sort({ _id: -1 })
             .skip(skip)
             .limit(limit);
         return products;

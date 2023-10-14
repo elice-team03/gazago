@@ -1,15 +1,20 @@
 import * as Api from '/api.js';
 
 let wishList = [];
+let currentPage = 1;
 
 // 관심 상품 목록
-async function getUserData() {
+async function getUserData(page) {
     try {
-        const result = await Api.get('/api/users/wishlist');
+        const url = `/api/users/wishlist?page=${page}`
+        const result = await Api.get(url);
+        const pageData = result.data;
+        updatePage(pageData);
+
         if (result.code === 200) {
-            wishList = result.data;
+            wishList = result.data.wishlist;
             let wishListTable = document.querySelector('#wishlist-table');
-            // console.log(result);
+            console.log(result.data);
 
             // 관심 상품이 없을 때
             if (wishList.length === 0) {
@@ -65,7 +70,7 @@ async function getUserData() {
         console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
     }
 }
-getUserData();
+
 
 // 전체선택 체크박스 이벤트 핸들러
 document.getElementById('total-check').addEventListener('change', (event) => {
@@ -118,3 +123,35 @@ document.getElementById('delete-button').addEventListener('click', async () => {
         }
     }
 });
+
+// Pagenation
+document.querySelector('.pagination-list').addEventListener('click', (event) => {
+    if (event.target.classList.contains('pagination-link')) {
+        currentPage = parseInt(event.target.textContent);
+
+        // 이전 데이터 지우기
+        const wishListTable = document.querySelector('#wishlist-table');
+        wishListTable.innerHTML = '';
+
+        getUserData(currentPage);
+    }
+});
+
+// 페이지 업데이트 함수
+async function updatePage(data) {
+    const totalPages = data.totalPages;
+    let currentPage = data.currentPage;
+
+    const paginationList = document.querySelector('.pagination-list');
+    paginationList.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        const paginationLink = document.createElement('li');
+        paginationLink.innerHTML = `<a class="pagination-link ${
+            i === currentPage ? 'is-current' : ''
+        }" aria-label="Page ${i}">${i}</a>`;
+        paginationList.appendChild(paginationLink);
+    }
+}
+
+// 초기 페이지 데이터 가져오기
+getUserData(currentPage);
