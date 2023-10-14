@@ -51,7 +51,7 @@ app.use('/api', apiRouter);
 app.use('/api/stripe', stripeRouter);
 
 // 정적 파일 설정
-app.use('/upload', express.static('upload'));
+app.use('/public', express.static('public'));
 
 // 에러 핸들러 설정
 app.use(errorHandler);

@@ -374,7 +374,7 @@ const setDataInModal = async (id, contentUsrFileName) => {
         if (isEnd) {
             document.querySelector('.modal #childCategorySel').options[
                 childCategoryOrder[productInfo.category.name]
-            ].selected = true;
+            ];
         }
         if (isValidFile(contentUsrFileName)) {
             let fileName = contentUsrFileName;
