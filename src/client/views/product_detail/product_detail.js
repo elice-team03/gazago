@@ -26,7 +26,7 @@ async function getData() {
     orderPrice.innerHTML = `${data.price.toLocaleString()}원`;
     totalOrderPrice.innerHTML = `${data.price.toLocaleString()}원`;
     thumnail.setAttribute('src', data.thumbnailPath); //썸네일 이미지 경로 설정
-    productImage.setAttribute('src', `http://127.0.0.1:5001/upload/product/${data.contentSrvFileName}`); //상세이미지 경로 설정
+    productImage.setAttribute('src', `http://127.0.0.1:5001/public/upload/product/${data.contentSrvFileName}`); //상세이미지 경로 설정
 }
 getData();
 
