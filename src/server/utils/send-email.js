@@ -96,9 +96,9 @@ async function sendEmail(type, email, contentOfEmail) {
         `,
     };
     /** 카탈로그 알림 메일 */
-    const formattedPrice0 = `₩${contentOfEmail[0]?.price.toLocaleString()}`;
-    const formattedPrice1 = `₩${contentOfEmail[1]?.price.toLocaleString()}`;
-    const formattedPrice2 = `₩${contentOfEmail[2]?.price.toLocaleString()}`;
+    const formattedPrice0 = `₩${contentOfEmail[0]?.price?.toLocaleString()}`;
+    const formattedPrice1 = `₩${contentOfEmail[1]?.price?.toLocaleString()}`;
+    const formattedPrice2 = `₩${contentOfEmail[2]?.price?.toLocaleString()}`;
     const templateCatalog = {
         from: process.env.NODEMAILER_ID,
         to: email,
