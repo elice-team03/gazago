@@ -78,11 +78,12 @@ const renderButton = document.querySelector('.more__button');
 const gradient = document.querySelector('.preview__gradient');
 const crop = document.querySelector('.preview__crop');
 const previewButton = document.querySelector('.preview__button');
-
+const footer = document.querySelector('.footer-custom');
 function renderDetailImage() {
     renderButton.style.display = 'none';
     gradient.style.display = 'none';
     crop.style.maxHeight = 'none';
+    footer.style.display = 'none';
     previewButton.style.display = 'flex';
 }
 renderButton.addEventListener('click', renderDetailImage);
@@ -92,6 +93,7 @@ function renderPreviewImage() {
     renderButton.style.display = 'flex';
     gradient.style.display = 'block';
     crop.style.maxHeight = '500px';
+    footer.style.display = 'block';
     previewButton.style.display = 'none';
 }
 previewButton.addEventListener('click', renderPreviewImage);
