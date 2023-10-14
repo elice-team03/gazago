@@ -1,5 +1,5 @@
 import * as Api from '../../api.js';
-import BulmaModal from '/js/admin/BulmaModal.js';
+import BulmaModal from '/js/admin/bulmaModal.js';
 
 const parentCategoryOrder = { '텐트/타프': 0, 침낭: 1, 퍼니처: 2, '주방/바베큐': 3, 악세사리: 4 };
 let childCategoryOrder = {};

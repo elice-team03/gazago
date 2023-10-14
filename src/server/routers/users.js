@@ -142,7 +142,6 @@ router.get(
         const user = req.user.user;
         const foundUser = await userService.findUserById(user._id);
         const wishlist = await productService.findProductsInWishList(foundUser.wishList, skip, limit);
-
         const totalItems = foundUser.wishList.length;
         const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
@@ -170,7 +169,10 @@ router.get(
         const user = req.user.user;
         const result = await userService.findUserById(user._id);
 
-        const orders = result.orders.slice(skip, skip + limit);
+        const orders = result.orders
+            .slice()
+            .reverse()
+            .slice(skip, skip + limit);
 
         res.json({
             code: 200,
