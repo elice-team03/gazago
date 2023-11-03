@@ -51,7 +51,9 @@ GAZAGO : 캠핑용품 편집샵
 ### 2. [API 명세서 링크](https://www.postman.com/grey-shadow-358682/workspace/elice-project-1-team-3/request/25191700-a6b53621-9ccb-4152-bb93-924740d36b78)
 ### 3. ERD
 ![image](https://github.com/elice-team03/gazago/assets/39878215/c21c5052-0638-4ac6-8964-d5d752980adf)
-### 4. 폴더 구조
+### 4. 프로젝트 구조
+![image](https://github.com/elice-team03/gazago/assets/39878215/6ba83040-76d1-42a5-b4fb-8cba229b42bb)
+### 5. 폴더 구조
 ```bash
 ├── client
 │   ├── routers
@@ -67,7 +69,7 @@ GAZAGO : 캠핑용품 편집샵
 └── app.js
 ``` 
 
-담당 기능 & 배운 점 & 아쉬운 점
+담당 기능
 ----
 ### Frontend
 #### 윤보영
