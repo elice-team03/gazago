@@ -2,4 +2,3 @@ node_modules
 public/upload/*
 .DS_Store
 .env
-submodule
