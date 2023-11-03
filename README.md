@@ -21,7 +21,7 @@ GAZAGO : 캠핑용품 편집샵
 ----
 |[영상1](https://im5.ezgif.com/tmp/ezgif-5-34d9e91083.gif)|영상2|
 |------|---|
-|영상3|영상4|
+|영상3|<img src="https://github.com/elice-team03/gazago/assets/126126067/ea9f871b-1ac6-468c-b284-b85c923f7a49" width="300px"/>|
 
 역할 & 배운 점 & 아쉬운 점
 ----
