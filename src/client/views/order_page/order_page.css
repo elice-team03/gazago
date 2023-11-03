@@ -1,0 +1,242 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.container {
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 1152px !important;
+    display: flex;
+    margin: 0 auto;
+}
+.container__box {
+    width: 60%;
+    padding: 10px;
+}
+.container__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.point {
+    color: red;
+}
+.container__text {
+    font-size: 20px;
+    font-weight: bold;
+}
+.container__text--required {
+    font-size: 13px;
+}
+.tabs li.is-active a {
+    color: #4a4a4a;
+}
+.tabs.is-boxed a {
+    background-color: #ebebeb;
+    color: #cccccc;
+}
+.input__box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 10px;
+}
+.input__box--empty {
+    margin-left: 20%;
+    padding-bottom: 10px;
+}
+.input__label {
+    width: 20%;
+}
+.input__button--lastaddress {
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 15%;
+}
+.input__button--zipcode {
+    cursor: pointer;
+    padding: 8px 14px;
+    margin-left: 8px;
+    border-radius: 4px;
+    background-color: #ebebeb;
+}
+.hipen {
+    margin: 0 10px;
+    color: #dbdbdb;
+    font-weight: 800;
+}
+.notice {
+    color: #2e2e2e;
+    margin-left: 20%;
+    padding-bottom: 10px;
+}
+.select select {
+    font-family: 'Noto Sans KR', sans-serif;
+    padding-left: 11px !important;
+    padding-right: 125px;
+}
+.select:not(.is-multiple):not(.is-loading)::after {
+    border-color: #dbdbdb;
+    left: 390px;
+    z-index: 4;
+}
+.product {
+    width: 40%;
+    border: 3px solid #ebebeb;
+    margin-left: 30px;
+    padding: 10px 16px;
+    margin-bottom: 40px;
+}
+.product__line {
+    display: inline-block;
+    border-top: 3px solid #ccc;
+    margin: 10px 0;
+    width: 100%;
+}
+.product__image {
+    width: 240px;
+}
+.product__detail {
+    display: flex;
+    justify-content: flex-start;
+}
+.product__description {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+.product__text--brand {
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.product__text--name {
+    font-size: 18px;
+    font-weight: bold;
+}
+.product__line--thin {
+    display: inline-block;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+    width: 100%;
+}
+.order__box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.checkbox input, .radio input {
+    margin-right: 4px;
+}
+.order__box--total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-weight: bold;
+}
+.order__total {
+    font-size: 24px;
+    color: #004225;
+}
+.order__button {
+    padding: 20px;
+    margin-top: 60px;
+    background-color: #004225;
+    border-radius: 50px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
+.payment__line {
+    display: inline-block;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+    width: 100%;
+}
+.input__label--cvc {
+    margin-left: 33px;
+    width: 15%;
+}
+.input {
+    width: 80%;
+}
+.button {
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 30px 0;
+    margin: 30px 0;
+    background-color: #004225;
+    border-radius: 50px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+}
+.button:hover, .button:focus {
+    color: #ffffff;
+}
+.input__half {
+    width: 50%;
+}
+.input__zipcode {
+    width: 30%;
+}
+.input__min {
+    width: 10%;
+}
+.input__email {
+    width: 52%;
+}
+.input__expire {
+    width: 16%;
+}
+.direct__message {
+    resize: none;
+    border-color: #dbdbdb;
+    width: 420px;
+    height: 100px;
+    display: none;
+    border-top: none;
+    padding: 10px;
+}
+.direct__message:focus {
+    outline: none;
+}
+.title {
+    font-size: 16px;
+    font-weight: normal;
+}
+.title:not(:last-child) {
+    margin-bottom: 0px;
+}
+.last__delivery {
+    margin-left: 99px;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    display: none;
+}
+.box {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.modal__divider {
+    display: inline-block;
+    border-top: 1px solid #ccc;
+    width: 94%;
+    margin: 0 auto;
+    padding-bottom: 8px;
+}
+.modal__detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.add__button {
+    width: 96%;
+    margin: 2px auto;
+    padding: 0;
+}
+.modal__box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

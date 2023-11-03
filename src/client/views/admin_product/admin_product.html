@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- cdn resource -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+        <!-- common css -->
+        <link rel="stylesheet" href="/stylesheets/normalize.css" />
+        <link rel="stylesheet" href="/stylesheets/admin.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <title>admin_product</title>
+    </head>
+    <body>
+        <header></header>
+        <main>
+            <div class="container is-widescreen">
+                <div class="columns">
+                    <aside class="side_menu column custom_flex_none_width_15">
+                        <ul>
+                            <li class="custom_padding_10">
+                                <a href="/admin" class="custom_color_gray subtitle is-5 cus_hover">카테고리 관리</a>
+                            </li>
+                            <li class="custom_padding_10">
+                                <a href="/admin/product" class="custom_color_black subtitle is-5 cus_hover"
+                                    >상품 관리</a
+                                >
+                            </li>
+                            <li class="custom_padding_10">
+                                <a href="/admin/order" class="custom_color_gray subtitle is-5 cus_hover">주문 관리</a>
+                            </li>
+                        </ul>
+                    </aside>
+                    <div class="product_box column">
+                        <div class="product_description custom_margin_top_bottom_30">
+                            <h2 class="title is-4">상품 목록</h2>
+                        </div>
+                        <div class="fillter_section is-flex box is-justify-content-space-between is-align-items-center">
+                            <div class="is-flex is-align-items-center custom_flex_gap_20 is-flex-grow-1">
+                                <p class="custom_text_align_center">중분류</p>
+
+                                <div class="select">
+                                    <select id="parentCategorySelect" class="custom_width_250"></select>
+                                </div>
+                            </div>
+                            <div class="is-flex is-align-items-center custom_flex_gap_20 is-flex-grow-1">
+                                <p class="custom_text_align_center">소분류</p>
+                                <div class="select">
+                                    <select id="categorySelect" class="custom_width_250"></select>
+                                </div>
+                            </div>
+                            <div class="is-flex is-align-items-center custom_flex_gap_20 is-flex-grow-1">
+                                <p class="custom_text_align_center">상품명</p>
+                                <input
+                                    id="productNameInput"
+                                    class="input custom_width_250 custom_input_enter"
+                                    type="text"
+                                />
+                            </div>
+
+                            <button
+                                id="searchButton"
+                                class="button is-rounded is-small custom_background_color_prime custom_input_enter"
+                                type="button"
+                            >
+                                조회
+                            </button>
+                        </div>
+                        <div
+                            class="table_btn is-flex is-justify-content-flex-end custom_margin_top_bottom_30 custom_flex_gap_20"
+                        >
+                            <button
+                                class="product_btn button is-rounded is-small custom_background_color_prime"
+                                type="button"
+                            >
+                                상품등록
+                            </button>
+                        </div>
+                        <section class="product_modal">
+                            <div class="modal" id="myModal">
+                                <div class="modal-background"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p id="modalTitleId" class="modal-card-title">상품 등록</p>
+                                        <button
+                                            class="delete"
+                                            aria-label="close"
+                                            data-bulma-modal="close"
+                                            type="button"
+                                        ></button>
+                                    </header>
+                                    <form id="product_add_form">
+                                        <section class="modal-card-body">
+                                            <div style="display: none">
+                                                <p id="productId"></p>
+                                            </div>
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
+                                                <p>중분류</p>
+                                                <div class="select">
+                                                    <select id="parentCategorySel" class="custom_width_300"></select>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
+                                                <p>소분류</p>
+                                                <div class="select">
+                                                    <select
+                                                        id="childCategorySel"
+                                                        class="custom_width_300"
+                                                        name="categoryId"
+                                                    ></select>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
+                                                <p>브랜드</p>
+                                                <input
+                                                    id="brandInput"
+                                                    class="input custom_width_300"
+                                                    type="text"
+                                                    name="brand"
+                                                />
+                                            </div>
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
+                                                <p>상품명</p>
+                                                <input
+                                                    id="modalProductNameInput"
+                                                    class="input custom_width_300"
+                                                    type="text"
+                                                    name="name"
+                                                />
+                                            </div>
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
+                                                <p>가격</p>
+                                                <input
+                                                    id="priceInput"
+                                                    class="input custom_width_300"
+                                                    type="text"
+                                                    name="price"
+                                                />
+                                            </div>
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
+                                                <p>썸네일 이미지 URL</p>
+                                                <input
+                                                    id="thumbnailInput"
+                                                    class="input custom_width_300"
+                                                    type="text"
+                                                    name="thumbnailPath"
+                                                />
+                                            </div>
+                                            <div
+                                                class="is-flex is-justify-content-space-between custom_margin_bottom_20"
+                                            >
+                                                <p>상세 이미지</p>
+                                                <input
+                                                    id="contentFile"
+                                                    class="custom_border_transparent"
+                                                    type="file"
+                                                    name="content"
+                                                />
+                                            </div>
+                                        </section>
+                                        <div class="modal-card-foot">
+                                            <button
+                                                id="product_btn_save"
+                                                class="button is-rounded is-small custom_background_color_prime"
+                                                type="button"
+                                            >
+                                                등록하기
+                                            </button>
+                                            <button
+                                                class="button is-rounded is-small custom_background_color_red"
+                                                data-bulma-modal="close"
+                                                type="button"
+                                            >
+                                                취소
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="product_table columns custom_margin_top_bottom_30">
+                            <table class="table column is-full is-striped custom_display_table">
+                                <thead>
+                                    <tr>
+                                        <th class="custom_text_align_center">No</th>
+                                        <th class="custom_text_align_center">이미지</th>
+                                        <th class="custom_text_align_center">등록일시</th>
+                                        <th class="custom_text_align_center">중분류</th>
+                                        <th class="custom_text_align_center">소분류</th>
+                                        <th class="custom_text_align_center">브랜드</th>
+                                        <th class="custom_text_align_center">상품명</th>
+                                        <th class="custom_text_align_center">상품가격</th>
+                                        <th class="custom_text_align_center">누적 판매량</th>
+                                        <th class="custom_text_align_center">판매상태</th>
+                                        <th class="custom_text_align_center">수정 및 삭제</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="product_list_tbody"></tbody>
+                            </table>
+                        </section>
+                        <div
+                            class="pagination-container custom_padding_top_bottom_50 is-flex is-justify-content-center is-align-items-center"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
+        <script type="module" src="./admin_product.js"></script>
+    </body>
+</html>

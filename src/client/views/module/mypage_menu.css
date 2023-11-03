@@ -1,0 +1,36 @@
+aside {
+  grid-area: aside;
+  margin: 50px;
+}
+
+.main-container {
+  grid-area: main-container;
+  padding: 45px;
+}
+
+.sub-title {
+  display: inline-block;
+  font-size: var(--font-size-subtitle);
+  font-weight: 700;
+  letter-spacing: -0.27px;
+  line-height: 22px;
+  margin-bottom: 12px;
+  vertical-align: top;
+  /* color: #004225; */
+}
+
+ul {
+  margin-bottom: 30px;
+}
+
+.menu-link {
+  color: var(--color-font-grey);
+  font-size: var(--font-size-sm);
+  letter-spacing: -0.15px;
+  line-height: 30px;
+}
+
+.menu-link a {
+  text-decoration: none;
+  cursor: pointer;
+}

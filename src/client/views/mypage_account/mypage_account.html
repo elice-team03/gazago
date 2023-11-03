@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>gazago</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+        <link rel="stylesheet" href="./mypage_account.css" />
+        <link rel="stylesheet" href="/module/mypage_menu.css" />
+        <link rel="stylesheet" href="/public/header/header.css" />
+        <link rel="stylesheet" href="/public/footer/footer.css" />
+    </head>
+    <body>
+        <header></header>
+        <script src="/public/header/header.js"></script>
+        <main class="container is-widescreen">
+            <!-- side bar -->
+            <div id="menu-container"></div>
+
+            <!-- main -->
+            <div class="main-container">
+                <h1 class="title">회원정보 변경</h1>
+                <section class="center">
+                    <div id="form-container">
+                        <!-- <div class="text_filed">
+                            <label for="userMail">이메일 주소</label>
+                            <input type="text" name="userMail" id="userMail" disabled />
+                            <span></span>
+                        </div>
+                        <div class="text_filed">
+                            <label for="newAuthCode">새 비밀번호</label>
+                            <input type="password" name="newAuthCode" id="newAuthCode" placeholder="영문, 숫자, 특수문자 조합 8-16자"/>
+                            <div class="error"></div>
+                        </div>
+                        <div class="text_filed">
+                            <label for="confirmedCode">새 비밀번호 확인</label>
+                            <input type="password" name="confirmedCode" id="confirmedCode" />
+                            <button id="submitNewCode" class="button is-small is-rounded">변경</button>
+                            <div class="error"></div>
+                        </div> -->
+                        <div class="text_filed">
+                            <label for="phone">연락처</label>
+                            <input type="text" name="phone" id="phone" placeholder="-없이 입력" />
+                            <span></span>
+                        </div>
+                        <div class="address-container">
+                            <div class="text_filed">
+                                <label for="zipcode">배송지</label>
+                                <input type="text" id="zipcode" claplaceholder="우편번호" />
+                                <span></span>
+                                <button class="button zipcode-btn input__button--zipcode">우편번호 검색</button>
+                            </div>
+                            <div class="text_filed">
+                                <label for="address"></label>
+                                <input type="text" id="address" placeholder="주소" />
+                                <span></span>
+                            </div>
+                            <div class="text_filed">
+                                <label for="detailAddress"></label>
+                                <input type="text" id="detailAddress" placeholder="상세주소" />
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="button_filed">
+                            <button id="submit" class="button edit-btn">변경</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer></footer>
+        <script src="/public/footer/footer.js"></script>
+        <!-- 우편번호 찾기 API -->
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="/public/zipcodeBtn/zipcodeBtn.js"></script>
+        <script src="/module/mypage_menu.js"></script>
+        <script src="./mypage_account.js" type="module" defer></script>
+    </body>
+</html>

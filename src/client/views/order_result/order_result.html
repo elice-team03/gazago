@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+    <link rel="stylesheet" href="./order_result.css">
+    <link rel="stylesheet" href="../public/header/header.css">
+    <link rel="stylesheet" href="../public/footer/footer.css">
+    <title>gazago</title>
+</head>
+
+<body>
+    <header></header>
+    <script src="../public/header/header.js"></script>
+    <main class="container">
+        <article class="order">
+            <section class="product">
+            </section>
+            <section>
+                <div class="divider"></div>
+                <div class="delivery__title">
+                    <h6 class="delivery__text">배송지정보</h6>
+                    <button class="button is-light is-rounded delivery__button">배송지 변경</button>
+                </div>
+                <div class="divider--thin"></div>
+                <div class="delivery__box">
+                    <span class="input__label">수령인</span>
+                    <span class="receiver"></span>
+                </div>
+                <div class="delivery__box">
+                    <span class="input__label">연락처</span>
+                    <span class="contact"></span>
+                    <input class="input input__none input__default" type="text">
+                </div>
+                <div class="delivery__box">
+                    <span class="input__label">배송지</span>
+                    <span class="code"></span>
+                    <input class="input input__none input__delivery" id="zipcode" type="text">
+                    <div class="input__button--zipcode">우편번호 검색</div>
+                </div>
+                <div class="delivery__box--empty">
+                    <span class="address"></span>
+                    <input class="input input__none input__half" id="address" type="text">
+                </div>
+                <div class="delivery__box--empty">
+                    <span class="subAddress"></span>
+                    <input class="input input__none input__half" id="detailAddress" type="text">
+                </div>
+                <div class="delivery__box" style="gap: 66px">
+                    <span class="input__label">배송메모</span>
+                    <span class="comment"></span>
+                </div>
+            </section>
+            <section>
+                <div class="divider"></div>
+                <div class="order__box" style="padding-bottom: 0px">
+                    <h6 class="order__text">최종 주문금액</h6>
+                    <span class="order__price--total">115,000원</span>
+                </div>
+                <div class="divider--thin"></div>
+                <div class="order__box">
+                    <span>상품금액</span>
+                    <span class="order__price">115,000원</span>
+                </div>
+                <div class="order__box">
+                    <span>배송비</span>
+                    <span class="order__delivery">0원</span>
+                </div>
+            </section>
+        </article>
+        <div class="column">
+            <button class="button is-medium is-responsive is-rounded cancle__button">
+                주문 취소
+            </button>
+        </div>
+    </main>
+    <footer></footer>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="module" src="./order_result.js"></script>
+    <script src="../public/zipcodeBtn/zipcodeBtn.js"></script>
+    <script src="../public/footer/footer.js"></script>
+</body>
+
+</html>

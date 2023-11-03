@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+    <link rel="stylesheet" href="./product_detail.css">
+    <link rel="stylesheet" href="../public/header/header.css">
+    <link rel="stylesheet" href="../public/footer/footer.css">
+    <title>gazago</title>
+</head>
+
+<body>
+    <header></header>
+    <script src="../public/header/header.js"></script>
+    <main class="container">
+        <article class="product">
+            <img class="product__image"></img>
+            <section class="order">
+                <span class="order__text--brand"></span>
+                <h6 class="order__text--title"></h6>
+                <div class="order__text">
+                    <span>판매가</span>
+                    <b>
+                        <span class="order__price--original"></span>
+                    </b>
+                </div>
+                <div class="divider"></div>
+                <span class="counter__title"></span>
+                <div class="counter">
+                    <div class="counter__box">
+                        <div class="counter__minus">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-minus">
+                                <path d="M5 12h14" />
+                            </svg>
+                        </div>
+                        <input class="counter__number" value="1">
+                        <div class="counter__plus">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-plus">
+                                <path d="M5 12h14" />
+                                <path d="M12 5v14" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="order__price"></div>
+                </div>
+                <div class="divider"></div>
+                <div class="order__total">
+                    <span>총 상품 금액</span>
+                    <span class="order__price--total"></span>
+                </div>
+                <div class="button__section">
+                    <button class="button is-rounded is-fullwidth wish__button">관심상품</button>
+                    <button class="button is-rounded is-fullwidth cart__button">장바구니</button>
+                </div>
+                <button class="button is-rounded is-fullwidth order__button">주문하기</button>
+            </section>
+        </article>
+        <article>
+            <div class="preview__gradient"></div>
+            <div class="preview__crop">
+                <img class="preview__image"></img>
+                <button class="button is-rounded is-responsive preview__button">상품정보 접기 <svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-chevron-up">
+                        <path d="m18 15-6-6-6 6" />
+                    </svg></button>
+            </div>
+            <button class="button is-rounded is-responsive more__button">상품정보 더보기 <svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-down">
+                    <path d="m6 9 6 6 6-6" />
+                </svg></button>
+        </article>
+    </main>
+    <footer></footer>
+    <script type="module" src="./product_detail.js"></script>
+    <script src="../public/footer/footer.js"></script>
+</body>
+
+</html>

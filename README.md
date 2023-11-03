@@ -1,3 +1,5 @@
+# shopping_project
+=======
 GAZAGO : 캠핑용품 편집샵
 ====
 ![156202b42d984ce6a8190464c2e43215 (2)](https://github.com/elice-team03/gazago/assets/87300419/c860f127-8a96-4457-8600-cbbf7b09f3f1)<br/>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+  <link rel="stylesheet" href="./order_page.css">
+  <link rel="stylesheet" href="../public/header/header.css">
+  <link rel="stylesheet" href="../public/footer/footer.css">
+  <script src="https://js.stripe.com/v3/"></script>
+  <title>gazago</title>
+</head>
+
+<body>
+  <header></header>
+  <script src="../public/header/header.js"></script>
+  <main class="container is-widescreen">
+    <article class="container__box">
+      <section>
+        <div class="container__title">
+          <h6 class="container__text">배송 정보</h6>
+          <span class="container__text--required"><span class="point">*</span> 표시는 필수입력 항목</span>
+        </div>
+        <div class="tabs is-boxed">
+          <ul>
+            <li class="tab__link"><a>기존 배송지</a></li>
+            <li class="tab__link"><a>신규입력</a></li>
+          </ul>
+        </div>
+        <div class="input__box">
+          <span class="input__label">배송지명</span>
+          <input class="input input__half title" type="text">
+          <span class="last__delivery" data-target="last__delivery--modal">이전 배송지 목록</span>
+        </div>
+        <div class="input__box">
+          <span class="input__label">수령인<span class="point">*</span></span>
+          <input class="input input__half receiver" type="text">
+        </div>
+        <div class="input__box">
+          <span class="input__label">배송지<span class="point">*</span></span>
+          <input class="input input__zipcode code" id="zipcode" type="text">
+          <div class="input__button--zipcode">우편번호 검색</div>
+        </div>
+        <div class="input__box--empty">
+          <input class="input address" id="address" type="text">
+        </div>
+        <div class="input__box--empty">
+          <input class="input subAddress" id="detailAddress" type="text">
+        </div>
+        <div class="input__box">
+          <span class="input__label">연락처<span class="point">*</span></span>
+          <input class="input input__min" type="text">
+          <span class="hipen">-</span>
+          <input class="input input__min" type="text">
+          <span class="hipen">-</span>
+          <input class="input input__min" type="text">
+        </div>
+        <div class="notice">
+          <div class="select is-normal">
+            <select id="message">
+              <option name="message">배송시 요청사항을 선택해 주세요.</option>
+              <option name="message">부재시 문앞에 놓아주세요.</option>
+              <option name="message">부재시 경비실에 맡겨 주세요.</option>
+              <option name="message">부재시 전화 또는 문자 주세요.</option>
+              <option name="message">택배함에 넣어 주세요.</option>
+              <option name="message">파손위험상품입니다. 배송시 주의해주세요.</option>
+              <option name="message">배송전에 연락주세요.</option>
+              <option name="message">직접입력</option>
+            </select>
+            <textarea class="direct__message"></textarea>
+          </div>
+        </div>
+      </section>
+    </article>
+    <article class="product">
+      <section class="products">
+        <h6 class="container__text">주문상품 정보 / 총 <span class="product__count"></span>개</h6>
+        <div class="product__line"></div>
+        <div class="product__box">
+          <div class="product__item"></div>
+          <div class="product__line--thin"></div>
+          <div class="order__box">
+            <span>총 상품금액</span>
+            <span class="order__product">0원</span>
+          </div>
+          <div class="order__box">
+            <span>배송비</span>
+            <span class="order__delivery">+ 0원</span>
+          </div>
+          <div class="order__box--total">
+            <span>총 결제금액</span>
+            <span class="order__total">0원</span>
+          </div>
+      </section>
+      <section>
+        <div class="product__line--thin"></div>
+        <div class="order__box--total">
+          <label class="checkbox">
+            <input type="checkbox" class="checkbox__all">
+            주문 내용을 확인했으며, 아래 내용에 모두 동의합니다.
+          </label>
+        </div>
+        <div class="order__box">
+          <label class="checkbox">
+            <input type="checkbox">
+            (필수) 개인정보 수집/이용 동의
+          </label>
+        </div>
+        <div class="order__box">
+          <label class="checkbox">
+            <input type="checkbox">
+            (필수) 개인정보 제3자 제공 동의
+          </label>
+        </div>
+        <div class="order__box">
+          <label class="checkbox">
+            <input type="checkbox">
+            (필수) 결제대행 서비스 이용약관
+          </label>
+        </div>
+        </div>
+      </section>
+      <button class="button is-medium is-fullwidth pay__button">결제하기</button>
+    </article>
+  </main>
+  <div id="last__delivery--modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box">
+        <div class="modal__box">
+          <div class="modal__divider"></div>
+        </div>
+        <div class="pagination-container"></div>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+  <footer></footer>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script type="module" src="./order_page.js"></script>
+  <script src="../public/zipcodeBtn/zipcodeBtn.js"></script>
+  <script src="../public/footer/footer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>gazago</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+        <link rel="stylesheet" href="./login.css" />
+    </head>
+    <body class="container is-widescreen">
+        <section class="center">
+            <h1 class="logo">
+                <img src="./gazagologo.png" alt="logo" />
+            </h1>
+            <form action="/login" method="get" id="form-container">
+                <div class="text-filed">
+                    <label for="user-mail">이메일 주소</label>
+                    <input type="text" name="user-mail" id="user-mail" required />
+                    <span></span>
+                </div>
+                <div class="text-filed">
+                    <label for="password">비밀번호</label>
+                    <input type="password" name="password" id="password" required />
+                    <span></span>
+                </div>
+                <!-- <input id="submit" type="submit" value="로그인"/> -->
+                <button id="submit" class="btn button is-fullwidth is-rounded">로그인</button>
+                <ul class="look-box">
+                    <li class="look-link">
+                        <a href="/register">회원 가입</a>
+                    </li>
+                    <li class="look-link">
+                        <a href="/pw-find">비밀번호 찾기</a>
+                    </li>
+                </ul>
+            </form>
+        </section>
+        <script src="./login.js" type="module" defer></script>
+    </body>
+</html>

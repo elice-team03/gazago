@@ -1,0 +1,143 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.container {
+    margin: 0 auto;
+    max-width: 1152px !important;
+}
+.manage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px auto;
+    font-size: 18px;
+}
+.button {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.delete__button {
+    padding: 4px 20px;
+}
+.content {
+    display: flex;
+    border: 2px solid #ebebeb;
+}
+.product {
+    display: flex;
+    width: 80%;
+    padding: 20px;
+    gap: 20px;
+}
+.product__image {
+    width: 200px;
+}
+.price {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-left: 2px solid #ebebeb;
+}
+.counter {
+    display: flex;
+    border: 1px solid #ebebeb;
+    padding: 2px 8px;
+}
+.counter__minus, .counter__plus, .manage__delete {
+    font-weight: bold;
+    cursor: pointer;
+}
+.counter__number {
+    width: 30px;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    font-size: 16px;
+    padding: 0px !important;
+}
+.total {
+    display: flex;
+    margin: 50px auto;
+    flex-direction: column;
+    border-top: 3px solid #cccccc;
+    border-bottom: 3px solid #cccccc;
+    font-weight: bold;
+}
+.total__title {
+    height: 40%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 165px;
+}
+.divider {
+    display: inline-block;
+    border-top: 1px solid #ebebeb;
+    width: 100%;
+}
+.total__price {
+    height: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 148px;
+}
+.total__box {
+    min-width: 112px;
+    text-align: center;
+}
+.total__price--big {
+    font-size: 20px;
+}
+.product__detail {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+.product__brand {
+    font-size: 14px;
+    color: #6a6a6a;
+}
+.pagemove {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+.back__button {
+    width: 200px;
+    border: 3px solid #004225;
+    color: #004225;
+    padding: 10px 16px;
+}
+.back__button:hover {
+    border: 3px solid #005c34;
+    color: #004225;
+}
+.order__button {
+    width: 200px;
+    background-color: #004225;
+    color: #fff;
+    padding: 10px 16px;
+}
+.order__button:hover, .order__button:focus {
+    color: #fff;
+}
+.checkbox input, .radio input {
+    margin-right: 6px;
+}
+h6 {
+    margin-bottom: 0px !important;
+    font-weight: normal !important;
+}
+.empty {
+    text-align: center;
+    padding: 80px 0;
+}
+.button[disabled] {
+    background-color: #004225;
+}

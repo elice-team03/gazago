@@ -1,0 +1,33 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+}
+.input {
+    width: 50%;
+    font-size: 14px;
+}
+#card-element {
+    padding: 0 50px;
+}
+.payment__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    margin: 10px 0;
+}
+.total {
+    margin-top: 140px;
+}
+.owner {
+    margin-bottom: 16px;
+}
+.input__label {
+    font-size: 14px;
+    color: #757575;
+}
+.button {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-top: 24px;
+}

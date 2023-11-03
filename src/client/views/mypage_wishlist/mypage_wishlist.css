@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+    --color-main: #004225;
+    --color-sub: #ebebeb;
+    --color-font-grey: #8c8c8c;
+    --font-size-title: 32px;
+    --font-size-subtitle: 25px;
+    --font-size-lg: 22px;
+    --font-size-sm: 20px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    height: 100vh;
+    /* overflow: hidden; */
+}
+
+main {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* 두 개의 열을 만듭니다. */
+    grid-template-rows: 100% auto;
+    grid-template-areas: 'aside main-container'; /* 영역을 정의합니다. */
+    grid-gap: 20px; /* 요소들 간의 간격을 조절합니다. */
+    height: 100vh;
+}
+
+.title {
+    border-bottom: 3px solid;
+}
+
+/*---- wishlist table ----*/
+
+td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.check-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    border-spacing: 0 40px;
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+tr {
+    display: flex;
+    border: 1px solid #ebebeb ;
+    margin: 8px;
+}
+td {
+    display: flex;
+    justify-content: center;
+    padding-left: 50px;
+
+}
+td:nth-child(3) {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 40%;
+}
+
+td:nth-child(3) p {
+    font-weight: 600;
+}
+
+button:nth-child(1) {
+    border-color: var(--color-main);
+}
+button:nth-child(1):hover {
+    background-color: var(--color-main);
+    color: white;
+}
+
+.empty {
+    justify-content: center;
+    width: 100%;
+    margin-right: 50px;
+}
+
+.check-container.emptyCheck {
+    display: none;
+}
+
+.main-header {
+    padding-bottom: 25px;
+}
+
+a .itemName{
+    text-decoration: none; /* 하이퍼링크의 기본 텍스트 밑줄 및 스타일 제거 */
+    color: black;
+}
+
+a .itemName:hover {
+    font-weight: 800;
+}
+
+.pagination-list {
+    justify-content: center;
+}
+
+.pagination-link.is-current {
+    background-color: var(--color-main);
+    border-color: var(--color-main);
+    color: #fff;
+}
