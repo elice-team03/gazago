@@ -68,7 +68,7 @@ GAZAGO : 캠핑용품 편집샵
 기획
 ----
 ### 1. [프론트 피그마](https://www.figma.com/file/3v9IIxkNrYgIHYfiEu5lxp/Untitled?type=design&node-id=0-1&mode=design&t=UPp46GXNZMoWPAIc-0)
-### 2. API 명세서
+### 2. [API 명세서](https://www.postman.com/grey-shadow-358682/workspace/elice-project-1-team-3/request/25191700-a6b53621-9ccb-4152-bb93-924740d36b78)
 수상 내역
 ----
 ![image](https://github.com/elice-team03/gazago/assets/87300419/d3f9b151-30fd-409d-9470-e793b12d751d)
