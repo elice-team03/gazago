@@ -23,7 +23,9 @@ GAZAGO : 캠핑용품 편집샵
 ----
 ### Frontend
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+
 ### Backend
+<img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
 - Express
 - Mongoose
 - MongoDB
@@ -84,7 +86,7 @@ GAZAGO : 캠핑용품 편집샵
 * 마이페이지 쇼핑정보
   * 마이페이지 pagenation 구현
   * 로그인 회원의 주문내역 및 관심상품 화면 표시
-  * 화면 전환 시 localStorage를 사용하여 Query String의 긴 파라미터값을 방
+  * 화면 전환 시 localStorage를 사용하여 Query String의 긴 파라미터값을 방지
 * 마이페이지 내 정보
   * 사용자는 전화번호, 우편 번호, 주소 및 상세 주소를 수정
   * 비밀번호 변경 시, 코드는 새로운 비밀번호의 유효성을 검사
