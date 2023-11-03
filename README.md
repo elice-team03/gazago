@@ -4,6 +4,10 @@ GAZAGO : 캠핑용품 편집샵
 ### 어디로든 가고싶은 당신을 위해
 다양한 사용자를 위한, 다양한 브랜드의 캠핑용품 편집샵 GAZAGO   
 
+프로젝트 수상
+----
+![image](https://github.com/elice-team03/gazago/assets/87300419/d3f9b151-30fd-409d-9470-e793b12d751d)
+
 팀원 소개
 ----
 |이름|역할|링크|
@@ -27,7 +31,21 @@ GAZAGO : 캠핑용품 편집샵
 |------|---|
 |영상3|<img src="https://github.com/elice-team03/gazago/assets/126126067/ea9f871b-1ac6-468c-b284-b85c923f7a49" width="300px"/>|
 
-역할 & 배운 점 & 아쉬운 점
+
+기술 스택
+----
+### Frontend
+### Backend
+
+기획
+----
+### 1. [프론트 피그마](https://www.figma.com/file/3v9IIxkNrYgIHYfiEu5lxp/Untitled?type=design&node-id=0-1&mode=design&t=UPp46GXNZMoWPAIc-0)
+### 2. [API 명세서](https://www.postman.com/grey-shadow-358682/workspace/elice-project-1-team-3/request/25191700-a6b53621-9ccb-4152-bb93-924740d36b78)
+### 3. ERD
+![image](https://github.com/elice-team03/gazago/assets/39878215/c21c5052-0638-4ac6-8964-d5d752980adf)
+
+
+담당 기능 & 배운 점 & 아쉬운 점
 ----
 ### Frontend
 #### 윤보영
@@ -65,18 +83,3 @@ GAZAGO : 캠핑용품 편집샵
 - **스케쥴링**
   * **node-cron**을 활용하여 전회원 대상 일정주기로 판매량 BEST3 아이템 카탈로그 발송
   * **node-memoryUsage** 기능으로 서버 메모리 감지하여 사용메모리 70% 초과 시 스케쥴링 중단기능 구현  
-기술 스택
-----
-### Frontend
-### Backend
-
-기획
-----
-### 1. [프론트 피그마](https://www.figma.com/file/3v9IIxkNrYgIHYfiEu5lxp/Untitled?type=design&node-id=0-1&mode=design&t=UPp46GXNZMoWPAIc-0)
-### 2. [API 명세서](https://www.postman.com/grey-shadow-358682/workspace/elice-project-1-team-3/request/25191700-a6b53621-9ccb-4152-bb93-924740d36b78)
-### 3. ERD
-![image](https://github.com/elice-team03/gazago/assets/39878215/c21c5052-0638-4ac6-8964-d5d752980adf)
-
-수상 내역
-----
-![image](https://github.com/elice-team03/gazago/assets/87300419/d3f9b151-30fd-409d-9470-e793b12d751d)
