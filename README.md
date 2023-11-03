@@ -4,7 +4,7 @@ GAZAGO : 캠핑용품 편집샵
 ### 어디로든 가고싶은 당신을 위해
 다양한 사용자를 위한, 다양한 브랜드의 캠핑용품 편집샵 GAZAGO   
 
-프로젝트 수상
+프로젝트 우수상
 ----
 ![image](https://github.com/elice-team03/gazago/assets/87300419/d3f9b151-30fd-409d-9470-e793b12d751d)
 
