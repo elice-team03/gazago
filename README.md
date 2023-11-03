@@ -22,7 +22,16 @@ GAZAGO : 캠핑용품 편집샵
 기술 스택
 ----
 ### Frontend
+
 ### Backend
+- Express
+- Mongoose
+- MongoDB
+- Passport
+- JWT
+- Stripe
+- Nginx
+- PM2
 
 주요 기능
 ----
