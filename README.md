@@ -97,13 +97,12 @@ GAZAGO : 캠핑용품 편집샵
 ---
 ### Backend
 #### 이준영
+- DB 설계
+- 라우터 및 서비스 로직 구현
+- 파일 업로드 구현
+- Nginx, pm2 활용 배포
 - Stripe 결제 시스템 구현
 <img width="780" alt="image" src="https://github.com/elice-team03/gazago/assets/39878215/14c4170c-a953-42ca-afc9-ce726c3cb2aa">
-
-- Nginx, pm2 활용 배포
-- DB 설계
-- 파일 업로드 구현
-- 라우터 및 서비스 로직 구현
 
 #### 박제성
 - **유저 가입 및 인증 시스템**
