@@ -37,7 +37,7 @@ GAZAGO : 캠핑용품 편집샵
 |||
 |--------|-----|
 |**메인페이지**|**상품목록**|
-|<img src="https://github.com/elice-team03/gazago/assets/133957930/fcf147b9-6a56-4bff-a3b7-f23c15315f1f" width="300px">|영상2|
+|<img src="https://github.com/elice-team03/gazago/assets/133957930/fcf147b9-6a56-4bff-a3b7-f23c15315f1f" width="300px">|<img src="https://github.com/elice-team03/gazago/assets/133957930/ed6b1a52-4325-4cbb-abf9-9e79e167acfc" width="300px">|
 |**상품 상세**|**장바구니**|
 |<img src="https://github.com/elice-team03/gazago/assets/87300419/0a9c7b19-0a52-4423-8a27-a0bde408dd43" width="300px">|<img src="https://github.com/elice-team03/gazago/assets/87300419/add999c1-3b4f-4f4d-8f9c-9a79b8fa0a95" width="300px">|
 |**주문**|**주문 내역**|
