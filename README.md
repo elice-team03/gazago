@@ -13,7 +13,7 @@ GAZAGO : 캠핑용품 편집샵
 |이름|역할|링크|
 |------|---|---|
 |윤보영| 팀장, 프론트엔드|[깃허브](https://github.com/BoyoungYun)|
-|오성현| 프론트엔드||
+|오성현| 프론트엔드|[깃허브](https://github.com/SunghyunOH)|
 |김범수| 프론트엔드||
 |김설화| 프론트엔드||
 |이준영| 백엔드|[깃허브](https://github.com/given02)|
@@ -22,7 +22,7 @@ GAZAGO : 캠핑용품 편집샵
 기술 스택
 ----
 ### Frontend
-
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 ### Backend
 - Express
 - Mongoose
@@ -68,7 +68,12 @@ GAZAGO : 캠핑용품 편집샵
   * 이미 가입된 회원은 오류 메세지를 통한 에러 처리
 * 로그인 및 비밀번호 찾기
   * 클라이언트에서 입력된 데이터를 API 통해 서버로 전송
-  * 유효하지 않은 이메일 또는 비밀번호를 입력지
+  * 유효하지 않은 이메일 또는 비밀번호를 입력한 경우, 오류 메세지를 통한 에러 처리
+  * 비밀번호 찾기에서 입력된 데이터를 API 통해 서버로 전송
+* 마이페이지 쇼핑정보
+  * 마이페이지 pagenation 구현
+  * 로그인 회원의 주문내역 및 관심상품 화면 표시
+  * 화면 전환 시 localStorage를 사용하여 Query String의 긴 파라미터값을 방
 * 마이페이지 내 정보
   * 사용자는 전화번호, 우편 번호, 주소 및 상세 주소를 수정
   * 비밀번호 변경 시, 코드는 새로운 비밀번호의 유효성을 검사
