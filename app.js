@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -14,6 +13,13 @@ const stripeRouter = require('./src/server/stripe');
 const getUserFromJwt = require('./src/server/middlewares/get-user-from-jwt');
 const { requiredLogin, checkAdmin, blockLogin } = require('./src/server/middlewares/access-control');
 const mailScheduler = require('./src/server/utils/time-scheduler');
+
+const dotenv = require('dotenv');
+const dotenvPath = path.join(__dirname, 'submodule', '.env');
+const result = dotenv.config({ path: dotenvPath });
+if (result.error) {
+    console.error('Error loading .env file: ', result.error);
+}
 
 const app = express();
 const port = process.env.PORT || 5001;
