@@ -49,7 +49,7 @@ GAZAGO : 캠핑용품 편집샵
 |**이달의 핫아이템**|
 |<img src="https://github.com/elice-team03/gazago/assets/126126067/ea9f871b-1ac6-468c-b284-b85c923f7a49" width="300px"/>|
 
-**결제시스템 로직**
+**결제시스템**
 
 <img src="https://github.com/elice-team03/gazago/assets/39878215/44f526f0-db26-4a5f-b539-9ffb132f6f0b" width="600px">
 
