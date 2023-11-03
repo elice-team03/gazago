@@ -19,7 +19,7 @@ GAZAGO : 캠핑용품 편집샵
 
 주요 기능
 ----
-|영상1|영상2|
+|<img src="https://github.com/elice-team03/gazago/assets/133957930/fcf147b9-6a56-4bff-a3b7-f23c15315f1f" width="300px">|영상2|
 |------|---|
 |영상3|<img src="https://github.com/elice-team03/gazago/assets/126126067/ea9f871b-1ac6-468c-b284-b85c923f7a49" width="300px"/>|
 
