@@ -56,16 +56,16 @@ GAZAGO : 캠핑용품 편집샵
 ![image](https://github.com/elice-team03/gazago/assets/39878215/c21c5052-0638-4ac6-8964-d5d752980adf)
 ### 4. 폴더 구조
 - client
- - routers
- - views
+  - routers
+  - views
 - server
- - routers
- - services
- - db
- - middlewares
- - passport
- - stripe
- - utils
+  - routers
+  - services
+  - db
+  - middlewares
+  - passport
+  - stripe
+  - utils
 
 담당 기능 & 배운 점 & 아쉬운 점
 ----
