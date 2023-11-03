@@ -46,8 +46,12 @@ GAZAGO : 캠핑용품 편집샵
 |<img src="https://github.com/elice-team03/gazago/assets/87300419/e5633b95-8764-4e8d-b08f-f63f496c7cef" width="300px">|<img src="https://github.com/elice-team03/gazago/assets/87300419/e5556b31-17b9-4fdb-bd56-b9a361d152e1" width="300px">|
 |**마이페이지-쇼핑정보**|**마이페이지-내정보**|
 |<img src="https://github.com/SunghyunOH/vite-react-deploy/assets/90834728/9eb97b5c-d9d2-4b4e-87c6-a498ba602e3c" width="300px">|<img src="https://github.com/SunghyunOH/vite-react-deploy/assets/90834728/8385b41e-0b27-430f-8cd8-8f14abd249ea" width="300px">|
-||**이달의 핫아이템**|
-||<img src="https://github.com/elice-team03/gazago/assets/126126067/ea9f871b-1ac6-468c-b284-b85c923f7a49" width="300px"/>||
+|**이달의 핫아이템**|
+|<img src="https://github.com/elice-team03/gazago/assets/126126067/ea9f871b-1ac6-468c-b284-b85c923f7a49" width="300px"/>|
+
+**결제시스템 로직**
+
+<img src="https://github.com/elice-team03/gazago/assets/39878215/44f526f0-db26-4a5f-b539-9ffb132f6f0b" width="600px">
 
 기획
 ----
@@ -132,7 +136,6 @@ GAZAGO : 캠핑용품 편집샵
 - 파일 업로드 구현
 - Nginx, pm2 활용 배포
 - Stripe 결제 시스템 구현
-![image](https://github.com/elice-team03/gazago/assets/39878215/44f526f0-db26-4a5f-b539-9ffb132f6f0b)
 
 #### 박제성
 - **유저 가입 및 인증 시스템**
