@@ -32,8 +32,8 @@ GAZAGO : 캠핑용품 편집샵
 <img src="https://img.shields.io/badge/passport-2fca6d?style=for-the-badge&logo=passport&logoColor=white">   <img src="https://img.shields.io/badge/stripe-008CDD?style=for-the-badge&logo=stripe&logoColor=white"> <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=ngnix&logoColor=white"> <img src="https://img.shields.io/badge/pm2-2B037A?style=for-the-badge&logo=pm2&logoColor=white">
 
 주요 기능
-[배포 링크](http://gazago.p-e.kr/)
 ----
+[배포 링크](http://gazago.p-e.kr/)
 |||
 |--------|-----|
 |**메인페이지**|**상품목록**|
