@@ -132,6 +132,7 @@ GAZAGO : 캠핑용품 편집샵
 - 파일 업로드 구현
 - Nginx, pm2 활용 배포
 - Stripe 결제 시스템 구현
+![image](https://github.com/elice-team03/gazago/assets/39878215/44f526f0-db26-4a5f-b539-9ffb132f6f0b)
 
 #### 박제성
 - **유저 가입 및 인증 시스템**
