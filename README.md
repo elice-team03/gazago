@@ -38,10 +38,14 @@ GAZAGO : 캠핑용품 편집샵
 |--------|-----|
 |**메인페이지**|**상품목록**|
 |<img src="https://github.com/elice-team03/gazago/assets/133957930/fcf147b9-6a56-4bff-a3b7-f23c15315f1f" width="300px">|<img src="https://github.com/elice-team03/gazago/assets/133957930/ed6b1a52-4325-4cbb-abf9-9e79e167acfc" width="300px">|
+|**회원가입**|**로그인&비밀번호찾기**|
+|<img src="https://github.com/SunghyunOH/vite-react-deploy/assets/90834728/afc4d7bd-2832-4aa6-a225-9753bcae4ad6" width="300px">|<img src="https://github.com/SunghyunOH/vite-react-deploy/assets/90834728/62d89d7c-459c-4b4b-9eed-891305e15c64" width="300px">|
 |**상품 상세**|**장바구니**|
 |<img src="https://github.com/elice-team03/gazago/assets/87300419/0a9c7b19-0a52-4423-8a27-a0bde408dd43" width="300px">|<img src="https://github.com/elice-team03/gazago/assets/87300419/add999c1-3b4f-4f4d-8f9c-9a79b8fa0a95" width="300px">|
 |**주문**|**주문 내역**|
 |<img src="https://github.com/elice-team03/gazago/assets/87300419/e5633b95-8764-4e8d-b08f-f63f496c7cef" width="300px">|<img src="https://github.com/elice-team03/gazago/assets/87300419/e5556b31-17b9-4fdb-bd56-b9a361d152e1" width="300px">|
+|**마이페이지-쇼핑정보**|**마이페이지-내정보**|
+|<img src="https://github.com/SunghyunOH/vite-react-deploy/assets/90834728/9eb97b5c-d9d2-4b4e-87c6-a498ba602e3c" width="300px">|<img src="https://github.com/SunghyunOH/vite-react-deploy/assets/90834728/8385b41e-0b27-430f-8cd8-8f14abd249ea" width="300px">|
 ||**이달의 핫아이템**|
 ||<img src="https://github.com/elice-team03/gazago/assets/126126067/ea9f871b-1ac6-468c-b284-b85c923f7a49" width="300px"/>||
 
