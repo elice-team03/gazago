@@ -14,7 +14,7 @@ GAZAGO : 캠핑용품 편집샵
 |------|---|---|
 |윤보영| 팀장, 프론트엔드|[깃허브](https://github.com/BoyoungYun)|
 |오성현| 프론트엔드|[깃허브](https://github.com/SunghyunOH)|
-|김범수| 프론트엔드||
+|김범수| 프론트엔드|[깃허브](https://github.com/JJJJJJJJJkim)|
 |김설화| 프론트엔드||
 |이준영| 백엔드|[깃허브](https://github.com/given02)|
 |박제성| 백엔드|[깃허브](https://github.com/richdad6208)|
