@@ -34,6 +34,7 @@ GAZAGO : 캠핑용품 편집샵
 주요 기능
 ----
 ### [배포 링크](http://gazago.p-e.kr/)
+|||
 |--------|-----|
 |**메인페이지**|**상품목록**|
 |<img src="https://github.com/elice-team03/gazago/assets/133957930/fcf147b9-6a56-4bff-a3b7-f23c15315f1f" width="300px">|<img src="https://github.com/elice-team03/gazago/assets/133957930/ed6b1a52-4325-4cbb-abf9-9e79e167acfc" width="300px">|
